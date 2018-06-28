@@ -1,0 +1,6 @@
+server:
+  port: 8999
+  tomcat:
+  #tomcat字符集
+    uri-encoding: UTF-8
+debug: true

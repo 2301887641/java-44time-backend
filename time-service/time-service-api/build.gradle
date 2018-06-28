@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'maven'
+}
+
+group 'com.time.article'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url nexusPublicUrl
+    }
+}
+
+dependencies {
+    compile(
+            "com.time.article:time-dao:1.0"
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //本地maven
+            repository(url: nexusReleasesUrl) {
+                authentication(userName: nexusAccount, password: nexusPassword)
+                pom.project {
+                    groupId project.group
+                    artifactId project.name
+                    version project.version
+                }
+            }
+        }
+    }
+}
