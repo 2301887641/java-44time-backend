@@ -1,9 +1,10 @@
 plugins {
     id 'java'
+    id 'maven'
 }
 
 group 'com.time.article'
-version '1.0'
+version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -13,9 +14,33 @@ repositories {
     }
 }
 
+configurations.all {
+    // 变化模块
+    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
+}
+
 dependencies {
     compile (
-            "com.time.article:time-service-api:1.0"
+            "com.time.article:time-service-api:1.0-SNAPSHOT",
+            // mapstruct
+            "org.mapstruct:mapstruct-jdk8:$mapstructVersion",
+            "org.mapstruct:mapstruct-processor:$mapstructVersion",
     )
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //本地maven
+            repository(url: nexusSnapshotsUrl) {
+                authentication(userName: nexusAccount, password: nexusPassword)
+                pom.project {
+                    groupId project.group
+                    artifactId project.name
+                    version project.version
+                }
+            }
+        }
+    }
 }

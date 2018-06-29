@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.time.article'
-version '1.0'
+version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -22,7 +22,12 @@ configurations.all {
 
 dependencies {
     compile(
-            "com.time.article:time-core:1.0-SNAPSHOT"
+            "com.time.article:time-core:1.0-SNAPSHOT",
+            //mybatis
+            "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion",
+            //mysql连接
+            "mysql:mysql-connector-java:$mysqlConnectorVersion",
+            "com.alibaba:druid:$druidVersion"
     )
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
@@ -31,7 +36,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             //本地maven
-            repository(url: nexusReleasesUrl) {
+            repository(url: nexusSnapshotsUrl) {
                 authentication(userName: nexusAccount, password: nexusPassword)
                 pom.project {
                     groupId project.group
