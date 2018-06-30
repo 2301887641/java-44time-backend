@@ -20,6 +20,12 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-web:$springbootVersion",
             //lombok
             "org.projectlombok:lombok:$lombokVersion",
+            //mybatis
+            "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion",
+            //mysql连接
+            "mysql:mysql-connector-java:$mysqlConnectorVersion",
+            //druid
+            "com.alibaba:druid:$druidVersion"
     )
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
