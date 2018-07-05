@@ -11,10 +11,10 @@ import java.util.Properties;
 /**
  * @author suiguozhen on 18/06/30
  */
-@Getter
-@Setter
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")
+@Getter
+@Setter
 public class DataSourceProperties {
     /**
      * 前缀 批量赋值druid需要这个前缀
@@ -89,4 +89,5 @@ public class DataSourceProperties {
         properties.setProperty(PREFIX + "stat.slowSqlMillis", slowSqlMillis);
         return properties;
     }
+
 }

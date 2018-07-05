@@ -9,27 +9,24 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-    maven {
+    maven{
         url nexusPublicUrl
     }
 }
 
 dependencies {
-    compile (
-            //springboot
-            "org.springframework.boot:spring-boot-starter-web:$springbootVersion",
-            //lombok
-            "org.projectlombok:lombok:$lombokVersion",
-            //mybatis
-            "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion",
-            //mysql连接
-            "mysql:mysql-connector-java:$mysqlConnectorVersion",
-            //druid
-            "com.alibaba:druid:$druidVersion",
-            // mapstruct
-            "org.mapstruct:mapstruct-jdk8:$mapstructVersion",
-            "org.mapstruct:mapstruct-processor:$mapstructVersion",
+    compile(
+            // shiro
+            "org.apache.shiro:shiro-spring:$shiroSpringVersion",
+            //jwt
+            "io.buji:buji-pac4j:$bujiPac4jVersion",
+            "org.pac4j:pac4j-jwt:$pac4jVersion",
+            "org.pac4j:pac4j-oauth:$pac4jVersion",
+            "org.pac4j:pac4j-cas:$pac4jVersion",
+            "org.pac4j:pac4j-http:$pac4jVersion",
     )
+    //compile("com.time.article:time-service-impl:1.0-SNAPSHOT")
+    compile project(":time-service:time-service-impl")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

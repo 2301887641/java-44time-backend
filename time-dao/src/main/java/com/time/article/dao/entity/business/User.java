@@ -1,6 +1,5 @@
 package com.time.article.dao.entity.business;
 
-import com.time.article.core.dao.entity.BaseEntity;
 import com.time.article.core.service.dto.IntegerPkDto;
 import lombok.Getter;
 import lombok.Setter;

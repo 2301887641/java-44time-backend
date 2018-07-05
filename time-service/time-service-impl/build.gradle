@@ -20,12 +20,8 @@ configurations.all {
 }
 
 dependencies {
-    compile (
-            "com.time.article:time-service-api:1.0-SNAPSHOT",
-            // mapstruct
-            "org.mapstruct:mapstruct-jdk8:$mapstructVersion",
-            "org.mapstruct:mapstruct-processor:$mapstructVersion",
-    )
+    //compile ("com.time.article:time-service-api:1.0-SNAPSHOT")
+    compile project(":time-service:time-service-api")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
@@ -43,4 +39,8 @@ uploadArchives {
             }
         }
     }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }

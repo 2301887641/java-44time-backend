@@ -20,9 +20,8 @@ configurations.all {
 }
 
 dependencies {
-    compile(
-            "com.time.article:time-dao:1.0-SNAPSHOT"
-    )
+    //compile("com.time.article:time-dao:1.0-SNAPSHOT")
+    compile project(":time-dao")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

@@ -47,16 +47,28 @@ mybatis:
   #mybatis返回类型省略全路径包名
   type-aliases-package: com.time.article.dao.entity.business
 
+#用户认证
+shiro:
+  #服务器本地地址
+  serviceUrl: http://localhost:${server.port}${server.context-path}
+  #cas客户端回调地址
+  callbackUrl: http://localhost:${server.port}${server.context-path}/callback
+  #cas服务前缀
+  prefixUrl: https://sso.cas.com:8443/cas
+  #服务器登陆地址
+  loginUrl: https://sso.cas.com:8443/cas/login
+  #服务器登出地址
+  logoutUrl: https://sso.cas.com:8443/cas/logout
+  #cas客户端名称
+  clientName: restClient
+  #jwt salt
+  salt:
+    asdfwerzc242!@#$$sdfgsdf34534454d
 
-
+#服务器配置
 server:
+  context-path:
   port: 8999
   tomcat:
   #tomcat字符集
     uri-encoding: UTF-8
-
-
-
-
-
-#debug: true

@@ -6,11 +6,12 @@ import com.time.article.dao.entity.business.User;
 import com.time.article.service.criteria.business.user.UserCriteriaDto;
 import com.time.article.service.dto.business.user.UserDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author suiguozhen on 18/06/29
  */
-@Mapper(componentModel = "spring")
+@Mapper
 public interface UserConverter extends BaseConverter<
         UserDto,
         UserCriteriaDto,

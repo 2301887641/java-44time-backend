@@ -1,7 +1,7 @@
 plugins {
     id 'java'
+    id 'war'
 }
-
 group 'com.time.article'
 version '1.0'
 
@@ -19,9 +19,10 @@ configurations.all {
 }
 
 dependencies {
-    compile(
-            "com.time.article:time-service-impl:1.0-SNAPSHOT",
-    )
-
+    //compile("com.time.article:time-security:1.0-SNAPSHOT")
+    compile project(":time-security")
+    compile("com.github.penggle:kaptcha:2.3.2"){
+        exclude module: 'javax.servlet-api'
+    }
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

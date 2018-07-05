@@ -21,9 +21,8 @@ configurations.all {
 
 
 dependencies {
-    compile(
-            "com.time.article:time-core:1.0-SNAPSHOT",
-    )
+   // compile("com.time.article:time-core:1.0-SNAPSHOT")
+    compile project(":time-core")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

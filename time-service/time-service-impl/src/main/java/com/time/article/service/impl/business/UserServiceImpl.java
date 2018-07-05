@@ -1,8 +1,12 @@
 package com.time.article.service.impl.business;
 
+import com.time.article.core.service.impl.BaseServiceImpl;
+import com.time.article.dao.criteria.business.UserCriteria;
+import com.time.article.dao.entity.business.User;
 import com.time.article.dao.mapper.user.UserMapper;
-import com.time.article.service.api.business.UserService;
+import com.time.article.service.api.business.user.UserService;
 import com.time.article.service.converter.business.user.UserConverter;
+import com.time.article.service.criteria.business.user.UserCriteriaDto;
 import com.time.article.service.dto.business.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +17,19 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor=Exception.class)
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl  extends BaseServiceImpl<
+        Integer,
+        UserDto,
+        UserCriteriaDto,
+        User,
+        UserCriteria,
+        UserConverter> implements UserService{
+
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private UserConverter userConverter;
-
     @Override
     public UserDto add() {
-        return userConverter.entityToDto(userMapper.select());
+        return converter.entityToDto(userMapper.select());
     }
 }
