@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'maven'
+}
+
+group 'com.time.article'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven{
+        url nexusPublicUrl
+    }
+}
+
+dependencies {
+    compile(
+            // shiro
+            "org.apache.shiro:shiro-spring:$shiroSpringVersion",
+            //jwt
+            "io.buji:buji-pac4j:$bujiPac4jVersion",
+            "org.pac4j:pac4j-jwt:$pac4jVersion",
+            "org.pac4j:pac4j-oauth:$pac4jVersion",
+            "org.pac4j:pac4j-cas:$pac4jVersion",
+            "org.pac4j:pac4j-http:$pac4jVersion",
+    )
+    //compile("com.time.article:time-service-impl:1.0-SNAPSHOT")
+    compile project(":time-service:time-service-impl")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //本地maven
+            repository(url: nexusSnapshotsUrl) {
+                authentication(userName: nexusAccount, password: nexusPassword)
+                pom.project {
+                    groupId project.group
+                    artifactId project.name
+                    version project.version
+                }
+            }
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
