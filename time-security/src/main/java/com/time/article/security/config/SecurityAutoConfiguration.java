@@ -2,7 +2,6 @@ package com.time.article.security.config;
 
 import io.buji.pac4j.filter.CallbackFilter;
 import io.buji.pac4j.filter.SecurityFilter;
-import io.buji.pac4j.realm.Pac4jRealm;
 import io.buji.pac4j.subject.Pac4jSubjectFactory;
 import org.apache.shiro.mgt.SubjectFactory;
 import org.apache.shiro.realm.Realm;
@@ -27,10 +26,7 @@ import org.pac4j.jwt.config.signature.SecretSignatureConfiguration;
 import org.pac4j.jwt.credentials.authenticator.JwtAuthenticator;
 import org.pac4j.jwt.profile.JwtGenerator;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -48,10 +44,18 @@ import java.util.Map;
  * @author suiguozhen on 18/07/03
  */
 @Configuration
-@EnableConfigurationProperties({SecurityProperties.class})
 public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfiguration {
-    @Autowired
-    private SecurityProperties securityProperties;
+    @Value("${shiro.salt}")
+    private String salt;
+
+    @Value("${shiro.prefixUrl}")
+    private String prefixUrl;
+
+    @Value("${shiro.loginUrl}")
+    private String casLoginUrl;
+
+    @Value("${shiro.callbackUrl}")
+    private String callbackUrl;
 
     /**
      * JWT Token 生成器，对CommonProfile生成然后每次携带token访问
@@ -60,8 +64,9 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
     @SuppressWarnings("rawtypes")
     @Bean
     protected JwtGenerator jwtGenerator() {
-        return new JwtGenerator(new SecretSignatureConfiguration(securityProperties.getSalt()), new SecretEncryptionConfiguration(securityProperties.getSalt()));
+        return new JwtGenerator(new SecretSignatureConfiguration(salt), new SecretEncryptionConfiguration(salt));
     }
+
 
     /**
      * JWT校验器，也就是目前设置的ParameterClient进行的校验器，是rest/或者前后端分离的核心校验器
@@ -70,8 +75,8 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
     @Bean
     protected JwtAuthenticator jwtAuthenticator() {
         JwtAuthenticator jwtAuthenticator = new JwtAuthenticator();
-        jwtAuthenticator.addSignatureConfiguration(new SecretSignatureConfiguration(securityProperties.getSalt()));
-        jwtAuthenticator.addEncryptionConfiguration(new SecretEncryptionConfiguration(securityProperties.getSalt()));
+        jwtAuthenticator.addSignatureConfiguration(new SecretSignatureConfiguration(salt));
+        jwtAuthenticator.addEncryptionConfiguration(new SecretEncryptionConfiguration(salt));
         return jwtAuthenticator;
     }
 
@@ -81,9 +86,9 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
      */
     @Bean
     public CasConfiguration casConfiguration() {
-        CasConfiguration casConfiguration = new CasConfiguration(securityProperties.getCasLoginUrl());
+        CasConfiguration casConfiguration = new CasConfiguration(casLoginUrl);
         casConfiguration.setProtocol(CasProtocol.CAS20);
-        casConfiguration.setPrefixUrl(securityProperties.getPrefixUrl());
+        casConfiguration.setPrefixUrl(prefixUrl);
         return casConfiguration;
     }
 
@@ -99,7 +104,7 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
     }
 
     /**
-     * 自定义pac4jRealm
+     * pac4jRealm
      * @return
      */
     @Bean(name = "pac4jRealm")
@@ -127,7 +132,7 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
     public CasClient casClient(CasConfiguration casConfiguration) {
         CasClient casClient = new CasClient();
         casClient.setConfiguration(casConfiguration);
-        casClient.setCallbackUrl(securityProperties.getCallbackUrl());
+        casClient.setCallbackUrl(callbackUrl);
         casClient.setName("cas");
         return casClient;
     }
@@ -150,7 +155,7 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
     }
 
     @Bean
-    protected Config config(Clients clients) {
+    protected Config casConfig(Clients clients) {
         Config config = new Config();
         config.setClients(clients);
         return config;
@@ -191,7 +196,7 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setName("singleSignOutFilter");
         SingleSignOutFilter singleSignOutFilter = new SingleSignOutFilter();
-        singleSignOutFilter.setCasServerUrlPrefix(securityProperties.getPrefixUrl());
+        singleSignOutFilter.setCasServerUrlPrefix(prefixUrl);
         singleSignOutFilter.setIgnoreInitConfiguration(true);
         bean.setFilter(singleSignOutFilter);
         bean.addUrlPatterns("/*");
@@ -201,9 +206,6 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
 
     /**
      * shiro管理器
-     * @param pac4jRealm
-     * @param subjectFactory
-     * @return
      */
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager(Realm pac4jRealm, SubjectFactory subjectFactory) {
@@ -229,14 +231,12 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
      * @param securityManager
      * @return
      */
-    @Bean({"shiroFilter"})
-    @ConditionalOnMissingBean({ShiroFilterFactoryBean.class})
+    @Bean(name = "shiroFilter")
     protected ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager, Config config) {
         ShiroFilterFactoryBean filterFactoryBean = super.shiroFilterFactoryBean();
         filterFactoryBean.setSecurityManager(securityManager);
-
         //过滤器设置
-        Map<String, Filter> filters = new HashMap(16);
+        Map<String, Filter> filters = new HashMap<>();
         SecurityFilter securityFilter = new SecurityFilter();
         securityFilter.setClients("cas,rest,jwt");
         securityFilter.setConfig(config);
@@ -256,12 +256,17 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
         definition.addPathDefinition("/callback", "callbackFilter");
-        definition.addPathDefinition("/login/**", "callbackFilter");
+        definition.addPathDefinition("/login/**", "casSecurityFilter");
         definition.addPathDefinition("/captcha/**", "anon");
         definition.addPathDefinition("/**", "casSecurityFilter");
         return definition;
     }
 
+    /**
+     * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
+     * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
+     * @return
+     */
     @Bean
     @DependsOn({"lifecycleBeanPostProcessor"})
     public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){

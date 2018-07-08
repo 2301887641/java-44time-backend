@@ -59,11 +59,8 @@ shiro:
   loginUrl: https://sso.cas.com:8443/cas/login
   #服务器登出地址
   logoutUrl: https://sso.cas.com:8443/cas/logout
-  #cas客户端名称
-  clientName: restClient
-  #jwt salt
-  salt:
-    asdfwerzc242!@#$$sdfgsdf34534454d
+  #jwt salt 密码必须是32位否则报错 The secret length must be at least 256 bits
+  salt: asdfghjklpoiuytrewq1234567098zxc
 
 #服务器配置
 server:
