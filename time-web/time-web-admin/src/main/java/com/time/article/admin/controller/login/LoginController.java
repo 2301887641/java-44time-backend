@@ -1,8 +1,14 @@
 package com.time.article.admin.controller.login;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.time.article.admin.constants.Constants;
 import com.time.article.core.message.result.Result;
-import com.time.article.security.shiro.Principal;
+import com.time.article.core.utils.ValidatorUtils;
+import com.time.article.security.entity.shiro.SimplePrincipal;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.pac4j.cas.client.rest.CasRestFormClient;
 import org.pac4j.cas.profile.CasProfile;
 import org.pac4j.cas.profile.CasRestProfile;
@@ -13,10 +19,7 @@ import org.pac4j.jwt.profile.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -32,6 +35,7 @@ import java.util.Optional;
 /**
  * @author suiguozhen on 18/07/03
  */
+@Api(tags = {"后台登陆、验证码"}, description = "LoginController")
 @RestController
 public class LoginController {
     @Autowired
@@ -49,34 +53,47 @@ public class LoginController {
     /**
      * 验证码常量
      */
-    private static final String CAPTCHA="captcha";
+    private static final String CAPTCHA = "captcha";
 
     /**
-     * 登录操作:   登录时只需要传递username和password
-     * 登录后的操作需要like this: http://localhost:8081/user/1?client_name&jwt&token=eyJjdHkiOiJKV1QiLC
+     * 登录操作
+     * 登录后的操作需要
+     * like this: http://localhost:8081/user/1?client_name&jwt&token=eyJjdHkiOiJKV1QiLC
+     *
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping("/login")
+    @ApiOperation(value = "登陆接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true,
+                    dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name="password",value="密码",required=true,
+                    dataType="String",paramType = "path"
+            ),
+            @ApiImplicitParam(name="captcha",value = "验证码",required = true,
+                    dataType = "String",paramType = "path"
+            ),
+            @ApiImplicitParam(name="client_name",value="客户端",required = true,
+                    dataType = "String",paramType = "path",defaultValue = "jwt"
+            )
+    })
+    @PostMapping("/login")
     @ResponseBody
     public Result login(
             HttpServletRequest request,
             HttpServletResponse response,
-            @Valid Principal principal,
+            @Valid SimplePrincipal simplePrincipal,
             BindingResult result
-            ){
-        if(result.hasErrors()){
-            ObjectError objectError = result.getAllErrors().get(0);
-            String objectName = objectError.getObjectName();
-            Object[] arguments = objectError.getArguments();
-            System.out.println(arguments[0]);
-            String defaultMessage = objectError.getDefaultMessage();
-            System.out.println(defaultMessage);
+    ) {
+        if (result.hasErrors()) {
+            return ValidatorUtils.validateHasError(result);
         }
-        String captcha = (String)request.getSession().getAttribute(CAPTCHA);
-        System.out.println(captcha);
-
+        /*验证码比对*/
+//        String captcha = (String) request.getSession().getAttribute(CAPTCHA);
+//        if (!StringUtils.equals(captcha, simplePrincipal.getCaptcha())) {
+//            return Result.failed(RestCodeEnums.CAPTCHA_ERROR.getCode(), RestCodeEnums.CAPTCHA_ERROR.getInfo());
+//        }
         Map<String, Object> map = new HashMap<>(16);
         J2EContext context = new J2EContext(request, response);
         final ProfileManager<CasRestProfile> manager = new ProfileManager(context);
@@ -85,14 +102,18 @@ public class LoginController {
         TokenCredentials tokenCredentials = casRestFormClient.requestServiceTicket(serviceUrl, profile.get(), context);
         //根据ticket获取用户信息
         final CasProfile casProfile = casRestFormClient.validateServiceTicket(serviceUrl, tokenCredentials, context);
+        String userId = casProfile.getId();
         //生成jwt token
         String token = generator.generate(casProfile);
         map.put("token", token);
+        map.put("userId",casProfile.getId());
+        request.getSession().setAttribute(Constants.SESSION_USER_ID,userId);
         return Result.success(map);
     }
 
-    @RequestMapping("/captcha")
-    public void buildCaptcha(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse)throws Exception {
+    @ApiOperation(value="验证码接口")
+    @GetMapping("/captcha")
+    public void buildCaptcha(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         byte[] captchaChallengeAsJpeg = null;
         ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
         try {

@@ -47,6 +47,12 @@ mybatis:
   #mybatis返回类型省略全路径包名
   type-aliases-package: com.time.article.dao.entity.business
 
+#数据库版本控制
+flyway:
+  locations: classpath:/db
+  baselineOnMigrate: true
+
+
 #用户认证
 shiro:
   #服务器本地地址

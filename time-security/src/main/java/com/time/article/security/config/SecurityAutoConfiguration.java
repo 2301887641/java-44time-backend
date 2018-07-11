@@ -67,7 +67,6 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return new JwtGenerator(new SecretSignatureConfiguration(salt), new SecretEncryptionConfiguration(salt));
     }
 
-
     /**
      * JWT校验器，也就是目前设置的ParameterClient进行的校验器，是rest/或者前后端分离的核心校验器
      * @return
@@ -107,7 +106,7 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
      * pac4jRealm
      * @return
      */
-    @Bean(name = "pac4jRealm")
+    @Bean
     public Realm pac4jRealm() {
         return new CustomPac4jRealm();
     }
@@ -236,7 +235,7 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         ShiroFilterFactoryBean filterFactoryBean = super.shiroFilterFactoryBean();
         filterFactoryBean.setSecurityManager(securityManager);
         //过滤器设置
-        Map<String, Filter> filters = new HashMap<>();
+        Map<String, Filter> filters = new HashMap<>(16);
         SecurityFilter securityFilter = new SecurityFilter();
         securityFilter.setClients("cas,rest,jwt");
         securityFilter.setConfig(config);
@@ -258,6 +257,11 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         definition.addPathDefinition("/callback", "callbackFilter");
         definition.addPathDefinition("/login/**", "casSecurityFilter");
         definition.addPathDefinition("/captcha/**", "anon");
+        definition.addPathDefinition("/swagger-ui.html", "anon");
+        definition.addPathDefinition("/swagger-resources", "anon");
+        definition.addPathDefinition("/v2/api-docs", "anon");
+        definition.addPathDefinition("/webjars/springfox-swagger-ui/**", "anon");
+        definition.addPathDefinition("/configuration/**", "anon");
         definition.addPathDefinition("/**", "casSecurityFilter");
         return definition;
     }

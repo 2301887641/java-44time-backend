@@ -28,10 +28,10 @@ public class CustomPac4jRealm extends Pac4jRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
             throws AuthenticationException {
-        Pac4jToken token = (Pac4jToken) authenticationToken;
+/*        Pac4jToken token = (Pac4jToken) authenticationToken;
         LinkedHashMap<String, CommonProfile> profiles = token.getProfiles();
         // 获取用户信息
-        CommonProfile casProfile = profiles.get("rest");
+        CommonProfile casProfile = profiles.get("rest");*/
         return super.doGetAuthenticationInfo(authenticationToken);
     }
 
