@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'maven'
+}
+
+group 'com.time.article'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven{
+        url nexusPublicUrl
+    }
+}
+
+configurations.all {
+    // 变化模块
+    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
+}
+
+dependencies {
+    //compile ("com.time.article:time-service-api:1.0-SNAPSHOT")
+    compile project(":time-service:time-service-api")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //本地maven
+            repository(url: nexusSnapshotsUrl) {
+                authentication(userName: nexusAccount, password: nexusPassword)
+                pom.project {
+                    groupId project.group
+                    artifactId project.name
+                    version project.version
+                }
+            }
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
