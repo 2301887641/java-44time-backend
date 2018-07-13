@@ -32,7 +32,7 @@ public interface BaseMapper<Entity extends BaseEntity<PK>, PK extends Serializab
      * @param data
      * @return
      */
-    Integer insert(Entity data);
+    PK insert(Entity data);
 
     /**
      * 修改
