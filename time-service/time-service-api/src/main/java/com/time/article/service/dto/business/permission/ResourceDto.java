@@ -1,6 +1,7 @@
 package com.time.article.service.dto.business.permission;
 
 import com.time.article.core.service.dto.BaseDto;
+import com.time.article.core.service.dto.TreeDto;
 import com.time.article.dao.enums.business.permission.ResourceEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ResourceDto extends BaseDto<Integer> {
+public class ResourceDto extends TreeDto<ResourceDto,Integer> {
     private String name;
     private String code;
     private String description;
