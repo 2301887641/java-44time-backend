@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class Resource extends TreeEntity<Resource,Integer> implements Serializable {
+public class Resource extends TreeEntity<Resource,Integer> {
     private String name;
     private String code;
     private String description;

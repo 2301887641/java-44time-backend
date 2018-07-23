@@ -24,7 +24,7 @@ public interface BaseMapper<Entity extends BaseEntity<PK>, PK extends Serializab
      * @param id
      * @return
      */
-    Entity getById(PK id);
+    Entity getById(int id);
 
     /**
      * 添加

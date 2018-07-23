@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 分页结果返回
+ * 通用rest结果返回
  * 使用菱形规避@SuppressWarnings("unchecked")
  * @author suiguozhen on 18/04/14
  */

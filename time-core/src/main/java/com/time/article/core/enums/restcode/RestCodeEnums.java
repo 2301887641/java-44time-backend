@@ -3,6 +3,7 @@ package com.time.article.core.enums.restcode;
 import lombok.Getter;
 
 /**
+ * rest枚举返回
  * @author suiguozhen on 18/04/14
  */
 

@@ -256,6 +256,7 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
         definition.addPathDefinition("/callback", "callbackFilter");
         definition.addPathDefinition("/login/**", "casSecurityFilter");
+        definition.addPathDefinition("/resource/**", "anon");
         definition.addPathDefinition("/captcha/**", "anon");
         definition.addPathDefinition("/swagger-ui.html", "anon");
         definition.addPathDefinition("/swagger-resources", "anon");

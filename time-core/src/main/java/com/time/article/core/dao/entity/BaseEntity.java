@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 基类实体
  * @author suiguozhen on 18/06/29
  */
 @Getter

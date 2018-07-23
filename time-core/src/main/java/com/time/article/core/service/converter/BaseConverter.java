@@ -5,32 +5,32 @@ import java.util.List;
 /**
  * @author suiguozhen on 18/06/29
  */
-public interface BaseConverter<Dto,CriteriaDTO,Entity,CriteriaEntity> {
+public interface BaseConverter<DTO,CriteriaDTO,ENTITY,CriteriaENTITY> {
     /**
-     * 将entity转换为Dto 单个对象转换
+     * 将ENTITY转换为DTO 单个对象转换
      * @param entity
      * @return
      */
-    Dto entityToDto(Entity entity);
+    DTO entityToDto(ENTITY entity);
 
     /**
-     * 将list中的entity转换成dto
-     * @param entity
+     * 将list中的ENTITY转换成DTO
+     * @param entities
      * @return
      */
-    List<Dto> entityToDto(List<Entity> entity);
+    List<DTO> entityToDto(List<ENTITY> entities);
 
     /**
-     * 将dto转成entity 单个对象
-     * @param dto
+     * 将DTO转成ENTITY 单个对象
+     * @param DTO
      * @return
      */
-    Entity dtoToEntity(Dto dto);
+    ENTITY dtoToEntity(DTO DTO);
 
     /**
-     * 查询条件DTO 转 查询条件的Entity
-     * @param criteriaDto
+     * 查询条件DTO 转 查询条件的ENTITY
+     * @param criteriaDTO
      * @return
      */
-    CriteriaEntity criteriaDtoToCriteriaEntity(CriteriaDTO criteriaDto);
+    CriteriaENTITY criteriaDTOToCriteriaEntity(CriteriaDTO criteriaDTO);
 }

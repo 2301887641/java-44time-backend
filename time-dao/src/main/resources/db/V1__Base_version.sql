@@ -1,5 +1,3 @@
-SET FOREIGN_KEY_CHECKS=0;
-
 -- ----------------------------
 -- Table structure for time_user
 -- ----------------------------
@@ -42,10 +40,6 @@ CREATE TABLE time_organization (
 	description varchar(255) DEFAULT NULL comment '描述',
 	PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-
 
 -- ----------------------------
 -- Table structure for time_role
@@ -90,24 +84,23 @@ CREATE TABLE time_permission (
 	UNIQUE KEY (role_id, resource_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 -- ----------------------------
 -- Table structure for time_resource
 -- ----------------------------
 DROP TABLE IF EXISTS time_resource;
 create table time_resource(
-	id int auto_increment primary key,
-	create_time timestamp 0,
-	update_time timestamp 0,
-	level int default '0' not null comment '级别',
-	lft int default '0' not null comment '左值',
+	id INT(11) auto_increment primary key,
+	create_time timestamp DEFAULT 0,
+	update_time timestamp DEFAULT 0,
+	level INT(11) default 0 not null comment '级别',
+	lft INT(11) default 0 not null comment '左值',
 	name varchar(36) default '' not null comment '菜单或方法名称',
-	rgt int default '0' not null comment '右值',
+	rgt INT(11) default 0 not null comment '右值',
 	code varchar(100) default '' not null comment '权限路由',
 	description varchar(255) default '' not null comment '描述',
 	icon varchar(30) default '' not null comment '图标',
-	resource_type int default '0' not null comment '资源类型 0 模块  1操作 模块就是可以有下级，操作就是增删改查 ',
+	resource_type int default 0 not null comment '资源类型 0 模块  1操作 模块就是可以有下级，操作就是增删改查 ',
 	url varchar(255) default '' not null comment '页面访问url',
-	parent_id int default '0' not null comment '父id',
-	priority int default '0' not null comment '优先级'
+	parent_id INT(11) default 0 not null comment '父id',
+	priority INT(11) default 0 not null comment '优先级'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

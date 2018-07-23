@@ -42,6 +42,17 @@ public class BaseServiceImpl<
     }
 
     /**
+     * 通过id查询
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public DTO getById(int id) {
+        return converter.entityToDto(mapper.getById(id));
+    }
+
+    /**
      * 添加操作
      *
      * @param dto
@@ -54,6 +65,16 @@ public class BaseServiceImpl<
 
     @Override
     public List<DTO> getList(CriteriaDTO criteriaDto) {
-        return converter.entityToDto(mapper.getBySearch(SearchEntity.of(PaginationUtils.getOrderBy(), converter.criteriaDtoToCriteriaEntity(criteriaDto))));
+        return converter.entityToDto(mapper.getBySearch(SearchEntity.of(PaginationUtils.getOrderBy(), converter.criteriaDTOToCriteriaEntity(criteriaDto))));
+    }
+
+    /**
+     * 修改
+     *
+     * @param dto
+     */
+    @Override
+    public void update(DTO dto) {
+        mapper.update(converter.dtoToEntity(dto));
     }
 }

@@ -14,5 +14,6 @@ public class TreeEntity<ENTITY extends TreeEntity<ENTITY, PK>, PK extends Serial
     private Integer level;
     private Integer lft;
     private Integer rgt;
+    private Integer priority;
     private ENTITY parent;
 }

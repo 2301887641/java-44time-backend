@@ -1,6 +1,6 @@
 package com.time.article.service.impl.business.permission;
 
-import com.time.article.core.service.impl.BaseServiceImpl;
+import com.time.article.core.service.impl.TreeServiceImpl;
 import com.time.article.dao.criteria.business.permission.ResourceCriteria;
 import com.time.article.dao.entity.business.permission.Resource;
 import com.time.article.dao.mapper.business.permission.ResourceMapper;
@@ -11,11 +11,13 @@ import com.time.article.service.dto.business.permission.ResourceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author suiguozhen on 18/07/12
  */
 @Service
-public class ResourceServiceImpl extends BaseServiceImpl<
+public class ResourceServiceImpl extends TreeServiceImpl<
         Integer,
         ResourceDto,
         ResourceCriteriaDto,
@@ -23,9 +25,6 @@ public class ResourceServiceImpl extends BaseServiceImpl<
         ResourceCriteria,
         ResourceConverter,
         ResourceMapper
-        > implements ResourceService {
-
-    @Autowired
-    private ResourceMapper resourceMapper;
+        >  implements ResourceService {
 
 }

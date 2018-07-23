@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class TreeDto<DTO extends TreeDto, PK extends Serializable> extends BaseD
     private Integer level;
     private List<DTO> children;
     private PK parentId;
+    private Integer priority;
     private String parentName;
     /**
      * children的添加方法

@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
+ * 查询实体
  * @author suiguozhen on 18/04/21
  */
 @Getter
