@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'maven'
+}
+
+group 'com.time.article'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url nexusPublicUrl
+    }
+}
+
+dependencies {
+    compile (
+            //springboot
+            "org.springframework.boot:spring-boot-starter-web:$springbootVersion",
+            //lombok
+            "org.projectlombok:lombok:$lombokVersion",
+            //mybatis
+            "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion",
+            //mysql连接
+            "mysql:mysql-connector-java:$mysqlConnectorVersion",
+            //druid
+            "com.alibaba:druid:$druidVersion",
+            // mapstruct
+            "org.mapstruct:mapstruct-jdk8:$mapstructVersion",
+            "org.mapstruct:mapstruct-processor:$mapstructVersion",
+            //swagger
+            "io.springfox:springfox-swagger2:$swaggerVersion",
+            "io.springfox:springfox-swagger-ui:$swaggerVersion",
+            //Flyway
+            "org.flywaydb:flyway-core:$flywayVersion",
+            // common-lang3
+            "org.apache.commons:commons-lang3:$commonslang3Version"
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //本地maven
+            repository(url: nexusSnapshotsUrl) {
+                authentication(userName: nexusAccount, password: nexusPassword)
+                pom.project {
+                    groupId project.group
+                    artifactId project.name
+                    version project.version
+                }
+            }
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

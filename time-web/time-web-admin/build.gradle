@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+group 'com.time.article'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url nexusPublicUrl
+    }
+}
+
+configurations.all {
+    // 变化模块
+    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
+}
+
+dependencies {
+    //compile("com.time.article:time-security:1.0-SNAPSHOT")
+    compile project(":time-security")
+    compile("com.github.penggle:kaptcha:2.3.2"){
+        exclude module: 'javax.servlet-api'
+    }
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
