@@ -1,0 +1,13 @@
+rootProject.name = 'time'
+include 'time-core'
+include 'time-web'
+include 'time-web:time-web-admin'
+include 'time-service'
+include 'time-service:time-service-impl'
+findProject(':time-service:time-service-impl')?.name = 'time-service-impl'
+include 'time-service:time-service-api'
+findProject(':time-service:time-service-api')?.name = 'time-service-api'
+include 'time-dao'
+include 'time-security'
+include 'time-exception'
+
