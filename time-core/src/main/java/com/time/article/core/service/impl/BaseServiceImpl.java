@@ -49,7 +49,7 @@ public class BaseServiceImpl<
      */
     @Override
     public DTO getById(int id) {
-        return converter.entityToDto(mapper.getById(id));
+        return converter.entityToDto(mapper.selectById(id));
     }
 
     /**
@@ -65,7 +65,7 @@ public class BaseServiceImpl<
 
     @Override
     public List<DTO> getList(CriteriaDTO criteriaDto) {
-        return converter.entityToDto(mapper.getBySearch(SearchEntity.of(PaginationUtils.getOrderBy(), converter.criteriaDTOToCriteriaEntity(criteriaDto))));
+        return converter.entityToDto(mapper.selectBySearch(SearchEntity.of(PaginationUtils.getOrderBy(), converter.criteriaDTOToCriteriaEntity(criteriaDto))));
     }
 
     /**

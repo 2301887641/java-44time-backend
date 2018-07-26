@@ -19,32 +19,32 @@ public class Result<T> implements Serializable{
     private String retInfo;
     private T data;
 
-    /*静态*/
+    /**静态*/
     public static <W> Result of(String retCode, String retInfo, W data) {
         return new Result<>(retCode, retInfo, data);
     }
 
-    /*成功*/
+    /**成功*/
     public static<W> Result success(W data){
         return new Result<>(RestCodeEnums.SUCCESS.getCode(),RestCodeEnums.SUCCESS.getInfo(),data);
     }
 
-    /*成功*/
+    /**成功*/
     public static Result success(){
         return new Result(RestCodeEnums.SUCCESS.getCode(),RestCodeEnums.SUCCESS.getInfo());
     }
 
-    /*失败 可以传递完整的状态码*/
+    /**失败 可以传递完整的状态码*/
     public static<W> Result failed(String code,String retInfo){
         return new Result<>(code,retInfo);
     }
 
-    /*失败 可以传递完整的状态码*/
+    /**失败 可以传递完整的状态码*/
     public static<W> Result failed(String code,String retInfo,W data){
         return new Result<>(code,retInfo,data);
     }
 
-    /*构造*/
+    /**构造*/
     private Result() {
     }
 

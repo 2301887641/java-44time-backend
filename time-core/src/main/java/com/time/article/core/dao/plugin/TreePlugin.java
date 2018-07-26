@@ -20,8 +20,8 @@ import java.util.Objects;
 import java.util.Properties;
 
 /**
- * @Intercepts 注解: 为当前插件指定要拦截哪个对象的哪个方法,以及方法中的参数
  * @author suiguozhen on 18/07/20
+ * @Intercepts 注解: 为当前插件指定要拦截哪个对象的哪个方法,以及方法中的参数
  */
 @Slf4j
 @Intercepts({@Signature(
@@ -29,6 +29,11 @@ import java.util.Properties;
         method = "update",
         args = {MappedStatement.class, Object.class})})
 public class TreePlugin implements Interceptor {
+    //查询最大右值
+    private static final String SELECT_MAX_RGT_SQL = ".selectMaxRgt";
+    //根据parentId查询
+    private static final String SELECT_BY_PARENT_ID_SQL = ".selectById";
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         Object[] args = invocation.getArgs();
@@ -63,11 +68,11 @@ public class TreePlugin implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
-
     }
 
     /**
      * 树形结构插入操作
+     *
      * @param executor
      * @param namespace
      * @param configuration
@@ -76,31 +81,39 @@ public class TreePlugin implements Interceptor {
      */
     @SuppressWarnings("unchecked")
     private void insert(Executor executor, String namespace, Configuration configuration, TreeEntity entity) throws SQLException, IllegalAccessException, InstantiationException {
-        Integer lft, level = 1,zero=0;
+        //左值，级别，
+        Integer lft = 1, level = 1;
         MappedStatement statement;
         //如果前端没有传递parent_id字段 实例化自身
-        if(Objects.isNull(entity.getParent())){
+        if (Objects.isNull(entity.getParent())) {
             entity.setParent(entity.getClass().newInstance());
         }
         //如果parent_id是0的话
-        if(Objects.isNull(entity.getParent().getId())){
-            entity.getParent().setId(zero);
+        if (Objects.isNull(entity.getParent().getId())) {
+            entity.getParent().setId(Constants.TREE_PARENT_ID);
         }
+        //获取parentId
+        Integer parentId=(Integer)entity.getParent().getId();
         //如果parent_id不等于0
-        if(!Constants.TREE_PARENT_ID.equals(entity.getParent().getId())){
+        if (!Constants.TREE_PARENT_ID.equals(parentId)) {
+            statement = configuration.getMappedStatement(namespace + SELECT_BY_PARENT_ID_SQL);
+            List<TreeEntity> query = executor.query(statement, wrapCollection(parentId), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
+            System.out.println(query);
+            if(query.size()<1){
 
-        }else{
+            }
+        } else {
 
-        }
-
-
-        if (Objects.isNull(entity.getParent().getId()) || zero.equals(entity.getParent().getId())) {
-            statement = configuration.getMappedStatement(namespace + ".selectMaxRgt");
+            //需要查询最大右值 调用具体mapper类中的selectMaxRgt方法
+            statement = configuration.getMappedStatement(namespace + SELECT_MAX_RGT_SQL);
             List<Integer> maxRgtList = executor.query(statement, null, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
             Integer maxRgt = maxRgtList.get(0);
-            lft = (maxRgt == 0) ? 1 : maxRgt + 1;
-            entity.getParent().setId(0);
-        } else {
+            //如果最大右值是0则返回1，否则加1并返回
+            if (maxRgt > 0) {
+                lft = maxRgt + 1;
+            }
+        }
+/*             {
             statement = configuration.getMappedStatement(namespace + ".getById");
             List<TreeEntity> parent = executor.query(statement, wrapCollection(entity.getParent().getId()), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
             lft = parent.get(0).getRgt();
@@ -108,7 +121,7 @@ public class TreePlugin implements Interceptor {
 
             statement = configuration.getMappedStatement(namespace + ".increaseRgt");
             executor.query(statement, wrapCollection(parent.get(0)), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-        }
+        }*/
         entity.setLft(lft);
         entity.setRgt(lft + 1);
         entity.setLevel(level);

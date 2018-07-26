@@ -16,7 +16,7 @@ public interface BaseMapper<Entity extends BaseEntity<PK>, PK extends Serializab
      * @param searchEntity
      * @return
      */
-    List<Entity> getBySearch(SearchEntity searchEntity);
+    List<Entity> selectBySearch(SearchEntity searchEntity);
 
     /**
      * 根据id获取
@@ -24,7 +24,7 @@ public interface BaseMapper<Entity extends BaseEntity<PK>, PK extends Serializab
      * @param id
      * @return
      */
-    Entity getById(int id);
+    Entity selectById(int id);
 
     /**
      * 添加
