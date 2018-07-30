@@ -9,5 +9,3 @@ include 'time-service:time-service-api'
 findProject(':time-service:time-service-api')?.name = 'time-service-api'
 include 'time-dao'
 include 'time-security'
-include 'time-exception'
-

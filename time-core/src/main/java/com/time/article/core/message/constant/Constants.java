@@ -9,9 +9,11 @@ public interface Constants {
     /**
      * -----------------结果集返回--------------------
      * 信息提示相关
+     * 200默认请求成功
+     * 500默认请求失败
      */
-    String RESULT_SUCCESS_CODE = "0000";
-    String RESULT_FAILED_CODE = "500";
+    Integer RESULT_SUCCESS_CODE = 200;
+    Integer RESULT_FAILED_CODE = 500;
     String RESULT_SUCCESS_INFO = "成功";
 
     /**

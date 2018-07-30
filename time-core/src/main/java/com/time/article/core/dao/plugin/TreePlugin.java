@@ -97,9 +97,10 @@ public class TreePlugin implements Interceptor {
         //如果parent_id不等于0
         if (!Constants.TREE_PARENT_ID.equals(parentId)) {
             statement = configuration.getMappedStatement(namespace + SELECT_BY_PARENT_ID_SQL);
+            System.out.println(statement);
             List<TreeEntity> query = executor.query(statement, wrapCollection(parentId), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-            System.out.println(query);
             if(query.size()<1){
+//                new DaoException("");
 
             }
         } else {
