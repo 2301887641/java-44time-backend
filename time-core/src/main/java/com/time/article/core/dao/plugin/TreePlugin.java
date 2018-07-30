@@ -82,7 +82,7 @@ public class TreePlugin implements Interceptor {
     @SuppressWarnings("unchecked")
     private void insert(Executor executor, String namespace, Configuration configuration, TreeEntity entity) throws SQLException, IllegalAccessException, InstantiationException {
         //左值，级别，
-        Integer lft = 1, level = 1;
+        int lft = 1, level = 1;
         MappedStatement statement;
         //如果前端没有传递parent_id字段 实例化自身
         if (Objects.isNull(entity.getParent())) {
@@ -104,11 +104,10 @@ public class TreePlugin implements Interceptor {
 
             }
         } else {
-
             //需要查询最大右值 调用具体mapper类中的selectMaxRgt方法
             statement = configuration.getMappedStatement(namespace + SELECT_MAX_RGT_SQL);
             List<Integer> maxRgtList = executor.query(statement, null, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-            Integer maxRgt = maxRgtList.get(0);
+            int maxRgt = maxRgtList.get(0);
             //如果最大右值是0则返回1，否则加1并返回
             if (maxRgt > 0) {
                 lft = maxRgt + 1;

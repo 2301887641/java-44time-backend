@@ -14,7 +14,6 @@ public interface TreeMapper<Entity extends BaseEntity<PK>, PK extends Serializab
      * 查询最大右值 使用COALESCE来避免null
      * @return
      */
-    @Insert("select COALESCE(max(rgt),0) from time_resource")
-    PK selectMaxRgt();
+    int selectMaxRgt();
 
 }

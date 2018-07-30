@@ -61,23 +61,22 @@
         )
     </insert>
 
-    <select id="getBySearch" parameterType="integer" resultMap="baseResultMap">
+    <select id="selectBySearch" parameterType="integer" resultMap="baseResultMap">
         select
         <include refid="baseColumn"/>
         from time_resource a
     </select>
 
-    <select id="getById" resultMap="baseResultMap">
+    <select id="selectById" resultMap="baseResultMap">
         select
         <include refid="baseColumn"/>
         from time_resource a
         where a.id=#{id}
     </select>
 
-    <update id="update">
-        update
-        time_resource
-        set
-
-    </update>
+    <!--##########树形操作方法#############-->
+    <!--1.查询最大右值 返回int-->
+    <select id="selectMaxRgt" resultType="int">
+        select COALESCE(max(rgt),0) from time_resource
+    </select>
 </mapper>

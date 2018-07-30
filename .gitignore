@@ -25,3 +25,11 @@ MANIFEST.MF
 cas/etc
 *.keystore
 
+
+time-core/src/main/generated/
+time-core/src/main/resources/
+time-dao/src/main/generated/
+time-security/src/main/generated/
+time-service/time-service-api/src/main/generated/
+time-web/time-web-admin/src/main/generated/
+/time-dao/src/main/resources/rebel.xml
