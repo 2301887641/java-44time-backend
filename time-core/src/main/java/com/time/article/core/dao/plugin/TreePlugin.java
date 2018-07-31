@@ -1,6 +1,7 @@
 package com.time.article.core.dao.plugin;
 
 import com.time.article.core.dao.entity.TreeEntity;
+import com.time.article.core.dao.exception.DaoException;
 import com.time.article.core.dao.mapper.TreeMapper;
 import com.time.article.core.message.constant.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,7 @@ public class TreePlugin implements Interceptor {
     private static final String SELECT_BY_PARENT_ID_SQL = ".selectById";
 
     @Override
-    public Object intercept(Invocation invocation) throws Throwable {
+    public Object intercept(Invocation invocation) throws Exception {
         Object[] args = invocation.getArgs();
         MappedStatement mappedStatement = (MappedStatement) args[0];
         String namespace = StringUtils.substringBeforeLast(mappedStatement.getId(), ".");
@@ -80,7 +81,7 @@ public class TreePlugin implements Interceptor {
      * @throws SQLException
      */
     @SuppressWarnings("unchecked")
-    private void insert(Executor executor, String namespace, Configuration configuration, TreeEntity entity) throws SQLException, IllegalAccessException, InstantiationException {
+    public void insert(Executor executor, String namespace, Configuration configuration, TreeEntity entity) throws DaoException, IllegalAccessException, InstantiationException, SQLException {
         //左值，级别，
         int lft = 1, level = 1;
         MappedStatement statement;
@@ -93,13 +94,17 @@ public class TreePlugin implements Interceptor {
             entity.getParent().setId(Constants.TREE_PARENT_ID);
         }
         //获取parentId
-        Integer parentId=(Integer)entity.getParent().getId();
+        Integer parentId = (Integer) entity.getParent().getId();
         //如果parent_id不等于0
         if (!Constants.TREE_PARENT_ID.equals(parentId)) {
+            if (parentId > 0) {
+                throw new DaoException("记录");
+
+            }
             statement = configuration.getMappedStatement(namespace + SELECT_BY_PARENT_ID_SQL);
             System.out.println(statement);
             List<TreeEntity> query = executor.query(statement, wrapCollection(parentId), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-            if(query.size()<1){
+            if (query.size() < 1) {
 //                new DaoException("");
 
             }

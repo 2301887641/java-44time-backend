@@ -15,12 +15,12 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class Result<T> implements Serializable{
-    private String retCode;
+    private int retCode;
     private String retInfo;
     private T data;
 
     /**静态*/
-    public static <W> Result of(String retCode, String retInfo, W data) {
+    public static <W> Result of(int retCode, String retInfo, W data) {
         return new Result<>(retCode, retInfo, data);
     }
 
@@ -35,12 +35,12 @@ public class Result<T> implements Serializable{
     }
 
     /**失败 可以传递完整的状态码*/
-    public static<W> Result failed(String code,String retInfo){
+    public static<W> Result failed(int code,String retInfo){
         return new Result<>(code,retInfo);
     }
 
     /**失败 可以传递完整的状态码*/
-    public static<W> Result failed(String code,String retInfo,W data){
+    public static<W> Result failed(int code,String retInfo,W data){
         return new Result<>(code,retInfo,data);
     }
 
@@ -49,13 +49,13 @@ public class Result<T> implements Serializable{
     }
 
     /*构造*/
-    private Result(String retCode, String retInfo) {
+    private Result(int retCode, String retInfo) {
         this.retCode = retCode;
         this.retInfo = retInfo;
     }
 
     /*构造*/
-    private Result(String retCode, String retInfo, T result) {
+    private Result(int retCode, String retInfo, T result) {
         this.retCode = retCode;
         this.retInfo = retInfo;
         this.data = result;

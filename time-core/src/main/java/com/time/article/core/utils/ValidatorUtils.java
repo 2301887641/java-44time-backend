@@ -6,7 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 /**
- *
+ * 验证工具
  * @author suiguozhen on 18/07/09
  */
 public class ValidatorUtils {

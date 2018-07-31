@@ -3,6 +3,7 @@ plugins {
     id 'maven'
 }
 
+
 group 'com.time.article'
 version '1.0-SNAPSHOT'
 
@@ -35,7 +36,9 @@ dependencies {
             //Flyway
             "org.flywaydb:flyway-core:$flywayVersion",
             // common-lang3
-            "org.apache.commons:commons-lang3:$commonslang3Version"
+            "org.apache.commons:commons-lang3:$commonslang3Version",
+            //aop
+            "org.springframework.boot:spring-boot-starter-aop:$springbootVersion"
     )
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

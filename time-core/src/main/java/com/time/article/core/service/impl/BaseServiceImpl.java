@@ -2,6 +2,7 @@ package com.time.article.core.service.impl;
 
 import com.time.article.core.dao.entity.BaseEntity;
 import com.time.article.core.dao.entity.SearchEntity;
+import com.time.article.core.dao.exception.DaoException;
 import com.time.article.core.dao.mapper.BaseMapper;
 import com.time.article.core.service.api.BaseService;
 import com.time.article.core.service.converter.BaseConverter;
@@ -59,7 +60,7 @@ public class BaseServiceImpl<
      * @return
      */
     @Override
-    public PK insert(DTO dto) {
+    public PK insert(DTO dto){
         return mapper.insert(converter.dtoToEntity(dto));
     }
 

@@ -1,5 +1,6 @@
 package com.time.article.admin.controller.business.permission;
 
+import com.time.article.core.dao.exception.DaoException;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.ValidatorUtils;
 import com.time.article.service.api.business.permission.ResourceService;
@@ -32,7 +33,7 @@ public class ResourceController {
     }
 
     @PostMapping
-    public Result save(@Valid ResourceDto resourceDto, BindingResult result) {
+    public Result save(@Valid ResourceDto resourceDto, BindingResult result){
         if (result.hasErrors()) {
             return ValidatorUtils.validateHasError(result);
         }
