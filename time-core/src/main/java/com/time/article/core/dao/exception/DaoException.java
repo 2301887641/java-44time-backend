@@ -24,4 +24,14 @@ public class DaoException extends LogicException {
     public DaoException(String msg) {
         super(RestCodeEnums.DAO_EXCEPTION.getCode(), msg);
     }
+
+    /**
+     * 有参构造
+     * 自己传递code和msg 常量枚举中选择即可
+     * @param code
+     * @param msg
+     */
+    public DaoException(Integer code,String msg){
+        super(code,msg);
+    }
 }

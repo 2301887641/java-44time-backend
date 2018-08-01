@@ -95,19 +95,18 @@ public class TreePlugin implements Interceptor {
         }
         //获取parentId
         Integer parentId = (Integer) entity.getParent().getId();
+        if(parentId!=0){
+            throw new DaoException("数据库记录数少于1条");
+        }
         //如果parent_id不等于0
         if (!Constants.TREE_PARENT_ID.equals(parentId)) {
-            if (parentId > 0) {
-                throw new DaoException("记录");
-
-            }
             statement = configuration.getMappedStatement(namespace + SELECT_BY_PARENT_ID_SQL);
             System.out.println(statement);
             List<TreeEntity> query = executor.query(statement, wrapCollection(parentId), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
             if (query.size() < 1) {
-//                new DaoException("");
-
+               throw new DaoException("数据库记录数少于1条");
             }
+
         } else {
             //需要查询最大右值 调用具体mapper类中的selectMaxRgt方法
             statement = configuration.getMappedStatement(namespace + SELECT_MAX_RGT_SQL);

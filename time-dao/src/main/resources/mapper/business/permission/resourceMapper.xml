@@ -67,16 +67,18 @@
         from time_resource a
     </select>
 
-    <select id="selectById" resultMap="baseResultMap">
-        select
-        <include refid="baseColumn"/>
-        from time_resource a
-        where a.id=#{id}
-    </select>
+
 
     <!--##########树形操作方法#############-->
     <!--1.查询最大右值 返回int-->
     <select id="selectMaxRgt" resultType="int">
         select COALESCE(max(rgt),0) from time_resource
+    </select>
+    <!--2.根据id查询-->
+    <select id="selectById" resultMap="baseResultMap">
+        select
+        <include refid="baseColumn"/>
+        from time_resource a
+        where a.id=#{id}
     </select>
 </mapper>

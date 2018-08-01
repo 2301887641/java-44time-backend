@@ -20,4 +20,9 @@ public interface Constants {
      * -----------------树形结构相关---------------------
      */
     Integer TREE_PARENT_ID = 0;
+
+    /**
+     * -----------------ajax请求标识---------------------
+     */
+    String AJAX_REQUEST_TAG = "XMLHttpRequest";
 }

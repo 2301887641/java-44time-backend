@@ -2,8 +2,8 @@ package com.time.article.core.exception.handler;
 
 import com.time.article.core.enums.restcode.RestCodeEnums;
 import com.time.article.core.message.result.Result;
+import com.time.article.core.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,10 +35,21 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
     @ExceptionHandler
     public Object businessExceptionHandler(Exception exception, HttpServletRequest request) {
         /**dao层异常*/
-        if(exception instanceof MyBatisSystemException){
-            log.error(((MyBatisSystemException) exception).getMessage());
-            return new ResponseEntity<>(Result.failed(RestCodeEnums.DEFAULT_EXCEPTION.getCode(),RestCodeEnums.DEFAULT_EXCEPTION.getInfo()),HttpStatus.OK);
+        if(exception instanceof RuntimeException){
+            StringBuffer requestURL = request.getRequestURL();
+            requestURL.append("\n请求方式："+request.getMethod()+"\n");
+            requestURL.append(exception.getMessage());
+            log.error("请求地址："+requestURL.toString());
+            /**ajax请求 返回500*/
+            if(WebUtil.isAjaxRequest(request)){
+                return new ResponseEntity<>(Result.failed(RestCodeEnums.DEFAULT_EXCEPTION.getCode(),RestCodeEnums.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            /**页面请求*/
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("error");
+            return modelAndView;
         }
+        log.error("其他异常信息如下:"+exception.getMessage());
         return null;
     }
 }
