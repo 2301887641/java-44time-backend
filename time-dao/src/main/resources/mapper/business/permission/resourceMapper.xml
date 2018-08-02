@@ -12,7 +12,9 @@
       a.level,
       a.url,
       a.parent_id,
-      a.priority
+      a.priority,
+      a.lft,
+      a.rgt
     </sql>
 
     <resultMap id="baseResultMap" type="com.time.article.dao.entity.business.permission.Resource">
@@ -25,8 +27,10 @@
         <result property="url" column="url" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="INTEGER"/>
         <result property="priority" column="priority" jdbcType="INTEGER"/>
+        <result property="lft" column="lft" jdbcType="INTEGER"/>
+        <result property="rgt" column="rgt" jdbcType="INTEGER"/>
         <association property="parent" javaType="com.time.article.dao.entity.business.permission.Resource">
-             <id property="id" column="parent_id"/>
+            <id property="id" column="parent_id"/>
         </association>
     </resultMap>
 
@@ -61,12 +65,16 @@
         )
     </insert>
 
-    <select id="selectBySearch" parameterType="integer" resultMap="baseResultMap">
+    <select id="selectBySearch"  resultMap="baseResultMap">
         select
         <include refid="baseColumn"/>
         from time_resource a
+<!--        <where>
+            <if test="entity.ignoreId!=null">
+                a.id !=#{entity.ignoreId}
+            </if>
+        </where>-->
     </select>
-
 
 
     <!--##########树形操作方法#############-->
@@ -81,4 +89,12 @@
         from time_resource a
         where a.id=#{id}
     </select>
+    <!--3.更新右值-->
+    <update id="updateRgt">
+        update time_resource set rgt = rgt + #{array[0]} where rgt>= #{array[1]}
+    </update>
+    <!--4.更新左值-->
+    <update id="updateLft">
+        update time_resource set lft = lft + #{array[0]} where lft>= #{array[1]}
+    </update>
 </mapper>

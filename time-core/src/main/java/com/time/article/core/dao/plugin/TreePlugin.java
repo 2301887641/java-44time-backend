@@ -30,10 +30,22 @@ import java.util.Properties;
         method = "update",
         args = {MappedStatement.class, Object.class})})
 public class TreePlugin implements Interceptor {
-    //查询最大右值
+    /**
+     * 查询最大右值
+     */
     private static final String SELECT_MAX_RGT_SQL = ".selectMaxRgt";
-    //根据parentId查询
-    private static final String SELECT_BY_PARENT_ID_SQL = ".selectById";
+    /**
+     * 根据parentId查询
+     */
+    private static final String SELECT_BY_ID_SQL = ".selectById";
+    /**
+     * 更新右值
+     */
+    private static final String UPDATE_RGT_SQL = ".updateRgt";
+    /**
+     * 更新左值
+     */
+    private static final String UPDATE_LFT_SQL = ".updateLft";
 
     @Override
     public Object intercept(Invocation invocation) throws Exception {
@@ -82,31 +94,37 @@ public class TreePlugin implements Interceptor {
      */
     @SuppressWarnings("unchecked")
     public void insert(Executor executor, String namespace, Configuration configuration, TreeEntity entity) throws DaoException, IllegalAccessException, InstantiationException, SQLException {
-        //左值，级别，
-        int lft = 1, level = 1;
+        /**左值，级别*/
+        Integer lft = 1, level = 1;
         MappedStatement statement;
-        //如果前端没有传递parent_id字段 实例化自身
+        /**如果前端没有传递parent_id字段 实例化自身*/
         if (Objects.isNull(entity.getParent())) {
             entity.setParent(entity.getClass().newInstance());
         }
-        //如果parent_id是0的话
+        /**如果parent_id是0的话*/
         if (Objects.isNull(entity.getParent().getId())) {
             entity.getParent().setId(Constants.TREE_PARENT_ID);
         }
-        //获取parentId
+        /**获取parentId*/
         Integer parentId = (Integer) entity.getParent().getId();
-        if(parentId!=0){
-            throw new DaoException("数据库记录数少于1条");
-        }
-        //如果parent_id不等于0
+        /**如果parent_id不等于0*/
         if (!Constants.TREE_PARENT_ID.equals(parentId)) {
-            statement = configuration.getMappedStatement(namespace + SELECT_BY_PARENT_ID_SQL);
-            System.out.println(statement);
-            List<TreeEntity> query = executor.query(statement, wrapCollection(parentId), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-            if (query.size() < 1) {
-               throw new DaoException("数据库记录数少于1条");
+            statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
+            List<TreeEntity> parentList = executor.query(statement, wrapCollection(parentId), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
+            /**数据库中不存在记录*/
+            if (parentList.size() < 1 || parentList.size() > 1) {
+                throw new DaoException("数据库记录数少于1条或记录数大于1条");
             }
-
+            /**父对象*/
+            TreeEntity parent = parentList.get(0);
+            lft = parent.getRgt();
+            level = parent.getLevel() + 1;
+            /**更新右节点索引*/
+            statement = configuration.getMappedStatement(namespace + UPDATE_RGT_SQL);
+            executor.update(statement, wrapCollection(new Integer[]{2, lft}));
+            /**更新左节点索引*/
+            statement = configuration.getMappedStatement(namespace + UPDATE_LFT_SQL);
+            executor.update(statement, wrapCollection(new Integer[]{2, lft}));
         } else {
             //需要查询最大右值 调用具体mapper类中的selectMaxRgt方法
             statement = configuration.getMappedStatement(namespace + SELECT_MAX_RGT_SQL);
@@ -117,24 +135,31 @@ public class TreePlugin implements Interceptor {
                 lft = maxRgt + 1;
             }
         }
-/*             {
-            statement = configuration.getMappedStatement(namespace + ".getById");
-            List<TreeEntity> parent = executor.query(statement, wrapCollection(entity.getParent().getId()), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-            lft = parent.get(0).getRgt();
-            level = parent.get(0).getLevel();
-
-            statement = configuration.getMappedStatement(namespace + ".increaseRgt");
-            executor.query(statement, wrapCollection(parent.get(0)), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-        }*/
         entity.setLft(lft);
         entity.setRgt(lft + 1);
         entity.setLevel(level);
     }
 
+    /**
+     * 树形结构修改操作
+     *
+     * @param executor
+     * @param namespace
+     * @param configuration
+     * @param entity
+     */
     private void update(Executor executor, String namespace, Configuration configuration, TreeEntity entity) {
-        System.out.println(executor);
+        MappedStatement statement;
+        statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
+
     }
 
+    /**
+     * 缓存集合
+     *
+     * @param object
+     * @return
+     */
     private Object wrapCollection(final Object object) {
         if (object instanceof Collection) {
             StrictMap<Object> map = new StrictMap<>();
@@ -143,7 +168,9 @@ public class TreePlugin implements Interceptor {
                 map.put("list", object);
             }
             return map;
-        } else if (object != null && object.getClass().isArray()) {
+        }
+
+        if (object != null && object.getClass().isArray()) {
             StrictMap<Object> map = new StrictMap<>();
             map.put("array", object);
             return map;
