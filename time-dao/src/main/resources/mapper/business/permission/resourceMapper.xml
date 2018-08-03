@@ -64,7 +64,7 @@
         #{url}
         )
     </insert>
-
+    <!--条件查询-->
     <select id="selectBySearch"  resultMap="baseResultMap">
         select
         <include refid="baseColumn"/>
@@ -75,7 +75,37 @@
             </if>
         </where>-->
     </select>
-
+    <update id="update">
+        update
+        time_resource
+        set
+        <if test="name!=null and name!=''">
+            name=#{name},
+        </if>
+        <if test="code!=null and code!=''">
+            code=#{code},
+        </if>
+        <if test="icon!=null and icon!=''">
+            icon=#{icon},
+        </if>
+        <if test="resourceType!=null">
+            resource_type=#{resourceType},
+        </if>
+        <if test="parent!=null and parent.id!=null">
+            parent_id=#{parent.id},
+        </if>
+        <if test="priority!=null">
+            priority=#{priority},
+        </if>
+        <if test="description!=null and description!=''">
+            description=#{description},
+        </if>
+        <if test="url!=null and url!=''">
+            url=#{url},
+        </if>
+        update_time=#{updateTime}
+        where id=#{id}
+    </update>
 
     <!--##########树形操作方法#############-->
     <!--1.查询最大右值 返回int-->

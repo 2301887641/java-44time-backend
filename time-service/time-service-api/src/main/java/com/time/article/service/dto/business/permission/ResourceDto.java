@@ -22,6 +22,4 @@ public class ResourceDto extends TreeDto<ResourceDto,Integer> {
     private ResourceEnum resourceType;
     private String url;
     private Integer parentId;
-    @JsonIgnore
-    private String parentName;
 }

@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-07-30T20:10:46+0800",
+    date = "2018-08-03T08:08:53+0800",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_51 (Oracle Corporation)"
 )
 public class ResourceConverterImpl implements ResourceConverter {
@@ -48,6 +48,7 @@ public class ResourceConverterImpl implements ResourceConverter {
         resourceCriteria.setIcon( arg0.getIcon() );
         resourceCriteria.setResourceType( arg0.getResourceType() );
         resourceCriteria.setUrl( arg0.getUrl() );
+        resourceCriteria.setIgnoreId( arg0.getIgnoreId() );
 
         return resourceCriteria;
     }
