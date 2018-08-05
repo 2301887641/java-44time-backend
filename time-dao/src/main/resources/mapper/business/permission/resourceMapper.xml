@@ -99,12 +99,14 @@
         where id=#{id}
     </update>
 
-    <!--##########树形操作方法#############-->
-    <!--2.根据id查询-->
     <select id="selectById" resultMap="baseResultMap">
         select
         <include refid="baseColumn"/>
         from time_resource a
         where a.id=#{id}
     </select>
+
+    <delete id="delete" parameterType="integer">
+        delete from time_resource where id=#{id}
+    </delete>
 </mapper>

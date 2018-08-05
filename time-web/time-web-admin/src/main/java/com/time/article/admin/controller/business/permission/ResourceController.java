@@ -26,7 +26,7 @@ public class ResourceController {
     }
 
     @GetMapping("/{id}")
-    public Result info(@PathVariable int id){
+    public Result info(@PathVariable Integer id){
         return Result.success(resourceService.getById(id));
     }
 
@@ -48,6 +48,10 @@ public class ResourceController {
         return Result.success();
     }
 
-
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id){
+        resourceService.delete(id);
+        return Result.success();
+    }
 
 }

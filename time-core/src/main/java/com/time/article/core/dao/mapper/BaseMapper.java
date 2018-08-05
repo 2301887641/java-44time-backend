@@ -40,7 +40,7 @@ public interface BaseMapper<Entity extends BaseEntity<PK>, PK extends Serializab
      * @param data
      * @return
      */
-    Integer update(Entity data);
+    void update(Entity data);
 
     /**
      * 删除
@@ -48,12 +48,12 @@ public interface BaseMapper<Entity extends BaseEntity<PK>, PK extends Serializab
      * @param ids
      * @return
      */
-    Integer remove(List<PK> ids);
+    Integer delete(List<PK> ids);
 
     /**
      * 通过id删除
      * @param id
      * @return
      */
-    Integer remove(PK id);
+    PK delete(PK id);
 }

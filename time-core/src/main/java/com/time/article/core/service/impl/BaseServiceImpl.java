@@ -2,7 +2,6 @@ package com.time.article.core.service.impl;
 
 import com.time.article.core.dao.entity.BaseEntity;
 import com.time.article.core.dao.entity.SearchEntity;
-import com.time.article.core.dao.exception.DaoException;
 import com.time.article.core.dao.mapper.BaseMapper;
 import com.time.article.core.service.api.BaseService;
 import com.time.article.core.service.converter.BaseConverter;
@@ -49,7 +48,7 @@ public class BaseServiceImpl<
      * @return
      */
     @Override
-    public DTO getById(int id) {
+    public DTO getById(Integer id) {
         return converter.entityToDto(mapper.selectById(id));
     }
 
@@ -77,5 +76,15 @@ public class BaseServiceImpl<
     @Override
     public void update(DTO dto) {
         mapper.update(converter.dtoToEntity(dto));
+    }
+
+    /**
+     * 删除单个id
+     * @param id
+     * @return
+     */
+    @Override
+    public PK delete(PK id) {
+        return mapper.delete(id);
     }
 }
