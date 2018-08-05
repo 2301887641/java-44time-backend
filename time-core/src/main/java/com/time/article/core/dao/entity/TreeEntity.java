@@ -13,10 +13,7 @@ import java.io.Serializable;
 @Setter
 public class TreeEntity<ENTITY extends TreeEntity<ENTITY, PK>, PK extends Serializable> extends BaseEntity<PK> {
     private Integer level;
-    @JsonIgnore
-    private Integer lft;
-    @JsonIgnore
-    private Integer rgt;
+    private String path;
     private Integer priority;
     private ENTITY parent;
 }

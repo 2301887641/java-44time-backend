@@ -7,8 +7,5 @@ import lombok.Setter;
 /**
  * @author suiguozhen on 18/07/12
  */
-@Getter
-@Setter
 public class ResourceCriteria extends Resource {
-    private Integer ignoreId;
 }

@@ -13,8 +13,7 @@
       a.url,
       a.parent_id,
       a.priority,
-      a.lft,
-      a.rgt
+      a.path
     </sql>
 
     <resultMap id="baseResultMap" type="com.time.article.dao.entity.business.permission.Resource">
@@ -27,8 +26,7 @@
         <result property="url" column="url" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="INTEGER"/>
         <result property="priority" column="priority" jdbcType="INTEGER"/>
-        <result property="lft" column="lft" jdbcType="INTEGER"/>
-        <result property="rgt" column="rgt" jdbcType="INTEGER"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
         <association property="parent" javaType="com.time.article.dao.entity.business.permission.Resource">
             <id property="id" column="parent_id"/>
         </association>
@@ -40,8 +38,7 @@
         </selectKey>
         insert into time_resource(
         create_time,
-        lft,
-        rgt,
+        path,
         level,
         priority,
         parent_id,
@@ -52,8 +49,7 @@
         url
         ) values(
         #{createTime},
-        #{lft},
-        #{rgt},
+        #{path},
         #{level},
         #{priority},
         #{parent.id},
@@ -69,12 +65,8 @@
         select
         <include refid="baseColumn"/>
         from time_resource a
-<!--        <where>
-            <if test="entity.ignoreId!=null">
-                a.id !=#{entity.ignoreId}
-            </if>
-        </where>-->
     </select>
+
     <update id="update">
         update
         time_resource
@@ -108,10 +100,6 @@
     </update>
 
     <!--##########树形操作方法#############-->
-    <!--1.查询最大右值 返回int-->
-    <select id="selectMaxRgt" resultType="int">
-        select COALESCE(max(rgt),0) from time_resource
-    </select>
     <!--2.根据id查询-->
     <select id="selectById" resultMap="baseResultMap">
         select
@@ -119,12 +107,4 @@
         from time_resource a
         where a.id=#{id}
     </select>
-    <!--3.更新右值-->
-    <update id="updateRgt">
-        update time_resource set rgt = rgt + #{array[0]} where rgt>= #{array[1]}
-    </update>
-    <!--4.更新左值-->
-    <update id="updateLft">
-        update time_resource set lft = lft + #{array[0]} where lft>= #{array[1]}
-    </update>
 </mapper>

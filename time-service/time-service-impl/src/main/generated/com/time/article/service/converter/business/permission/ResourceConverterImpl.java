@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-08-03T08:08:53+0800",
+    date = "2018-08-04T15:58:21+0800",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_51 (Oracle Corporation)"
 )
 public class ResourceConverterImpl implements ResourceConverter {
@@ -39,8 +39,7 @@ public class ResourceConverterImpl implements ResourceConverter {
 
         resourceCriteria.setId( arg0.getId() );
         resourceCriteria.setLevel( arg0.getLevel() );
-        resourceCriteria.setLft( arg0.getLft() );
-        resourceCriteria.setRgt( arg0.getRgt() );
+        resourceCriteria.setPath( arg0.getPath() );
         resourceCriteria.setPriority( arg0.getPriority() );
         resourceCriteria.setName( arg0.getName() );
         resourceCriteria.setCode( arg0.getCode() );
@@ -48,7 +47,6 @@ public class ResourceConverterImpl implements ResourceConverter {
         resourceCriteria.setIcon( arg0.getIcon() );
         resourceCriteria.setResourceType( arg0.getResourceType() );
         resourceCriteria.setUrl( arg0.getUrl() );
-        resourceCriteria.setIgnoreId( arg0.getIgnoreId() );
 
         return resourceCriteria;
     }
@@ -70,9 +68,8 @@ public class ResourceConverterImpl implements ResourceConverter {
             resourceDto.setParentId( id );
         }
         resourceDto.setId( arg0.getId() );
-        resourceDto.setLft( arg0.getLft() );
-        resourceDto.setRgt( arg0.getRgt() );
         resourceDto.setLevel( arg0.getLevel() );
+        resourceDto.setPath( arg0.getPath() );
         resourceDto.setPriority( arg0.getPriority() );
         resourceDto.setName( arg0.getName() );
         resourceDto.setCode( arg0.getCode() );
@@ -95,8 +92,7 @@ public class ResourceConverterImpl implements ResourceConverter {
         resource.setParent( resourceDtoToResource( arg0 ) );
         resource.setId( arg0.getId() );
         resource.setLevel( arg0.getLevel() );
-        resource.setLft( arg0.getLft() );
-        resource.setRgt( arg0.getRgt() );
+        resource.setPath( arg0.getPath() );
         resource.setPriority( arg0.getPriority() );
         resource.setName( arg0.getName() );
         resource.setCode( arg0.getCode() );
