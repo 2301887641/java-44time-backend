@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
+ * 资源
  * @author suiguozhen on 18/07/12
  */
 @RestController
@@ -35,6 +36,7 @@ public class ResourceController {
         if (result.hasErrors()) {
             return ValidatorUtils.validateHasError(result);
         }
+
         resourceService.insert(resourceDto);
         return Result.success();
     }

@@ -1,12 +1,12 @@
+################### 通用配置 ######################
 spring:
-  #spring数据库配置
-  datasource:
+  #profile 设置默认为dev
+  profiles:
+    active: dev
+  druid:
+    #次数据源
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/time?serverTimezone=GMT
     driverClassName: com.mysql.jdbc.Driver
-    username: root
-    password: 123456
-    #dataSource Pool configuration
     # 下面为连接池的补充设置，应用到上面所有数据源中
     initialSize: 5
     minIdle: 5
@@ -48,13 +48,11 @@ mybatis:
   type-aliases-package: com.time.article.dao.entity.business
   #mybatis插入枚举扫描
   typeHandlersPackage: com.time.article.dao.handler
-  
 
 #数据库版本控制
 flyway:
   locations: classpath:/db
   baselineOnMigrate: true
-
 
 #用户认证
 shiro:
@@ -78,3 +76,35 @@ server:
   tomcat:
   #tomcat字符集
     uri-encoding: UTF-8
+
+#profile启用设置
+profile:
+  #是否开启动态数据源
+  dynamicDatasource: true
+
+---
+
+######################## dev配置 ###########################
+spring:
+  profiles: dev
+  #spring数据库配置
+  datasource:
+    #主数据源
+    url: jdbc:mysql://127.0.0.1:3306/time?serverTimezone=GMT
+    username: root
+    password: 123456
+#动态数据源
+dynamicDatasource:
+  #次数据库配置
+  secondaryConfig:
+    #主数据源
+    url: jdbc:mysql://127.0.0.1:3306/buns?serverTimezone=GMT
+    username: root
+    password: 123456
+    #默认的数据源名称
+    datasourceName: master
+
+---
+
+######################### produce配置 ######################
+

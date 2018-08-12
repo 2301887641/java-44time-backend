@@ -2,6 +2,7 @@ package com.time.article.core.service.impl;
 
 import com.time.article.core.dao.entity.TreeEntity;
 import com.time.article.core.dao.mapper.TreeMapper;
+import com.time.article.core.message.constant.Constants;
 import com.time.article.core.service.api.TreeService;
 import com.time.article.core.service.converter.TreeConverter;
 import com.time.article.core.service.dto.TreeDto;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 树形结构格式化
  * @author suiguozhen on 18/04/23
  */
 public class TreeServiceImpl<
@@ -34,8 +36,6 @@ public class TreeServiceImpl<
         MAPPER
         >
         implements TreeService<CriteriaDTO,DTO, PK> {
-    /**parent_id*/
-    private static final Integer PARENT_ID = 0;
 
     @Override
     public List<DTO> converterToTree(List<DTO> treeList) {
@@ -50,7 +50,7 @@ public class TreeServiceImpl<
                 return;
             }
             /**如果当前项的parentId是0的话,放入root中*/
-            if (PARENT_ID.equals(tree.getParentId())) {
+            if (Constants.TREE_PARENT_ID.equals(tree.getParentId())) {
                 root.add(tree);
             }
         });

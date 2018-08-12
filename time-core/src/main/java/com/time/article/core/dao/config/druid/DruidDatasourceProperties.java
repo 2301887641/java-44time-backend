@@ -9,25 +9,19 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
- * @author suiguozhen on 18/06/30
+ * @author suiguozhen on 18/08/11
  */
 @Configuration
-@ConfigurationProperties(prefix = "spring.datasource")
 @Getter
 @Setter
-public class DataSourceProperties {
+@ConfigurationProperties(prefix = "spring.druid")
+public class DruidDatasourceProperties {
     /**
      * 前缀 批量赋值druid需要这个前缀
      */
     private static final String PREFIX = "druid.";
-    /**
-     * 数据库配置
-     */
-    private String driverClassName;
-    private String url;
-    private String username;
-    private String password;
 
+    private String driverClassName;
     private String initialSize;
     private String minIdle;
     private String maxActive;
@@ -43,23 +37,22 @@ public class DataSourceProperties {
     private String poolPreparedStatements;
     private String maxPoolPreparedStatementPerConnectionSize;
     private String useGlobalDataSourceStat;
-
-    @Value("${spring.datasource.connectionProperties.druid.stat.mergeSql}")
+    @Value("${spring.druid.connectionProperties.druid.stat.mergeSql}")
     private String mergeSql;
-    @Value("${spring.datasource.connectionProperties.druid.stat.slowSqlMillis}")
+    @Value("${spring.druid.connectionProperties.druid.stat.slowSqlMillis}")
     private String slowSqlMillis;
 
     /**
-     * 同意设置druid需要的连接属性
+     * 设置druid需要的连接属性
      *
      * @return
      */
-    public Properties getDruidProperties() {
+    public Properties getDruidProperties(String url,String username,String password) {
         Properties properties = new Properties();
-        properties.setProperty(PREFIX + "driverClassName", driverClassName);
         properties.setProperty(PREFIX + "url", url);
         properties.setProperty(PREFIX + "username", username);
         properties.setProperty(PREFIX + "password", password);
+        properties.setProperty(PREFIX + "driverClassName", driverClassName);
         properties.setProperty(PREFIX + "initialSize", initialSize);
         properties.setProperty(PREFIX + "minIdle", minIdle);
         properties.setProperty(PREFIX + "maxActive", maxActive);
@@ -89,5 +82,4 @@ public class DataSourceProperties {
         properties.setProperty(PREFIX + "stat.slowSqlMillis", slowSqlMillis);
         return properties;
     }
-
 }

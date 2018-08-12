@@ -9,8 +9,9 @@ public interface Constants {
     /**
      * -----------------结果集返回--------------------
      * 信息提示相关
-     * 200默认请求成功
-     * 500默认请求失败
+     * ①200默认请求成功
+     * ②500默认请求失败
+     * ③默认提示信息
      */
     Integer RESULT_SUCCESS_CODE = 200;
     Integer RESULT_FAILED_CODE = 500;
@@ -18,11 +19,21 @@ public interface Constants {
 
     /**
      * -----------------树形结构相关---------------------
+     * ①父类id
      */
     Integer TREE_PARENT_ID = 0;
 
     /**
      * -----------------ajax请求标识---------------------
+     * ①判断是否是ajax提交 前端必须提交此属性
      */
     String AJAX_REQUEST_TAG = "XMLHttpRequest";
+
+    /**
+     * ------------------数据源-------------------------
+     * ①主数据源
+     * ②次数据源
+     */
+    String MASTER_DATASOURCE_NAME = "master";
+    String SECONDARY_DATASOURCE_NAME = "secondary";
 }
