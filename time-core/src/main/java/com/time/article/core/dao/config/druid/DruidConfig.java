@@ -21,7 +21,7 @@ import java.util.HashMap;
 @Configuration
 /**
  * 由于引入多数据源，所以让spring事务的aop要在多数据源切换aop的后面
- * 否则回报 表找不到的问题
+ * 否则会报 表找不到的
  * //TODO 未解决多数据源的事务问题
  * @author suiguozhen on 18/08/12
  * */
