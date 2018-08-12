@@ -2,6 +2,7 @@ package com.time.article.admin.controller.business.permission;
 
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.ValidatorUtils;
+import com.time.article.service.api.business.TestService;
 import com.time.article.service.api.business.permission.ResourceService;
 import com.time.article.service.criteria.business.permission.ResourceCriteriaDto;
 import com.time.article.service.dto.business.permission.ResourceDto;
@@ -21,13 +22,19 @@ public class ResourceController {
     @Autowired
     private ResourceService resourceService;
 
+    @Autowired
+    private TestService testService;
+
     @GetMapping
     public Result index(ResourceCriteriaDto resourceCriteriaDto) {
-        return Result.success(resourceService.converterToTree(resourceService.getList(resourceCriteriaDto)));
+        testService.save();
+        return null;
+//        return Result.success(resourceService.converterToTree(resourceService.getList(resourceCriteriaDto)));
     }
 
     @GetMapping("/{id}")
     public Result info(@PathVariable Integer id){
+        testService.add();
         return Result.success(resourceService.getById(id));
     }
 

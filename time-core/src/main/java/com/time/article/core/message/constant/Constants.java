@@ -36,4 +36,12 @@ public interface Constants {
      */
     String MASTER_DATASOURCE_NAME = "master";
     String SECONDARY_DATASOURCE_NAME = "secondary";
+
+    /**
+     * ------------------Aop执行顺序-------------------
+     * ①Aop多数据源执行顺序
+     * ②Aop Spring事务执行顺序
+     */
+    int AOP_DYNAMIC_DATASOURCE_ORDER = 1;
+    int AOP_TRANSACTION_ORDER = 2;
 }

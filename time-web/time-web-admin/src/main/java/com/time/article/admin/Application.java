@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication(scanBasePackages = {"com.time.article"})
 @MapperScan("com.time.article.dao.mapper")
-@EnableTransactionManagement
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class);

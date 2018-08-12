@@ -77,7 +77,7 @@ server:
   #tomcat字符集
     uri-encoding: UTF-8
 
-#profile启用设置
+###################### profile启用设置 #########################
 profile:
   #是否开启动态数据源
   dynamicDatasource: true

@@ -29,6 +29,8 @@ public enum RestCodeEnums {
      * dao层错误
      */
     DAO_EXCEPTION(3302, "数据请求错误"),
+    /**Aop异常*/
+    AOP_EXCEPTION(3303,"aop拦截错误"),
     /**默认异常*/
     DEFAULT_EXCEPTION(500,"网络繁忙，请稍后重试");
 

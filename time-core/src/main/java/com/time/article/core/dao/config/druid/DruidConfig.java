@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -14,9 +15,17 @@ import java.util.HashMap;
 
 /**
  * 数据源配置
+ *
  * @author suiguozhen on 18/06/30
  */
 @Configuration
+/**
+ * 由于引入多数据源，所以让spring事务的aop要在多数据源切换aop的后面
+ * 否则回报 表找不到的问题
+ * //TODO 未解决多数据源的事务问题
+ * @author suiguozhen on 18/08/12
+ * */
+@EnableTransactionManagement(order = Constants.AOP_TRANSACTION_ORDER)
 public class DruidConfig {
     @Autowired
     MasterDatasourceProperties masterDatasourceProperties;
@@ -26,6 +35,7 @@ public class DruidConfig {
 
     /**
      * 主数据源配置
+     *
      * @param druidDatasourceProperties
      * @return
      */
@@ -42,10 +52,11 @@ public class DruidConfig {
 
     /**
      * 次数据源配置
+     *
      * @param druidDatasourceProperties
      * @return
      */
-    public DruidDataSource secondaryDatasource(DruidDatasourceProperties druidDatasourceProperties){
+    public DruidDataSource secondaryDatasource(DruidDatasourceProperties druidDatasourceProperties) {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.configFromPropety(druidDatasourceProperties.getDruidProperties(
                 secondaryDatasourceProperties.getUrl(),
@@ -58,23 +69,25 @@ public class DruidConfig {
 
     /**
      * 单数据源bean
+     *
      * @param druidDatasourceProperties
      * @return
      */
     @Bean
-    @ConditionalOnProperty(prefix = "profile",name = "dynamicDatasource",havingValue = "false")
-    public DruidDataSource singleDatasource(DruidDatasourceProperties druidDatasourceProperties){
+    @ConditionalOnProperty(prefix = "profile", name = "dynamicDatasource", havingValue = "false")
+    public DruidDataSource singleDatasource(DruidDatasourceProperties druidDatasourceProperties) {
         return masterDatasource(druidDatasourceProperties);
     }
 
     /**
      * 多数据源bean
+     *
      * @param druidDatasourceProperties
      * @return
      * @throws SQLException
      */
     @Bean
-    @ConditionalOnProperty(prefix = "profile",name = "dynamicDatasource",havingValue = "true")
+    @ConditionalOnProperty(prefix = "profile", name = "dynamicDatasource", havingValue = "true")
     public DynamicDataSource dynamicDatasource(DruidDatasourceProperties druidDatasourceProperties) throws SQLException {
         DruidDataSource masterDataSource = masterDatasource(druidDatasourceProperties);
         DruidDataSource secondaryDataSource = secondaryDatasource(druidDatasourceProperties);
@@ -84,8 +97,8 @@ public class DruidConfig {
 
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         HashMap<Object, Object> map = new HashMap<>(2);
-        map.put(Constants.MASTER_DATASOURCE_NAME,masterDataSource);
-        map.put(Constants.SECONDARY_DATASOURCE_NAME,secondaryDataSource);
+        map.put(Constants.MASTER_DATASOURCE_NAME, masterDataSource);
+        map.put(Constants.SECONDARY_DATASOURCE_NAME, secondaryDataSource);
         dynamicDataSource.setDefaultTargetDataSource(masterDataSource);
         dynamicDataSource.setTargetDataSources(map);
         return dynamicDataSource;
