@@ -102,3 +102,21 @@ create table time_resource(
 	parent_id INT(11) default 0 not null comment '父id',
 	priority INT(11) default 0 not null comment '优先级'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for t_log
+-- ----------------------------
+DROP TABLE IF EXISTS time_operation_log;
+CREATE TABLE time_operation_log (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  create_time timestamp DEFAULT 0,
+  log_type TINYINT(1) NOT NULL DEFAULT 1 comment '1:业务日志',
+  title VARCHAR(64) NOT NULL DEFAULT '' comment '操作事项',
+  content VARCHAR(255) NOT NULL DEFAULT '' comment '操作内容',
+  ip CHAR(15) NOT NULL DEFAULT '0' comment 'ip',
+  user_id INT(11) NOT NULL DEFAULT 0 comment '用户id',
+  classname varchar(255) NOT NULL DEFAULT '' comment '类名称',
+  method varchar(255) NOT NULL DEFAULT '' comment '方法名称',
+  result varchar(20) NOT NULL DEFAULT '成功' comment '是否成功',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

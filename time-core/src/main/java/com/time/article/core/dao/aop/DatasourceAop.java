@@ -1,6 +1,6 @@
 package com.time.article.core.dao.aop;
 
-import com.time.article.core.dao.annotation.Datasource;
+import com.time.article.core.dao.annotation.Custom_Datasource;
 import com.time.article.core.dao.config.datasource.DynamicDataSourceContext;
 import com.time.article.core.dao.exception.DatasourceAnnotationException;
 import com.time.article.core.message.constant.Constants;
@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 @Component
 @ConditionalOnProperty(prefix = "profile",name = "dynamicDatasource",havingValue = "true")
 public class DatasourceAop implements Ordered {
-    @Pointcut("@annotation(com.time.article.core.dao.annotation.Datasource)")
+    @Pointcut("@annotation(com.time.article.core.dao.annotation.Custom_Datasource)")
     public void datasource(){}
 
     @Around("datasource()")
@@ -38,7 +38,7 @@ public class DatasourceAop implements Ordered {
         Object target = point.getTarget();
         Method method = target.getClass().getMethod(methodSignature.getName(), methodSignature.getParameterTypes());
         /**注解上的方法执行前 获取方法上的注解 并设置数据源*/
-        Datasource annotation = method.getAnnotation(Datasource.class);
+        Custom_Datasource annotation = method.getAnnotation(Custom_Datasource.class);
         DynamicDataSourceContext.setDataSourceName(annotation.value());
         try {
              return point.proceed();

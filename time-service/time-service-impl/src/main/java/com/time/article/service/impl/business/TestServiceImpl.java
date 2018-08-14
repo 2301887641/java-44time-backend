@@ -1,6 +1,6 @@
 package com.time.article.service.impl.business;
 
-import com.time.article.core.dao.annotation.Datasource;
+import com.time.article.core.dao.annotation.Custom_Datasource;
 import com.time.article.core.message.constant.Constants;
 import com.time.article.dao.mapper.business.permission.TestMapper;
 import com.time.article.service.api.business.TestService;
@@ -16,7 +16,7 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private TestMapper testMapper;
 
-    @Datasource(Constants.SECONDARY_DATASOURCE_NAME)
+    @Custom_Datasource(Constants.DATASOURCE_SECONDARY_NAME)
     @Override
     @Transactional(rollbackFor=Exception.class)
     public void save() {

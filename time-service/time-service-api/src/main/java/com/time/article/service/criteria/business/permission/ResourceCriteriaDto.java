@@ -10,5 +10,4 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResourceCriteriaDto extends ResourceDto {
-    private Integer ignoreId;
 }

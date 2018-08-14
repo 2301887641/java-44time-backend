@@ -34,8 +34,8 @@ public interface Constants {
      * ①主数据源
      * ②次数据源
      */
-    String MASTER_DATASOURCE_NAME = "master";
-    String SECONDARY_DATASOURCE_NAME = "secondary";
+    String DATASOURCE_MASTER__NAME = "master";
+    String DATASOURCE_SECONDARY_NAME = "secondary";
 
     /**
      * ------------------Aop执行顺序-------------------
@@ -44,4 +44,9 @@ public interface Constants {
      */
     int AOP_DYNAMIC_DATASOURCE_ORDER = 1;
     int AOP_TRANSACTION_ORDER = 2;
+
+    /**
+     * -------------------自定义日志注解描述-----------------------------
+     */
+    String CUSTOM_ANNOTATION_MISSING = "未填写";
 }

@@ -1,15 +1,19 @@
 package com.time.article.admin.controller.business.permission;
 
+import com.time.article.core.controller.annotation.Custom_MethodLog;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.ValidatorUtils;
 import com.time.article.service.api.business.permission.ResourceService;
 import com.time.article.service.criteria.business.permission.ResourceCriteriaDto;
 import com.time.article.service.dto.business.permission.ResourceDto;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 
 /**
  * 资源
@@ -22,8 +26,15 @@ public class ResourceController {
     private ResourceService resourceService;
 
     @GetMapping
+    @Custom_MethodLog("访问资源")
     public Result index(ResourceCriteriaDto resourceCriteriaDto) {
-        return Result.success(resourceService.converterToTree(resourceService.getList(resourceCriteriaDto)));
+        Field[] allFields = FieldUtils.getAllFields(ResourceCriteriaDto.class);
+//        Field[] declaredFields = resourceCriteriaDto.getClass().getDeclaredFields();
+        Arrays.stream(allFields).forEach(attr->{
+//            System.out.println(attr.getName());
+        });
+        return null;
+//        return Result.success(resourceService.converterToTree(resourceService.getList(resourceCriteriaDto)));
     }
 
     @GetMapping("/{id}")
@@ -36,7 +47,6 @@ public class ResourceController {
         if (result.hasErrors()) {
             return ValidatorUtils.validateHasError(result);
         }
-
         resourceService.insert(resourceDto);
         return Result.success();
     }

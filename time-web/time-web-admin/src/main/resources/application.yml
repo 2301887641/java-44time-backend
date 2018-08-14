@@ -36,6 +36,11 @@ spring:
           slowSqlMillis: 5000
     # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: true
+  #热部署配置
+  devtools:
+    restart:
+      #开启热部署
+      enabled: true
 
 #mybatis配置
 mybatis:
@@ -80,7 +85,7 @@ server:
 ###################### profile启用设置 #########################
 profile:
   #是否开启动态数据源
-  dynamicDatasource: true
+  dynamicDatasource: false
 
 ---
 

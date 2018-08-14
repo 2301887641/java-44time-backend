@@ -97,8 +97,8 @@ public class DruidConfig {
 
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         HashMap<Object, Object> map = new HashMap<>(2);
-        map.put(Constants.MASTER_DATASOURCE_NAME, masterDataSource);
-        map.put(Constants.SECONDARY_DATASOURCE_NAME, secondaryDataSource);
+        map.put(Constants.DATASOURCE_MASTER__NAME, masterDataSource);
+        map.put(Constants.DATASOURCE_SECONDARY_NAME, secondaryDataSource);
         dynamicDataSource.setDefaultTargetDataSource(masterDataSource);
         dynamicDataSource.setTargetDataSources(map);
         return dynamicDataSource;

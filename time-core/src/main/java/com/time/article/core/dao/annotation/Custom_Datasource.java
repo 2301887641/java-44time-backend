@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Datasource {
-    String value() default Constants.MASTER_DATASOURCE_NAME;
+public @interface Custom_Datasource {
+    String value() default Constants.DATASOURCE_MASTER__NAME;
 }
