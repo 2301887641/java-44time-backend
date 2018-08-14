@@ -1,8 +1,10 @@
 package com.time.article.core.controller.aop;
 
 import com.time.article.core.controller.annotation.Custom_FieldLog;
+import com.time.article.core.controller.annotation.Custom_MethodLog;
 import com.time.article.core.controller.exception.AccessLogException;
 import com.time.article.core.message.constant.Constants;
+import com.time.article.core.service.dto.BaseDto;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -20,7 +22,7 @@ import java.util.*;
 
 /**
  * 访问日志Aop
- *
+ * 仅支持form-data方式的前台数据请求 json格式暂时无法支持 因为获取json很麻烦
  * @author suiguozhen on 18/08/13
  */
 @Aspect
@@ -36,17 +38,20 @@ public class AccessLogAop {
         if (!(signature instanceof MethodSignature)) {
             throw new AccessLogException();
         }
-        /**获取请求map*/
+        MethodSignature methodSignature = (MethodSignature) signature;
+        /**获取请求并封装成map*/
         Map<String, String[]> requestMap = getRequestMap();
         if(requestMap.isEmpty()){
-            //Todo记录注解即可
+            //TODO 记录注解即可
+            methodSignature.getMethod().getAnnotation(Custom_MethodLog.class).value();
         }
-
         /**先对方法进行执行*/
         Object object = point.proceed();
-        Object[] args = point.getArgs();
-        for(Object arg:args){
-            getAllFields(arg.getClass(),requestMap);
+        for(Object arg:point.getArgs()){
+            /**只对BaseDao的子类进行记录*/
+            if(arg instanceof BaseDto){
+                getAllFields(arg.getClass(),requestMap);
+            }
         }
         return object;
     }
@@ -82,6 +87,7 @@ public class AccessLogAop {
 
     /**
      * 获取请求并封装成map
+     * 仅支持form-data方式的前台数据请求 json格式暂时无法支持 因为获取json很麻烦
      * @return
      */
     private Map<String,String[]> getRequestMap(){
