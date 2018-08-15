@@ -16,6 +16,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
+ * 基类实现
  * @author suiguozhen on 18/06/30
  */
 

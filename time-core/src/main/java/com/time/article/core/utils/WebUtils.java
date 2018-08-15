@@ -1,5 +1,7 @@
 package com.time.article.core.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.time.article.core.message.constant.Constants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author suiguozhen on 18/03/30
  */
-public class WebUtil {
+public class WebUtils {
 
     /**
      * 判断当前请求是否是ajax请求
@@ -21,5 +23,16 @@ public class WebUtil {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 对象转json
+     * @param obj
+     * @return
+     * @throws JsonProcessingException
+     */
+    public static String toJson(Object obj) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(obj);
     }
 }

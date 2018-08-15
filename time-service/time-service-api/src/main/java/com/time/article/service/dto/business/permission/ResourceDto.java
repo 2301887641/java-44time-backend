@@ -1,7 +1,6 @@
 package com.time.article.service.dto.business.permission;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.time.article.core.controller.annotation.Custom_FieldLog;
+import com.time.article.core.controller.annotation.Custom_OperationFieldLog;
 import com.time.article.core.service.dto.TreeDto;
 import com.time.article.dao.enums.business.permission.ResourceEnum;
 import lombok.Getter;
@@ -16,13 +15,12 @@ import org.hibernate.validator.constraints.NotBlank;
 public class ResourceDto extends TreeDto<ResourceDto,Integer> {
     @NotBlank(message = "资源名称不能为空")
     private String name;
-    @Custom_FieldLog("权限路由:设置为")
+    @Custom_OperationFieldLog("权限路由:设置为")
     private String code;
-    @Custom_FieldLog("描述:设置为")
+    @Custom_OperationFieldLog("描述:设置为")
     private String description;
     @NotBlank(message = "资源图标不能为空")
     private String icon;
     private ResourceEnum resourceType;
     private String url;
-    private Integer parentId;
 }

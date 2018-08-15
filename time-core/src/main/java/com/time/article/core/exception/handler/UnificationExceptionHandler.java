@@ -2,7 +2,7 @@ package com.time.article.core.exception.handler;
 
 import com.time.article.core.enums.restcode.RestCodeEnums;
 import com.time.article.core.message.result.Result;
-import com.time.article.core.utils.WebUtil;
+import com.time.article.core.utils.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -41,7 +41,7 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
             requestURL.append(exception.getMessage());
             log.error("请求地址："+requestURL.toString());
             /**ajax请求 返回500*/
-            if(WebUtil.isAjaxRequest(request)){
+            if(WebUtils.isAjaxRequest(request)){
                 return new ResponseEntity<>(Result.failed(RestCodeEnums.DEFAULT_EXCEPTION.getCode(),RestCodeEnums.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
             }
             /**页面请求*/

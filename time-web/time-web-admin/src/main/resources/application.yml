@@ -86,6 +86,8 @@ server:
 profile:
   #是否开启动态数据源
   dynamicDatasource: false
+  #是否记录操作日志到数据库
+  operationLog: true
 
 ---
 

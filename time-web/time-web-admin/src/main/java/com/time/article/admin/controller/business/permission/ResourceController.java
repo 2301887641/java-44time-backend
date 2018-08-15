@@ -1,6 +1,6 @@
 package com.time.article.admin.controller.business.permission;
 
-import com.time.article.core.controller.annotation.Custom_MethodLog;
+import com.time.article.core.controller.annotation.Custom_OperationMethodLog;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.ValidatorUtils;
 import com.time.article.service.api.business.permission.ResourceService;
@@ -26,15 +26,9 @@ public class ResourceController {
     private ResourceService resourceService;
 
     @GetMapping
-    @Custom_MethodLog("访问资源")
+    @Custom_OperationMethodLog("查询资源")
     public Result index(ResourceCriteriaDto resourceCriteriaDto) {
-        Field[] allFields = FieldUtils.getAllFields(ResourceCriteriaDto.class);
-//        Field[] declaredFields = resourceCriteriaDto.getClass().getDeclaredFields();
-        Arrays.stream(allFields).forEach(attr->{
-//            System.out.println(attr.getName());
-        });
-        return null;
-//        return Result.success(resourceService.converterToTree(resourceService.getList(resourceCriteriaDto)));
+        return Result.success(resourceService.converterToTree(resourceService.getList(resourceCriteriaDto)));
     }
 
     @GetMapping("/{id}")

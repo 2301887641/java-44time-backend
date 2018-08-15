@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * 资源
  * @author suiguozhen on 18/05/02
  */
 @Getter

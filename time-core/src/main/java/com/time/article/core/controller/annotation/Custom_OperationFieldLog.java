@@ -15,6 +15,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Custom_FieldLog {
+public @interface Custom_OperationFieldLog {
     String value() default Constants.CUSTOM_ANNOTATION_MISSING;
 }

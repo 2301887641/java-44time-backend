@@ -11,6 +11,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Custom_MethodLog {
+public @interface Custom_OperationMethodLog {
+    /**表示具体的哪个模块 带上crud前缀*/
     String value();
+    /**区分类型 crud 1.查询或删除 2.添加或修改 */
+    short type() default 1;
 }

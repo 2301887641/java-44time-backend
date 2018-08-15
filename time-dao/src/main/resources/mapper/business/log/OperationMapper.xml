@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.time.article.dao.mapper.business.log.OperationLogMapper">
+    <sql id="base_column">
+        a.id,
+        a.title,
+        a.log_type,
+        a.content,
+        a.create_time
+    </sql>
+    <resultMap id="base_resultMap" type="com.time.article.dao.entity.business.log.OperationLog">
+        <id jdbcType="INTEGER" column="id"/>
+        <result property="logType"  column="log_type" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <insert id="insert">
+        <selectKey resultType="integer" keyProperty="id" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into time_operation_log (
+        create_time,
+        log_type,
+        title,
+        content,
+        ip,
+        user_id,
+        classname,
+        method,
+        result
+        )values(
+        #{create_time},
+        #{log_type},
+        #{title},
+        #{content},
+        #{ip},
+        #{user_id},
+        #{classname},
+        #{method},
+        #{result}
+        )
+    </insert>
+</mapper>
