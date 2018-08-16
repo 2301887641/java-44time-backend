@@ -111,11 +111,11 @@ CREATE TABLE time_operation_log (
   id INT(11) NOT NULL AUTO_INCREMENT,
   create_time timestamp DEFAULT 0,
   log_type TINYINT(1) NOT NULL DEFAULT 1 comment '1:业务日志',
-  title VARCHAR(64) NOT NULL DEFAULT '' comment '操作事项',
-  content VARCHAR(255) NOT NULL DEFAULT '' comment '操作内容',
+  title VARCHAR(50) NOT NULL DEFAULT '' comment '操作事项',
+  content VARCHAR(200) NOT NULL DEFAULT '' comment '操作内容',
   ip CHAR(15) NOT NULL DEFAULT '0' comment 'ip',
   user_id INT(11) NOT NULL DEFAULT 0 comment '用户id',
-  class_name varchar(255) NOT NULL DEFAULT '' comment '类名称',
+  class_name varchar(200) NOT NULL DEFAULT '' comment '类名称',
   result varchar(200) NOT NULL DEFAULT '成功' comment '是否成功',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
