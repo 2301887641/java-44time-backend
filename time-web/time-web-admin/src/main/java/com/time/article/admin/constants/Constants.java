@@ -5,6 +5,8 @@ package com.time.article.admin.constants;
  * @author suiguozhen on 18/07/10
  */
 public interface Constants {
-    /*session*/
+    /**session*/
     String SESSION_USER_ID="userId";
+    /**aop记录日志*/
+    String AOP_LOG_DEFAULT_RESULT="成功";
 }

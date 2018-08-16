@@ -6,15 +6,15 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 计划任务实现基类
+ * 计划任务基类
  *
  * @author suiguozhen on 18/08/15
  */
-public class ScheduleManagerImpl implements ScheduleManager {
+public class BaseScheduleManager {
     /**
      * 延期时间
      */
-    public int delay = 10;
+    public int delay = 1;
     /**
      * 延期单位
      */
@@ -34,7 +34,7 @@ public class ScheduleManagerImpl implements ScheduleManager {
      */
     public static ScheduledThreadPoolExecutor getExecutor() {
         if (Objects.isNull(scheduleExecutor)) {
-            synchronized (ScheduleManagerImpl.class) {
+            synchronized (BaseScheduleManager.class) {
                 if (Objects.isNull(scheduleExecutor)) {
                     scheduleExecutor = new ScheduledThreadPoolExecutor(corePoolSize);
                 }
@@ -47,11 +47,15 @@ public class ScheduleManagerImpl implements ScheduleManager {
      * 获取实例
      * @return
      */
-    public static ScheduleManagerImpl getInstance(){
-        return new ScheduleManagerImpl();
+    public static BaseScheduleManager getInstance(){
+        getExecutor();
+        return new BaseScheduleManager();
     }
 
-    @Override
+    /**
+     * 执行计划任务
+     * @param task
+     */
     public void execute(TimerTask task) {
         scheduleExecutor.schedule(task, delay, unit);
     }

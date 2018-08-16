@@ -115,8 +115,7 @@ CREATE TABLE time_operation_log (
   content VARCHAR(255) NOT NULL DEFAULT '' comment '操作内容',
   ip CHAR(15) NOT NULL DEFAULT '0' comment 'ip',
   user_id INT(11) NOT NULL DEFAULT 0 comment '用户id',
-  classname varchar(255) NOT NULL DEFAULT '' comment '类名称',
-  method varchar(255) NOT NULL DEFAULT '' comment '方法名称',
-  result varchar(20) NOT NULL DEFAULT '成功' comment '是否成功',
+  class_name varchar(255) NOT NULL DEFAULT '' comment '类名称',
+  result varchar(200) NOT NULL DEFAULT '成功' comment '是否成功',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -1,13 +1,16 @@
 package com.time.article.admin.aop;
 
+import com.time.article.admin.constants.Constants;
 import com.time.article.core.controller.annotation.Custom_OperationFieldLog;
-import com.time.article.core.controller.annotation.Custom_OperationMethodLog;
+import com.time.article.admin.annotation.Custom_OperationMethodLog;
 import com.time.article.core.controller.exception.AccessLogException;
-import com.time.article.core.controller.schedule.ScheduleManagerImpl;
+import com.time.article.core.controller.schedule.BaseScheduleManager;
 import com.time.article.core.service.dto.BaseDto;
 import com.time.article.core.utils.WebUtils;
+import com.time.article.dao.enums.business.log.LogEnum;
 import com.time.article.service.api.business.log.OperationLogService;
 import com.time.article.service.dto.business.log.OperationLogDto;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -34,11 +37,12 @@ import java.util.*;
 @Aspect
 @Component
 @ConditionalOnProperty(prefix = "profile", name = "operationLog", havingValue = "true")
+@Slf4j
 public class AccessLogAop {
     @Autowired
     private OperationLogService operationLogService;
 
-    @Pointcut("@annotation(com.time.article.core.controller.annotation.Custom_OperationMethodLog)")
+    @Pointcut("@annotation(com.time.article.admin.annotation.Custom_OperationMethodLog)")
     public void pointcut() {
     }
 
@@ -54,31 +58,52 @@ public class AccessLogAop {
         HttpServletRequest request = getRequest();
         /**执行目标方法*/
         Object object = point.proceed();
+        LogEnum logType = methodSignature.getMethod().getAnnotation(Custom_OperationMethodLog.class).type();
         operationLogDto.setTitle(methodSignature.getMethod().getAnnotation(Custom_OperationMethodLog.class).value());
+        operationLogDto.setContent(operationLogDto.getTitle());
         operationLogDto.setClassName(methodSignature.toString());
         operationLogDto.setUserId(1);
+        operationLogDto.setLogType(logType);
         operationLogDto.setIp(request.getRemoteAddr());
-        operationLogDto.setResult(WebUtils.toJson(object));
-        if (request.getParameterMap().isEmpty()) {
-            ScheduleManagerImpl.getInstance().execute(operationLogTask(operationLogDto));
+        /**如果 请求的函数函数为空||查询操作||查询参数为空 不会比对参数*/
+        if (point.getArgs().length < 1 || LogEnum.LOG_SELECT.getOrdinal().equals(logType.getOrdinal())) {
+            operationLogDto.setResult(Constants.AOP_LOG_DEFAULT_RESULT);
+            BaseScheduleManager.getInstance().execute(operationLogTask(operationLogDto));
             return object;
         }
+        operationLogDto.setResult(WebUtils.toJson(object));
+        /**如果是请求删除函数的话 需要记录返回值id*/
+        if(LogEnum.LOG_DELETE.getOrdinal().equals(logType.getOrdinal())){
+            BaseScheduleManager.getInstance().execute(operationLogTask(operationLogDto));
+            return object;
+        }
+        /**遍历函数的参数执行比对属性*/
         for (Object arg : point.getArgs()) {
             /**只对BaseDao的子类进行记录*/
             if (arg instanceof BaseDto) {
                 operationLogDto.setContent(getContent(arg.getClass(), request.getParameterMap()));
-                ScheduleManagerImpl.getInstance().execute(operationLogTask(operationLogDto));
+                BaseScheduleManager.getInstance().execute(operationLogTask(operationLogDto));
                 break;
             }
         }
         return object;
     }
 
-    public TimerTask operationLogTask(OperationLogDto operationLogDto){
+    /**
+     * 记录操作日志任务
+     *
+     * @param operationLogDto
+     * @return
+     */
+    private TimerTask operationLogTask(OperationLogDto operationLogDto) {
         return new TimerTask() {
             @Override
             public void run() {
-                operationLogService.insert(operationLogDto);
+                try {
+                    operationLogService.insert(operationLogDto);
+                } catch (Exception e) {
+                    log.error(e.getMessage());
+                }
             }
         };
     }
@@ -91,7 +116,6 @@ public class AccessLogAop {
      * @return
      */
     private String getContent(final Class<?> clazz, Map<String, String[]> requestMap) {
-        final List<Field> list = new ArrayList<>();
         Class<?> currentClass = clazz;
         StringBuilder stringBuilder = new StringBuilder();
         String temp;
@@ -108,9 +132,6 @@ public class AccessLogAop {
                     temp = annotation.value();
                 }
                 stringBuilder.append(temp).append(requestValue[0]).append("\r\n");
-            }
-            if (list.size() > 0) {
-                Collections.addAll(list, declaredFields);
             }
             currentClass = currentClass.getSuperclass();
         }

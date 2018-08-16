@@ -54,14 +54,16 @@ public class BaseServiceImpl<
     }
 
     /**
-     * 添加操作
+     * 添加操作 并返回添加的id
      *
      * @param dto
      * @return
      */
     @Override
     public PK insert(DTO dto){
-        return mapper.insert(converter.dtoToEntity(dto));
+        ENTITY entity = converter.dtoToEntity(dto);
+        mapper.insert(entity);
+        return entity.getId();
     }
 
     @Override
@@ -80,12 +82,12 @@ public class BaseServiceImpl<
     }
 
     /**
-     * 删除单个id
+     * 删除单个id 并返回id
      * @param id
      * @return
      */
     @Override
     public PK delete(PK id) {
-        return mapper.delete(id);
+        return  mapper.delete(id);
     }
 }

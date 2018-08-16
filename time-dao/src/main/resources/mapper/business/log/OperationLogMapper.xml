@@ -29,18 +29,16 @@
         content,
         ip,
         user_id,
-        classname,
-        method,
+        class_name,
         result
         )values(
-        #{create_time},
-        #{log_type},
+        #{createTime},
+        #{logType},
         #{title},
         #{content},
         #{ip},
-        #{user_id},
-        #{classname},
-        #{method},
+        #{userId},
+        #{className},
         #{result}
         )
     </insert>

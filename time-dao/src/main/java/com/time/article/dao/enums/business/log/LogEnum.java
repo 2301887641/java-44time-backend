@@ -8,10 +8,11 @@ import lombok.Getter;
  * @author suiguozhen on 18/08/15
  */
 @Getter
-public enum LogEnum implements BaseEnum {
+public enum LogEnum  implements BaseEnum {
     /**日志操作类型*/
     LOG_SELECT(1,"查询"),
-    LOG_UPDATE(2,"修改");
+    LOG_DELETE(2,"删除"),
+    LOG_UPDATE(3,"修改");
 
     private Integer ordinal;
     private String label;
