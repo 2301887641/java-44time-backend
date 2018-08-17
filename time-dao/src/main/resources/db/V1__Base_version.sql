@@ -84,27 +84,27 @@ CREATE TABLE time_permission (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for time_resource
+-- Table structure for time_resource 资源
 -- ----------------------------
 DROP TABLE IF EXISTS time_resource;
 create table time_resource(
 	id INT(11) auto_increment primary key,
 	create_time timestamp DEFAULT 0,
 	update_time timestamp DEFAULT 0,
-	level INT(3) DEFAULT NULL comment '级别',
-	path varchar(250) default '|' not null comment '路径 记录父id 用|分割',
+	level INT(3) DEFAULT NULL default 0 comment '级别',
+	path varchar(300) default '' not null comment '路径 记录父id 用|分割',
 	name varchar(36) default '' not null comment '菜单或方法名称',
 	code varchar(100) default '' not null comment '权限路由',
-	description varchar(255) default '' not null comment '描述',
+	description varchar(200) default '' not null comment '描述',
 	icon varchar(30) default '' not null comment '图标',
-	resource_type int default 0 not null comment '资源类型 0 模块  1操作 模块就是可以有下级，操作就是增删改查 ',
-	url varchar(255) default '' not null comment '页面访问url',
+	resource_type INT(11) default 0 not null comment '资源类型 0 模块  1操作 模块就是可以有下级，操作就是增删改查 ',
+	url varchar(100) default '' not null comment '页面访问url',
 	parent_id INT(11) default 0 not null comment '父id',
 	priority INT(11) default 0 not null comment '优先级'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for t_log
+-- Table structure for time_operation_log 操作日志
 -- ----------------------------
 DROP TABLE IF EXISTS time_operation_log;
 CREATE TABLE time_operation_log (

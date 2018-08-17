@@ -8,10 +8,7 @@ import com.time.article.core.service.converter.TreeConverter;
 import com.time.article.core.service.dto.TreeDto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 树形结构格式化

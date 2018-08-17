@@ -46,7 +46,8 @@
         code,
         icon,
         resource_type,
-        url
+        url,
+        description
         ) values(
         #{createTime},
         #{path},
@@ -57,7 +58,8 @@
         #{code},
         #{icon},
         #{resourceType},
-        #{url}
+        #{url},
+        #{description}
         )
     </insert>
     <!--条件查询-->
@@ -99,14 +101,21 @@
         where id=#{id}
     </update>
 
+    <delete id="delete" parameterType="integer">
+        delete from time_resource where id=#{id}
+    </delete>
+
+    <!--树形结构必须声明方法-->
+    <!--①根据id查询-->
     <select id="selectById" resultMap="baseResultMap">
         select
         <include refid="baseColumn"/>
         from time_resource a
         where a.id=#{id}
     </select>
-
-    <delete id="delete" parameterType="integer">
-        delete from time_resource where id=#{id}
-    </delete>
+    <!--②根据like查询id-->
+    <select id="selectIdsByLike"  resultMap="baseResultMap">
+        select id from time_resource a
+        where a.path LIKE CONCAT("%{",#{id},"}%")
+    </select>
 </mapper>

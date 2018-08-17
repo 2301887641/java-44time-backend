@@ -32,7 +32,7 @@ public class BaseScheduleManager {
     /**
      * 获取实例方法
      */
-    public static ScheduledThreadPoolExecutor getExecutor() {
+    public static void getExecutor() {
         if (Objects.isNull(scheduleExecutor)) {
             synchronized (BaseScheduleManager.class) {
                 if (Objects.isNull(scheduleExecutor)) {
@@ -40,7 +40,6 @@ public class BaseScheduleManager {
                 }
             }
         }
-        return scheduleExecutor;
     }
 
     /**

@@ -52,7 +52,7 @@ public class ResourceController {
         }
         resourceDto.setId(id);
         resourceService.update(resourceDto);
-        return Result.success();
+        return Result.success(id);
     }
 
     @Custom_OperationMethodLog(value = "删除资源",type = LogEnum.LOG_DELETE)

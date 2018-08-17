@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public enum  ResourceEnum implements BaseEnum {
     /**资源类型*/
-    MODULE(0,"菜单"), ACTION(1,"按钮");
+    MODULE(1,"菜单"), ACTION(2,"按钮");
 
     private Integer ordinal;
     private String label;
