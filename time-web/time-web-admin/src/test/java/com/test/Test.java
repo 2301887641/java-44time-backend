@@ -9,6 +9,6 @@ import com.time.article.core.enums.restcode.BusinessCodeEnums;
 public class Test {
     @org.junit.Test
     public  void main(){
-        System.out.println(new BusinessException(BusinessCodeEnums.RECORD_MISSED));
+        System.out.println(new BusinessException(BusinessCodeEnums.DAO_RECORD_MISSED));
     }
 }

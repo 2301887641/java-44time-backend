@@ -37,7 +37,11 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
     public Object businessExceptionHandler(Exception exception, HttpServletRequest request) {
         /**dao层异常*/
         if(exception instanceof BusinessException){
-            System.out.println(1111);
+            /**ajax请求 返回500*/
+            if(WebUtils.isAjaxRequest(request)){
+
+                return new ResponseEntity<>(Result.failed(RestCodeEnums.DEFAULT_EXCEPTION.getCode(),RestCodeEnums.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }else if(exception instanceof RuntimeException){
             StringBuffer requestURL = request.getRequestURL();
             requestURL.append("\n请求方式："+request.getMethod()+"\n");

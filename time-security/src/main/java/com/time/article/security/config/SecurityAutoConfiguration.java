@@ -43,7 +43,7 @@ import java.util.Map;
 /**
  * @author suiguozhen on 18/07/03
  */
-@Configuration
+//@Configuration
 public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfiguration {
     @Value("${shiro.salt}")
     private String salt;

@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'com.time.article'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":time-service:time-service-impl")
+    compile(
+            "org.apache.shiro:shiro-spring:$shiroSpringVersion",
+            "org.apache.shiro:shiro-ehcache:$shiroSpringVersion"
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
