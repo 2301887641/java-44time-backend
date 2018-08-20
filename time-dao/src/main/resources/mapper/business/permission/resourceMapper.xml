@@ -91,11 +91,17 @@
         <if test="priority!=null">
             priority=#{priority},
         </if>
-        <if test="description!=null and description!=''">
+        <if test="description!=null">
             description=#{description},
         </if>
-        <if test="url!=null and url!=''">
+        <if test="url!=null">
             url=#{url},
+        </if>
+        <if test="path!=null">
+            path=#{path},
+        </if>
+        <if test="level!=null">
+            level=#{level},
         </if>
         update_time=#{updateTime}
         where id=#{id}
@@ -104,7 +110,6 @@
     <delete id="delete" parameterType="integer">
         delete from time_resource where id=#{id}
     </delete>
-
     <!--树形结构必须声明方法-->
     <!--①根据id查询-->
     <select id="selectById" resultMap="baseResultMap">
@@ -113,9 +118,24 @@
         from time_resource a
         where a.id=#{id}
     </select>
-    <!--②根据like查询id-->
-    <select id="selectIdsByLike"  resultMap="baseResultMap">
-        select id from time_resource a
-        where a.path LIKE CONCAT("%{",#{id},"}%")
+    <!--②根据like查询path-->
+    <select id="selectPathByLike"  resultMap="baseResultMap">
+        select <include refid="baseColumn"/> from time_resource a where a.path LIKE CONCAT("%{",#{id},"}%")
     </select>
+    <!--③根据parentId查询-->
+    <select id="selectByParentId" resultMap="baseResultMap">
+        select
+        <include refid="baseColumn"/>
+        from time_resource a
+        where a.parent_id=#{parentId}
+    </select>
+    <!--④根据id修改path-->
+    <update id="updatePathById">
+        update
+        time_resource
+        set
+        level=#{array[0]},
+        path=#{array[1]}
+        where id=#{array[2]}
+    </update>
 </mapper>

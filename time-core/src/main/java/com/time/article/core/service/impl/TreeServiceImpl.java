@@ -1,14 +1,20 @@
 package com.time.article.core.service.impl;
 
 import com.time.article.core.dao.entity.TreeEntity;
+import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.dao.mapper.TreeMapper;
+import com.time.article.core.enums.restcode.BusinessCodeEnums;
 import com.time.article.core.message.constant.Constants;
 import com.time.article.core.service.api.TreeService;
 import com.time.article.core.service.converter.TreeConverter;
 import com.time.article.core.service.dto.TreeDto;
+import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 树形结构格式化
@@ -52,5 +58,30 @@ public class TreeServiceImpl<
             }
         });
         return root;
+    }
+
+    /**
+     * 根据
+     *
+     * @param path
+     * @return
+     */
+    @Override
+    public List<DTO> selectPathByLike(PK id) {
+        return converter.entityToDto(mapper.selectPathByLike(id));
+    }
+
+    /**
+     * 树形删除
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public PK treeDelete(PK id) {
+        if(!CollectionUtils.isEmpty(selectPathByLike(id))){
+            throw new BusinessException(BusinessCodeEnums.TREE_DISABLE_DELETE_CHILDREN);
+        }
+        return null;
     }
 }

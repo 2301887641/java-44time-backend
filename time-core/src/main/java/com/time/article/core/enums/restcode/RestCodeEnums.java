@@ -4,6 +4,7 @@ import lombok.Getter;
 
 /**
  * rest枚举返回
+ * feature: 使用的使用需要同时使用code和info才可以 不要单独使用,那样不如使用常量
  * @author suiguozhen on 18/04/14
  */
 
@@ -11,13 +12,16 @@ import lombok.Getter;
 public enum RestCodeEnums {
     /*操作成功*/
     SUCCESS(200,"操作成功"),
-    ARG_ERROR(500, "参数错误"),
     /**验证码错误*/
-    CAPTCHA_ERROR(1000,"验证码错误"),
+    CAPTCHA_ERROR(500,"验证码错误"),
     /**
      * dao层错误
      */
-    DAO_EXCEPTION(3302, "数据请求错误"),
+    RECORD_MISSED(500, "不存在此记录"),
+    /**
+     * 自定义注解异常
+     */
+    ANNOTATION_EXCEPTION(500,""),
     /**
      * Aop异常
      * ①动态数据源aop中异常
@@ -27,7 +31,7 @@ public enum RestCodeEnums {
     AOP_ACCESS_LOG_EXCEPTION(3304,"aop记录访问日志错误"),
 
     /**默认异常*/
-    DEFAULT_EXCEPTION(500,"网络繁忙，请稍后重试");
+    DEFAULT_EXCEPTION(500,"服务器异常");
 
     private int code;
     private String info;

@@ -1,6 +1,6 @@
 package com.time.article.core.utils;
 
-import com.time.article.core.enums.restcode.RestCodeEnums;
+import com.time.article.core.message.constant.Constants;
 import com.time.article.core.message.result.Result;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,6 +17,6 @@ public class ValidatorUtils {
      */
     public static Result validateHasError(BindingResult result) {
         FieldError fieldError = result.getFieldError();
-        return Result.failed(RestCodeEnums.ARG_ERROR.getCode(),fieldError.getDefaultMessage(),fieldError.getField());
+        return Result.failed(Constants.RESULT_FAILED_CODE,fieldError.getDefaultMessage(),fieldError.getField());
     }
 }

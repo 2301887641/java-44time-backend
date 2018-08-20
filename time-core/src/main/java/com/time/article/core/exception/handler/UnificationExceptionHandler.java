@@ -1,5 +1,6 @@
 package com.time.article.core.exception.handler;
 
+import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.enums.restcode.RestCodeEnums;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.WebUtils;
@@ -35,7 +36,9 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
     @ExceptionHandler
     public Object businessExceptionHandler(Exception exception, HttpServletRequest request) {
         /**dao层异常*/
-        if(exception instanceof RuntimeException){
+        if(exception instanceof BusinessException){
+            System.out.println(1111);
+        }else if(exception instanceof RuntimeException){
             StringBuffer requestURL = request.getRequestURL();
             requestURL.append("\n请求方式："+request.getMethod()+"\n");
             requestURL.append(exception.getMessage());

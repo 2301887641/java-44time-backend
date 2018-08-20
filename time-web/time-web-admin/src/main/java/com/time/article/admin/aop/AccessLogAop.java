@@ -1,8 +1,8 @@
 package com.time.article.admin.aop;
 
 import com.time.article.admin.constants.Constants;
-import com.time.article.core.controller.annotation.Custom_OperationFieldLog;
-import com.time.article.admin.annotation.Custom_OperationMethodLog;
+import com.time.article.core.controller.annotation.FieldLog;
+import com.time.article.admin.annotation.Log;
 import com.time.article.core.controller.exception.AccessLogException;
 import com.time.article.core.controller.schedule.BaseScheduleManager;
 import com.time.article.core.service.dto.BaseDto;
@@ -42,7 +42,7 @@ public class AccessLogAop {
     @Autowired
     private OperationLogService operationLogService;
 
-    @Pointcut("@annotation(com.time.article.admin.annotation.Custom_OperationMethodLog)")
+    @Pointcut("@annotation(com.time.article.admin.annotation.Log)")
     public void pointcut() {
     }
 
@@ -58,8 +58,8 @@ public class AccessLogAop {
         HttpServletRequest request = getRequest();
         /**执行目标方法*/
         Object object = point.proceed();
-        LogEnum logType = methodSignature.getMethod().getAnnotation(Custom_OperationMethodLog.class).type();
-        operationLogDto.setTitle(methodSignature.getMethod().getAnnotation(Custom_OperationMethodLog.class).value());
+        LogEnum logType = methodSignature.getMethod().getAnnotation(Log.class).type();
+        operationLogDto.setTitle(methodSignature.getMethod().getAnnotation(Log.class).value());
         operationLogDto.setContent(operationLogDto.getTitle());
         operationLogDto.setClassName(methodSignature.toString());
         operationLogDto.setUserId(1);
@@ -127,7 +127,7 @@ public class AccessLogAop {
                     continue;
                 }
                 temp = declaredField.getName() + ":";
-                Custom_OperationFieldLog annotation = declaredField.getAnnotation(Custom_OperationFieldLog.class);
+                FieldLog annotation = declaredField.getAnnotation(FieldLog.class);
                 if (!Objects.isNull(annotation)) {
                     temp = annotation.value();
                 }

@@ -2,7 +2,7 @@ package com.time.article.core.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.time.article.core.controller.annotation.Custom_OperationFieldLog;
+import com.time.article.core.controller.annotation.FieldLog;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,7 +17,6 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ToString(exclude = "children")
 public class TreeDto<DTO extends TreeDto, PK extends Serializable> extends BaseDto<PK> {
     @JsonIgnore
     private Integer level;
@@ -26,13 +25,14 @@ public class TreeDto<DTO extends TreeDto, PK extends Serializable> extends BaseD
     /**children为null的不返回 前端界面不让返回null*/
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<DTO> children;
-    @Custom_OperationFieldLog("父类id:设置为")
+    @FieldLog("父类id:设置为")
+    @NotNull(message = "请传递父类id")
     private PK parentId;
     @JsonIgnore
-    @Custom_OperationFieldLog("优先级:设置为")
+    @FieldLog("优先级:设置为")
     private Integer priority;
     @JsonIgnore
-    @Custom_OperationFieldLog("父类名称:设置为")
+    @FieldLog("父类名称:设置为")
     private String parentName;
     /**
      * children的添加方法

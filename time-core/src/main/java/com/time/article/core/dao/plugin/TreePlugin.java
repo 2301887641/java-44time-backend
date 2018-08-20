@@ -1,8 +1,10 @@
 package com.time.article.core.dao.plugin;
 
 import com.time.article.core.dao.entity.TreeEntity;
-import com.time.article.core.dao.exception.DaoException;
+import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.dao.mapper.TreeMapper;
+import com.time.article.core.enums.restcode.BusinessCodeEnums;
+import com.time.article.core.enums.restcode.RestCodeEnums;
 import com.time.article.core.message.constant.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -12,11 +14,8 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.session.defaults.DefaultSqlSession.StrictMap;
 import org.springframework.util.CollectionUtils;
-import sun.plugin2.main.server.ResultHandler;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -39,7 +38,11 @@ public class TreePlugin implements Interceptor {
     /**
      * 根据id进行like查询
      */
-    private static final String SELECT_ID_BY_LIKE_SQL = ".selectIdsByLike";
+    private static final String SELECT_BY_PARENT_ID_SQL = ".selectByParentId";
+    /**
+     * 根据id修改path
+     */
+    private static final String UPDATE_PATH_BY_ID_SQL = ".updatePathById";
 
     @Override
     public Object intercept(Invocation invocation) throws Exception {
@@ -86,7 +89,7 @@ public class TreePlugin implements Interceptor {
      * @param entity
      * @throws SQLException
      */
-    public void insert(Executor executor, String namespace, Configuration configuration, TreeEntity entity) throws IllegalAccessException, InstantiationException {
+    public void insert(Executor executor, String namespace, Configuration configuration, TreeEntity entity) throws IllegalAccessException, InstantiationException, SQLException {
         /**如果前端没有传递parent_id字段 实例化自身*/
         if (Objects.isNull(entity.getParent())) {
             entity.setParent(entity.getClass().newInstance());
@@ -95,13 +98,19 @@ public class TreePlugin implements Interceptor {
         if (Objects.isNull(entity.getParent().getId())) {
             entity.getParent().setId(Constants.TREE_PARENT_ID);
         }
-        /**获取parentId*/
-        Integer parentId = (Integer) entity.getParent().getId(), level = 0;
+        /**获取parentId 默认level=1*/
+        Integer parentId = (Integer) entity.getParent().getId(), level = 1;
         entity.setPath("");
-        /**如果parent_id不等于0*/
+        /**如果parent_id不等于0 查询当前的parent_id*/
         if (!Constants.TREE_PARENT_ID.equals(parentId)) {
-            level = 1;
-            entity.setPath(new StringBuilder().append("{").append(parentId).append("}").append(",").toString());
+            MappedStatement statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
+            List<TreeEntity> parentEntityList = executor.query(statement, parentId, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
+            if (CollectionUtils.isEmpty(parentEntityList)) {
+                throw new BusinessException(BusinessCodeEnums.DAO_RECORD_MISSED);
+            }
+            TreeEntity treeEntity = parentEntityList.get(0);
+            level = treeEntity.getLevel() + 1;
+            entity.setPath(new StringBuilder(treeEntity.getPath()).append("{").append(parentId).append("}").append(",").toString());
         }
         entity.setLevel(level);
     }
@@ -118,9 +127,9 @@ public class TreePlugin implements Interceptor {
         MappedStatement statement;
         /**查询当前节点*/
         statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
-        List<TreeEntity> PreviousEntityList = executor.query(statement, wrapCollection(entity.getId()), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
+        List<TreeEntity> PreviousEntityList = executor.query(statement,entity.getId(), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
         if (CollectionUtils.isEmpty(PreviousEntityList)) {
-            throw new DaoException("数据库中不存在此id记录");
+            throw new BusinessException(BusinessCodeEnums.DAO_RECORD_MISSED);
         }
         /**得到的是之前的pojo数据*/
         TreeEntity previousEntity = PreviousEntityList.get(0);
@@ -132,10 +141,8 @@ public class TreePlugin implements Interceptor {
         if (Objects.isNull(previousEntity.getParent().getId())) {
             previousEntity.getParent().setId(Constants.TREE_PARENT_ID);
         }
-        /**当前要修改的parentId*/
-        Integer currentParentId = (Integer) entity.getParent().getId();
-        /*之前的parentId*/
-        Integer previousParentId = (Integer) previousEntity.getParent().getId();
+        /**当前要修改的parentId 之前的parentId*/
+        Integer currentParentId = (Integer) entity.getParent().getId(), previousParentId = (Integer) previousEntity.getParent().getId();
         /**
          * 这里就不对这两个id做null判断了
          * 如果两个parentId相同不需要做操作
@@ -143,67 +150,49 @@ public class TreePlugin implements Interceptor {
         if (currentParentId.equals(previousParentId)) {
             return;
         }
-        /**之前的parentId不为0的话 将之前记录的parentId设置为新的parentId*/
-        if(!Constants.TREE_PARENT_ID.equals(previousParentId)){
-            statement = configuration.getMappedStatement(namespace + SELECT_ID_BY_LIKE_SQL);
-            List<ArrayList> ids = executor.query(statement, wrapCollection(previousParentId), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-            System.out.println(ids);
-        }else{
-
+        Integer level = 1;
+        /**当前的parentId不为0的话 将当前parent记录的path取出*/
+        if (!Constants.TREE_PARENT_ID.equals(currentParentId)) {
+            statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
+            List<TreeEntity> currentEntityList = executor.query(statement, currentParentId, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
+            if (CollectionUtils.isEmpty(currentEntityList)) {
+                throw new BusinessException(BusinessCodeEnums.DAO_RECORD_MISSED);
+            }
+            /**设置path*/
+            TreeEntity currentTreeEntity = currentEntityList.get(0);
+            level = currentTreeEntity.getLevel() + 1;
+            entity.setLevel(level);
+            entity.setPath(new StringBuilder(currentTreeEntity.getPath()).append("{").append(currentParentId).append("},").toString());
+        } else {
+            entity.setLevel(level);
+            entity.setPath("");
         }
-//        /**如果当前父节点不是0的话 说明是新的*/
-//        if (!Constants.TREE_PARENT_ID.equals(currentParentId)) {
-//            /**获取之前的左值和右值*/
-//            Integer previousLft = previousEntity.getLft(), previousRgt = previousEntity.getRgt();
-//            /**移动操作基本基于一个公式：任何树所占的数字数目 = 根的右值 – 根的左值 + 1*/
-//            Integer number = previousRgt - previousLft + 1;
-//
-//            /**查询要更改的父节点的信息*/
-//            statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
-//            List<TreeEntity> currentParentList = executor.query(statement, wrapCollection(currentParentId), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-//            if (CollectionUtils.isEmpty(currentParentList)) {
-//                throw new DaoException("要移动到的父节点不存在");
-//            }
-//            TreeEntity currentParentEntity = currentParentList.get(0);
-//            /**获取要更改的父节点的信息*/
-//            Integer currentParentLft = currentParentEntity.getLft(),
-//                    currentParentRgt = currentParentEntity.getRgt(),
-//                    currentParentLevel = currentParentEntity.getLevel();
-//
-//            /**比要更改的父节点的右值大的 一律加上数字数目*/
-//            statement = configuration.getMappedStatement(namespace + UPDATE_RGT_SQL);
-//            executor.update(statement,wrapCollection(new Integer[]{number,currentParentRgt}));
-//
-//            /**比要更改的父节点的左值大的 一律加上数字数目*/
-//            statement=configuration.getMappedStatement(namespace+UPDATE_LFT_SQL);
-//            executor.update(statement,wrapCollection(new Integer[]{number,currentParentRgt}));
-//        }else{
-//
-//        }
-//
-//
+        /**开始递归查找entity.getId() 下级都需要设置*/
+        Integer primaryId = (Integer) entity.getId();
+        recursion(executor, namespace, configuration, primaryId, entity.getPath(), level);
     }
 
     /**
-     * 缓存集合
-     *
-     * @param object
-     * @return
+     * 递归需要转换为迭代
+     * @param executor
+     * @param namespace
+     * @param configuration
+     * @param parentId
+     * @param parentPath
+     * @param level
+     * @throws SQLException
      */
-    private Object wrapCollection(final Object object) {
-        if (object instanceof Collection) {
-            StrictMap<Object> map = new StrictMap<>();
-            map.put("collection", object);
-            if (object instanceof List) {
-                map.put("list", object);
-            }
-            return map;
+    private void recursion(Executor executor, String namespace, Configuration configuration, Integer parentId, String parentPath, Integer level) throws SQLException {
+        MappedStatement statement = configuration.getMappedStatement(namespace + SELECT_BY_PARENT_ID_SQL);
+        List<TreeEntity> treeEntityList = executor.query(statement, parentId, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
+        if (CollectionUtils.isEmpty(treeEntityList)) {
+            return;
         }
-        if (object != null && object.getClass().isArray()) {
-            StrictMap<Object> map = new StrictMap<>();
-            map.put("array", object);
-            return map;
+        Integer parentLevel = ++level;
+        for (TreeEntity entity : treeEntityList) {
+            statement = configuration.getMappedStatement(namespace + UPDATE_PATH_BY_ID_SQL);
+            executor.update(statement, new Object[]{parentLevel, parentPath + "{" + parentId + "},", entity.getId()});
+            recursion(executor, namespace, configuration, (Integer) entity.getId(), parentPath + "{" + parentId + "},", parentLevel);
         }
-        return object;
     }
 }
