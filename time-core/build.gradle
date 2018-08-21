@@ -1,9 +1,8 @@
 plugins {
     id 'java'
     id 'maven'
+    id 'org.springframework.boot' version '1.5.14.RELEASE'
 }
-
-
 group 'com.time.article'
 version '1.0-SNAPSHOT'
 
@@ -16,32 +15,32 @@ repositories {
 }
 
 dependencies {
-    compile (
-            //springboot
-            "org.springframework.boot:spring-boot-starter-web:$springbootVersion",
-            //lombok
-            "org.projectlombok:lombok:$lombokVersion",
-            //mybatis
-            "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion",
-            //mysql连接
-            "mysql:mysql-connector-java:$mysqlConnectorVersion",
-            //druid
-            "com.alibaba:druid:$druidVersion",
-            // mapstruct
-            "org.mapstruct:mapstruct-jdk8:$mapstructVersion",
-            "org.mapstruct:mapstruct-processor:$mapstructVersion",
-            //swagger
-            "io.springfox:springfox-swagger2:$swaggerVersion",
-            "io.springfox:springfox-swagger-ui:$swaggerVersion",
-            //Flyway
-            "org.flywaydb:flyway-core:$flywayVersion",
-            // common-lang3
-            "org.apache.commons:commons-lang3:$commonslang3Version",
-            //aop
-            "org.springframework.boot:spring-boot-starter-aop:$springbootVersion",
-            //devtool
-            "org.springframework.boot:spring-boot-devtools:$springbootVersion"
-    )
+    //springboot
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    //spring aop
+    compile 'org.springframework.boot:spring-boot-starter-aop'
+    //devtool
+    compile "org.springframework.boot:spring-boot-devtools"
+    //lombok
+    compile "org.projectlombok:lombok"
+    //Flyway
+    compile "org.flywaydb:flyway-core"
+    //mybatis
+    compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion"
+    //mysql连接
+    compile "mysql:mysql-connector-java"
+    //druid
+    compile "com.alibaba:druid:$druidVersion"
+    // mapstruct
+    compile "org.mapstruct:mapstruct-jdk8:$mapstructVersion"
+    compile "org.mapstruct:mapstruct-processor:$mapstructVersion"
+    //swagger
+    compile "io.springfox:springfox-swagger2:$swaggerVersion"
+    compile("io.springfox:springfox-swagger-ui:$swaggerVersion"){
+        exclude module:"com.google.guava"
+    }
+    // common-lang3
+    compile "org.apache.commons:commons-lang3:$commonslang3Version"
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 

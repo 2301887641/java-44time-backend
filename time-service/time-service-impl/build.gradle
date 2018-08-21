@@ -1,6 +1,18 @@
+buildscript {
+    ext {
+        springBootVersion = "1.5.14.RELEASE"
+    }
+    repositories {
+        maven { url "http://127.0.0.1:8081/repository/maven-public/"}
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
 plugins {
     id 'java'
     id 'maven'
+    id 'org.springframework.boot' version '1.5.14.RELEASE'
 }
 
 group 'com.time.article'

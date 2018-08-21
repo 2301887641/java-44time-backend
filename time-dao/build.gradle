@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven'
+    id 'org.springframework.boot' version '1.5.14.RELEASE'
 }
 
 group 'com.time.article'
@@ -18,7 +19,6 @@ configurations.all {
     // 变化模块
     resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
 }
-
 
 dependencies {
    // compile("com.time.article:time-core:1.0-SNAPSHOT")

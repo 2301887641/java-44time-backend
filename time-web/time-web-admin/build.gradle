@@ -1,7 +1,20 @@
+buildscript {
+    ext {
+        springBootVersion = "1.5.14.RELEASE"
+    }
+    repositories {
+        maven { url "http://127.0.0.1:8081/repository/maven-public/"}
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
 plugins {
     id 'java'
-    id 'war'
+    id 'maven'
+    id 'org.springframework.boot' version '1.5.14.RELEASE'
 }
+
 group 'com.time.article'
 version '1.0'
 
@@ -20,7 +33,8 @@ configurations.all {
 
 dependencies {
     //compile("com.time.article:time-security:1.0-SNAPSHOT")
-    compile project(":time-security")
+//    compile project(":time-security")
+    compile project(":time-shiro")
     compile("com.github.penggle:kaptcha:2.3.2"){
         exclude module: 'javax.servlet-api'
     }
