@@ -1,4 +1,4 @@
-package com.time.article.security.shiro;
+package com.time.article.shiro.principal;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +13,13 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Principal implements Serializable {
+public class SimplePrincipal implements Serializable {
     @NotBlank(message="用户名不能为空")
     private String username;
+
     @NotBlank(message="密码不能为空")
     private String password;
+
     @NotBlank(message="验证码不能为空")
     private String captcha;
 }

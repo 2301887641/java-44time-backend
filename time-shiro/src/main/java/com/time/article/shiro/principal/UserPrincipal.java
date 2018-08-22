@@ -1,7 +1,5 @@
-package com.time.article.security.entity.shiro;
+package com.time.article.shiro.principal;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,13 +13,11 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SimplePrincipal implements Serializable {
+public class UserPrincipal implements Serializable {
     @NotBlank(message="用户名不能为空")
     private String username;
-
     @NotBlank(message="密码不能为空")
     private String password;
-
     @NotBlank(message="验证码不能为空")
     private String captcha;
 }

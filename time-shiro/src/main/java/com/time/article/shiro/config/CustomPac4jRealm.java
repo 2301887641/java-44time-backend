@@ -1,24 +1,24 @@
-package com.time.article.security.config;
+/*
+package com.time.article.shiro.config;
 
 import io.buji.pac4j.realm.Pac4jRealm;
-import io.buji.pac4j.token.Pac4jToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.pac4j.core.profile.CommonProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
+*/
 /**
  * @author suiguozhen on 18/05/10
- */
+ *//*
+
 public class CustomPac4jRealm extends Pac4jRealm {
     //假的权限
     private final static String SELFAUTHZ = "user:edit";
@@ -28,18 +28,22 @@ public class CustomPac4jRealm extends Pac4jRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
             throws AuthenticationException {
+*/
 /*        Pac4jToken token = (Pac4jToken) authenticationToken;
         LinkedHashMap<String, CommonProfile> profiles = token.getProfiles();
         // 获取用户信息
-        CommonProfile casProfile = profiles.get("rest");*/
+        CommonProfile casProfile = profiles.get("rest");*//*
+
         return super.doGetAuthenticationInfo(authenticationToken);
     }
 
-    /**
+    */
+/**
      * 由于使用了SSO单点登录系统，此Ream只负责授权
      * 权限认证（为当前登录的Subject授予角色和权限）
      *
-     */
+     *//*
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals) {
 		String userName = (String) super.getAvailablePrincipal(principals) ; //获取用户名
@@ -61,3 +65,4 @@ public class CustomPac4jRealm extends Pac4jRealm {
         return info;
     }
 }
+*/
