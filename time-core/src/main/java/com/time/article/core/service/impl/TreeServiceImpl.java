@@ -56,40 +56,42 @@ public class TreeServiceImpl<
                 root.put("{" + dto.getId() + "}", dto);
                 continue;
             }
-            //如果当前父类直接在map中的话
+            //如果当前父类已经在map中的话 说明当前是二级
             if (root.containsKey("{"+dto.getParentId()+"}")) {
                 root.get("{" + dto.getParentId() + "}").addChildren(dto);
                 continue;
             }
-            //三级子类和多级子类
+            //当前是三级或四。。
             String[] split = dto.getPath().split(",");
             if (split.length > 0) {
                 if (root.containsKey(split[0])) {
-                    DTO rootDto = root.get(split[0]);
-                    List<DTO> children = rootDto.getChildren();
-                    recursion(children,dto);
+                    recursion(root.get(split[0]).getChildren(),dto);
                 }
             }
         }
         return rootList;
     }
 
+    /**
+     * 递归查询二级的children是否有匹配的
+     * @param data
+     * @param dto
+     */
     private void recursion(List<DTO> data,DTO dto) {
-        for (int j = 0; j < data.size(); j++) {
-            if (data.get(j).getId().equals(dto.getParentId())) {
-                data.get(j).addChildren(dto);
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getId().equals(dto.getParentId())) {
+                data.get(i).addChildren(dto);
                 break;
             }
-            if(!CollectionUtils.isEmpty(data.get(j).getChildren())){
-                recursion(data.get(j).getChildren(),dto);
+            if(!CollectionUtils.isEmpty(data.get(i).getChildren())){
+                recursion(data.get(i).getChildren(),dto);
             }
             continue;
         }
     }
 
     /**
-     * 根据
-     *
+     * 查询path根据id进行like查询
      * @param id
      * @return
      */
@@ -100,7 +102,6 @@ public class TreeServiceImpl<
 
     /**
      * 树形删除
-     *
      * @param id
      * @return
      */
@@ -115,7 +116,6 @@ public class TreeServiceImpl<
 
     /**
      * 树形修改
-     *
      * @param dto
      * @return
      */
