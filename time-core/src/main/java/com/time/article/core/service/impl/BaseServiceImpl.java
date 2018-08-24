@@ -49,7 +49,7 @@ public class BaseServiceImpl<
      * @return
      */
     @Override
-    public DTO getById(Integer id) {
+    public DTO getById(PK id) {
         return converter.entityToDto(mapper.selectById(id));
     }
 
@@ -77,8 +77,10 @@ public class BaseServiceImpl<
      * @param dto
      */
     @Override
-    public void update(DTO dto) {
-        mapper.update(converter.dtoToEntity(dto));
+    public PK update(DTO dto) {
+        ENTITY entity = converter.dtoToEntity(dto);
+        mapper.update(entity);
+        return entity.getId();
     }
 
     /**
@@ -88,6 +90,7 @@ public class BaseServiceImpl<
      */
     @Override
     public PK delete(PK id) {
-        return  mapper.delete(id);
+        mapper.delete(id);
+        return id;
     }
 }

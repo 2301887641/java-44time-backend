@@ -1,4 +1,3 @@
-/*
 package com.time.article.shiro.config;
 
 import io.buji.pac4j.filter.CallbackFilter;
@@ -31,6 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -40,12 +40,10 @@ import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
-*/
 /**
  * @author suiguozhen on 18/07/03
- *//*
-
-//@Configuration
+ */
+@Configuration
 public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfiguration {
     @Value("${shiro.salt}")
     private String salt;
@@ -59,24 +57,20 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
     @Value("${shiro.callbackUrl}")
     private String callbackUrl;
 
-    */
-/**
+    /**
      * JWT Token 生成器，对CommonProfile生成然后每次携带token访问
      * @return
-     *//*
-
+     */
     @SuppressWarnings("rawtypes")
     @Bean
     protected JwtGenerator jwtGenerator() {
         return new JwtGenerator(new SecretSignatureConfiguration(salt), new SecretEncryptionConfiguration(salt));
     }
 
-    */
-/**
+    /**
      * JWT校验器，也就是目前设置的ParameterClient进行的校验器，是rest/或者前后端分离的核心校验器
      * @return
-     *//*
-
+     */
     @Bean
     protected JwtAuthenticator jwtAuthenticator() {
         JwtAuthenticator jwtAuthenticator = new JwtAuthenticator();
@@ -85,12 +79,10 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return jwtAuthenticator;
     }
 
-    */
-/**
+    /**
      * cas的基本设置，包括或url等等，rest调用协议等
      * @return
-     *//*
-
+     */
     @Bean
     public CasConfiguration casConfiguration() {
         CasConfiguration casConfiguration = new CasConfiguration(casLoginUrl);
@@ -99,12 +91,10 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return casConfiguration;
     }
 
-    */
-/**
+    /**
      * 不拦截的路径
      * @return
-     *//*
-
+     */
     @Bean
     public PathMatcher pathMatcher(){
         PathMatcher pathMatcher= new PathMatcher();
@@ -112,23 +102,19 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return pathMatcher;
     }
 
-    */
-/**
+    /**
      * pac4jRealm
      * @return
-     *//*
-
+     */
     @Bean
     public Realm pac4jRealm() {
         return new CustomPac4jRealm();
     }
 
-    */
-/**
+    /**
      * 通过rest接口可以获取tgt，获取service ticket，甚至可以获取CasProfile
      * @return
-     *//*
-
+     */
     @Bean
     protected CasRestFormClient casRestFormClient(CasConfiguration casConfiguration) {
         CasRestFormClient casRestFormClient = new CasRestFormClient();
@@ -137,12 +123,10 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return casRestFormClient;
     }
 
-    */
-/**
+    /**
      * casClient
      * @return
-     *//*
-
+     */
     @Bean
     public CasClient casClient(CasConfiguration casConfiguration) {
         CasClient casClient = new CasClient();
@@ -152,12 +136,10 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return casClient;
     }
 
-    */
-/**
+    /**
      * token校验相关
      * @return
-     *//*
-
+     */
     @Bean
     protected Clients clients(CasClient casClient, CasRestFormClient casRestFormClient) {
         //可以设置默认client
@@ -178,25 +160,21 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return config;
     }
 
-    */
-/**
+    /**
      * 由于cas代理了用户，所以必须通过cas进行创建对象
      *
      * @return
-     *//*
-
+     */
     @Bean(name = "subjectFactory")
     protected SubjectFactory subjectFactory() {
         return new Pac4jSubjectFactory();
     }
 
-    */
-/**
+    /**
      * 注册单点登出的listener
      *
      * @return
-     *//*
-
+     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
     public ServletListenerRegistrationBean<?> singleSignOutHttpSessionListener() {
@@ -206,13 +184,11 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return bean;
     }
 
-    */
-/**
+    /**
      * 注册单点登出filter
      *
      * @return
-     *//*
-
+     */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public FilterRegistrationBean singleSignOutFilter() {
@@ -227,11 +203,9 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return bean;
     }
 
-    */
-/**
+    /**
      * shiro管理器
-     *//*
-
+     */
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager(Realm pac4jRealm, SubjectFactory subjectFactory) {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
@@ -250,14 +224,12 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return filterRegistrationBean;
     }
 
-    */
-/**
+    /**
      * 对过滤器进行调整
      *
      * @param securityManager
      * @return
-     *//*
-
+     */
     @Bean(name = "shiroFilter")
     protected ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager, Config config) {
         ShiroFilterFactoryBean filterFactoryBean = super.shiroFilterFactoryBean();
@@ -275,12 +247,10 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return filterFactoryBean;
     }
 
-    */
-/**
+    /**
      * shiro路径过滤设置
      * @return
-     *//*
-
+     */
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
@@ -297,13 +267,11 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return definition;
     }
 
-    */
-/**
+    /**
      * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
      * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能
      * @return
-     *//*
-
+     */
     @Bean
     @DependsOn({"lifecycleBeanPostProcessor"})
     public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
@@ -319,4 +287,3 @@ public class SecurityAutoConfiguration extends AbstractShiroWebFilterConfigurati
         return authorizationAttributeSourceAdvisor;
     }
 }
-*/

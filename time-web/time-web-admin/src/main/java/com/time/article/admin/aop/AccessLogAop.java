@@ -1,10 +1,11 @@
 package com.time.article.admin.aop;
 
+import com.time.article.admin.annotation.Log;
 import com.time.article.admin.constants.Constants;
 import com.time.article.core.controller.annotation.FieldLog;
-import com.time.article.admin.annotation.Log;
-import com.time.article.core.controller.exception.AccessLogException;
 import com.time.article.core.controller.schedule.BaseScheduleManager;
+import com.time.article.core.dao.exception.BusinessException;
+import com.time.article.core.enums.restcode.RestCodeEnums;
 import com.time.article.core.service.dto.BaseDto;
 import com.time.article.core.utils.WebUtils;
 import com.time.article.dao.enums.business.log.LogEnum;
@@ -19,7 +20,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -27,7 +27,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TimerTask;
 
 /**
  * 访问日志Aop
@@ -51,7 +53,7 @@ public class AccessLogAop{
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Signature signature = point.getSignature();
         if (!(signature instanceof MethodSignature)) {
-            throw new AccessLogException();
+            throw new BusinessException(RestCodeEnums.ANNOTATION_BE_USED_TO_FUNC);
         }
         OperationLogDto operationLogDto = new OperationLogDto();
         MethodSignature methodSignature = (MethodSignature) signature;

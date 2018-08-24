@@ -2,7 +2,8 @@ package com.time.article.core.dao.aop;
 
 import com.time.article.core.dao.annotation.Custom_Datasource;
 import com.time.article.core.dao.config.datasource.DynamicDataSourceContext;
-import com.time.article.core.dao.exception.DatasourceAnnotationException;
+import com.time.article.core.dao.exception.BusinessException;
+import com.time.article.core.enums.restcode.RestCodeEnums;
 import com.time.article.core.message.constant.Constants;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -32,7 +33,7 @@ public class DatasourceAop implements Ordered {
         Signature signature = point.getSignature();
         /**获取当前执行的service上的方法 当前注解只能用于方法上*/
         if(!(signature instanceof MethodSignature)){
-            throw new DatasourceAnnotationException("Datasource注解只能用于方法上");
+            throw new BusinessException(RestCodeEnums.ANNOTATION_BE_USED_TO_FUNC);
         }
         MethodSignature methodSignature = (MethodSignature) signature;
         Object target = point.getTarget();

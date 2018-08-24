@@ -52,14 +52,12 @@ public class ResourceController {
             return ValidatorUtils.validateHasError(result);
         }
         resourceDto.setId(id);
-        resourceService.update(resourceDto);
-        return Result.success(id);
+        return Result.success(resourceService.treeUpdate(resourceDto));
     }
 
     @Log(value = "删除资源", type = LogEnum.LOG_DELETE)
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        resourceService.treeDelete(id);
-        return Result.success(id);
+        return Result.success(resourceService.treeDelete(id));
     }
 }

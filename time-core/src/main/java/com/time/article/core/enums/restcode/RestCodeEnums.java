@@ -1,48 +1,45 @@
 package com.time.article.core.enums.restcode;
 
+
+import com.time.article.core.enums.base.BaseEnum;
 import lombok.Getter;
 
 /**
- * rest枚举返回
+ * 业务枚举返回
  * feature: 使用的使用需要同时使用code和info才可以 不要单独使用,那样不如使用常量
+ * 400: 返回给前端看 但不要展示给用户看
+ * 500: 返回给前端看 可以直接给用户看
  * @author suiguozhen on 18/04/14
  */
-
 @Getter
-public enum RestCodeEnums {
+public enum RestCodeEnums implements BaseEnum {
     /*操作成功*/
     SUCCESS(200,"操作成功"),
-    /**验证码错误*/
-    CAPTCHA_ERROR(500,"验证码错误"),
     /**
-     * dao层错误
+     * dao层异常
      */
-    RECORD_MISSED(500, "不存在此记录"),
+    DAO_RECORD_MISSED(400, "该记录已不存在"),
+    /**注解异常*/
+    ANNOTATION_BE_USED_TO_FUNC(400,"注解只能用于方法上"),
     /**
-     * 自定义注解异常
+     * 树形结构异常
      */
-    ANNOTATION_EXCEPTION(500,""),
-    /**
-     * Aop异常
-     * ①动态数据源aop中异常
-     * ②访问日志aop中异常
-     * */
-    AOP_DYNAMIC_EXCEPTION(3303,"aop切换动态数据源错误"),
-    AOP_ACCESS_LOG_EXCEPTION(3304,"aop记录访问日志错误"),
-
+    TREE_DISABLE_DELETE_CHILDREN(500,"不能删除带有子类的资源"),
+    TREE_UNABLE_SET_CURRENT_PARENT(500,"不能将父类的子类设置成为当前类的父类"),
+    TREE_UNABLE_SET_PARENT_AS_SELF(500,"不能将自己设为上级资源"),
     /**默认异常*/
     DEFAULT_EXCEPTION(500,"服务器异常");
 
-    private int code;
-    private String info;
+    private Integer ordinal;
+    private String label;
 
-    RestCodeEnums(int code,String info){
-        this.code=code;
-        this.info=info;
+    RestCodeEnums(Integer ordinal, String label) {
+        this.ordinal = ordinal;
+        this.label = label;
     }
 
     @Override
     public String toString() {
-        return info;
+        return label;
     }
 }

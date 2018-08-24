@@ -62,11 +62,17 @@
         #{description}
         )
     </insert>
-    <!--条件查询-->
+    <!--条件查询 首页显示 为了配合前台树形选择下拉 需要排除当前id记录-->
     <select id="selectBySearch"  resultMap="baseResultMap">
         select
         <include refid="baseColumn"/>
         from time_resource a
+        <where>
+            <if test="entity.id!=null">
+              a.id!=#{entity.id}
+            </if>
+        </where>
+        ORDER BY a.level ASC
     </select>
 
     <update id="update">

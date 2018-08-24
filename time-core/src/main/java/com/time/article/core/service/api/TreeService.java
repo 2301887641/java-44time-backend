@@ -25,7 +25,7 @@ public interface TreeService<
 
     /**
     * 根据
-    * @param path
+    * @param id
     * @return
     */
     List<DTO> selectPathByLike(PK id);
@@ -36,4 +36,11 @@ public interface TreeService<
     * @return
     */
     PK treeDelete(PK id);
+
+    /**
+    * 树形修改
+    * @param dto
+    * @return
+    */
+    PK treeUpdate(DTO dto);
 }

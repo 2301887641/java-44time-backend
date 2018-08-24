@@ -1,7 +1,6 @@
 package com.time.article.core.dao.exception;
 
 import com.time.article.core.enums.base.BaseEnum;
-import com.time.article.core.enums.restcode.BusinessCodeEnums;
 import com.time.article.core.exception.base.LogicException;
 
 /**

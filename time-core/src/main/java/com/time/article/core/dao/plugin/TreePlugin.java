@@ -3,7 +3,6 @@ package com.time.article.core.dao.plugin;
 import com.time.article.core.dao.entity.TreeEntity;
 import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.dao.mapper.TreeMapper;
-import com.time.article.core.enums.restcode.BusinessCodeEnums;
 import com.time.article.core.enums.restcode.RestCodeEnums;
 import com.time.article.core.message.constant.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +13,14 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.springframework.util.CollectionUtils;
 
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.Properties;
 
 /**
  * 树形拦截插件
@@ -106,7 +109,7 @@ public class TreePlugin implements Interceptor {
             MappedStatement statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
             List<TreeEntity> parentEntityList = executor.query(statement, parentId, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
             if (CollectionUtils.isEmpty(parentEntityList)) {
-                throw new BusinessException(BusinessCodeEnums.DAO_RECORD_MISSED);
+                throw new BusinessException(RestCodeEnums.DAO_RECORD_MISSED);
             }
             TreeEntity treeEntity = parentEntityList.get(0);
             level = treeEntity.getLevel() + 1;
@@ -129,7 +132,7 @@ public class TreePlugin implements Interceptor {
         statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
         List<TreeEntity> PreviousEntityList = executor.query(statement,entity.getId(), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
         if (CollectionUtils.isEmpty(PreviousEntityList)) {
-            throw new BusinessException(BusinessCodeEnums.DAO_RECORD_MISSED);
+            throw new BusinessException(RestCodeEnums.DAO_RECORD_MISSED);
         }
         /**得到的是之前的pojo数据*/
         TreeEntity previousEntity = PreviousEntityList.get(0);
@@ -156,7 +159,7 @@ public class TreePlugin implements Interceptor {
             statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
             List<TreeEntity> currentEntityList = executor.query(statement, currentParentId, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
             if (CollectionUtils.isEmpty(currentEntityList)) {
-                throw new BusinessException(BusinessCodeEnums.DAO_RECORD_MISSED);
+                throw new BusinessException(RestCodeEnums.DAO_RECORD_MISSED);
             }
             /**设置path*/
             TreeEntity currentTreeEntity = currentEntityList.get(0);
@@ -191,8 +194,31 @@ public class TreePlugin implements Interceptor {
         Integer parentLevel = ++level;
         for (TreeEntity entity : treeEntityList) {
             statement = configuration.getMappedStatement(namespace + UPDATE_PATH_BY_ID_SQL);
-            executor.update(statement, new Object[]{parentLevel, parentPath + "{" + parentId + "},", entity.getId()});
+            executor.update(statement, wrapCollection(new Object[]{parentLevel, parentPath + "{" + parentId + "},", entity.getId()}));
             recursion(executor, namespace, configuration, (Integer) entity.getId(), parentPath + "{" + parentId + "},", parentLevel);
         }
+    }
+
+    /**
+     * 包装修改参数
+     * 使用executor.update执行sql时 必须使用wrapCollection进行包装
+     * 否则报错。。。
+     * @param object
+     * @return
+     */
+    private Object wrapCollection(final Object object) {
+        if (object instanceof Collection) {
+            DefaultSqlSession.StrictMap<Object> map = new DefaultSqlSession.StrictMap<>();
+            map.put("collection", object);
+            if (object instanceof List) {
+                map.put("list", object);
+            }
+            return map;
+        } else if (object != null && object.getClass().isArray()) {
+            DefaultSqlSession.StrictMap<Object> map = new DefaultSqlSession.StrictMap<>();
+            map.put("array", object);
+            return map;
+        }
+        return object;
     }
 }

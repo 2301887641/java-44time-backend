@@ -21,7 +21,7 @@ public interface BaseService<PK,Dto extends BaseDto,CriteriaDto extends Dto> {
      * @param id
      * @return
      */
-    Dto getById(Integer id);
+    Dto getById(PK id);
 
     /**
      * 列表查询
@@ -32,10 +32,10 @@ public interface BaseService<PK,Dto extends BaseDto,CriteriaDto extends Dto> {
 
     /**
      * 修改
-     *
      * @param dto
+     * @return
      */
-    void update(Dto dto);
+    PK update(Dto dto);
 
     /**
      * 删除操作

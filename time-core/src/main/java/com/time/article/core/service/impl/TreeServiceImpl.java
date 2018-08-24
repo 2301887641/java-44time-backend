@@ -3,7 +3,7 @@ package com.time.article.core.service.impl;
 import com.time.article.core.dao.entity.TreeEntity;
 import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.dao.mapper.TreeMapper;
-import com.time.article.core.enums.restcode.BusinessCodeEnums;
+import com.time.article.core.enums.restcode.RestCodeEnums;
 import com.time.article.core.message.constant.Constants;
 import com.time.article.core.service.api.TreeService;
 import com.time.article.core.service.converter.TreeConverter;
@@ -11,13 +11,11 @@ import com.time.article.core.service.dto.TreeDto;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 树形结构格式化
+ *
  * @author suiguozhen on 18/04/23
  */
 public class TreeServiceImpl<
@@ -26,7 +24,7 @@ public class TreeServiceImpl<
         CriteriaDTO extends DTO,
         ENTITY extends TreeEntity<ENTITY, PK>,
         CriteriaENTITY extends ENTITY,
-        CONVERTER extends TreeConverter<DTO,CriteriaDTO,ENTITY,CriteriaENTITY>,
+        CONVERTER extends TreeConverter<DTO, CriteriaDTO, ENTITY, CriteriaENTITY>,
         MAPPER extends TreeMapper<ENTITY, PK>
         >
         extends BaseServiceImpl<
@@ -38,32 +36,61 @@ public class TreeServiceImpl<
         CONVERTER,
         MAPPER
         >
-        implements TreeService<CriteriaDTO,DTO, PK> {
+        implements TreeService<CriteriaDTO, DTO, PK> {
 
+    /**
+     * 列表转换成树
+     *
+     * @param treeList
+     * @return
+     */
     @Override
     public List<DTO> converterToTree(List<DTO> treeList) {
-        List<DTO> root = new ArrayList<>();
-        Map<PK, DTO> map = new HashMap<>(16);
-        treeList.forEach(tree -> {
-            /**将每一个先放入到map集合中*/
-            map.put(tree.getId(), tree);
-            /**如果map集合中已经包含当前的父类id 放入到children中*/
-            if (map.containsKey(tree.getParentId())) {
-                map.get(tree.getParentId()).addChildren(tree);
-                return;
+        LinkedList<DTO> rootList = new LinkedList<>();
+        Map<String, DTO> root = new HashMap<String, DTO>();
+        for (int i = 0; i < treeList.size(); i++) {
+            DTO dto = treeList.get(i);
+            //父类parentId是0的话
+            if (Constants.TREE_PARENT_ID.equals(dto.getParentId())) {
+                rootList.add(dto);
+                root.put("{" + dto.getId() + "}", dto);
+                continue;
             }
-            /**如果当前项的parentId是0的话,放入root中*/
-            if (Constants.TREE_PARENT_ID.equals(tree.getParentId())) {
-                root.add(tree);
+            //如果当前父类直接在map中的话
+            if (root.containsKey("{"+dto.getParentId()+"}")) {
+                root.get("{" + dto.getParentId() + "}").addChildren(dto);
+                continue;
             }
-        });
-        return root;
+            //三级子类和多级子类
+            String[] split = dto.getPath().split(",");
+            if (split.length > 0) {
+                if (root.containsKey(split[0])) {
+                    DTO rootDto = root.get(split[0]);
+                    List<DTO> children = rootDto.getChildren();
+                    recursion(children,dto);
+                }
+            }
+        }
+        return rootList;
+    }
+
+    private void recursion(List<DTO> data,DTO dto) {
+        for (int j = 0; j < data.size(); j++) {
+            if (data.get(j).getId().equals(dto.getParentId())) {
+                data.get(j).addChildren(dto);
+                break;
+            }
+            if(!CollectionUtils.isEmpty(data.get(j).getChildren())){
+                recursion(data.get(j).getChildren(),dto);
+            }
+            continue;
+        }
     }
 
     /**
      * 根据
      *
-     * @param path
+     * @param id
      * @return
      */
     @Override
@@ -79,9 +106,35 @@ public class TreeServiceImpl<
      */
     @Override
     public PK treeDelete(PK id) {
-        if(!CollectionUtils.isEmpty(selectPathByLike(id))){
-            throw new BusinessException(BusinessCodeEnums.TREE_DISABLE_DELETE_CHILDREN);
+        if (!CollectionUtils.isEmpty(selectPathByLike(id))) {
+            throw new BusinessException(RestCodeEnums.TREE_DISABLE_DELETE_CHILDREN);
         }
-        return null;
+        this.delete(id);
+        return id;
+    }
+
+    /**
+     * 树形修改
+     *
+     * @param dto
+     * @return
+     */
+    @Override
+    public PK treeUpdate(DTO dto) {
+        if (!Constants.TREE_PARENT_ID.equals(dto.getParentId())) {
+            /**如果当前的id等于父类的id 说明是自己设置自己*/
+            if (dto.getId().equals(dto.getParentId())) {
+                throw new BusinessException(RestCodeEnums.TREE_UNABLE_SET_PARENT_AS_SELF);
+            }
+            String pathId = "{" + dto.getId() + "}";
+            /**判断查询记录是否存在*/
+            DTO parentDto = Optional.ofNullable(this.getById(dto.getParentId())).orElseThrow(() -> new BusinessException(RestCodeEnums.DAO_RECORD_MISSED));
+            /**如果选择的父类的path里面已经包含了当前子类的id 说明是父类设置成子类了*/
+            if (parentDto.getPath().contains(pathId)) {
+                throw new BusinessException(RestCodeEnums.TREE_UNABLE_SET_CURRENT_PARENT);
+            }
+        }
+        this.update(dto);
+        return dto.getId();
     }
 }
