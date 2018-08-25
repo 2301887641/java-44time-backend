@@ -27,7 +27,5 @@ dependencies {
     compile("com.github.penggle:kaptcha:2.3.2"){
         exclude module: 'javax.servlet-api'
     }
-    //mybatis模板生成器
-    compile "org.mybatis.generator:mybatis-generator-core:${mybatisGeneratorVersion}"
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

@@ -1,8 +1,49 @@
-plugins {
-    id 'java'
-    id 'maven'
-    id 'org.springframework.boot' version '1.5.14.RELEASE'
+/*start--mybatis generator code--*/
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.arenagod.gradle:mybatis-generator-plugin:1.4"
+    }
 }
+
+apply plugin: "com.arenagod.gradle.MybatisGenerator"
+
+configurations {
+    mybatisGenerator
+}
+
+mybatisGenerator {
+    verbose = true
+    configFile = 'src/main/resources/generator/config/generatorConfig.xml'
+}
+/*end-- mybatis generator code*/
+
+//task  << {
+//    println 'before preBuild'
+//}
+
+//mbGenerator.dependsOn preMbGenerator
+
+//配置org.springframework.boot插件的版本
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.14.RELEASE")
+    }
+}
+
+//插件
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
 
 group 'com.time.article'
 version '1.0-SNAPSHOT'
@@ -23,9 +64,12 @@ configurations.all {
 dependencies {
    // compile("com.time.article:time-core:1.0-SNAPSHOT")
     compile project(":time-core")
+    // mybatis generator生成器
+    compile "org.mybatis.generator:mybatis-generator-core:1.3.6"
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+//上传jar包
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -41,3 +85,4 @@ uploadArchives {
         }
     }
 }
+
