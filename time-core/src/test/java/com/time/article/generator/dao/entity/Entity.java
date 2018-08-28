@@ -1,6 +1,6 @@
-package com.time.article.generator.dao;
+package com.time.article.generator.dao.entity;
 
-import lombok.AllArgsConstructor;
+import com.time.article.generator.dao.entity.Column;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -11,8 +11,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ${entityName} extends BaseEntity<${primary}> {
+<#list columns as column>
     /**
-    *  ${remarks}
+    *  ${column.remarks}
     */
-    private ${columnType} ${columnName};
-    }
+    private ${column.columnType} ${column.columnName};
+</#list>
+}

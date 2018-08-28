@@ -1,18 +1,20 @@
 package com.time.article.generator;
 
-import com.time.article.generator.dao.Column;
-import com.time.article.generator.dao.Entity;
+import com.time.article.generator.dao.entity.Column;
+import com.time.article.generator.dao.entity.Entity;
+import com.time.article.generator.generate.BaseGenerate;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -25,8 +27,12 @@ import java.util.LinkedList;
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @Slf4j
 public class GeneratorApplication {
+    @Autowired
+    private BaseGenerate baseGenerate;
+
     //数据库信息
     @Value("${spring.datasource.driverClassName}")
     private String driver;
@@ -44,21 +50,19 @@ public class GeneratorApplication {
     private String ignoreField;
     @Value("${generator.entity.author}")
     private String author;
-    @Value("${generator.entity.entityName")
+    @Value("${generator.entity.entityName}")
     private String entityName;
-    @Value("${generator.entity.packageName}")
-    private String packageName;
-    @Value("${generator.entity.BaseEntityPackage")
+    @Value("${generator.entity.BaseEntityPackage}")
     private String baseEntityPackage;
-
+    @Value("${generator.entity.targetPackage}")
+    private String targetPackage;
 
     //数据库元数据
     private DatabaseMetaData metaData;
 
     /**
-     * 先获取元数据
+     * entity先获取元数据
      */
-    @Before
     public void getMetaData(){
         //数据库连接
         Connection connection=null;
@@ -78,7 +82,11 @@ public class GeneratorApplication {
     }
 
     @Test
-    public void test(){
+    public void generatorEntity(){
+        String property = System.getProperty("user.dir");
+        System.out.println(property);
+
+        getMetaData();
         ResultSet result = null;
         Entity entity = new Entity();
         LinkedList<Column> columns = new LinkedList<>();
@@ -89,6 +97,7 @@ public class GeneratorApplication {
             while(result.next()){
                 String column_name = result.getString("COLUMN_NAME");
                 String type_name = result.getString("TYPE_NAME");
+
                 if("id".equals(column_name)){
                     switch(type_name){
                         case "INT":
@@ -112,13 +121,14 @@ public class GeneratorApplication {
             entity.setColumns(columns);
             entity.setAuthor(author);
             entity.setEntityName(entityName);
-            entity.setPackageName(packageName);
+            entity.setPackageName(targetPackage);
             entity.setBaseEntityPackage(baseEntityPackage);
             entity.setCreateTime(LocalDate.now().toString());
+            baseGenerate.checkDir();
+            baseGenerate.create(entity);
         } catch (SQLException e) {
             log.error("获取表元信息错误。。。");
             e.printStackTrace();
         }
-
     }
 }
