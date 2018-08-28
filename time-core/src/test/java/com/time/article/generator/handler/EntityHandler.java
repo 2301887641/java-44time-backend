@@ -51,7 +51,7 @@ public class EntityHandler {
      */
     private void getMetaData() {
         //数据库连接
-        Connection connection = null;
+        Connection connection;
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -79,7 +79,7 @@ public class EntityHandler {
             //忽略字段数组
             String[] ignoreFields = ignoreField.split(",");
             while (result.next()) {
-                String column_name = nameFormat(result.getString("COLUMN_NAME"));
+                String column_name = result.getString("COLUMN_NAME");
                 String type_name = typeFormat(result.getString("TYPE_NAME"));
                 //设置主键
                 entity.setPrimary(this.getPrimary(column_name, type_name));
@@ -88,7 +88,7 @@ public class EntityHandler {
                     continue;
                 }
                 //放入column中
-                columns.add(Column.of(column_name, type_name, result.getString("REMARKS")));
+                columns.add(Column.of(nameFormat(column_name), type_name, result.getString("REMARKS")));
             }
             entity.setColumns(columns);
             baseGenerate.create(entity);
@@ -105,12 +105,16 @@ public class EntityHandler {
      * @param type_name
      * @return
      */
-    public String getPrimary(String primary, String type_name) {
+    private String getPrimary(String primary, String type_name) {
         String type = "Integer";
+        String entityName = "TreeEntity";
         if ("id".equals(primary)) {
             if ("VARCHAR".equals(type_name)) {
                 type = "String";
             }
+        }
+        if (entityName.equals(entity.getBaseEntityName())) {
+            type = entity.getEntityName() + "," + type;
         }
         return type;
     }
@@ -121,23 +125,21 @@ public class EntityHandler {
      * @param type
      * @return
      */
-    public String typeFormat(String type) {
+    private String typeFormat(String type) {
         String fieldType;
         switch (type) {
+            case "BIT":
             case "INT":
+            case "TINYINT":
                 fieldType = "Integer";
                 break;
+            case "TIMESTAMP":
+                fieldType = "java.time.LocalDateTime";
+                break;
             case "VARCHAR":
-                fieldType = "String";
-                break;
             case "CHAR":
-                fieldType = "String";
-                break;
-            case "DATE":
-                fieldType = "Date";
-                break;
             case "BIGINT":
-                fieldType = "Long";
+                fieldType = "String";
                 break;
             default:
                 fieldType = "String";
@@ -147,7 +149,8 @@ public class EntityHandler {
     }
 
     /**
-     * 格式化字段名
+     * 格式化字段名 将字段中带有下划线的改成大写  log_type => logType
+     *
      * @param name
      * @return
      */

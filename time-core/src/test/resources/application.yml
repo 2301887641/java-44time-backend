@@ -17,9 +17,11 @@ generator:
     #entity生成的包路径
     targetPackage: com.time.article.dao.entity.business.user
     #entity生成的项目目录
-    targetProject: F:\java-44time-backend\time-dao\src\main\java\com\time\article\dao\entity\business\user\
+    targetProject: F:\java-44time-backend\time-dao\src\main\java\com\time\article\dao\entity\business\user
     #entity的名称
     entityName: User
+    #BaseEntity的名字 为了区别 TreeEntity  BaseEntity
+    BaseEntityName: BaseEntity
     #BaseEntity的包路径
     BaseEntityPackage: com.time.article.core.dao.entity.BaseEntity
     #作者

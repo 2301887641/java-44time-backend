@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ${entityName} extends BaseEntity<${primary}> {
+public class ${entityName} extends ${baseEntityName}<${primary}> {
 <#list columns as column>
     /**
     *  ${column.remarks}

@@ -19,6 +19,8 @@ public class Entity {
     //生成的包路径
     @Value("${generator.entity.targetPackage}")
     private String packageName;
+    @Value("${generator.entity.BaseEntityName}")
+    private String baseEntityName;
     //BaseEntity 的路径名
     @Value("${generator.entity.BaseEntityPackage}")
     private String baseEntityPackage;
