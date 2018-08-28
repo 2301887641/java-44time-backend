@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-public class EntityGenerateImpl extends BaseGenerate {
+public class EntityFactory extends BaseFactory {
     @Value("${generator.entity.basePackagePath}")
     private String basePackagePath;
     @Value("${generator.entity.templateName}")
@@ -25,28 +25,38 @@ public class EntityGenerateImpl extends BaseGenerate {
     private String targetPackage;
     @Value("${generator.entity.targetProject}")
     private String targetProject;
+    @Value("${generator.entity.entityName}")
+    private String entityName;
+    //java后缀
+    private String suffix = ".java";
+    //最终要写出的文件
+    private String generatedFileName;
 
     @Override
-    public void checkDir() {
+    public void init() {
         File project = new File(targetProject);
-        File parentFile = project.getParentFile();
-        if (!parentFile.exists()) {
-            log.info("正在生成父目录。。。。");
-            parentFile.mkdirs();
+        if (!project.exists()) {
+            log.info("正在递归生成目录。。。。");
+            project.mkdirs();
         }
-        try {
-            project.createNewFile();
-        } catch (IOException e) {
-            log.error("创建entity文件失败.....");
-            e.printStackTrace();
+        generatedFileName = project.getAbsolutePath() + "\\" + entityName + suffix;
+        File file = new File(generatedFileName);
+        if (!file.exists()) {
+            try {
+                log.info("正在创建文件");
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void create(Entity entity) {
+        init();
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
         //设置模板路径
-        configuration.setClassForTemplateLoading(EntityGenerateImpl.class, basePackagePath);
+        configuration.setClassForTemplateLoading(EntityFactory.class, basePackagePath);
         //设置默认字体
         configuration.setDefaultEncoding("utf-8");
         Template template = null;
@@ -54,9 +64,9 @@ public class EntityGenerateImpl extends BaseGenerate {
         //获取模板
         try {
             template = configuration.getTemplate(templateName);
-            fileWriter = new FileWriter(targetProject);
+            fileWriter = new FileWriter(generatedFileName);
         } catch (IOException e) {
-            log.error("获取entity模板失败");
+            log.error("获取模板失败");
             e.printStackTrace();
         }
         try {
