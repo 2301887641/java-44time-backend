@@ -1,5 +1,6 @@
 package com.time.article.generator;
 
+import com.time.article.generator.handler.CriteriaHandler;
 import com.time.article.generator.handler.EntityHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -25,10 +26,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class GeneratorApplication {
     @Autowired
     private EntityHandler entityHandler;
+    @Autowired
+    private CriteriaHandler criteriaHandler;
 
     @Before
-    public void dao(){
-        entityHandler.entityHandler();
+    public void init(){
+        //①先生成entity
+        entityHandler.generate();
+        //②再生成criteria
+        criteriaHandler.generate();
     }
 
     @Test

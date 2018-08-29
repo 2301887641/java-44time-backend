@@ -4,6 +4,7 @@ import com.time.article.core.utils.StringUtils;
 import com.time.article.generator.dao.entity.Column;
 import com.time.article.generator.dao.entity.Entity;
 import com.time.article.generator.generate.BaseFactory;
+import com.time.article.generator.generate.EntityFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.LinkedList;
  */
 @Component
 @Slf4j
-public class EntityHandler {
+public class EntityHandler extends BaseHandler{
     //数据库信息
     @Value("${spring.datasource.driverClassName}")
     private String driver;
@@ -44,7 +45,7 @@ public class EntityHandler {
     @Autowired
     private Entity entity;
     @Autowired
-    private BaseFactory baseGenerate;
+    private EntityFactory entityFactory;
 
     /**
      * 获取metaData
@@ -70,7 +71,8 @@ public class EntityHandler {
     /**
      * entity处理器
      */
-    public void entityHandler() {
+    @Override
+    public void generate() {
         getMetaData();
         ResultSet result;
         LinkedList<Column> columns = new LinkedList<>();
@@ -91,7 +93,7 @@ public class EntityHandler {
                 columns.add(Column.of(nameFormat(column_name), type_name, result.getString("REMARKS")));
             }
             entity.setColumns(columns);
-            baseGenerate.create(entity);
+            entityFactory.run();
         } catch (SQLException e) {
             log.error("获取表元信息错误。。。");
             e.printStackTrace();

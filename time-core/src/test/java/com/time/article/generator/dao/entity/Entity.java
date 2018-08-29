@@ -1,11 +1,11 @@
 package com.time.article.generator.dao.entity;
 
+import com.time.article.generator.dao.base.BaseAttribute;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,22 +15,16 @@ import java.util.List;
 @Getter
 @Setter
 @Component
-public class Entity {
+public class Entity extends BaseAttribute {
     //生成的包路径
-    @Value("${generator.entity.targetPackage}")
-    private String packageName;
-    @Value("${generator.entity.BaseEntityName}")
-    private String baseEntityName;
-    //BaseEntity 的路径名
-    @Value("${generator.entity.BaseEntityPackage}")
-    private String baseEntityPackage;
-    //作者
-    @Value("${generator.entity.author}")
-    private String author;
-    @Value("${generator.entity.entityName}")
-    private String entityName;
-    //设置时间
-    private String createTime= LocalDate.now().toString();
+    @Value("${generator.entity.targetProject}")
+    private String targetProject;
+
+    //模板名称
+    @Value("${generator.entity.templateName}")
+    private String templateName;
+
+    //主键
     private String primary;
     //将字段数据放入集合中
     private List<Column> columns;

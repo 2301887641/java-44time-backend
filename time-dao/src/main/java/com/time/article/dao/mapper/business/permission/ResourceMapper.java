@@ -7,6 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * @author suiguozhen on 18/07/12
  */
-@Mapper
 public interface ResourceMapper extends TreeMapper<Resource,Integer> {
 }

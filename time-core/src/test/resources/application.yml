@@ -6,9 +6,15 @@ spring:
     username: root
     password: 123456
 
-
+## -----------------------------生成器每次都需要设置以下属性----------------------------------
 ##生成器
 generator:
+  #作者
+  author: suiguozhen
+  #模板的基路径
+  templatePath: /template
+
+  #生成实体
   entity:
     #要生成的表的名称
     tableName: time_user
@@ -21,12 +27,26 @@ generator:
     #entity的名称
     entityName: User
     #BaseEntity的名字 为了区别 TreeEntity  BaseEntity
-    BaseEntityName: BaseEntity
+    baseEntityName: BaseEntity
     #BaseEntity的包路径
-    BaseEntityPackage: com.time.article.core.dao.entity.BaseEntity
-    #作者
-    author: suiguozhen
-    #模板的基路径
-    basePackagePath: /template/entity
+    baseEntityPackage: com.time.article.core.dao.entity.BaseEntity
     #模板名称
     templateName: entity.ftl
+
+  #criteria
+  criteria:
+    #生成的包路径
+    targetPackage: com.time.article.dao.criteria.business.user
+    #生成的项目目录
+    targetProject: F:\java-44time-backend\time-dao\src\main\java\com\time\article\dao\criteria\business\user
+    #模板名称
+    templateName: criteria.ftl
+
+  #生成mapper
+  mapper:
+    #生成的包路径
+    targetPackage: com.time.article.dao.mapper.business.user
+    #生成的项目目录
+    targetProject: F:\java-44time-backend\time-dao\src\main\java\com\time\article\dao\mapper\business\user
+    #mapper名称
+    mapperName: User
