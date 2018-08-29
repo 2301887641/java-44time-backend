@@ -1,4 +1,4 @@
-package ${targetPackage};
+package ${criteriaTargetPackage};
 
 import ${entityPackage}.${entityName};
 

@@ -10,7 +10,13 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+<#if baseEntityName=="TreeEntity">
+public class ${entityName} extends ${baseEntityName}<${entityName},${primary}> {
+
+<#else>
 public class ${entityName} extends ${baseEntityName}<${primary}> {
+
+</#if>
 <#list columns as column>
     /**
     *  ${column.remarks}

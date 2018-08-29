@@ -38,7 +38,14 @@ public class BaseAttribute {
     @Value("${generator.entity.baseEntityPackage}")
     private String baseEntityPackage;
 
-    //criteria 包路径
+    //{{criteria}} 包路径
     @Value("${generator.criteria.targetPackage}")
-    private String targetPackage;
+    private String criteriaTargetPackage;
+
+    //{{mapper}} 包路径
+    @Value("${generator.mapper.targetPackage}")
+    private String mapperTargetPackage;
+    //{{mapper}} 基类包路径
+    @Value("${generator.mapper.baseMapperPackage}")
+    private String baseMapperPackage;
 }

@@ -21,7 +21,7 @@ public class CriteriaFactory extends BaseFactory {
 
     @Override
     public  void run() {
-        makeFile(makeDir(criteria.getTargetProject()) + "\\" + criteria.getEntityName() + entityNameSuffix + criteria.getSuffix());
+        makeFile(makeDir(criteria.getTargetProject()) + criteria.getEntityName() + entityNameSuffix + criteria.getSuffix());
         build(criteria,criteria.getTemplateName());
     }
 }

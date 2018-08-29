@@ -33,7 +33,8 @@ public abstract class BaseFactory {
         if (!project.exists()) {
             project.mkdirs();
         }
-        return project.getAbsolutePath();
+        //返回的绝对地址不会在最后加\,这样统一自己加上即可。
+        return project.getAbsolutePath()+"\\";
     }
 
     /**

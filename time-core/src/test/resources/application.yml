@@ -23,14 +23,14 @@ generator:
     #entity生成的包路径
     targetPackage: com.time.article.dao.entity.business.user
     #entity生成的项目目录
-    targetProject: F:\java-44time-backend\time-dao\src\main\java\com\time\article\dao\entity\business\user
+    targetProject: F:\java-44time-backend\time-dao\src\main\java\com\time\article\dao\entity\business\user\
     #entity的名称
     entityName: User
     #BaseEntity的名字 为了区别 TreeEntity  BaseEntity
     baseEntityName: BaseEntity
     #BaseEntity的包路径
     baseEntityPackage: com.time.article.core.dao.entity.BaseEntity
-    #模板名称
+    #模板名称   {{不必修改}}
     templateName: entity.ftl
 
   #criteria
@@ -39,7 +39,7 @@ generator:
     targetPackage: com.time.article.dao.criteria.business.user
     #生成的项目目录
     targetProject: F:\java-44time-backend\time-dao\src\main\java\com\time\article\dao\criteria\business\user
-    #模板名称
+    #模板名称  {{不必修改}}
     templateName: criteria.ftl
 
   #生成mapper
@@ -48,5 +48,16 @@ generator:
     targetPackage: com.time.article.dao.mapper.business.user
     #生成的项目目录
     targetProject: F:\java-44time-backend\time-dao\src\main\java\com\time\article\dao\mapper\business\user
-    #mapper名称
-    mapperName: User
+    #baseMapper名称  分为:  TreeMapper  BaseMapper
+    baseMapperName: BaseMapper
+    #baseMapper的路径
+    baseMapperPackage: com.time.article.core.dao.mapper.BaseMapper
+    #模板名称     {{不必修改}}
+    templateName: mapper.ftl
+
+  #mapper xml文件
+  mapperXml:
+    #生成的项目目录
+    targetProject: F:\java-44time-backend\time-dao\src\main\resources\mapper\business\user
+    #模板名称
+    templateName: mapperxml.ftl

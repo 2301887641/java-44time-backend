@@ -2,6 +2,8 @@ package com.time.article.generator;
 
 import com.time.article.generator.handler.CriteriaHandler;
 import com.time.article.generator.handler.EntityHandler;
+import com.time.article.generator.handler.MapperHandler;
+import com.time.article.generator.handler.MapperXmlHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,13 +30,21 @@ public class GeneratorApplication {
     private EntityHandler entityHandler;
     @Autowired
     private CriteriaHandler criteriaHandler;
+    @Autowired
+    private MapperHandler mapperHandler;
+    @Autowired
+    private MapperXmlHandler mapperXmlHandler;
 
     @Before
     public void init(){
         //①先生成entity
         entityHandler.generate();
-        //②再生成criteria
+        //②生成criteria
         criteriaHandler.generate();
+        //③生成mapper接口
+        mapperHandler.generate();
+        //④生成mapper xml
+        mapperXmlHandler.generate();
     }
 
     @Test

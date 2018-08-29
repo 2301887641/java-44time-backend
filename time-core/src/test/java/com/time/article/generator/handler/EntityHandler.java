@@ -3,7 +3,6 @@ package com.time.article.generator.handler;
 import com.time.article.core.utils.StringUtils;
 import com.time.article.generator.dao.entity.Column;
 import com.time.article.generator.dao.entity.Entity;
-import com.time.article.generator.generate.BaseFactory;
 import com.time.article.generator.generate.EntityFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
@@ -114,9 +113,6 @@ public class EntityHandler extends BaseHandler{
             if ("VARCHAR".equals(type_name)) {
                 type = "String";
             }
-        }
-        if (entityName.equals(entity.getBaseEntityName())) {
-            type = entity.getEntityName() + "," + type;
         }
         return type;
     }
