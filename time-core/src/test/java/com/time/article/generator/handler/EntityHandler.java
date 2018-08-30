@@ -4,6 +4,7 @@ import com.time.article.core.utils.StringUtils;
 import com.time.article.generator.dao.entity.Column;
 import com.time.article.generator.dao.entity.Entity;
 import com.time.article.generator.generate.EntityFactory;
+import com.time.article.generator.generate.MapperXmlFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ public class EntityHandler extends BaseHandler{
     private Entity entity;
     @Autowired
     private EntityFactory entityFactory;
+    @Autowired
+    private MapperXmlFactory mapperXmlFactory;
 
     /**
      * 获取metaData
@@ -81,7 +84,8 @@ public class EntityHandler extends BaseHandler{
             String[] ignoreFields = ignoreField.split(",");
             while (result.next()) {
                 String column_name = result.getString("COLUMN_NAME");
-                String type_name = typeFormat(result.getString("TYPE_NAME"));
+                String uppercaseString = StringUtils.uppercaseStringIgnoreFirst(column_name);
+                String type_name = typeFormat(column_name,result.getString("TYPE_NAME"),uppercaseString);
                 //设置主键
                 entity.setPrimary(this.getPrimary(column_name, type_name));
                 //如果没有在忽略数组中的话
@@ -89,7 +93,7 @@ public class EntityHandler extends BaseHandler{
                     continue;
                 }
                 //放入column中
-                columns.add(Column.of(nameFormat(column_name), type_name, result.getString("REMARKS")));
+                columns.add(Column.of(uppercaseString, type_name, result.getString("REMARKS")));
             }
             entity.setColumns(columns);
             entityFactory.run();
@@ -108,7 +112,6 @@ public class EntityHandler extends BaseHandler{
      */
     private String getPrimary(String primary, String type_name) {
         String type = "Integer";
-        String entityName = "TreeEntity";
         if ("id".equals(primary)) {
             if ("VARCHAR".equals(type_name)) {
                 type = "String";
@@ -119,11 +122,12 @@ public class EntityHandler extends BaseHandler{
 
     /**
      * 格式化字段类型
-     *
-     * @param type
+     * @param column_name       字段名
+     * @param type             字段类型
+     * @param uppercaseString 字段转大写
      * @return
      */
-    private String typeFormat(String type) {
+    private String typeFormat(String column_name,String type,String uppercaseString) {
         String fieldType;
         switch (type) {
             case "BIT":
@@ -143,24 +147,9 @@ public class EntityHandler extends BaseHandler{
                 fieldType = "String";
                 break;
         }
+        //需要填充xml需要的数据
+        mapperXmlFactory.fill(column_name,type,uppercaseString);
         return fieldType;
     }
 
-    /**
-     * 格式化字段名 将字段中带有下划线的改成大写  log_type => logType
-     *
-     * @param name
-     * @return
-     */
-    private String nameFormat(String name) {
-        if (name.contains("_")) {
-            String[] splits = name.split("_");
-            StringBuilder stringBuilder = new StringBuilder(splits[0]);
-            for (int i = 1; i < splits.length; i++) {
-                stringBuilder.append(StringUtils.firstToUpperCase(splits[i]));
-            }
-            return stringBuilder.toString();
-        }
-        return name;
-    }
 }

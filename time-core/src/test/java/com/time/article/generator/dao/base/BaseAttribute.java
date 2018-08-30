@@ -16,6 +16,9 @@ public class BaseAttribute {
     //{{公共}} 模板路径
     @Value("${generator.templatePath}")
     private String templatePath;
+    //{{公共}} 表名
+    @Value("${generator.entity.tableName}")
+    private String tableName;
     //{{公共}} 作者
     @Value("${generator.author}")
     private String author;

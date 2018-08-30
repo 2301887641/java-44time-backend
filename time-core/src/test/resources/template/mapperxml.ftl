@@ -4,28 +4,75 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${mapperTargetPackage}.${entityName}Mapper">
     <sql id="baseColumn">
-        a.id,
-        a.name,
-        a.code,
-        a.icon,
-        a.resource_type,
-        a.level,
-        a.url,
-        a.parent_id,
-        a.priority,
-        a.path
+        <#list field as f>
+            <#if f_index!=(field?size-1)>
+                a.${f},
+            <#else>
+                a.${f}
+            </#if>
+        </#list>
     </sql>
 
     <resultMap id="baseResultMap" type="${entityPackage}.${entityName}">
         <id column="id" property="id"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="code" column="code" jdbcType="VARCHAR"/>
-        <result property="icon" column="icon" jdbcType="VARCHAR"/>
-        <result property="resourceType" column="resource_type" jdbcType="VARCHAR"/>
-        <result property="level" column="level" jdbcType="INTEGER"/>
-        <result property="url" column="url" jdbcType="VARCHAR"/>
-        <result property="createTime" column="create_time" jdbcType="INTEGER"/>
-        <result property="priority" column="priority" jdbcType="INTEGER"/>
-        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <#list resultMapList as list>
+        <result property="${list.property}" column="${list.column}" jdbcType="${list.jdbcType}"/>
+        </#list>
     </resultMap>
+
+    <!-- #添加 -->
+    <insert id="insert">
+        <selectKey keyProperty="id" resultType="integer" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into ${tableName}(
+        <#list field as f>
+        <#if f=="id" || f=="update_time">
+            <#continue>
+        </#if>
+        <#if f_index!=(field?size-1)>
+         ${f},
+        <#else>
+         ${f}
+        </#if>
+        </#list>
+        ) values(
+        <#list field as f>
+          <#if f=="id" || f=="update_time">
+        <#continue>
+          </#if>
+          <#if f_index!=(field?size-1)>
+         ${r'#{'}${f}${r'}'},
+           <#else>
+         ${r'#{'}${f}${r'}'}
+        </#if>
+        </#list>
+        )
+    </insert>
+
+    <!-- 查询 -->
+    <select id="selectBySearch"  resultMap="baseResultMap">
+        select
+        <include refid="baseColumn"/>
+        from ${tableName} a
+        ORDER BY a.id DESC
+    </select>
+
+    <!-- 修改 -->
+    <update id="update">
+        update
+        ${tableName}
+        set
+        <#list resultMapList as list>
+            <#if list.column=="id" || list.column=="create_time" || list.column=="update_time">
+                <#continue>
+            </#if>
+            <if test="${list.column}!=null">
+                ${list.column}=${r'#{'}${list.property}${r'}'},
+            </if>
+        </#list>
+        update_time=${r'#{'}updateTime${r'}'}
+        where id=${r'#{'}id${r'}'}
+    </update>
+
 </mapper>

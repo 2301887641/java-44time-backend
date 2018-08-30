@@ -5,7 +5,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/time?serverTimezone=GMT
     username: root
     password: 123456
-
+  freemarker:
+    checkTemplateLocation: false
 ## -----------------------------生成器每次都需要设置以下属性----------------------------------
 ##生成器
 generator:
