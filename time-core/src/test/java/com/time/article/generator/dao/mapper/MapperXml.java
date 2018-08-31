@@ -1,6 +1,6 @@
 package com.time.article.generator.dao.mapper;
 
-import com.time.article.generator.dao.base.BaseAttribute;
+import com.time.article.generator.dao.base.BasePojo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Component
-public class MapperXml extends BaseAttribute {
+public class MapperXml extends BasePojo {
     @Value("${generator.mapperXml.targetProject}")
     private String targetProject;
     @Value("${generator.mapperXml.templateName}")

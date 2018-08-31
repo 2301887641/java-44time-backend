@@ -1,6 +1,6 @@
 package com.time.article.generator.dao.criteria;
 
-import com.time.article.generator.dao.base.BaseAttribute;
+import com.time.article.generator.dao.base.BasePojo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class Criteria extends BaseAttribute {
+public class EntityCriteria extends BasePojo {
     //项目生成目录
     @Value("${generator.criteria.targetProject}")
     private String targetProject;

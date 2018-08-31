@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 @Getter
 @Setter
-public class BaseAttribute {
+public class BasePojo {
     //{{公共}} 模板路径
     @Value("${generator.templatePath}")
     private String templatePath;
@@ -51,4 +51,8 @@ public class BaseAttribute {
     //{{mapper}} 基类包路径
     @Value("${generator.mapper.baseMapperPackage}")
     private String baseMapperPackage;
+
+    //{{dto}} 包路径
+    @Value("${generator.dto.targetPackage}")
+    private String dtoTargetPackage;
 }

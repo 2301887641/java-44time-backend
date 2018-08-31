@@ -1,6 +1,6 @@
 package com.time.article.generator.generate;
 
-import com.time.article.generator.dao.base.BaseAttribute;
+import com.time.article.generator.dao.base.BasePojo;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +60,7 @@ public abstract class BaseFactory {
      * @param entity
      * @param templateName
      */
-    protected void build(BaseAttribute entity, String templateName) {
+    protected void build(BasePojo entity, String templateName) {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
         Template template = null;
         FileWriter fileWriter = null;

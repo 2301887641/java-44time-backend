@@ -1,6 +1,5 @@
 package com.time.article.generator.generate;
 
-import com.time.article.generator.dao.base.BaseAttribute;
 import com.time.article.generator.dao.entity.Entity;
 import com.time.article.generator.dao.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

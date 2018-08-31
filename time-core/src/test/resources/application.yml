@@ -62,3 +62,28 @@ generator:
     targetProject: F:\java-44time-backend\time-dao\src\main\resources\mapper\business\user
     #模板名称
     templateName: mapperxml.ftl
+
+  #dto
+  dto:
+    #生成的项目目录
+    targetProject: F:\java-44time-backend\time-service\time-service-api\src\main\java\com\time\article\service\dto\business\user
+    #生成的包目录
+    targetPackage: com.time.article.service.dto.business.user
+    #baseDto 名称   分为:  BaseDto   TreeDto
+    baseDtoName: BaseDto
+    #baseDto 包路径
+    baseDtoPackage: com.time.article.core.service.dto.BaseDto
+    #模板名称
+    templateName: dto.ftl
+    #dto 名称
+    dtoName: UserDto
+
+  #dtoCriteria
+  dtoCriteria:
+    #生成的项目目录
+    targetProject: F:\java-44time-backend\time-service\time-service-api\src\main\java\com\time\article\service\criteria\business\user
+    #生成的包目录
+    targetPackage: com.time.article.service.criteria.business.user
+
+  #converter
+  converter:

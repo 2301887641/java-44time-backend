@@ -1,6 +1,6 @@
 package com.time.article.generator.dao.mapper;
 
-import com.time.article.generator.dao.base.BaseAttribute;
+import com.time.article.generator.dao.base.BasePojo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-public class Mapper extends BaseAttribute {
+public class Mapper extends BasePojo {
     @Value("${generator.mapper.baseMapperName}")
     private String baseMapperName;
 

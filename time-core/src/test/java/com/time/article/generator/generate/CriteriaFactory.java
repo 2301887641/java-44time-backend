@@ -1,9 +1,8 @@
 package com.time.article.generator.generate;
 
-import com.time.article.generator.dao.criteria.Criteria;
+import com.time.article.generator.dao.criteria.EntityCriteria;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +16,7 @@ public class CriteriaFactory extends BaseFactory {
     private String entityNameSuffix = "Criteria";
 
     @Autowired
-    private Criteria criteria;
+    private EntityCriteria criteria;
 
     @Override
     public  void run() {

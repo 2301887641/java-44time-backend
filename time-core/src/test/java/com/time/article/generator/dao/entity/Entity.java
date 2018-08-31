@@ -1,6 +1,6 @@
 package com.time.article.generator.dao.entity;
 
-import com.time.article.generator.dao.base.BaseAttribute;
+import com.time.article.generator.dao.base.BasePojo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Component
-public class Entity extends BaseAttribute {
+public class Entity extends BasePojo {
     //生成的包路径
     @Value("${generator.entity.targetProject}")
     private String targetProject;
