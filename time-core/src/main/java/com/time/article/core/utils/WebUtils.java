@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author suiguozhen on 18/03/30
  */
 public class WebUtils {
+    private static final String X_REQUESTED_WITH="x-requested-with";
 
     /**
      * 判断当前请求是否是ajax请求
@@ -19,7 +20,7 @@ public class WebUtils {
      * @return
      */
     public static Boolean isAjaxRequest(HttpServletRequest request) {
-        if(Constants.AJAX_REQUEST_TAG.equals(request.getHeader("x-requested-with"))){
+        if(Constants.AJAX_REQUEST_TAG.equals(request.getHeader(X_REQUESTED_WITH))){
             return true;
         }
         return false;

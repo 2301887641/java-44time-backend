@@ -130,12 +130,12 @@ public class TreePlugin implements Interceptor {
         MappedStatement statement;
         /**查询当前节点*/
         statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
-        List<TreeEntity> PreviousEntityList = executor.query(statement,entity.getId(), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
-        if (CollectionUtils.isEmpty(PreviousEntityList)) {
+        List<TreeEntity> previousEntityList = executor.query(statement,entity.getId(), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
+        if (CollectionUtils.isEmpty(previousEntityList)) {
             throw new BusinessException(RestCodeEnums.DAO_RECORD_MISSED);
         }
         /**得到的是之前的pojo数据*/
-        TreeEntity previousEntity = PreviousEntityList.get(0);
+        TreeEntity previousEntity = previousEntityList.get(0);
         /**判断当前记录如果没有parent的话*/
         if (Objects.isNull(previousEntity.getParent())) {
             previousEntity.setParent(previousEntity.getClass().newInstance());

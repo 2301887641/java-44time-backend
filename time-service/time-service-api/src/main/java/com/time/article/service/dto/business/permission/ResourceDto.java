@@ -25,7 +25,7 @@ public class ResourceDto extends TreeDto<ResourceDto,Integer> {
     @FieldLog("资源图标:设置为")
     private String icon;
     @FieldLog("资源类型:设置为")
-//    @NotBlank(message = "资源类型不能为空")
+    @NotBlank(message = "资源类型不能为空")
     private ResourceEnum resourceType;
     @FieldLog("页面访问url:设置为")
     private String url;

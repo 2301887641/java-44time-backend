@@ -1,0 +1,79 @@
+package com.time.article.generator.dao.base;
+
+
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.time.LocalDate;
+
+/**
+ * 基类属性
+ * @author suiguozhen on 18/08/29
+ */
+@Getter
+@Setter
+public class BasePojo {
+    //{{公共}} 模板路径
+    @Value("${generator.templatePath}")
+    private String templatePath;
+    //{{公共}} 表名
+    @Value("${generator.entity.tableName}")
+    private String tableName;
+    //{{公共}} 作者
+    @Value("${generator.author}")
+    private String author;
+    //{{公共}} 时间
+    private String createTime= LocalDate.now().toString();
+    //{{公共}} java后缀
+    private String suffix = ".java";
+
+
+
+    //{{实体}} 名称
+    @Value("${generator.entity.entityName}")
+    private String entityName;
+    //{{实体}} 生成的包路径
+    @Value("${generator.entity.targetPackage}")
+    private String entityPackage;
+    //{{实体}} 基类entity的名称
+    @Value("${generator.entity.baseEntityName}")
+    private String baseEntityName;
+    //{{实体}} 基类entity的包路径
+    @Value("${generator.entity.baseEntityPackage}")
+    private String baseEntityPackage;
+
+    //{{criteria}} 包路径
+    @Value("${generator.criteria.targetPackage}")
+    private String criteriaTargetPackage;
+
+    //{{mapper}} 包路径
+    @Value("${generator.mapper.targetPackage}")
+    private String mapperTargetPackage;
+    //{{mapper}} 基类包路径
+    @Value("${generator.mapper.baseMapperPackage}")
+    private String baseMapperPackage;
+
+    //{{dto}} 包路径
+    @Value("${generator.dto.targetPackage}")
+    private String dtoTargetPackage;
+    //{{dto}} 基类包路径
+    @Value("${generator.dto.baseDtoPackage}")
+    private String baseDtoPackage;
+    //{{dto}} 基类名称
+    @Value("${generator.dto.baseDtoName}")
+    private String baseDtoName;
+    //{{dto}} dto名称
+    @Value("${generator.dto.dtoName}")
+    private String dtoName;
+
+    //{{dtoCriteria}} 生成目录
+    @Value("${generator.dtoCriteria.targetProject}")
+    private String dtoCriteriaTargetProject;
+    //{{dtoCriteria}} 包路径
+    @Value("${generator.dtoCriteria.targetPackage}")
+    private String dtoCriteriaTargetPackage;
+    //{{dtoCriteria}} 名称
+    @Value("${generator.dtoCriteria.dtoCriteriaName}")
+    private String dtoCriteriaName;
+}

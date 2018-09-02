@@ -47,7 +47,7 @@ public class TreeServiceImpl<
     @Override
     public List<DTO> converterToTree(List<DTO> treeList) {
         LinkedList<DTO> rootList = new LinkedList<>();
-        Map<String, DTO> root = new HashMap<String, DTO>();
+        Map<String, DTO> root = new HashMap<String, DTO>(16);
         for (int i = 0; i < treeList.size(); i++) {
             DTO dto = treeList.get(i);
             //父类parentId是0的话
