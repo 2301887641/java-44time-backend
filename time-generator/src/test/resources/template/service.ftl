@@ -1,14 +1,17 @@
-package com.time.article.service.api.business.log;
+package ${serviceTargetPackage};
 
-import com.time.article.core.service.api.BaseService;
-import com.time.article.service.criteria.business.log.OperationLogCriteriaDto;
-import com.time.article.service.dto.business.log.OperationLogDto;
+import ${baseServicePackage};
+import ${dtoCriteriaTargetPackage}.${dtoCriteriaName};
+import ${dtoTargetPackage}.${dtoName};
 
 /**
- * 操作日志
- * @author suiguozhen on 18/08/15
+ *
+ * @author ${author} on ${createTime}
  */
-public interface OperationLogService extends BaseService
-        <Integer,OperationLogDto, OperationLogCriteriaDto> {
-
+public interface ${serviceName} extends ${baseServiceName}
+<#if baseServiceName=="BaseService">
+        <${primary},${dtoName}, ${dtoCriteriaName}> {
+<#else>
+        <${dtoCriteriaName},${dtoName},${primary}> {
+</#if>
 }

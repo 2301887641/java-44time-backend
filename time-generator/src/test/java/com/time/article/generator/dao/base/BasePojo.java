@@ -92,4 +92,21 @@ public class BasePojo {
     //{{converter}} converter名称
     @Value("${generator.converter.converterName}")
     private String converterName;
+
+    //{{service}} 生成目录
+    @Value("${generator.service.targetProject}")
+    private String serviceTargetProject;
+    //{{service}} 包路径
+    @Value("${generator.service.targetPackage}")
+    private String serviceTargetPackage;
+    //{{service}} 基类包路径
+    @Value("${generator.service.baseServicePackage}")
+    private String baseServicePackage;
+    //{{service}} 基类包名
+    @Value("${generator.service.baseServiceName}")
+    private String baseServiceName;
+    //{{service}} service名称
+    @Value("${generator.service.serviceName}")
+    private String serviceName;
+
 }

@@ -86,7 +86,6 @@ public class TreeServiceImpl<
             if(!CollectionUtils.isEmpty(data.get(i).getChildren())){
                 recursion(data.get(i).getChildren(),dto);
             }
-            continue;
         }
     }
 
