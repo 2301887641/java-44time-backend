@@ -76,10 +76,10 @@ generator:
     baseDtoName: BaseDto
     #baseDto 包路径
     baseDtoPackage: com.time.article.core.service.dto.BaseDto
-    #模板名称
-    templateName: dto.ftl
     #dto 名称
     dtoName: UserDto
+    #模板名称
+    templateName: dto.ftl
 
   #dtoCriteria
   dtoCriteria:
@@ -98,11 +98,24 @@ generator:
     targetProject: F:\java-44time-backend\time-service\time-service-impl\src\main\java\com\time\article\service\converter\business\user
     #生成的包目录
     targetPackage: com.time.article.service.converter.business.user
-    #模板名称
-    templateName: UserConverter
+    #converter 生成名称
+    converterName: UserConverter
     #基类名称
     baseConverterName: BaseConverter
     #基类包路径
     baseConverterPackage: com.time.article.core.service.converter.BaseConverter
+    #模板名称
+    templateName: converter.ftl
 
-
+  #service
+  service:
+    #生成的目标路径
+    targetProject: F:\java-44time-backend\time-service\time-service-api\src\main\java\com\time\article\service\api\business\user
+    #生成的包
+    targetPackage: com.time.article.service.api.business.user
+    #基类包
+    baseServicePackage: com.time.article.core.service.api.BaseService
+    #基类包名称   BaseService或 TreeService
+    baseServiceName: BaseService
+    #模板名称
+    templateName: service.ftl

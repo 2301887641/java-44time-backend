@@ -1,11 +1,11 @@
-package ${converterTargetProject};
+package ${converterTargetPackage};
 
-import ${baseConverterTargetPackage};
-import ${criteriaTargetPackage};
+import ${baseConverterPackage};
+import ${criteriaTargetPackage}.${entityName}Criteria;
 
-import ${entityPackage};
-import ${dtoCriteriaTargetPackage};
-import ${dtoTargetPackage};
+import ${entityPackage}.${entityName};
+import ${dtoCriteriaTargetPackage}.${dtoCriteriaName};
+import ${dtoTargetPackage}.${dtoName};
 
 /**
  *

@@ -1,12 +1,12 @@
 package com.time.article.generator;
 
+import com.time.article.generator.handler.converter.ConverterHandler;
 import com.time.article.generator.handler.dao.CriteriaHandler;
 import com.time.article.generator.handler.dao.EntityHandler;
 import com.time.article.generator.handler.dao.MapperHandler;
 import com.time.article.generator.handler.dao.MapperXmlHandler;
-import com.time.article.generator.handler.service.DtoCriteriaHandler;
-import com.time.article.generator.handler.service.DtoHandler;
-import com.time.article.generator.service.dto.DtoCriteria;
+import com.time.article.generator.handler.dtocriteria.DtoCriteriaHandler;
+import com.time.article.generator.handler.dto.DtoHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,6 +40,8 @@ public class GeneratorApplication {
     private DtoHandler dtoHandler;
     @Autowired
     private DtoCriteriaHandler dtoCriteriaHandler;
+    @Autowired
+    private ConverterHandler converterHandler;
 
     @Test
     public void init(){
@@ -55,6 +57,8 @@ public class GeneratorApplication {
         dtoHandler.generate();
         //⑥生成dtoCriteria
         dtoCriteriaHandler.generate();
+        //⑦生成converter
+        converterHandler.generate();
         System.out.println("-------------------------生成完毕-----------------------------------");
     }
 }

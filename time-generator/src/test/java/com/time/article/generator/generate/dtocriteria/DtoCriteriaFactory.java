@@ -1,4 +1,4 @@
-package com.time.article.generator.generate.service;
+package com.time.article.generator.generate.dtocriteria;
 
 import com.time.article.generator.generate.base.BaseFactory;
 import com.time.article.generator.service.dto.DtoCriteria;

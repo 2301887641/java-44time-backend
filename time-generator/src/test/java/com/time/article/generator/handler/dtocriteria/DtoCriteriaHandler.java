@@ -1,6 +1,6 @@
-package com.time.article.generator.handler.service;
+package com.time.article.generator.handler.dtocriteria;
 
-import com.time.article.generator.generate.service.DtoCriteriaFactory;
+import com.time.article.generator.generate.dtocriteria.DtoCriteriaFactory;
 import com.time.article.generator.handler.base.BaseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

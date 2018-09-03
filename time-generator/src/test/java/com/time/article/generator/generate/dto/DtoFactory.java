@@ -1,4 +1,4 @@
-package com.time.article.generator.generate.service;
+package com.time.article.generator.generate.dto;
 
 import com.time.article.generator.dao.entity.Entity;
 import com.time.article.generator.generate.base.BaseFactory;

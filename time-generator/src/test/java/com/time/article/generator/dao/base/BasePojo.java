@@ -76,4 +76,20 @@ public class BasePojo {
     //{{dtoCriteria}} 名称
     @Value("${generator.dtoCriteria.dtoCriteriaName}")
     private String dtoCriteriaName;
+
+    //{{converter}} 生成目录
+    @Value("${generator.converter.targetProject}")
+    private String converterTargetProject;
+    //{{converter}} 生成的包路径
+    @Value("${generator.converter.targetPackage}")
+    private String converterTargetPackage;
+    //{{converter}} baseConverterName
+    @Value("${generator.converter.baseConverterName}")
+    private String baseConverterName;
+    //{{converter}} baseConverterPackage
+    @Value("${generator.converter.baseConverterPackage}")
+    private String baseConverterPackage;
+    //{{converter}} converter名称
+    @Value("${generator.converter.converterName}")
+    private String converterName;
 }
