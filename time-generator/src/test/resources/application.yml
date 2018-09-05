@@ -115,9 +115,28 @@ generator:
     targetPackage: com.time.article.service.api.business.user
     #基类包
     baseServicePackage: com.time.article.core.service.api.BaseService
-    #基类包名称   BaseService或 TreeService
+    #基类名称   BaseService或 TreeService
     baseServiceName: BaseService
     #service名称
     serviceName: UserService
     #模板名称
     templateName: service.ftl
+
+  #serviceImpl
+  serviceImpl:
+    #生成的目标路径
+    targetProject: F:\java-44time-backend\time-service\time-service-impl\src\main\java\com\time\article\service\impl\business\user
+    #生成的包
+    targetPackage: com.time.article.service.impl.business.user
+    #基类包    BaseServiceImpl  或  TreeServiceImpl
+    baseServiceImplPackage: com.time.article.core.service.impl.BaseServiceImpl
+    #基类名称
+    baseServiceImplName: BaseServiceImpl
+    #serviceImpl名称
+    serviceImplName: UserServiceImpl
+    #接口名称
+    implementationInterfaceName: UserService
+    #接口包路径
+    implementationInterfacePackage: com.time.article.service.api.business.user.UserService
+    #模板名称
+    templateName: serviceImpl.ftl

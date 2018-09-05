@@ -109,4 +109,25 @@ public class BasePojo {
     @Value("${generator.service.serviceName}")
     private String serviceName;
 
+    //{{serviceimpl}生成目录
+    @Value("${generator.serviceImpl.targetProject}")
+    private String serviceImplTargetProject;
+    //{{serviceImpl}} 包路径
+    @Value("${generator.serviceImpl.targetPackage}")
+    private String serviceImplTargetPackage;
+    //{{serviceImpl}} 基类包路径
+    @Value("${generator.serviceImpl.baseServiceImplPackage}")
+    private String baseServiceImplPackage;
+    //{{serviceImpl}} 基础包名
+    @Value("${generator.serviceImpl.baseServiceImplName}")
+    private String baseServiceImplName;
+    //{{serviceImpl}} serviceImpl名称
+    @Value("${generator.serviceImpl.serviceImplName}")
+    private String serviceImplName;
+    //{{serviceImpl}} 继承接口名称
+    @Value("${generator.serviceImpl.implementationInterfaceName}")
+    private String implementationInterfaceName;
+    //{{serviceImpl}} 继承接口包路径
+    @Value("${generator.serviceImpl.implementationInterfacePackage}")
+    private String implementationInterfacePackage;
 }
