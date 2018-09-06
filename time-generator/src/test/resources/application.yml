@@ -140,3 +140,10 @@ generator:
     implementationInterfacePackage: com.time.article.service.api.business.user.UserService
     #模板名称
     templateName: serviceImpl.ftl
+
+  #controller
+  controller:
+    #生成的目标路径
+    targetProject: F:\java-44time-backend\time-web\time-web-admin\src\main\java\com\time\article\admin\controller\business\User
+    #包目录
+    targetPackage: com.time.article.admin.controller.business.user

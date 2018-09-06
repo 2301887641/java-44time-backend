@@ -1,29 +1,28 @@
-package ${serviceImplTargetProject};
+package ${serviceImplTargetPackage};
 
 import ${baseServiceImplPackage};
-import com.time.article.dao.criteria.business.log.OperationLogCriteria;
-import com.time.article.dao.entity.business.log.OperationLog;
-import com.time.article.dao.mapper.business.log.OperationLogMapper;
+import ${criteriaTargetPackage}.${entityName}Criteria;
+import ${entityPackage}.${entityName};
+import ${mapperTargetPackage}.${entityName}Mapper;
 import ${implementationInterfacePackage};
-import com.time.article.service.converter.business.log.OperationLogConverter;
-import com.time.article.service.criteria.business.log.OperationLogCriteriaDto;
-import com.time.article.service.dto.business.log.OperationLogDto;
+import ${converterTargetPackage}.${converterName};
+import ${dtoCriteriaTargetPackage}.${dtoCriteriaName};
+import ${dtoTargetPackage}.${dtoName};
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author ${author} on ${creatTime}
+ * @author ${author} on ${createTime}
  */
 @Service
-public class ${serviceImplName} extends
-        ${baseServiceImplName}<
+public class ${serviceImplName} extends ${baseServiceImplName}<
                 ${primary},
-                OperationLogDto,
-                OperationLogCriteriaDto,
-                OperationLog,
-                OperationLogCriteria,
-                OperationLogConverter,
-                OperationLogMapper
+                ${dtoName},
+                ${dtoCriteriaName},
+                ${entityName},
+                ${entityName}Criteria,
+                ${converterName},
+                ${entityName}Mapper
                 >
         implements ${implementationInterfaceName}
     {

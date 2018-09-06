@@ -8,6 +8,7 @@ import com.time.article.generator.handler.dao.MapperXmlHandler;
 import com.time.article.generator.handler.dtocriteria.DtoCriteriaHandler;
 import com.time.article.generator.handler.dto.DtoHandler;
 import com.time.article.generator.handler.service.ServiceHandler;
+import com.time.article.generator.handler.service.ServiceImplHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +46,8 @@ public class GeneratorApplication {
     private ConverterHandler converterHandler;
     @Autowired
     private ServiceHandler serviceHandler;
+    @Autowired
+    private ServiceImplHandler serviceImplHandler;
 
     @Test
     public void init(){
@@ -64,6 +67,8 @@ public class GeneratorApplication {
         converterHandler.generate();
         //⑧生成service
         serviceHandler.generate();
+        //⑨生成serviceImpl
+        serviceImplHandler.generate();
         System.out.println("-------------------------生成完毕-----------------------------------");
     }
 }
