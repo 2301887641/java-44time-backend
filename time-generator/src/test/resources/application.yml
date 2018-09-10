@@ -147,3 +147,11 @@ generator:
     targetProject: F:\java-44time-backend\time-web\time-web-admin\src\main\java\com\time\article\admin\controller\business\User
     #包目录
     targetPackage: com.time.article.admin.controller.business.user
+    #控制器顶部注释
+    controllerComment: 用户
+    #路由名称
+    routerName: /user
+    #控制器名称
+    controllerName: UserController
+    #模板名称
+    templateName: controller.ftl

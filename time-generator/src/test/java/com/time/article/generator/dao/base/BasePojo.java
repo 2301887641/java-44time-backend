@@ -130,4 +130,20 @@ public class BasePojo {
     //{{serviceImpl}} 继承接口包路径
     @Value("${generator.serviceImpl.implementationInterfacePackage}")
     private String implementationInterfacePackage;
+
+    //{{controller}} 生成目录
+    @Value("${generator.controller.targetProject}")
+    private String controllerTargetProject;
+    //{{controller}} 包路径
+    @Value("${generator.controller.targetPackage}")
+    private String controllerTargetPackage;
+    //{{controller}} 控制器注释
+    @Value("${generator.controller.controllerComment}")
+    private String controllerComment;
+    //{{controller}} 控制器路由
+    @Value("${generator.controller.routerName}")
+    private String controllerRouterName;
+    //{{controller}} 控制器名称
+    @Value("${generator.controller.controllerName}")
+    private String controllerName;
 }
