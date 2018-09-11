@@ -66,6 +66,11 @@ public class BaseServiceImpl<
         return entity.getId();
     }
 
+    /**
+     * 获取列表数据
+     * @param criteriaDto
+     * @return
+     */
     @Override
     public List<DTO> getList(CriteriaDTO criteriaDto) {
         return converter.entityToDto(mapper.selectBySearch(SearchEntity.of(PaginationUtils.getOrderBy(), converter.criteriaDTOToCriteriaEntity(criteriaDto))));

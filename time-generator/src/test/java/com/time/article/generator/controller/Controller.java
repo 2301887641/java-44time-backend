@@ -15,4 +15,6 @@ import org.springframework.stereotype.Component;
 public class Controller extends BasePojo {
     @Value("${generator.controller.templateName}")
     private String templateName;
+    @Value("${generator.controller.routerName}")
+    private String routerName;
 }

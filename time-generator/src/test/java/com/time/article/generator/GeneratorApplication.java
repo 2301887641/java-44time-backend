@@ -1,5 +1,6 @@
 package com.time.article.generator;
 
+import com.time.article.generator.handler.controller.ControllerHandler;
 import com.time.article.generator.handler.converter.ConverterHandler;
 import com.time.article.generator.handler.dao.CriteriaHandler;
 import com.time.article.generator.handler.dao.EntityHandler;
@@ -48,6 +49,8 @@ public class GeneratorApplication {
     private ServiceHandler serviceHandler;
     @Autowired
     private ServiceImplHandler serviceImplHandler;
+    @Autowired
+    private ControllerHandler controllerHandler;
 
     @Test
     public void init(){
@@ -69,6 +72,8 @@ public class GeneratorApplication {
         serviceHandler.generate();
         //⑨生成serviceImpl
         serviceImplHandler.generate();
+        //⑩生成controller
+        controllerHandler.generate();
         System.out.println("-------------------------生成完毕-----------------------------------");
     }
 }

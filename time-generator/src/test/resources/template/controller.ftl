@@ -1,11 +1,11 @@
-package com.time.article.admin.controller.business.permission;
+package ${controllerTargetPackage};
 
 import com.time.article.admin.annotation.Log;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.ValidatorUtils;
 import com.time.article.dao.enums.business.log.LogEnum;
-import com.time.article.service.api.business.permission.ResourceService;
-import com.time.article.service.criteria.business.permission.ResourceCriteriaDto;
+import ${serviceTargetPackage}.${serviceName};
+import ${dtoCriteriaTargetPackage}.${dtoCriteriaName};
 import com.time.article.service.dto.business.permission.ResourceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -22,18 +22,18 @@ import javax.validation.Valid;
 @RequestMapping("${routerName}")
 public class ${controllerName} {
     @Autowired
-    private ${serviceName} ${serviceName?lower_case};
+    private ${serviceName} ${serviceName?uncap_first};
 
     @GetMapping
     @Log("查询${controllerComment}")
-    public Result index(ResourceCriteriaDto resourceCriteriaDto) {
-        return Result.success(resourceService.converterToTree(resourceService.getList(resourceCriteriaDto)));
+    public Result index(${dtoCriteriaName} ${dtoCriteriaName?uncap_first}) {
+        return Result.success(${serviceName?uncap_first}.converterToTree(resourceService.getList(resourceCriteriaDto)));
     }
 
     @Log("根据id查询${controllerComment}")
     @GetMapping("/{id}")
     public Result info(@PathVariable Integer id) {
-        return Result.success(resourceService.getById(id));
+        return Result.success(${serviceName?uncap_first}.getById(id));
     }
 
     @Log(value = "添加${controllerComment}", type = LogEnum.LOG_UPDATE)
@@ -42,7 +42,7 @@ public class ${controllerName} {
         if (result.hasErrors()) {
             return ValidatorUtils.validateHasError(result);
         }
-        return Result.success(resourceService.insert(resourceDto));
+        return Result.success(${serviceName?uncap_first}.insert(resourceDto));
     }
 
     @Log(value = "修改${controllerComment}", type = LogEnum.LOG_UPDATE)
@@ -52,12 +52,12 @@ public class ${controllerName} {
             return ValidatorUtils.validateHasError(result);
         }
         resourceDto.setId(id);
-        return Result.success(resourceService.treeUpdate(resourceDto));
+        return Result.success(${serviceName?uncap_first}.treeUpdate(resourceDto));
     }
 
     @Log(value = "删除${controllerComment}", type = LogEnum.LOG_DELETE)
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        return Result.success(resourceService.treeDelete(id));
+        return Result.success(${serviceName?uncap_first}.treeDelete(id));
     }
 }
