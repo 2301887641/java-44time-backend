@@ -22,7 +22,7 @@ configurations.all {
 
 dependencies {
     //compile("com.time.article:time-security:1.0-SNAPSHOT")
-    compile project(":time-shiro")
+    compile project(":time-security")
     //验证码
     compile("com.github.penggle:kaptcha:2.3.2"){
         exclude module: 'javax.servlet-api'
