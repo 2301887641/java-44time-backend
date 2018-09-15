@@ -122,8 +122,8 @@ public class TreePlugin implements Interceptor {
      * 树形结构修改操作
      *
      * @param executor
-     * @param namespace
-     * @param configuration
+     * @param  @param configurationnamespace
+     *      *
      * @param entity
      */
     private void update(Executor executor, String namespace, Configuration configuration, TreeEntity entity) throws SQLException, IllegalAccessException, InstantiationException {
