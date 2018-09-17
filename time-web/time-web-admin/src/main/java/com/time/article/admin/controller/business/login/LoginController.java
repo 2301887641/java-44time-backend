@@ -36,8 +36,8 @@ public class LoginController {
     @Autowired
     private DefaultKaptcha captchaProducer;
 
-    @Value("${shiro.serviceUrl}")
-    private String serviceUrl;
+//    @Value("${shiro.serviceUrl}")
+//    private String serviceUrl;
 
     /**
      * 验证码常量
@@ -53,7 +53,7 @@ public class LoginController {
      * @param response
      * @return
      */
-    @ApiOperation(value = "登陆接口")
+    @ApiOperation(value = "rest登陆接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", required = true,
                     dataType = "String", paramType = "path"),
@@ -67,9 +67,9 @@ public class LoginController {
                     dataType = "String",paramType = "path",defaultValue = "jwt"
             )
     })
-    @PostMapping("/login")
+    @PostMapping("/restLogin")
     @ResponseBody
-    public Result login(
+    public Result restLogin(
             HttpServletRequest request,
             HttpServletResponse response,
 //            @Valid SimplePrincipal simplePrincipal,
@@ -100,6 +100,7 @@ public class LoginController {
 //        return Result.success(map);
         return null;
     }
+
 
     @ApiOperation(value="验证码接口")
     @GetMapping("/captcha")

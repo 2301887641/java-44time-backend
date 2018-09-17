@@ -14,11 +14,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 formLogin().
+                loginProcessingUrl("/unificationLogin").
                 loginPage("/login.html").
                 and().
                 authorizeRequests().
                 antMatchers("/login.html").permitAll().
                 anyRequest().
-                authenticated();
+                authenticated().
+                and().
+                csrf().disable();
     }
 }

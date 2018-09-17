@@ -93,7 +93,9 @@ profile:
   dynamicDatasource: false
   #是否记录操作日志到数据库
   operationLog: true
-
+  #登陆页面
+  security:
+    loginPage: login.html
 ---
 
 ######################## dev配置 ###########################
