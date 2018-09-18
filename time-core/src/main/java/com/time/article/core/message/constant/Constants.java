@@ -24,12 +24,6 @@ public interface Constants {
     Integer TREE_PARENT_ID = 0;
 
     /**
-     * -----------------ajax请求标识---------------------
-     * ①判断是否是ajax提交 前端必须提交此属性
-     */
-    String AJAX_REQUEST_TAG = "XMLHttpRequest";
-
-    /**
      * ------------------数据源-------------------------
      * ①主数据源
      * ②次数据源

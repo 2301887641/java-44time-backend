@@ -1,5 +1,6 @@
 package com.time.article.core.exception.handler;
 
+import com.sun.deploy.net.HttpResponse;
 import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.WebUtils;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 全局统一异常处理 任何地方的异常都可以捕获到
@@ -40,17 +43,13 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
      * @return
      */
     @ExceptionHandler(BusinessException.class)
-    public Object businessExceptionHandler(BusinessException exception, HttpServletRequest request) {
-        /**ajax请求 返回500*/
+    public Result businessExceptionHandler(BusinessException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (WebUtils.isAjaxRequest(request)) {
-            return new ResponseEntity<>(Result.failed(exception.getCode(), exception.getMsg()), HttpStatus.OK);
+            response.sendRedirect("/error");
         }
-        /**页面请求*/
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("error");
-        return modelAndView;
+        /**ajax请求 返回500*/
+        return Result.failed(exception.getCode(), exception.getMsg(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 
 //    @ExceptionHandler
 //    public Object businessExceptionHandler(Exception exception, HttpServletRequest request) {

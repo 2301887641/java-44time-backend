@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletRequest;
  * @author suiguozhen on 18/03/30
  */
 public class WebUtils {
+    /*请求头header中必须携带参数*/
     private static final String X_REQUESTED_WITH="x-requested-with";
+    /*请求头header中必须携带参数的值*/
+    private static final String AJAX_REQUEST_TAG = "XMLHttpRequest";
 
     /**
      * 判断当前请求是否是ajax请求
@@ -20,7 +23,7 @@ public class WebUtils {
      * @return
      */
     public static Boolean isAjaxRequest(HttpServletRequest request) {
-        if(Constants.AJAX_REQUEST_TAG.equals(request.getHeader(X_REQUESTED_WITH))){
+        if(AJAX_REQUEST_TAG.equals(request.getHeader(X_REQUESTED_WITH))){
             return true;
         }
         return false;

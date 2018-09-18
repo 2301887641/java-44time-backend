@@ -79,6 +79,13 @@ security:
   #jwt salt 密码必须是32位否则报错 The secret length must be at least 256 bits
  # salt: asdfghjklpoiuytrewq1234567098zxc
 
+#自定义security登陆页
+custom:
+  security:
+    browser:
+      loginPage: /login.html
+
+
 #服务器配置
 server:
   context-path:
@@ -93,9 +100,7 @@ profile:
   dynamicDatasource: false
   #是否记录操作日志到数据库
   operationLog: true
-  #登陆页面
-  security:
-    loginPage: login.html
+
 ---
 
 ######################## dev配置 ###########################
