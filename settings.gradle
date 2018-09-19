@@ -11,8 +11,3 @@ include 'time-dao'
 include 'time-security'
 include 'time-shiro'
 include 'time-generator'
-include 'time-security:time-security-core'
-findProject(':time-security:time-security-core')?.name = 'time-security-core'
-include 'time-security:time-security-browser'
-findProject(':time-security:time-security-browser')?.name = 'time-security-browser'
-
