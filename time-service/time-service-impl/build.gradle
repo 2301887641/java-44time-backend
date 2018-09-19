@@ -1,29 +1,5 @@
-buildscript {
-    ext {
-        springBootVersion = "1.5.14.RELEASE"
-    }
-    repositories {
-        maven { url "http://127.0.0.1:8081/repository/maven-public/"}
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
 plugins {
-    id 'java'
-    id 'maven'
     id 'org.springframework.boot' version '1.5.14.RELEASE'
-}
-
-group 'com.time.article'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    maven{
-        url nexusPublicUrl
-    }
 }
 
 configurations.all {
@@ -34,7 +10,6 @@ configurations.all {
 dependencies {
     //compile ("com.time.article:time-service-api:1.0-SNAPSHOT")
     compile project(":time-service:time-service-api")
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 uploadArchives {

@@ -1,15 +1,15 @@
-plugins {
+//插件
+plugins{
     id 'org.springframework.boot' version '1.5.14.RELEASE'
 }
 
-subprojects {
-    dependencies {
-        compile "org.springframework.boot:spring-boot-starter-security"
-        compile project(":time-service:time-service-impl")
-    }
+configurations.all {
+    // 变化模块
+    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
 }
 
 
+//上传jar包
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -26,6 +26,3 @@ uploadArchives {
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}

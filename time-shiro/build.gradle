@@ -1,32 +1,20 @@
 plugins {
-    id 'java'
-    id 'maven'
     id 'org.springframework.boot' version '1.5.14.RELEASE'
-}
-
-group 'com.time.article'
-version '1.0'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
     compile(
-    // shiro
+            // shiro
             "org.apache.shiro:shiro-spring:$shiroSpringVersion",
-    //jwt
+            //jwt
             "io.buji:buji-pac4j:$bujiPac4jVersion",
             "org.pac4j:pac4j-jwt:$pac4jVersion",
             "org.pac4j:pac4j-oauth:$pac4jVersion",
             "org.pac4j:pac4j-cas:$pac4jVersion",
             "org.pac4j:pac4j-http:$pac4jVersion",
-     )
+    )
     //compile("com.time.article:time-service-impl:1.0-SNAPSHOT")
     compile project(":time-service:time-service-impl")
     //springboot中支持缓存
-    compile "org.springframework.boot:spring-boot-starter-cache"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+//    compile "org.springframework.boot:spring-boot-starter-cache"
 }

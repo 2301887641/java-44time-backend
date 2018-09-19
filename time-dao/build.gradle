@@ -1,19 +1,6 @@
 //插件
 plugins{
-    id "java"
-    id "maven"
     id 'org.springframework.boot' version '1.5.14.RELEASE'
-}
-
-group 'com.time.article'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    maven{
-        url nexusPublicUrl
-    }
 }
 
 configurations.all {
@@ -24,7 +11,6 @@ configurations.all {
 dependencies {
    // compile("com.time.article:time-core:1.0-SNAPSHOT")
     compile project(":time-core")
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 //上传jar包
