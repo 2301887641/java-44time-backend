@@ -1,28 +1,4 @@
-//插件
-plugins{
-    id 'org.springframework.boot' version '1.5.14.RELEASE'
+dependencies {
+    compile project(":time-core")
+    compile "org.springframework.boot:spring-boot-starter-freemarker"
 }
-
-configurations.all {
-    // 变化模块
-    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
-}
-
-
-//上传jar包
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            //本地maven
-            repository(url: nexusSnapshotsUrl) {
-                authentication(userName: nexusAccount, password: nexusPassword)
-                pom.project {
-                    groupId project.group
-                    artifactId project.name
-                    version project.version
-                }
-            }
-        }
-    }
-}
-

@@ -1,31 +1,4 @@
-plugins {
-    id 'org.springframework.boot' version '1.5.14.RELEASE'
-}
-
-configurations.all {
-    // 变化模块
-    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
-}
-//修改插件自带版本
-//ext["flyway.version"]="5.0.3"
-
 dependencies {
     //compile("com.time.article:time-dao:1.0-SNAPSHOT")
     compile project(":time-dao")
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            //本地maven
-            repository(url: nexusSnapshotsUrl) {
-                authentication(userName: nexusAccount, password: nexusPassword)
-                pom.project {
-                    groupId project.group
-                    artifactId project.name
-                    version project.version
-                }
-            }
-        }
-    }
 }

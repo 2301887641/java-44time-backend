@@ -1,7 +1,3 @@
-plugins {
-    id 'org.springframework.boot' version '1.5.14.RELEASE'
-}
-
 dependencies {
     compile(
             // shiro
@@ -15,6 +11,4 @@ dependencies {
     )
     //compile("com.time.article:time-service-impl:1.0-SNAPSHOT")
     compile project(":time-service:time-service-impl")
-    //springboot中支持缓存
-//    compile "org.springframework.boot:spring-boot-starter-cache"
 }

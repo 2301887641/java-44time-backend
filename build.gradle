@@ -1,31 +1,74 @@
+//配置springboot和插件版本
+buildscript {
+    ext {
+        springBootVersion = '1.5.14.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
 //所有模块
 allprojects {
     //定义 组织 和 版本
     group 'com.time.article'
     version '1.0'
+    //定义插件
+    apply plugin: 'java'
+    apply plugin: 'maven'
+
+    //定义java版本
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }
 
 //所有子模块
 subprojects {
-    //定义插件
-    apply plugin: 'java'
-    apply plugin: 'maven'
-    
-    //定义java版本
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
-
+    //必须引入版本统一插件
+    apply plugin: 'org.springframework.boot'
+    //定义仓库
     repositories {
         maven {
             url nexusPublicUrl
         }
     }
     
+    // 所有需要忽略的包定义在此
+    configurations {
+        all*.exclude group: 'javax.servlet',  module: 'javax.servlet-api'
+    }
+
+    // 变化模块为了在nexus中时时接收jar包
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
+    }
+    
     //统一测试包
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.12'
     }
+
+    //编译jar包设置utf-8
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    //上传到nexus
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                //本地maven
+                repository(url: nexusSnapshotsUrl) {
+                    authentication(userName: nexusAccount, password: nexusPassword)
+                    pom.project {
+                        groupId project.group
+                        artifactId project.name
+                        version project.version
+                    }
+                }
+            }
+        }
+    }
 }
-
-

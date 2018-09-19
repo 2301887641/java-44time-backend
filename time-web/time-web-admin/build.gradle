@@ -1,18 +1,6 @@
-plugins {
-    id 'org.springframework.boot' version '1.5.14.RELEASE'
-}
-
-
-configurations.all {
-    // 变化模块
-    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
-}
-
 dependencies {
     //compile("com.time.article:time-security:1.0-SNAPSHOT")
     compile project(":time-security")
     //验证码
-    compile("com.github.penggle:kaptcha:2.3.2"){
-        exclude module: 'javax.servlet-api'
-    }
+    compile "com.github.penggle:kaptcha:2.3.2"
 }
