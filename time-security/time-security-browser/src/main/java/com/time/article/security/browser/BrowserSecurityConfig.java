@@ -1,6 +1,6 @@
 package com.time.article.security.browser;
 
-import com.time.article.security.core.properties.UnificationSecurityProperties;
+import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,15 +12,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * spring security安全配置
- *
+ * EnableConfigurationProperties让SecurityProperties这个配置类生效
  * @author suiguozhen on 18/09/12
  */
 @Configuration
-@EnableConfigurationProperties(UnificationSecurityProperties.class)
+@EnableConfigurationProperties(SecurityProperties.class)
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UnificationSecurityProperties unificationSecurityProperties;
+    private SecurityProperties securityProperties;
 
     /**密码加密处理类 让security验证密码 可以实现自己的MD5等*/
     @Bean
@@ -45,7 +45,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 loginPage("/authentication/loginPage").
                 and().
                 authorizeRequests().
-                antMatchers("/authentication/loginPage", unificationSecurityProperties.getBrowser().getLoginPage()).permitAll().
+                antMatchers("/authentication/loginPage", securityProperties.getBrowser().getLoginPage()).permitAll().
                 anyRequest().
                 authenticated().
                 and().

@@ -13,6 +13,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "custom.security")
-public class UnificationSecurityProperties {
+public class SecurityProperties {
     private BrowserSecurityProperties browser = new BrowserSecurityProperties();
 }

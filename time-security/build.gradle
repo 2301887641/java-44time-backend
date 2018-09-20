@@ -1,4 +1,4 @@
-subprojects {
+allprojects {
     dependencies {
         compile "org.springframework.boot:spring-boot-starter-security"
         compile project(":time-service:time-service-impl")

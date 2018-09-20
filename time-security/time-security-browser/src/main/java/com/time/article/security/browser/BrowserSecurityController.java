@@ -2,7 +2,7 @@ package com.time.article.security.browser;
 
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.WebUtils;
-import com.time.article.security.core.properties.UnificationSecurityProperties;
+import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -24,7 +24,7 @@ import java.io.IOException;
 @Controller
 public class BrowserSecurityController {
     @Autowired
-    private UnificationSecurityProperties unificationSecurityProperties;
+    private SecurityProperties securityProperties;
 
     /**springSecurity自带的重定向类*/
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -41,7 +41,7 @@ public class BrowserSecurityController {
     public Result loginPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         /**判断如果不是ajax请求的话 直接重定向到登陆*/
         if(!WebUtils.isAjaxRequest(request)){
-            redirectStrategy.sendRedirect(request, response, unificationSecurityProperties.getBrowser().getLoginPage());
+            redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
         }
         return Result.failed("请先登陆!");
     }
