@@ -1,6 +1,5 @@
 package com.time.article.security.browser;
 
-import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * spring security安全配置
@@ -21,6 +21,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SecurityProperties securityProperties;
+
+    @Autowired
+    private AuthenticationSuccessHandler browserAuthenticationSuccessHandler;
 
     /**密码加密处理类 让security验证密码 可以实现自己的MD5等*/
     @Bean
@@ -43,6 +46,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 formLogin().
                 loginProcessingUrl("/authentication/form").
                 loginPage("/authentication/loginPage").
+                successHandler(browserAuthenticationSuccessHandler).
                 and().
                 authorizeRequests().
                 antMatchers("/authentication/loginPage", securityProperties.getBrowser().getLoginPage()).permitAll().

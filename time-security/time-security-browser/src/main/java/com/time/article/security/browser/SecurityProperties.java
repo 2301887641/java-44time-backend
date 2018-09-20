@@ -1,4 +1,4 @@
-package com.time.article.security.core.properties;
+package com.time.article.security.browser;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-//@ConfigurationProperties(prefix = "custom.security")
+@ConfigurationProperties(prefix = "custom.security")
 public class SecurityProperties {
     private BrowserSecurityProperties browser = new BrowserSecurityProperties();
 }

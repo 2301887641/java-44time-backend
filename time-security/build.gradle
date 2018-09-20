@@ -4,3 +4,7 @@ allprojects {
         compile project(":time-service:time-service-impl")
     }
 }
+
+dependencies{
+    compile project(":time-security:time-security-browser")
+}

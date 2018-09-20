@@ -27,7 +27,7 @@ public class BrowserUserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new User(username,
-                passwordEncoder.encode("1234567"),
+                passwordEncoder.encode("123456"),
                 true,
                 true,
                 true,
