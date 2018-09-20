@@ -1,11 +1,14 @@
-package com.time.article.security.config;
+package com.time.article.security.browser;
 
-import com.time.article.security.properties.UnificationSecurityProperties;
+import com.time.article.security.core.properties.UnificationSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * spring security安全配置
@@ -14,15 +17,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Configuration
 @EnableConfigurationProperties(UnificationSecurityProperties.class)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UnificationSecurityProperties unificationSecurityProperties;
 
+    /**密码加密处理类 让security验证密码 可以实现自己的MD5等*/
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     /**
      * 配置security
      * 1.formLogin说明是form表单登陆
-     * 2.loginProcessingUrl 配置处理登陆方法的url
+     * 2.loginProcessingUrl 配置处理登陆方法的url 之前是/login
      * 3.loginPage 配置登录页面 我们设置为动态的
      * 4.antMatchers 登陆页面全部过滤掉
      * @param http

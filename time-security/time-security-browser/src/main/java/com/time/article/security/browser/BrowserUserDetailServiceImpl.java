@@ -1,23 +1,33 @@
-package com.time.article.security.config;
+package com.time.article.security.browser;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * 自定义用户认证逻辑
+ * 自定义用户认证 处理用户表单登陆
  *
  * @author suiguozhen on 18/09/12
  */
 @Component
-public class UserDetailServiceImpl implements UserDetailsService {
+public class BrowserUserDetailServiceImpl implements UserDetailsService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    //TODO 引入查询数据库即可mapper
+//    @Autowired
+//    private xxx  xxx
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new User(username,
-                "1234567",
+                passwordEncoder.encode("1234567"),
                 true,
                 true,
                 true,

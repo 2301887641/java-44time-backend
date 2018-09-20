@@ -1,0 +1,3 @@
+dependencies{
+    compile project(":time-security:time-security-core")
+}

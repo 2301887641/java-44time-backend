@@ -1,4 +1,4 @@
-package com.time.article.security.properties;
+package com.time.article.security.core.properties;
 
 import lombok.Getter;
 import lombok.Setter;

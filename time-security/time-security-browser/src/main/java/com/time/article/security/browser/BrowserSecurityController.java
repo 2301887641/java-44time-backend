@@ -1,8 +1,8 @@
-package com.time.article.security.controller;
+package com.time.article.security.browser;
 
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.WebUtils;
-import com.time.article.security.properties.UnificationSecurityProperties;
+import com.time.article.security.core.properties.UnificationSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -22,7 +22,7 @@ import java.io.IOException;
  * @author suiguozhen on 18/09/17
  */
 @Controller
-public class UnificationSecurityController {
+public class BrowserSecurityController {
     @Autowired
     private UnificationSecurityProperties unificationSecurityProperties;
 
