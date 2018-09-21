@@ -20,7 +20,7 @@ public class BrowserUserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    //TODO 引入查询数据库即可mapper
+    //TODO 引入查询数据库mapper即可
 //    @Autowired
 //    private xxx  xxx
 

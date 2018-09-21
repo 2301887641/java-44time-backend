@@ -1,4 +1,4 @@
-package com.time.article.admin.config.captcha;
+package com.time.article.security.core.captcha;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
+ * 验证码配置
  * @author suiguozhen on 18/06/06
  */
 @Configuration
-public class KaptchaConfig {
+public class CaptchaConfig {
+
     @Bean(name="captchaProducer")
-    public DefaultKaptcha getDefaultKaptcha(){
+    public DefaultKaptcha getDefaultCaptcha(){
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         Properties properties = new Properties();
         properties.setProperty("kaptcha.border", "yes");

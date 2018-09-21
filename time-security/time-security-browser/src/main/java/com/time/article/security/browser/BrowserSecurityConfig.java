@@ -56,7 +56,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 failureHandler(browserAuthenticationFailureHandler).
                 and().
                 authorizeRequests().
-                antMatchers("/authentication/loginPage", securityProperties.getBrowser().getLoginPage()).permitAll().
+                antMatchers(
+                        "/authentication/loginPage",
+                        securityProperties.getBrowser().getLoginPage(),
+                        "/captcha"
+                ).permitAll().
                 anyRequest().
                 authenticated().
                 and().

@@ -1,3 +1,9 @@
 dependencies{
     compile project(":time-service:time-service-impl")
+    //验证码
+    compile "com.github.penggle:kaptcha:2.3.2"
+    //springSecurity
+    compile "org.springframework.boot:spring-boot-starter-security"
+    //social-web使用它的session缓存
+    compile "org.springframework.social:spring-social-web"
 }
