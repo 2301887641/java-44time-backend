@@ -79,11 +79,12 @@ security:
   #jwt salt 密码必须是32位否则报错 The secret length must be at least 256 bits
  # salt: asdfghjklpoiuytrewq1234567098zxc
 
-#自定义security登陆页
+#自定义security登陆页、自定义security登陆方式(redirect,json)
 custom:
   security:
     browser:
       loginPage: /login.html
+      loginType: redirect
 
 
 #服务器配置

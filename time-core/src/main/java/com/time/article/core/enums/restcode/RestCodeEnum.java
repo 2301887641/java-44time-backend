@@ -12,7 +12,7 @@ import lombok.Getter;
  * @author suiguozhen on 18/04/14
  */
 @Getter
-public enum RestCodeEnums implements BaseEnum {
+public enum RestCodeEnum implements BaseEnum {
     /*操作成功*/
     SUCCESS(200,"操作成功"),
     /**
@@ -33,7 +33,7 @@ public enum RestCodeEnums implements BaseEnum {
     private Integer ordinal;
     private String label;
 
-    RestCodeEnums(Integer ordinal, String label) {
+    RestCodeEnum(Integer ordinal, String label) {
         this.ordinal = ordinal;
         this.label = label;
     }

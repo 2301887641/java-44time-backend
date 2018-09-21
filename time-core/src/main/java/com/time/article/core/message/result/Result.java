@@ -1,6 +1,6 @@
 package com.time.article.core.message.result;
 
-import com.time.article.core.enums.restcode.RestCodeEnums;
+import com.time.article.core.enums.restcode.RestCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,7 +37,7 @@ public class Result<T> implements Serializable{
      * @return
      */
     public static<W> Result success(W data){
-        return new Result<>(RestCodeEnums.SUCCESS.getOrdinal(), RestCodeEnums.SUCCESS.getLabel(),data);
+        return new Result<>(RestCodeEnum.SUCCESS.getOrdinal(), RestCodeEnum.SUCCESS.getLabel(),data);
     }
 
     /**
@@ -45,7 +45,7 @@ public class Result<T> implements Serializable{
      * @return
      */
     public static Result success(){
-        return new Result(RestCodeEnums.SUCCESS.getOrdinal(), RestCodeEnums.SUCCESS.getLabel());
+        return new Result(RestCodeEnum.SUCCESS.getOrdinal(), RestCodeEnum.SUCCESS.getLabel());
     }
 
     /**
@@ -55,7 +55,7 @@ public class Result<T> implements Serializable{
      * @return
      */
     public static<w> Result failed(String retInfo){
-        return new Result<>(RestCodeEnums.DEFAULT_EXCEPTION.getOrdinal(),retInfo);
+        return new Result<>(RestCodeEnum.DEFAULT_EXCEPTION.getOrdinal(),retInfo);
     }
 
     /**

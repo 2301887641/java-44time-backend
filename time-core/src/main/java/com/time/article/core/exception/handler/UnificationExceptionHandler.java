@@ -58,7 +58,7 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
 //            /**ajax请求 返回500*/
 //            if(WebUtils.isAjaxRequest(request)){
 //
-//                return new ResponseEntity<>(Result.failed(RestCodeEnums.DEFAULT_EXCEPTION.getCode(),RestCodeEnums.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
+//                return new ResponseEntity<>(Result.failed(RestCodeEnum.DEFAULT_EXCEPTION.getCode(),RestCodeEnum.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
 //            }
 //        }else if(exception instanceof RuntimeException){
 //            StringBuffer requestURL = request.getRequestURL();
@@ -67,7 +67,7 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
 //            log.error("请求地址："+requestURL.toString());
 //            /**ajax请求 返回500*/
 //            if(WebUtils.isAjaxRequest(request)){
-//                return new ResponseEntity<>(Result.failed(RestCodeEnums.DEFAULT_EXCEPTION.getCode(),RestCodeEnums.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
+//                return new ResponseEntity<>(Result.failed(RestCodeEnum.DEFAULT_EXCEPTION.getCode(),RestCodeEnum.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
 //            }
 //            /**页面请求*/
 //            ModelAndView modelAndView = new ModelAndView();

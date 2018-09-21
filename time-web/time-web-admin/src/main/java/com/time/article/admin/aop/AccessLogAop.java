@@ -5,7 +5,7 @@ import com.time.article.admin.constants.Constants;
 import com.time.article.core.controller.annotation.FieldLog;
 import com.time.article.core.controller.schedule.BaseScheduleManager;
 import com.time.article.core.dao.exception.BusinessException;
-import com.time.article.core.enums.restcode.RestCodeEnums;
+import com.time.article.core.enums.restcode.RestCodeEnum;
 import com.time.article.core.service.dto.BaseDto;
 import com.time.article.core.utils.WebUtils;
 import com.time.article.dao.enums.business.log.LogEnum;
@@ -53,7 +53,7 @@ public class AccessLogAop{
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Signature signature = point.getSignature();
         if (!(signature instanceof MethodSignature)) {
-            throw new BusinessException(RestCodeEnums.ANNOTATION_BE_USED_TO_FUNC);
+            throw new BusinessException(RestCodeEnum.ANNOTATION_BE_USED_TO_FUNC);
         }
         OperationLogDto operationLogDto = new OperationLogDto();
         MethodSignature methodSignature = (MethodSignature) signature;

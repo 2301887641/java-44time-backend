@@ -1,5 +1,6 @@
 package com.time.article.security.core.properties;
 
+import com.time.article.security.core.enums.LoginTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +14,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BrowserSecurityProperties {
+    /**自定义登录页*/
     private String loginPage="/security_login.html";
+    /**自定义登陆方式*/
+    private LoginTypeEnum loginType=LoginTypeEnum.JSON;
 }

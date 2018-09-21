@@ -3,7 +3,7 @@ package com.time.article.core.dao.plugin;
 import com.time.article.core.dao.entity.TreeEntity;
 import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.dao.mapper.TreeMapper;
-import com.time.article.core.enums.restcode.RestCodeEnums;
+import com.time.article.core.enums.restcode.RestCodeEnum;
 import com.time.article.core.message.constant.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -109,7 +109,7 @@ public class TreePlugin implements Interceptor {
             MappedStatement statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
             List<TreeEntity> parentEntityList = executor.query(statement, parentId, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
             if (CollectionUtils.isEmpty(parentEntityList)) {
-                throw new BusinessException(RestCodeEnums.DAO_RECORD_MISSED);
+                throw new BusinessException(RestCodeEnum.DAO_RECORD_MISSED);
             }
             TreeEntity treeEntity = parentEntityList.get(0);
             level = treeEntity.getLevel() + 1;
@@ -132,7 +132,7 @@ public class TreePlugin implements Interceptor {
         statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
         List<TreeEntity> previousEntityList = executor.query(statement,entity.getId(), RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
         if (CollectionUtils.isEmpty(previousEntityList)) {
-            throw new BusinessException(RestCodeEnums.DAO_RECORD_MISSED);
+            throw new BusinessException(RestCodeEnum.DAO_RECORD_MISSED);
         }
         /**得到的是之前的pojo数据*/
         TreeEntity previousEntity = previousEntityList.get(0);
@@ -159,7 +159,7 @@ public class TreePlugin implements Interceptor {
             statement = configuration.getMappedStatement(namespace + SELECT_BY_ID_SQL);
             List<TreeEntity> currentEntityList = executor.query(statement, currentParentId, RowBounds.DEFAULT, Executor.NO_RESULT_HANDLER);
             if (CollectionUtils.isEmpty(currentEntityList)) {
-                throw new BusinessException(RestCodeEnums.DAO_RECORD_MISSED);
+                throw new BusinessException(RestCodeEnum.DAO_RECORD_MISSED);
             }
             /**设置path*/
             TreeEntity currentTreeEntity = currentEntityList.get(0);

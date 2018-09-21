@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.time.article.security.core.enums.LoginTypeEnum;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -14,11 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * form表单自定义登陆成功处理
- * @author suiguozhen on 18/09/20
+ * form表单自定义登陆错误处理
+ * @author suiguozhen on 18/09/21
  */
-@Component("browserAuthenticationSuccessHandler")
-public class BrowserAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+@Component("browserAuthenticationFailureHandler")
+public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -26,13 +27,13 @@ public class BrowserAuthenticationSuccessHandler extends SavedRequestAwareAuthen
     private SecurityProperties securityProperties;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         /**json处理*/
         if(LoginTypeEnum.JSON.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
             response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(objectMapper.writeValueAsString(authentication));
+            response.getWriter().write(objectMapper.writeValueAsString(exception));
             return;
         }
-        super.onAuthenticationSuccess(request,response,authentication);
+        super.onAuthenticationFailure(request,response,exception);
     }
 }

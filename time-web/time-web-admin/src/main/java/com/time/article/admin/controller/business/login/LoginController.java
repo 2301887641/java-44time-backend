@@ -81,7 +81,7 @@ public class LoginController {
         /*验证码比对*/
 //        String captcha = (String) request.getSession().getAttribute(CAPTCHA);
 //        if (!StringUtils.equals(captcha, simplePrincipal.getCaptcha())) {
-//            return Result.failed(RestCodeEnums.CAPTCHA_ERROR.getCode(), RestCodeEnums.CAPTCHA_ERROR.getInfo());
+//            return Result.failed(RestCodeEnum.CAPTCHA_ERROR.getCode(), RestCodeEnum.CAPTCHA_ERROR.getInfo());
 //        }
 //        Map<String, Object> map = new HashMap<>(16);
 //        J2EContext context = new J2EContext(request, response);

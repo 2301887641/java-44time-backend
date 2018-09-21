@@ -3,7 +3,7 @@ package com.time.article.core.service.impl;
 import com.time.article.core.dao.entity.TreeEntity;
 import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.dao.mapper.TreeMapper;
-import com.time.article.core.enums.restcode.RestCodeEnums;
+import com.time.article.core.enums.restcode.RestCodeEnum;
 import com.time.article.core.message.constant.Constants;
 import com.time.article.core.service.api.TreeService;
 import com.time.article.core.service.converter.TreeConverter;
@@ -107,7 +107,7 @@ public class TreeServiceImpl<
     @Override
     public PK treeDelete(PK id) {
         if (!CollectionUtils.isEmpty(selectPathByLike(id))) {
-            throw new BusinessException(RestCodeEnums.TREE_DISABLE_DELETE_CHILDREN);
+            throw new BusinessException(RestCodeEnum.TREE_DISABLE_DELETE_CHILDREN);
         }
         this.delete(id);
         return id;
@@ -123,14 +123,14 @@ public class TreeServiceImpl<
         if (!Constants.TREE_PARENT_ID.equals(dto.getParentId())) {
             /**如果当前的id等于父类的id 说明是自己设置自己*/
             if (dto.getId().equals(dto.getParentId())) {
-                throw new BusinessException(RestCodeEnums.TREE_UNABLE_SET_PARENT_AS_SELF);
+                throw new BusinessException(RestCodeEnum.TREE_UNABLE_SET_PARENT_AS_SELF);
             }
             String pathId = "{" + dto.getId() + "}";
             /**判断查询记录是否存在*/
-            DTO parentDto = Optional.ofNullable(this.getById(dto.getParentId())).orElseThrow(() -> new BusinessException(RestCodeEnums.DAO_RECORD_MISSED));
+            DTO parentDto = Optional.ofNullable(this.getById(dto.getParentId())).orElseThrow(() -> new BusinessException(RestCodeEnum.DAO_RECORD_MISSED));
             /**如果选择的父类的path里面已经包含了当前子类的id 说明是父类设置成子类了*/
             if (parentDto.getPath().contains(pathId)) {
-                throw new BusinessException(RestCodeEnums.TREE_UNABLE_SET_CURRENT_PARENT);
+                throw new BusinessException(RestCodeEnum.TREE_UNABLE_SET_CURRENT_PARENT);
             }
         }
         this.update(dto);
