@@ -1,12 +1,18 @@
 package com.time.article.rest.config.cors;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import java.util.Locale;
 
 /**
  * 设置跨域cors
@@ -29,5 +35,12 @@ public  class CorsConfig extends WebMvcConfigurerAdapter{
         // 这个顺序很重要哦，为避免麻烦请设置在最前
         bean.setOrder(0);
         return bean;
+    }
+
+    @Bean
+    public ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource(){
+        ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
+        reloadableResourceBundleMessageSource.setBasename("classpath:messages");
+        return reloadableResourceBundleMessageSource;
     }
 }

@@ -41,7 +41,7 @@ spring:
 
   #国际化配置   basename:国际化目录
   messages:
-    basename: language/messages
+    basename: /messages/messages
     encoding: UTF-8
     cache-seconds: -1
 
