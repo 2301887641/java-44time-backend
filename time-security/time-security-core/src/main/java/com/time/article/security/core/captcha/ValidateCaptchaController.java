@@ -15,6 +15,7 @@ import java.io.IOException;
 
 /**
  * 验证码控制器
+ *
  * @author suiguozhen on 18/09/21
  */
 @RestController
@@ -23,25 +24,30 @@ public class ValidateCaptchaController {
     @Autowired
     private DefaultKaptcha captchaProducer;
 
-    /**验证码在session中存储的键名*/
-    private static final String CAPTCHA_KEY = "captcha";
+    /**
+     * 验证码在session中存储的键名
+     */
+    public static final String CAPTCHA_KEY = "captcha";
 
-    /**session缓存*/
-    private SessionStrategy sessionStrategy=new HttpSessionSessionStrategy();
+    /**
+     * session缓存
+     */
+    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @GetMapping("/captcha")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Captcha captcha = buildCaptchaImage();
-        sessionStrategy.setAttribute(new ServletWebRequest(request),CAPTCHA_KEY,captcha);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), CAPTCHA_KEY, captcha);
         ImageIO.write(captcha.getImage(), "jpeg", response.getOutputStream());
     }
 
     /**
      * 生成验证码图片
+     *
      * @return
      */
     private Captcha buildCaptchaImage() {
-            String createText = captchaProducer.createText();
-            return new Captcha(captchaProducer.createImage(createText),CAPTCHA_KEY,60);
+        String createText = captchaProducer.createText();
+        return new Captcha(captchaProducer.createImage(createText), CAPTCHA_KEY, 60);
     }
 }

@@ -1,5 +1,6 @@
 package com.time.article.security.browser;
 
+import com.time.article.security.core.captcha.ValidateCaptchaFilter;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * spring security安全配置
@@ -48,7 +50,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        ValidateCaptchaFilter filter = new ValidateCaptchaFilter();
+//        filter.setBrowserAuthenticationFailureHandler(browserAuthenticationFailureHandler);
         http.
+//                addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).
                 formLogin().
                 loginProcessingUrl("/authentication/form").
                 loginPage("/authentication/loginPage").

@@ -31,9 +31,10 @@ public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthentication
         /**json处理*/
         if(LoginTypeEnum.JSON.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
             response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(objectMapper.writeValueAsString(exception));
+            response.getWriter().write(objectMapper.writeValueAsString(exception.getMessage()));
             return;
         }
-        super.onAuthenticationFailure(request,response,exception);
+        request.getSession().setAttribute("error",exception.getMessage());
+        request.getRequestDispatcher("/authentication/loginPage").forward(request,response);
     }
 }

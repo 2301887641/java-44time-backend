@@ -27,5 +27,10 @@ dependencies {
     compile "org.apache.commons:commons-lang3:$commonslang3Version"
     // 集成测试
     compile "org.springframework.boot:spring-boot-starter-test"
+
+    //thymeleaf模板
+    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+    //nekohtml使thymeleaf不按照严格模式解析模板
+    compile "net.sourceforge.nekohtml:nekohtml"
 }
 
