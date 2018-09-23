@@ -73,9 +73,9 @@ mybatis:
   typeHandlersPackage: com.time.article.dao.handler
 
 #数据库版本控制
-flyway:
-  locations: classpath:/db
-  baselineOnMigrate: true
+#flyway:
+#  locations: classpath:/db
+#  baselineOnMigrate: true
 
 #spring security配置
 security:
