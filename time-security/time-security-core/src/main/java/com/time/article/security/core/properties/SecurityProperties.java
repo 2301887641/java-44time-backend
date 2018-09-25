@@ -14,5 +14,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ConfigurationProperties(prefix = "custom.security")
 public class SecurityProperties {
+    /**
+     * browser安全属性
+     */
     private BrowserSecurityProperties browser = new BrowserSecurityProperties();
+    /**
+     * 验证码相关的属性
+     */
+    private ValidateCodeProperties code = new ValidateCodeProperties();
 }

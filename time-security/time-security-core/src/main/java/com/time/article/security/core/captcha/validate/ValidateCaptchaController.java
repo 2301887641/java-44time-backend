@@ -1,7 +1,9 @@
 package com.time.article.security.core.captcha.validate;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.google.code.kaptcha.util.Config;
 import com.time.article.security.core.captcha.Captcha;
+import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -13,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Properties;
 
 /**
  * 验证码控制器
@@ -21,9 +24,12 @@ import java.io.IOException;
  */
 @RestController
 public class ValidateCaptchaController {
-
+    /**验证码实例类*/
     @Autowired
     private DefaultKaptcha captchaProducer;
+    /**安全配置属性*/
+    @Autowired
+    private SecurityProperties securityProperties;
 
     /**
      * 验证码在session中存储的键名
@@ -49,6 +55,10 @@ public class ValidateCaptchaController {
      */
     private Captcha buildCaptchaImage() {
         String createText = captchaProducer.createText();
-        return new Captcha(captchaProducer.createImage(createText), createText, 60);
+        Properties properties = new Properties();
+//        properties.setProperty("kaptcha.textproducer.char.length", "5");
+        Config config = new Config(properties);
+        captchaProducer.setConfig(config);
+        return new Captcha(captchaProducer.createImage(createText), createText, securityProperties.getCode().getCaptcha().getExpireIn());
     }
 }

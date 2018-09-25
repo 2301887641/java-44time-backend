@@ -103,6 +103,19 @@ custom:
       loginType: form
       #记住我的时间
       rememberMeSeconds: 3600
+    #验证码相关
+    code:
+      #图片验证码
+      captcha:
+        #宽度
+        width: 110
+        #高度
+        height: 40
+        #长度
+        length: 4
+        #过期时间
+        expireIn: 60
+
 
 #服务器配置
 server:

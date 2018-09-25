@@ -2,6 +2,9 @@ package com.time.article.security.browser;
 
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,6 +26,10 @@ public class BrowserSecurityController {
      */
     @RequestMapping("/authentication/loginPage")
     public String loginPage() {
-        return securityProperties.getBrowser().getLoginPage();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if(auth instanceof AnonymousAuthenticationToken) {
+            return securityProperties.getBrowser().getLoginPage();
+//        }
+//        return "/";
     }
 }
