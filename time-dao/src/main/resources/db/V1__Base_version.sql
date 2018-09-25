@@ -119,3 +119,14 @@ CREATE TABLE time_operation_log (
   result varchar(200) NOT NULL DEFAULT '成功' comment '是否成功',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for persistent_logins springSecurity记住我
+-- ----------------------------
+DROP TABLE IF EXISTS persistent_logins;
+create table persistent_logins (
+  username varchar(64) not null,
+  series varchar(64) primary key,
+  token varchar(64) not null,
+  last_used timestamp not null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

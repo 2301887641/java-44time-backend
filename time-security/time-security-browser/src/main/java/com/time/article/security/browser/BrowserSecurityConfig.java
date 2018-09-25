@@ -8,11 +8,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  * spring security安全配置
@@ -22,15 +27,27 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableConfigurationProperties(SecurityProperties.class)
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    /**安全配置属性*/
     @Autowired
     private SecurityProperties securityProperties;
-
+    /**browser成功处理器*/
     @Autowired
     private AuthenticationSuccessHandler browserAuthenticationSuccessHandler;
-
+    /**browser失败处理器*/
     @Autowired
     private AuthenticationFailureHandler browserAuthenticationFailureHandler;
+    /**数据源*/
+    @Autowired
+    private DataSource dataSource;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    /**配置rememberMe*/
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
+    }
 
     /**密码加密处理类 让security验证密码 可以实现自己的MD5等*/
     @Bean
@@ -52,22 +69,26 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         ValidateCaptchaFilter filter = new ValidateCaptchaFilter();
         filter.setBrowserAuthenticationFailureHandler(browserAuthenticationFailureHandler);
-        http.
-                addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).
                 formLogin().
-                loginProcessingUrl("/authentication/form").
-                loginPage("/authentication/loginPage").
-                successHandler(browserAuthenticationSuccessHandler).
-                failureHandler(browserAuthenticationFailureHandler).
+                    loginProcessingUrl("/authentication/form").
+                    loginPage("/authentication/loginPage").
+                    successHandler(browserAuthenticationSuccessHandler).
+                    failureHandler(browserAuthenticationFailureHandler).
                 and().
-                authorizeRequests().
-                antMatchers(
+                rememberMe().
+                    tokenRepository(persistentTokenRepository()).
+                    tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds()).
+                    userDetailsService(userDetailsService).
+                and().
+                    authorizeRequests().
+                    antMatchers(
                         "/authentication/loginPage",
                         securityProperties.getBrowser().getLoginPage(),
                         "/captcha"
                 ).permitAll().
-                anyRequest().
-                authenticated().
+                    anyRequest().
+                    authenticated().
                 and().
                 csrf().disable();
     }
