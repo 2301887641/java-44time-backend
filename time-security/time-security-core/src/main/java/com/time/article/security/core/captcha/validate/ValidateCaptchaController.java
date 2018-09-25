@@ -1,6 +1,7 @@
-package com.time.article.security.core.captcha;
+package com.time.article.security.core.captcha.validate;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.time.article.security.core.captcha.Captcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -48,6 +49,6 @@ public class ValidateCaptchaController {
      */
     private Captcha buildCaptchaImage() {
         String createText = captchaProducer.createText();
-        return new Captcha(captchaProducer.createImage(createText), CAPTCHA_KEY, 60);
+        return new Captcha(captchaProducer.createImage(createText), createText, 60);
     }
 }

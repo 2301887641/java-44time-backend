@@ -39,12 +39,6 @@ spring:
     # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: true
 
-  #国际化配置   basename:国际化目录
-  messages:
-    basename: /messages/messages
-    encoding: UTF-8
-    cache-seconds: -1
-
   #thymeleaf
   thymeleaf:
     cache: false
@@ -105,8 +99,8 @@ custom:
     browser:
       #自定义登录页
       loginPage: login
-      #登陆方式(redirect,json)
-      loginType: redirect
+      #登陆方式(form,rest)
+      loginType: form
 
 
 #服务器配置

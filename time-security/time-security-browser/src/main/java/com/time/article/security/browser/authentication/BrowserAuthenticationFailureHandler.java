@@ -29,11 +29,12 @@ public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthentication
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         /**json处理*/
-        if(LoginTypeEnum.JSON.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
+        if(LoginTypeEnum.REST.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(objectMapper.writeValueAsString(exception.getMessage()));
             return;
         }
+        /**这里将错误信息放到session 并转发回去*/
         request.getSession().setAttribute("error",exception.getMessage());
         request.getRequestDispatcher("/authentication/loginPage").forward(request,response);
     }

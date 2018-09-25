@@ -17,5 +17,5 @@ public class BrowserSecurityProperties {
     /**自定义登录页*/
     private String loginPage="/security_login.html";
     /**自定义登陆方式*/
-    private LoginTypeEnum loginType=LoginTypeEnum.JSON;
+    private LoginTypeEnum loginType=LoginTypeEnum.REST;
 }

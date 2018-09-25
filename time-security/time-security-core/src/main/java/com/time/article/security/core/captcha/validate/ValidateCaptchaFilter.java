@@ -1,9 +1,8 @@
-package com.time.article.security.core.captcha;
+package com.time.article.security.core.captcha.validate;
 
 import com.alibaba.druid.util.StringUtils;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
+import com.time.article.security.core.captcha.Captcha;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -38,8 +37,7 @@ public class ValidateCaptchaFilter extends OncePerRequestFilter {
             try {
                 validate(new ServletWebRequest(request));
             } catch (ValidateCaptchaException e) {
-
-//                browserAuthenticationFailureHandler.onAuthenticationFailure(request, response);
+                browserAuthenticationFailureHandler.onAuthenticationFailure(request, response,e);
                 return;
             }
         }
@@ -54,11 +52,12 @@ public class ValidateCaptchaFilter extends OncePerRequestFilter {
      */
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
         Captcha captcha = (Captcha) sessionStrategy.getAttribute(request, ValidateCaptchaController.CAPTCHA_KEY);
-        String code = ServletRequestUtils.getStringParameter(request.getRequest(), "captcha");
+        String code = ServletRequestUtils.getStringParameter(request.getRequest(), ValidateCaptchaController.CAPTCHA_KEY);
         if (Objects.isNull(captcha)) {
             throw new ValidateCaptchaException("验证码不存在");
         }
         if (captcha.isExpired()) {
+            sessionStrategy.removeAttribute(request,ValidateCaptchaController.CAPTCHA_KEY);
             throw new ValidateCaptchaException("验证码已过期");
         }
         if (StringUtils.isEmpty(code)) {
@@ -67,5 +66,6 @@ public class ValidateCaptchaFilter extends OncePerRequestFilter {
         if (!StringUtils.equalsIgnoreCase(captcha.getCode(), code)) {
             throw new ValidateCaptchaException("验证码不匹配");
         }
+        sessionStrategy.removeAttribute(request,ValidateCaptchaController.CAPTCHA_KEY);
     }
 }

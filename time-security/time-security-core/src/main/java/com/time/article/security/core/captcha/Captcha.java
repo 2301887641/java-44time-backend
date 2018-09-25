@@ -25,6 +25,7 @@ public class Captcha {
         this.expireTime = LocalDateTime.now().plusSeconds(expireTime);
     }
 
+    /**是否已过期*/
     public boolean isExpired(){
         return LocalDateTime.now().isAfter(expireTime);
     }

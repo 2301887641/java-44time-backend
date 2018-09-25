@@ -28,7 +28,7 @@ public class BrowserAuthenticationSuccessHandler extends SavedRequestAwareAuthen
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         /**json处理*/
-        if(LoginTypeEnum.JSON.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
+        if(LoginTypeEnum.REST.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(objectMapper.writeValueAsString(authentication));
             return;
