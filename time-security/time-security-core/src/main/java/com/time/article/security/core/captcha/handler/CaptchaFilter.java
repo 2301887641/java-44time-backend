@@ -1,6 +1,6 @@
-package com.time.article.security.core.captcha.validate;
+package com.time.article.security.core.captcha.handler;
 
-import com.time.article.security.core.captcha.Captcha;
+import com.time.article.security.core.captcha.pojo.Captcha;
 import com.time.article.security.core.properties.SecurityProperties;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +31,7 @@ import java.util.Set;
  *
  * @author suiguozhen on 18/09/21
  */
-public class ValidateCaptchaFilter extends OncePerRequestFilter implements InitializingBean {
+public class CaptchaFilter extends OncePerRequestFilter implements InitializingBean {
     /**
      * 缓存
      */
@@ -49,7 +49,7 @@ public class ValidateCaptchaFilter extends OncePerRequestFilter implements Initi
     /**
      * 分隔符
      */
-    private static final String separator = ",";
+    private static final String  SEPARATOR  = ",";
     /**
      * 路径匹配
      */
@@ -62,7 +62,7 @@ public class ValidateCaptchaFilter extends OncePerRequestFilter implements Initi
          * splitByWholeSeparatorPreserveAllToKens方法作用：
          * 分割字符串过程中会按照每个分隔符进行分割，不忽略任何空白项
          * */
-        String[] strings = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getCaptcha().getValidateUrls(), separator);
+        String[] strings = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getCaptcha().getValidateUrls(), SEPARATOR);
         urlSet.addAll(Arrays.asList(strings));
     }
 
@@ -74,7 +74,8 @@ public class ValidateCaptchaFilter extends OncePerRequestFilter implements Initi
             if (antPathMatcher.match(url, request.getRequestURI())) {
                 try {
                     validate(new ServletWebRequest(request));
-                } catch (ValidateCaptchaException e) {
+                    break;
+                } catch (CaptchaException e) {
                     browserAuthenticationFailureHandler.onAuthenticationFailure(request, response, e);
                     return;
                 }
@@ -90,21 +91,21 @@ public class ValidateCaptchaFilter extends OncePerRequestFilter implements Initi
      * @throws ServletRequestBindingException
      */
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-        Captcha captcha = (Captcha) sessionStrategy.getAttribute(request, ValidateCaptchaController.CAPTCHA_KEY);
-        String code = ServletRequestUtils.getStringParameter(request.getRequest(), ValidateCaptchaController.CAPTCHA_KEY);
+        Captcha captcha = (Captcha) sessionStrategy.getAttribute(request, Captcha.CAPTCHA_KEY);
+        String code = ServletRequestUtils.getStringParameter(request.getRequest(), Captcha.CAPTCHA_KEY);
         if (Objects.isNull(captcha)) {
-            throw new ValidateCaptchaException("验证码不存在");
+            throw new CaptchaException("验证码不存在");
         }
         if (captcha.isExpired()) {
-            sessionStrategy.removeAttribute(request, ValidateCaptchaController.CAPTCHA_KEY);
-            throw new ValidateCaptchaException("验证码已过期");
+            sessionStrategy.removeAttribute(request, Captcha.CAPTCHA_KEY);
+            throw new CaptchaException("验证码已过期");
         }
         if (StringUtils.isEmpty(code)) {
-            throw new ValidateCaptchaException("验证码的值不能为空");
+            throw new CaptchaException("验证码的值不能为空");
         }
         if (!StringUtils.equalsIgnoreCase(captcha.getCode(), code)) {
-            throw new ValidateCaptchaException("验证码不匹配");
+            throw new CaptchaException("验证码不匹配");
         }
-        sessionStrategy.removeAttribute(request, ValidateCaptchaController.CAPTCHA_KEY);
+        sessionStrategy.removeAttribute(request, Captcha.CAPTCHA_KEY);
     }
 }

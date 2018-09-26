@@ -1,6 +1,6 @@
 package com.time.article.security.browser;
 
-import com.time.article.security.core.captcha.validate.ValidateCaptchaFilter;
+import com.time.article.security.core.captcha.handler.CaptchaFilter;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -67,7 +67,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ValidateCaptchaFilter filter = new ValidateCaptchaFilter();
+        CaptchaFilter filter = new CaptchaFilter();
         filter.setBrowserAuthenticationFailureHandler(browserAuthenticationFailureHandler);
         filter.setSecurityProperties(securityProperties);
         filter.afterPropertiesSet();

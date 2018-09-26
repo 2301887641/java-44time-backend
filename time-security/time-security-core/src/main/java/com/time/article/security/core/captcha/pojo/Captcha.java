@@ -1,4 +1,4 @@
-package com.time.article.security.core.captcha;
+package com.time.article.security.core.captcha.pojo;
 
 import lombok.Getter;
 
@@ -18,6 +18,11 @@ public class Captcha {
     private String code;
     /**过期时间*/
     private LocalDateTime expireTime;
+
+    /**
+     * 验证码在session中存储的键名
+     */
+    public static final String CAPTCHA_KEY = "captcha";
 
     public Captcha(BufferedImage image, String code, long expireTime) {
         this.image = image;
