@@ -69,6 +69,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         ValidateCaptchaFilter filter = new ValidateCaptchaFilter();
         filter.setBrowserAuthenticationFailureHandler(browserAuthenticationFailureHandler);
+        filter.setSecurityProperties(securityProperties);
+        filter.afterPropertiesSet();
+
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).
                 formLogin().
                     loginProcessingUrl("/authentication/form").

@@ -10,9 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CaptchaProperties {
-    /**验证码 宽度 高度 长度 过期时间*/
+    /**验证码 宽度 高度 长度 过期时间 验证url*/
     private String width;
     private String height;
     private String length;
     private int expireIn;
+    private String validateUrls;
 }

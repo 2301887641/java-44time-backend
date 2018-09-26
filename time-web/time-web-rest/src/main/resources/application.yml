@@ -99,7 +99,7 @@ custom:
     browser:
       #自定义登录页
       loginPage: login
-      #登陆方式(form,rest)
+      #登陆方式和验证码返回错误方式(form,rest)
       loginType: form
       #记住我的时间
       rememberMeSeconds: 3600
@@ -115,6 +115,8 @@ custom:
         length: 4
         #过期时间
         expireIn: 60
+        #哪些url需要验证验证码(登陆,注册可能都需要) 使用","分割
+        validateUrls: /authentication/form
 
 
 #服务器配置

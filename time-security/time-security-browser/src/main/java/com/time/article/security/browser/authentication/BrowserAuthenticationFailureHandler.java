@@ -1,6 +1,7 @@
 package com.time.article.security.browser.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.time.article.core.message.result.Result;
 import com.time.article.security.core.enums.LoginTypeEnum;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.io.IOException;
  */
 @Component("browserAuthenticationFailureHandler")
 public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-
+    /**手工转换json*/
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -31,7 +32,7 @@ public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthentication
         /**json处理*/
         if(LoginTypeEnum.REST.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
             response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(objectMapper.writeValueAsString(exception.getMessage()));
+            response.getWriter().write(objectMapper.writeValueAsString(Result.failed(exception.getMessage())));
             return;
         }
         /**这里将错误信息放到session 并转发回去*/
