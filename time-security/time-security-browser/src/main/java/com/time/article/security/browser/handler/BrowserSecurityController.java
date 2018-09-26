@@ -1,4 +1,4 @@
-package com.time.article.security.browser;
+package com.time.article.security.browser.handler;
 
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.time.article.security.browser;
+package com.time.article.security.browser.config;
 
 import com.time.article.security.core.captcha.handler.CaptchaFilter;
 import com.time.article.security.core.properties.SecurityProperties;
