@@ -40,7 +40,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService browserUserDetailService;
     /**配置rememberMe*/
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
@@ -82,7 +82,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 rememberMe().
                     tokenRepository(persistentTokenRepository()).
                     tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds()).
-                    userDetailsService(userDetailsService).
+                    userDetailsService(browserUserDetailService).
                 and().
                     authorizeRequests().
                     antMatchers(

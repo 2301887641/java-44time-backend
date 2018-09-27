@@ -15,7 +15,7 @@ generator:
   author: suiguozhen
   #模板的基路径
   templatePath: /template
-  #是否允许覆盖 true可以 false不可以
+  #是否不允许覆盖 true不可以 false可以
   coverage: true
 
   #生成实体

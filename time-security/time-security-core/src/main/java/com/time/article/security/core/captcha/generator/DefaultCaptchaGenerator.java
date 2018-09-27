@@ -1,4 +1,4 @@
-package com.time.article.security.core.captcha.api;
+package com.time.article.security.core.captcha.generator;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;

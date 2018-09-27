@@ -1,5 +1,6 @@
 package com.time.article.security.browser.handler;
 
+import com.time.article.dao.mapper.business.user.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -14,18 +15,21 @@ import org.springframework.stereotype.Component;
  *
  * @author suiguozhen on 18/09/12
  */
-@Component
+@Component("browserUserDetailService")
 public class BrowserUserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     //TODO 引入查询数据库mapper即可
-//    @Autowired
-//    private xxx  xxx
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println(userMapper);
+
+
         return new User(username,
                 passwordEncoder.encode("123456"),
                 true,

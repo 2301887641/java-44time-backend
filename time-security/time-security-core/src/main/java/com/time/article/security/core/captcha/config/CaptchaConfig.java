@@ -1,7 +1,7 @@
 package com.time.article.security.core.captcha.config;
 
-import com.time.article.security.core.captcha.api.AbstractCaptchaGenerator;
-import com.time.article.security.core.captcha.api.DefaultCaptchaGenerator;
+import com.time.article.security.core.captcha.generator.AbstractCaptchaGenerator;
+import com.time.article.security.core.captcha.generator.DefaultCaptchaGenerator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
+ * druid properties 配置
  * @author suiguozhen on 18/08/11
  */
 @Configuration

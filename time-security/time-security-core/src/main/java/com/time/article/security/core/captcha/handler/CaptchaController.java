@@ -1,6 +1,6 @@
 package com.time.article.security.core.captcha.handler;
 
-import com.time.article.security.core.captcha.api.AbstractCaptchaGenerator;
+import com.time.article.security.core.captcha.generator.AbstractCaptchaGenerator;
 import com.time.article.security.core.captcha.pojo.Captcha;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;

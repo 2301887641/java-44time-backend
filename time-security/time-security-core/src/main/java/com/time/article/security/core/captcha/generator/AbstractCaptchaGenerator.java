@@ -1,4 +1,4 @@
-package com.time.article.security.core.captcha.api;
+package com.time.article.security.core.captcha.generator;
 
 import com.time.article.security.core.captcha.pojo.Captcha;
 
