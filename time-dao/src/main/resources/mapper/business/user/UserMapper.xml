@@ -102,7 +102,7 @@
     <!--查询带密码-->
     <select id="selectPasswordByUsername" resultMap="baseResultMapWithPassword">
         select
-        <include refid="baseColumn"/>
+        <include refid="baseColumnWithPassword"/>
         from time_user a
         where
         a.username = #{username}

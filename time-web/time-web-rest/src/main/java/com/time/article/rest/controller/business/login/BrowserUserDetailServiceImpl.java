@@ -1,6 +1,7 @@
 package com.time.article.rest.controller.business.login;
 
-import com.time.article.dao.mapper.business.user.UserMapper;
+import com.time.article.service.api.business.user.UserService;
+import com.time.article.service.dto.business.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -21,22 +22,22 @@ import java.util.Objects;
 public class BrowserUserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.time.article.dao.entity.business.user.User user = userMapper.selectPasswordByUsername(username);
-        if (Objects.isNull(user)) {
+        UserDto userDto = userService.selectPasswordByName(username);
+        if (Objects.isNull(userDto)) {
             /**此异常会被或略只是调用不做信息处理*/
             throw new UsernameNotFoundException("用户名不存在");
         }
         return new User(username,
-                user.getPassword(),
+                userDto.getPassword(),
                 true,
                 true,
                 true,
                 true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin")
+                AuthorityUtils.NO_AUTHORITIES
         );
     }
 }

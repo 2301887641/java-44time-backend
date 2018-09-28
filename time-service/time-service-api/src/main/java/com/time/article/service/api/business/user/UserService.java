@@ -5,6 +5,7 @@ import com.time.article.service.criteria.business.user.UserCriteriaDto;
 import com.time.article.service.dto.business.user.UserDto;
 
 /**
+ * 用户service
  * @author suiguozhen on 2018-09-27
  */
 public interface UserService extends BaseService
@@ -15,5 +16,5 @@ public interface UserService extends BaseService
      * @param username
      * @return
      */
-//    UserDto selectPasswordByName(String username);
+    UserDto selectPasswordByName(String username);
 }

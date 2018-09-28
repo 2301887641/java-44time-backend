@@ -30,7 +30,7 @@ public class BrowserAuthenticationSuccessHandler extends SavedRequestAwareAuthen
         /**json处理*/
         if(LoginTypeEnum.REST.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
             response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(objectMapper.writeValueAsString(authentication));
+            response.getWriter().write(objectMapper.writeValueAsString(authentication.getPrincipal()));
             return;
         }
         super.onAuthenticationSuccess(request,response,authentication);
