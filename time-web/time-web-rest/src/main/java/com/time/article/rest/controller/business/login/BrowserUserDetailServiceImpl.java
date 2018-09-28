@@ -1,28 +1,37 @@
-package com.time.article.security.browser.handler;
+package com.time.article.rest.controller.business.login;
 
+import com.time.article.dao.mapper.business.user.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 /**
- * 自定义用户认证
+ * 自定义用户认证 处理用户表单登陆
  * 需要用户自己去实现
  *
  * @author suiguozhen on 18/09/12
  */
+@Component("browserUserDetailService")
 public class BrowserUserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        com.time.article.dao.entity.business.user.User user = userMapper.selectPasswordByUsername(username);
+        if (Objects.isNull(user)) {
+            /**此异常会被或略只是调用不做信息处理*/
+            throw new UsernameNotFoundException("用户名不存在");
+        }
         return new User(username,
-                passwordEncoder.encode("123456"),
+                user.getPassword(),
                 true,
                 true,
                 true,

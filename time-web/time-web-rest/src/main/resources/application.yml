@@ -100,7 +100,7 @@ custom:
       #自定义登录页
       loginPage: login
       #登陆方式和验证码返回错误方式(form,rest)
-      loginType: form
+      loginType: rest
       #记住我的时间
       rememberMeSeconds: 3600
     #验证码相关
@@ -112,7 +112,7 @@ custom:
         #高度
         height: 40
         #长度
-        length: 4
+        length: 1
         #过期时间
         expireIn: 60
         #哪些url需要验证验证码(登陆,注册可能都需要) 使用","分割

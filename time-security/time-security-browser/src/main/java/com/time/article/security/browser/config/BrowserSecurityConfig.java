@@ -1,8 +1,10 @@
 package com.time.article.security.browser.config;
 
+import com.time.article.security.browser.handler.BrowserUserDetailServiceImpl;
 import com.time.article.security.core.captcha.handler.CaptchaFilter;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,36 +24,52 @@ import javax.sql.DataSource;
 /**
  * spring security安全配置
  * EnableConfigurationProperties让SecurityProperties这个配置类生效
+ *
  * @author suiguozhen on 18/09/12
  */
 @Configuration
 @EnableConfigurationProperties(SecurityProperties.class)
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
-    /**安全配置属性*/
+    /**
+     * 安全配置属性
+     */
     @Autowired
     private SecurityProperties securityProperties;
-    /**browser成功处理器*/
+    /**
+     * browser成功处理器
+     */
     @Autowired
     private AuthenticationSuccessHandler browserAuthenticationSuccessHandler;
-    /**browser失败处理器*/
+    /**
+     * browser失败处理器
+     */
     @Autowired
     private AuthenticationFailureHandler browserAuthenticationFailureHandler;
-    /**数据源*/
+    /**
+     * 数据源
+     */
     @Autowired
     private DataSource dataSource;
+
+    /**自定义用户登录处理*/
     @Autowired
     private UserDetailsService browserUserDetailService;
-    /**配置rememberMe*/
+
+    /**
+     * 配置rememberMe
+     */
     @Bean
-    public PersistentTokenRepository persistentTokenRepository(){
+    public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
         return jdbcTokenRepository;
     }
 
-    /**密码加密处理类 让security验证密码 可以实现自己的MD5等*/
+    /**
+     * 密码加密处理类 让security验证密码 可以实现自己的MD5等
+     */
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -62,6 +80,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
      * 3.loginPage 配置登录页面 我们设置为动态的
      * 4.antMatchers 登陆页面全部过滤掉
      * 5.successHandler 表单登陆成功后的处理
+     * 6.cors 跨域必写
      * @param http
      * @throws Exception
      */
@@ -72,27 +91,35 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setSecurityProperties(securityProperties);
         filter.afterPropertiesSet();
 
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).
+        http.
+                addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).
                 formLogin().
-                    loginProcessingUrl("/authentication/form").
-                    loginPage("/authentication/loginPage").
-                    successHandler(browserAuthenticationSuccessHandler).
-                    failureHandler(browserAuthenticationFailureHandler).
+                loginProcessingUrl("/authentication/form").
+                loginPage("/authentication/loginPage").
+                successHandler(browserAuthenticationSuccessHandler).
+                failureHandler(browserAuthenticationFailureHandler).
                 and().
                 rememberMe().
-                    tokenRepository(persistentTokenRepository()).
-                    tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds()).
-                    userDetailsService(browserUserDetailService).
+                tokenRepository(persistentTokenRepository()).
+                tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds()).
+                userDetailsService(browserUserDetailService).
                 and().
-                    authorizeRequests().
-                    antMatchers(
+                authorizeRequests().
+                antMatchers(
                         "/authentication/loginPage",
                         securityProperties.getBrowser().getLoginPage(),
                         "/captcha"
                 ).permitAll().
-                    anyRequest().
-                    authenticated().
+                anyRequest().
+                authenticated().
                 and().
+                cors().and().
                 csrf().disable();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "browserUserDetailService")
+    public UserDetailsService browserUserDetailService() {
+        return new BrowserUserDetailServiceImpl();
     }
 }

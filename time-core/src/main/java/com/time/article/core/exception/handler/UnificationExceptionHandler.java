@@ -1,6 +1,5 @@
 package com.time.article.core.exception.handler;
 
-import com.sun.deploy.net.HttpResponse;
 import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.WebUtils;
@@ -9,10 +8,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
