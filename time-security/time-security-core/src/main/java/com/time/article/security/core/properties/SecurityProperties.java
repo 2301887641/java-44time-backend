@@ -22,4 +22,6 @@ public class SecurityProperties {
      * 验证码相关的属性
      */
     private ValidateCodeProperties code = new ValidateCodeProperties();
+    /**social社交相关的属性*/
+    private SocialProperties social = new SocialProperties();
 }

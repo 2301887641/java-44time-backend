@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * form表单自定义登陆成功处理
+ * 自定义登陆成功处理
  * @author suiguozhen on 18/09/20
  */
 @Component("browserAuthenticationSuccessHandler")

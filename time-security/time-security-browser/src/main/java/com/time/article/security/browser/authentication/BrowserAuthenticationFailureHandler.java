@@ -35,7 +35,7 @@ public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthentication
             response.getWriter().write(objectMapper.writeValueAsString(Result.failed(exception.getMessage())));
             return;
         }
-        /**兼容form提示 不建议使用*/
+        /**兼容form表单提示 不建议使用*/
         response.setContentType("text/html;charset=utf-8");
         response.getWriter().write(exception.getMessage());
     }

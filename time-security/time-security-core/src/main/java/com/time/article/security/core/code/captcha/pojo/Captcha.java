@@ -1,5 +1,6 @@
-package com.time.article.security.core.captcha.pojo;
+package com.time.article.security.core.code.captcha.pojo;
 
+import com.time.article.security.core.code.sms.pojo.Sms;
 import lombok.Getter;
 
 import java.awt.image.BufferedImage;
@@ -11,13 +12,9 @@ import java.time.LocalDateTime;
  * @author suiguozhen on 18/09/21
  */
 @Getter
-public class Captcha {
+public class Captcha extends Sms {
     /**验证码*/
     private BufferedImage image;
-    /**验证码字符串*/
-    private String code;
-    /**过期时间*/
-    private LocalDateTime expireTime;
 
     /**
      * 验证码在session中存储的键名
@@ -25,13 +22,7 @@ public class Captcha {
     public static final String CAPTCHA_KEY = "captcha";
 
     public Captcha(BufferedImage image, String code, long expireTime) {
+        super(code,expireTime);
         this.image = image;
-        this.code = code;
-        this.expireTime = LocalDateTime.now().plusSeconds(expireTime);
-    }
-
-    /**是否已过期*/
-    public boolean isExpired(){
-        return LocalDateTime.now().isAfter(expireTime);
     }
 }

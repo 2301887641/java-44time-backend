@@ -1,4 +1,4 @@
-package com.time.article.security.core.properties;
+package com.time.article.security.core.code.captcha.properties;
 
 import lombok.Getter;
 import lombok.Setter;

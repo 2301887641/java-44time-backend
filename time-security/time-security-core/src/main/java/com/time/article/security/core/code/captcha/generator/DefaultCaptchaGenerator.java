@@ -1,8 +1,9 @@
-package com.time.article.security.core.captcha.generator;
+package com.time.article.security.core.code.captcha.generator;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import com.time.article.security.core.captcha.pojo.Captcha;
+import com.time.article.security.core.code.captcha.pojo.Captcha;
+import com.time.article.security.core.code.generator.AbstractCodeGenerator;
 import lombok.Setter;
 
 import java.util.Properties;
@@ -13,7 +14,7 @@ import java.util.Properties;
  * @author suiguozhen on 18/09/26
  */
 @Setter
-public class DefaultCaptchaGenerator extends AbstractCaptchaGenerator {
+public class DefaultCaptchaGenerator extends AbstractCodeGenerator {
 
     /**验证码实例*/
     private DefaultKaptcha defaultKaptcha = new DefaultKaptcha();

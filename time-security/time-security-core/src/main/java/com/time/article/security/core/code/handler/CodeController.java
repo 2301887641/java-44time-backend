@@ -1,7 +1,7 @@
-package com.time.article.security.core.captcha.handler;
+package com.time.article.security.core.code.handler;
 
-import com.time.article.security.core.captcha.generator.AbstractCaptchaGenerator;
-import com.time.article.security.core.captcha.pojo.Captcha;
+import com.time.article.security.core.code.generator.AbstractCodeGenerator;
+import com.time.article.security.core.code.captcha.pojo.Captcha;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
@@ -22,7 +22,7 @@ import java.io.IOException;
  * @author suiguozhen on 18/09/21
  */
 @RestController
-public class CaptchaController {
+public class CodeController {
     /**
      * 安全配置属性
      */
@@ -35,7 +35,10 @@ public class CaptchaController {
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @Autowired
-    private AbstractCaptchaGenerator captchaGenerator;
+    private AbstractCodeGenerator captchaGenerator;
+
+    @Autowired
+    private AbstractCodeGenerator smsGenerator;
 
     /**
      * 请求验证码
@@ -45,7 +48,7 @@ public class CaptchaController {
      * @throws IOException
      */
     @GetMapping("/captcha")
-    public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void createCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         /**生成验证码*/
         Captcha captcha = captchaGenerator.buildCaptchaImage(
                 ServletRequestUtils.getStringParameter(request, "width", securityProperties.getCode().getCaptcha().getWidth()),
@@ -55,5 +58,16 @@ public class CaptchaController {
         );
         sessionStrategy.setAttribute(new ServletWebRequest(request), Captcha.CAPTCHA_KEY, captcha);
         ImageIO.write(captcha.getImage(), "jpeg", response.getOutputStream());
+    }
+
+    /**
+     * 短信验证码
+     * @param request
+     * @param response
+     */
+    @GetMapping("/sms")
+    public void createSms(HttpServletRequest request,HttpServletResponse response){
+
+
     }
 }

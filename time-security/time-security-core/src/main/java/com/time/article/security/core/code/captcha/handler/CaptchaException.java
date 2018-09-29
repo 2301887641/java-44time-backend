@@ -1,4 +1,4 @@
-package com.time.article.security.core.captcha.handler;
+package com.time.article.security.core.code.captcha.handler;
 
 import org.springframework.security.core.AuthenticationException;
 

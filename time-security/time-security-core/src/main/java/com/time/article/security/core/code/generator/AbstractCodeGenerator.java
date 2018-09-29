@@ -1,13 +1,13 @@
-package com.time.article.security.core.captcha.generator;
+package com.time.article.security.core.code.generator;
 
-import com.time.article.security.core.captcha.pojo.Captcha;
+import com.time.article.security.core.code.captcha.pojo.Captcha;
 
 /**
  * 抽象验证码类 应用级配置
  *
  * @author suiguozhen on 18/09/26
  */
-public abstract class AbstractCaptchaGenerator {
+public abstract class AbstractCodeGenerator {
 
     /**
      * 生成验证码图片

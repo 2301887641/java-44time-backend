@@ -130,3 +130,23 @@ create table persistent_logins (
   token varchar(64) not null,
   last_used timestamp not null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for UserConnection springSocial社交记录accesstoken
+-- userId,providerId,providerUserId联合起来是一个主键
+-- ----------------------------
+DROP TABLE IF EXISTS UserConnection;
+create table UserConnection (
+  userId varchar(255) not null comment '业务系统的用户id',
+	providerId varchar(255) not null comment '服务提供商的id qq或微信',
+	providerUserId varchar(255) comment 'openId',
+	rank int not null comment '等级',
+	displayName varchar(255),
+	profileUrl varchar(512),
+	imageUrl varchar(512),
+	accessToken varchar(512) not null comment '令牌',
+	secret varchar(512),
+	refreshToken varchar(512),
+	expireTime bigint,
+	primary key (userId, providerId, providerUserId));
+create unique index UserConnectionRank on UserConnection(userId, providerId, rank);

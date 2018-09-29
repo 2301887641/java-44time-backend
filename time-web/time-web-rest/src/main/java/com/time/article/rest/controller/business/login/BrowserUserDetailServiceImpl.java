@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -19,7 +21,7 @@ import java.util.Objects;
  * @author suiguozhen on 18/09/12
  */
 @Component("browserUserDetailService")
-public class BrowserUserDetailServiceImpl implements UserDetailsService {
+public class BrowserUserDetailServiceImpl implements UserDetailsService, SocialUserDetailsService {
 
     @Autowired
     private UserService userService;
@@ -39,5 +41,10 @@ public class BrowserUserDetailServiceImpl implements UserDetailsService {
                 true,
                 AuthorityUtils.NO_AUTHORITIES
         );
+    }
+
+    @Override
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+        return null;
     }
 }

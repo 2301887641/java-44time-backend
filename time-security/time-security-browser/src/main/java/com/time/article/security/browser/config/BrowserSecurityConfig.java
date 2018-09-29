@@ -1,7 +1,7 @@
 package com.time.article.security.browser.config;
 
 import com.time.article.security.browser.handler.BrowserUserDetailServiceImpl;
-import com.time.article.security.core.captcha.handler.CaptchaFilter;
+import com.time.article.security.core.code.captcha.handler.CaptchaFilter;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -54,6 +55,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     /**自定义用户登录处理*/
     @Autowired
     private UserDetailsService browserUserDetailService;
+
+    @Autowired
+    private SpringSocialConfigurer socialSecurityConfig;
 
     /**
      * 配置rememberMe
@@ -98,6 +102,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 loginPage("/authentication/loginPage").
                 successHandler(browserAuthenticationSuccessHandler).
                 failureHandler(browserAuthenticationFailureHandler).
+                and().
+                apply(socialSecurityConfig).
                 and().
                 rememberMe().
                 tokenRepository(persistentTokenRepository()).

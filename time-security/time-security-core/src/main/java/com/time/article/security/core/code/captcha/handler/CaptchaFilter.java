@@ -1,6 +1,7 @@
-package com.time.article.security.core.captcha.handler;
+package com.time.article.security.core.code.captcha.handler;
 
-import com.time.article.security.core.captcha.pojo.Captcha;
+import com.time.article.security.core.code.captcha.handler.CaptchaException;
+import com.time.article.security.core.code.captcha.pojo.Captcha;
 import com.time.article.security.core.properties.SecurityProperties;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +29,7 @@ import java.util.Set;
  * 自定义过滤器为了来检查提交的验证码 只执行一次
  * 需要放到UsernamePasswordAuthenticationFilter前面
  * ##此过滤器的执行非常靠前,有可能在容器启动前 引入注入的bean都失效了
- *
+ * //TODO 这里在filter里面使用InitializingBean可能会有问题 后续再想办法吧
  * @author suiguozhen on 18/09/21
  */
 public class CaptchaFilter extends OncePerRequestFilter implements InitializingBean {
