@@ -1,6 +1,7 @@
 package com.time.article.security.core.code.generator;
 
-import com.time.article.security.core.code.captcha.pojo.Captcha;
+import com.time.article.security.core.code.sms.pojo.Sms;
+import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 抽象验证码类 应用级配置
@@ -10,10 +11,9 @@ import com.time.article.security.core.code.captcha.pojo.Captcha;
 public abstract class AbstractCodeGenerator {
 
     /**
-     * 生成验证码图片
-     *
-     * @param width
-     * @param height
+     * 生成码
+     * @param request
+     * @return
      */
-    public abstract Captcha buildCaptchaImage(String width, String height, String length, long expireIn);
+    public abstract Sms buildCode(ServletWebRequest request);
 }

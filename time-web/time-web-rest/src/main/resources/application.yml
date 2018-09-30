@@ -117,6 +117,10 @@ custom:
         expireIn: 60
         #哪些url需要验证验证码(登陆,注册可能都需要) 使用","分割
         validateUrls: /authentication/form
+      #短信验证码
+      sms:
+        length: 6
+        expireIn: 60
     #社交配置
     social:
       #qq配置
@@ -130,8 +134,6 @@ server:
   tomcat:
   #tomcat字符集
     uri-encoding: UTF-8
-
-
 
 
 ###################### profile启用设置 #########################
@@ -163,8 +165,6 @@ dynamicDatasource:
     password: 123456
     #默认的数据源名称
     datasourceName: master
-
-
 
 ---
 

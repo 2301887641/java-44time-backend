@@ -17,4 +17,13 @@ public class BusinessException extends LogicException {
     public BusinessException(BaseEnum enums){
         super(enums.getOrdinal(),enums.getLabel());
     }
+
+    /**
+     * 自定义信息构造
+     * @param enums
+     * @param message
+     */
+    public BusinessException(BaseEnum enums,String message){
+        super(enums.getOrdinal(),message);
+    }
 }

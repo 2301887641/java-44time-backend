@@ -114,7 +114,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers(
                         "/authentication/loginPage",
                         securityProperties.getBrowser().getLoginPage(),
-                        "/captcha"
+                        "/captcha",
+                        "/sms"
                 ).permitAll().
                 anyRequest().
                 authenticated().

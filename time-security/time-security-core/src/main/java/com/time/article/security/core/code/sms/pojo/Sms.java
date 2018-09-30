@@ -14,6 +14,10 @@ public class Sms {
     private String code;
     /**过期时间*/
     private LocalDateTime expireTime;
+    /**
+     * session中存储的key
+     */
+    public static final String SMS_KEY = "captcha";
 
     public Sms(String code, long expireTime) {
         this.code = code;
