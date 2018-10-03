@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ValidateCodeProperties {
+public class CodeProperties {
     /**
      * 图片验证码
      */
