@@ -5,7 +5,6 @@ import com.google.code.kaptcha.util.Config;
 import com.time.article.security.core.code.captcha.pojo.Captcha;
 import com.time.article.security.core.code.generator.AbstractCodeGenerator;
 import com.time.article.security.core.properties.SecurityProperties;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -17,7 +16,6 @@ import java.util.Properties;
  *
  * @author suiguozhen on 18/09/26
  */
-@Setter
 public class DefaultCaptchaGenerator extends AbstractCodeGenerator {
 
     @Autowired

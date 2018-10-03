@@ -16,11 +16,6 @@ public class Captcha extends Sms {
     /**验证码*/
     private BufferedImage image;
 
-    /**
-     * 验证码在session中存储的键名
-     */
-    public static final String CAPTCHA_KEY = "captcha";
-
     public Captcha(BufferedImage image, String code, long expireTime) {
         super(code,expireTime);
         this.image = image;

@@ -2,6 +2,7 @@ package com.time.article.security.browser.config;
 
 import com.time.article.security.browser.handler.BrowserUserDetailServiceImpl;
 import com.time.article.security.core.code.captcha.handler.CaptchaFilter;
+import com.time.article.security.core.constants.SecurityConstants;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -114,8 +115,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers(
                         "/authentication/loginPage",
                         securityProperties.getBrowser().getLoginPage(),
-                        "/captcha",
-                        "/sms"
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*"
                 ).permitAll().
                 anyRequest().
                 authenticated().

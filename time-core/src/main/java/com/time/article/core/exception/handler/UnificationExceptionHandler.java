@@ -8,8 +8,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -44,22 +42,13 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
     @ExceptionHandler(BusinessException.class)
     public Result businessExceptionHandler(BusinessException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (!WebUtils.isAjaxRequest(request)) {
-            response.sendRedirect("/error");
+            /**重定向到thymeleaf的错误页面*/
+            response.sendRedirect("http://127.0.0.1:8999/error");
         }
         /**ajax请求 返回500*/
         return Result.failed(exception.getCode(), exception.getMsg(), HttpStatus.OK);
     }
 
-    @ExceptionHandler(ServletRequestBindingException.class)
-    public Result servletRequestBindingExceptionHandler(ServletRequestBindingException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        MissingServletRequestParameterException missException = (MissingServletRequestParameterException) exception;
-        String parameterName = missException.getParameterName();
-        if (WebUtils.isAjaxRequest(request)) {
-            response.sendRedirect("/error");
-        }
-        /**ajax请求 返回500*/
-        return null;
-    }
 
 //    @ExceptionHandler
 //    public Object businessExceptionHandler(Exception exception, HttpServletRequest request) {

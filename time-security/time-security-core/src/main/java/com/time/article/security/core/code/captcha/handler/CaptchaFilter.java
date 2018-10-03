@@ -2,6 +2,7 @@ package com.time.article.security.core.code.captcha.handler;
 
 import com.time.article.security.core.code.captcha.handler.CaptchaException;
 import com.time.article.security.core.code.captcha.pojo.Captcha;
+import com.time.article.security.core.enums.CodeTypeEnum;
 import com.time.article.security.core.properties.SecurityProperties;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -92,13 +93,13 @@ public class CaptchaFilter extends OncePerRequestFilter implements InitializingB
      * @throws ServletRequestBindingException
      */
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-        Captcha captcha = (Captcha) sessionStrategy.getAttribute(request, Captcha.CAPTCHA_KEY);
-        String code = ServletRequestUtils.getStringParameter(request.getRequest(), Captcha.CAPTCHA_KEY);
+        Captcha captcha = (Captcha) sessionStrategy.getAttribute(request, CodeTypeEnum.CAPTCHA.getParamNameOnValidate());
+        String code = ServletRequestUtils.getStringParameter(request.getRequest(), CodeTypeEnum.CAPTCHA.getParamNameOnValidate());
         if (Objects.isNull(captcha)) {
             throw new CaptchaException("验证码不存在");
         }
         if (captcha.isExpired()) {
-            sessionStrategy.removeAttribute(request, Captcha.CAPTCHA_KEY);
+            sessionStrategy.removeAttribute(request, CodeTypeEnum.CAPTCHA.getParamNameOnValidate());
             throw new CaptchaException("验证码已过期");
         }
         if (StringUtils.isEmpty(code)) {
@@ -107,6 +108,6 @@ public class CaptchaFilter extends OncePerRequestFilter implements InitializingB
         if (!StringUtils.equalsIgnoreCase(captcha.getCode(), code)) {
             throw new CaptchaException("验证码不匹配");
         }
-        sessionStrategy.removeAttribute(request, Captcha.CAPTCHA_KEY);
+        sessionStrategy.removeAttribute(request, CodeTypeEnum.CAPTCHA.getParamNameOnValidate());
     }
 }
