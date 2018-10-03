@@ -1,6 +1,5 @@
 package com.time.article.security.core.code.captcha.handler;
 
-import com.time.article.security.core.code.captcha.handler.CaptchaException;
 import com.time.article.security.core.code.captcha.pojo.Captcha;
 import com.time.article.security.core.enums.CodeTypeEnum;
 import com.time.article.security.core.properties.SecurityProperties;

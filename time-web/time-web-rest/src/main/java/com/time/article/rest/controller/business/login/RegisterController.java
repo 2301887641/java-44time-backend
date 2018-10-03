@@ -2,6 +2,7 @@ package com.time.article.rest.controller.business.login;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 注册控制器
@@ -11,8 +12,4 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class RegisterController {
 
-    @GetMapping("/error")
-    public String error() {
-        return "/error";
-    }
 }

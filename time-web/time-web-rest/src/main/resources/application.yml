@@ -43,6 +43,7 @@ spring:
   thymeleaf:
     cache: false
     mode: LEGACYHTML5
+    #这里一定要注意classpath是放在/resources目录下面的resources
     prefix: classpath:/resources/
     suffix: .html
     encoding: UTF-8

@@ -7,9 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,45 +35,20 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
 
     /**
      * 业务异常处理
+     * 这里一定要加上@ResponseBody注解 不然和thymeleaf模板冲突
+     *
      * @param exception
      * @param request
      * @return
      */
     @ExceptionHandler(BusinessException.class)
+    @ResponseBody
     public Result businessExceptionHandler(BusinessException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (!WebUtils.isAjaxRequest(request)) {
-            /**重定向到thymeleaf的错误页面*/
-            response.sendRedirect("http://127.0.0.1:8999/error");
+            /**重定向到thymeleaf的错误页面error需要先放在目录下*/
+            response.sendRedirect("/error");
         }
         /**ajax请求 返回500*/
-        return Result.failed(exception.getCode(), exception.getMsg(), HttpStatus.OK);
+        return Result.failed(exception.getCode(), exception.getMsg());
     }
-
-
-//    @ExceptionHandler
-//    public Object businessExceptionHandler(Exception exception, HttpServletRequest request) {
-//        /**dao层异常*/
-//        if(exception instanceof BusinessException){
-//            /**ajax请求 返回500*/
-//            if(WebUtils.isAjaxRequest(request)){
-//
-//                return new ResponseEntity<>(Result.failed(RestCodeEnum.DEFAULT_EXCEPTION.getCode(),RestCodeEnum.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
-//            }
-//        }else if(exception instanceof RuntimeException){
-//            StringBuffer requestURL = request.getRequestURL();
-//            requestURL.append("\n请求方式："+request.getMethod()+"\n");
-//            requestURL.append(exception.getMessage());
-//            log.error("请求地址："+requestURL.toString());
-//            /**ajax请求 返回500*/
-//            if(WebUtils.isAjaxRequest(request)){
-//                return new ResponseEntity<>(Result.failed(RestCodeEnum.DEFAULT_EXCEPTION.getCode(),RestCodeEnum.DEFAULT_EXCEPTION.getInfo()),HttpStatus.INTERNAL_SERVER_ERROR);
-//            }
-//            /**页面请求*/
-//            ModelAndView modelAndView = new ModelAndView();
-//            modelAndView.setViewName("error");
-//            return modelAndView;
-//        }
-//        log.error("其他异常信息如下:"+exception.getMessage());
-//        return null;
-//    }
 }
