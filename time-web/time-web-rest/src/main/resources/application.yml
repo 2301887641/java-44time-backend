@@ -117,7 +117,7 @@ custom:
         #过期时间
         expireIn: 60
         #哪些url需要验证验证码(登陆,注册可能都需要) 使用","分割
-        validateUrls: /authentication/form
+        validateUrls:
       #短信验证码
       sms:
         length: 6

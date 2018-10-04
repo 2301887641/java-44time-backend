@@ -99,6 +99,6 @@ public abstract class AbstractCodeProcessor<CODE extends Sms> implements CodePro
      * @return
      */
     private String getSessionKey() {
-        return SESSION_KEY_PREFIX + getCodeType().toString().toLowerCase();
+        return SESSION_KEY_PREFIX + getCodeType().toString().toUpperCase();
     }
 }

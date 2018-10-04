@@ -1,7 +1,9 @@
-package com.time.article.security.core.code.captcha.handler;
+package com.time.article.security.core.authentication.mobile;
 
+import com.time.article.security.core.code.captcha.handler.CaptchaException;
 import com.time.article.security.core.code.captcha.pojo.Captcha;
 import com.time.article.security.core.code.processor.CodeProcessor;
+import com.time.article.security.core.code.sms.pojo.Sms;
 import com.time.article.security.core.enums.CodeTypeEnum;
 import com.time.article.security.core.properties.SecurityProperties;
 import lombok.Setter;
@@ -27,14 +29,14 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * 自定义过滤器为了来检查提交的验证码 只执行一次
+ * 自定义过滤器为了来检查提交的手机验证码 只执行一次
  * 需要放到UsernamePasswordAuthenticationFilter前面
  * ##此过滤器的执行非常靠前,有可能在容器启动前 引入注入的bean都失效了
  * //TODO 这里在filter里面使用InitializingBean可能会有问题 后续再想办法吧
  *
  * @author suiguozhen on 18/09/21
  */
-public class CaptchaFilter extends OncePerRequestFilter implements InitializingBean {
+public class SmsFilter extends OncePerRequestFilter implements InitializingBean {
     /**
      * 缓存
      */
@@ -65,9 +67,9 @@ public class CaptchaFilter extends OncePerRequestFilter implements InitializingB
          * splitByWholeSeparatorPreserveAllToKens方法作用：
          * 分割字符串过程中会按照每个分隔符进行分割，不忽略任何空白项
          * */
-        String[] strings = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getCaptcha().getValidateUrls(), SEPARATOR);
+        String[] strings = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getSms().getValidateUrls(), SEPARATOR);
         urlSet.addAll(Arrays.asList(strings));
-        urlSet.add("/authentication/form");
+        urlSet.add("/authentication/sms");
     }
 
     @Override
@@ -95,25 +97,21 @@ public class CaptchaFilter extends OncePerRequestFilter implements InitializingB
      * @throws ServletRequestBindingException
      */
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-        /**从缓存里面读取*/
-        Captcha captcha = (Captcha) sessionStrategy.getAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "CAPTCHA");
-        /**从request读取*/
+        Sms sms = (Sms) sessionStrategy.getAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
         String code = ServletRequestUtils.getStringParameter(request.getRequest(), CodeTypeEnum.CAPTCHA.getParamNameOnValidate());
-        if (Objects.isNull(captcha)) {
+        if (Objects.isNull(sms)) {
             throw new CaptchaException("验证码不存在");
         }
-        if (captcha.isExpired()) {
-            /**移除缓存*/
-            sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "CAPTCHA");
+        if (sms.isExpired()) {
+            sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
             throw new CaptchaException("验证码已过期");
         }
         if (StringUtils.isEmpty(code)) {
             throw new CaptchaException("验证码的值不能为空");
         }
-        if (!StringUtils.equalsIgnoreCase(captcha.getCode(), code)) {
+        if (!StringUtils.equalsIgnoreCase(sms.getCode(), code)) {
             throw new CaptchaException("验证码不匹配");
         }
-        /**移除缓存*/
-        sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "CAPTCHA");
+        sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
     }
 }
