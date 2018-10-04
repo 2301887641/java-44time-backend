@@ -2,7 +2,6 @@ package com.time.article.security.core.code.processor;
 
 import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.enums.restcode.RestCodeEnum;
-import com.time.article.security.core.code.captcha.handler.CaptchaException;
 import com.time.article.security.core.code.sms.pojo.Sms;
 import com.time.article.security.core.code.sms.sender.SmsSender;
 import org.springframework.beans.factory.annotation.Autowired;

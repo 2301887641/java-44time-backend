@@ -41,7 +41,7 @@ public class CaptchaFilter extends OncePerRequestFilter implements InitializingB
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @Setter
-    private AuthenticationFailureHandler browserAuthenticationFailureHandler;
+    private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Setter
     private SecurityProperties securityProperties;
@@ -66,7 +66,9 @@ public class CaptchaFilter extends OncePerRequestFilter implements InitializingB
          * 分割字符串过程中会按照每个分隔符进行分割，不忽略任何空白项
          * */
         String[] strings = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getCaptcha().getValidateUrls(), SEPARATOR);
-        urlSet.addAll(Arrays.asList(strings));
+        if(!Objects.isNull(strings)){
+            urlSet.addAll(Arrays.asList(strings));
+        }
         urlSet.add("/authentication/form");
     }
 
@@ -79,8 +81,8 @@ public class CaptchaFilter extends OncePerRequestFilter implements InitializingB
                 try {
                     validate(new ServletWebRequest(request));
                     break;
-                } catch (CaptchaException e) {
-                    browserAuthenticationFailureHandler.onAuthenticationFailure(request, response, e);
+                } catch (CodeException e) {
+                    authenticationFailureHandler.onAuthenticationFailure(request, response, e);
                     return;
                 }
             }
@@ -100,18 +102,18 @@ public class CaptchaFilter extends OncePerRequestFilter implements InitializingB
         /**从request读取*/
         String code = ServletRequestUtils.getStringParameter(request.getRequest(), CodeTypeEnum.CAPTCHA.getParamNameOnValidate());
         if (Objects.isNull(captcha)) {
-            throw new CaptchaException("验证码不存在");
+            throw new CodeException("验证码不存在");
         }
         if (captcha.isExpired()) {
             /**移除缓存*/
             sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "CAPTCHA");
-            throw new CaptchaException("验证码已过期");
+            throw new CodeException("验证码已过期");
         }
         if (StringUtils.isEmpty(code)) {
-            throw new CaptchaException("验证码的值不能为空");
+            throw new CodeException("验证码的值不能为空");
         }
         if (!StringUtils.equalsIgnoreCase(captcha.getCode(), code)) {
-            throw new CaptchaException("验证码不匹配");
+            throw new CodeException("验证码不匹配");
         }
         /**移除缓存*/
         sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "CAPTCHA");

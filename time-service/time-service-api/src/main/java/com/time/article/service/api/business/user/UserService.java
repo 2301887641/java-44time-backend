@@ -17,4 +17,11 @@ public interface UserService extends BaseService
      * @return
      */
     UserDto selectPasswordByName(String username);
+
+    /**
+     * 根据手机号登陆
+     * @param mobile
+     * @return
+     */
+    UserDto selectPasswordByMobile(String mobile);
 }

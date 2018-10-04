@@ -6,7 +6,7 @@ CREATE TABLE time_user (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	create_time timestamp DEFAULT 0,
 	update_time timestamp DEFAULT 0,
-	phone CHAR(11) NOT NULL DEFAULT '' comment '手机号',
+	mobile CHAR(11) NOT NULL DEFAULT '' comment '手机号',
 	username VARCHAR(36) NOT NULL DEFAULT '' comment '账号',
 	email VARCHAR(46) NOT NULL DEFAULT '' comment '邮箱',
 	password VARCHAR(64) NOT NULL comment '密码',
@@ -16,11 +16,11 @@ CREATE TABLE time_user (
 	status TINYINT(4) NOT NULL DEFAULT 0 comment '账号状态 0正常',
 	register_ip CHAR(15) NOT NULL DEFAULT '' comment '登陆ip',
 	PRIMARY KEY (id),
-	UNIQUE KEY (phone),
+	UNIQUE KEY (mobile),
 	UNIQUE KEY (username),
 	UNIQUE KEY (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO time.time_user (id, create_time, update_time, phone, username, email, password, salt, avatar, administrator, status, register_ip) VALUES (1, '2018-07-11 07:27:45', '2018-07-11 07:27:51', '15865658745', 'admin', '15478541254@126.com', '$2a$10$AXJY/pLHIJKk3c8F5L6sfeaS6ypLI0IpWfBhYfxepJerb0ZO3xMt2', 'sdfsdf', 'dfgdgdfg', 1, 0, '192.168.2.12');
+INSERT INTO time.time_user (id, create_time, update_time, mobile, username, email, password, salt, avatar, administrator, status, register_ip) VALUES (1, '2018-07-11 07:27:45', '2018-07-11 07:27:51', '15865658745', 'admin', '15478541254@126.com', '$2a$10$AXJY/pLHIJKk3c8F5L6sfeaS6ypLI0IpWfBhYfxepJerb0ZO3xMt2', 'sdfsdf', 'dfgdgdfg', 1, 0, '192.168.2.12');
 
 -- ----------------------------
 -- Table structure for t_organization

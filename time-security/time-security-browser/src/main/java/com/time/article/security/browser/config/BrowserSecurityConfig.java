@@ -1,6 +1,9 @@
 package com.time.article.security.browser.config;
 
-import com.time.article.security.browser.handler.BrowserUserDetailServiceImpl;
+import com.time.article.security.browser.handler.DefaultUserDetailServiceAdapter;
+import com.time.article.security.core.api.UserDetailsServiceAdapter;
+import com.time.article.security.core.authentication.mobile.SmsAuthenticationSecurityConfig;
+import com.time.article.security.core.authentication.mobile.SmsFilter;
 import com.time.article.security.core.code.captcha.handler.CaptchaFilter;
 import com.time.article.security.core.constants.SecurityConstants;
 import com.time.article.security.core.properties.SecurityProperties;
@@ -11,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -55,7 +57,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**自定义用户登录处理*/
     @Autowired
-    private UserDetailsService browserUserDetailService;
+    private UserDetailsServiceAdapter unificationUserDetailService;
+
+    /**导入自定义的验证码配置*/
+    @Autowired
+    private SmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig;
 
     @Autowired
     private SpringSocialConfigurer socialSecurityConfig;
@@ -91,13 +97,18 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CaptchaFilter filter = new CaptchaFilter();
-        filter.setBrowserAuthenticationFailureHandler(browserAuthenticationFailureHandler);
-        filter.setSecurityProperties(securityProperties);
-        filter.afterPropertiesSet();
+        CaptchaFilter captchaFilter = new CaptchaFilter();
+        captchaFilter.setAuthenticationFailureHandler(browserAuthenticationFailureHandler);
+        captchaFilter.setSecurityProperties(securityProperties);
+        captchaFilter.afterPropertiesSet();
 
-        http.
-                addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).
+        SmsFilter smsFilter = new SmsFilter();
+        smsFilter.setAuthenticationFailureHandler(browserAuthenticationFailureHandler);
+        smsFilter.setSecurityProperties(securityProperties);
+        smsFilter.afterPropertiesSet();
+
+        http.addFilterBefore(smsFilter,UsernamePasswordAuthenticationFilter.class).
+                addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class).
                 formLogin().
                 loginProcessingUrl("/authentication/form").
                 loginPage("/authentication/loginPage").
@@ -109,11 +120,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 rememberMe().
                 tokenRepository(persistentTokenRepository()).
                 tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds()).
-                userDetailsService(browserUserDetailService).
+                userDetailsService(unificationUserDetailService).
                 and().
                 authorizeRequests().
                 antMatchers(
                         "/authentication/loginPage",
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*"
                 ).permitAll().
@@ -121,12 +133,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 authenticated().
                 and().
                 cors().and().
-                csrf().disable();
+                csrf().disable().
+                apply(smsAuthenticationSecurityConfig);
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "browserUserDetailService")
-    public UserDetailsService browserUserDetailService() {
-        return new BrowserUserDetailServiceImpl();
+    @ConditionalOnMissingBean(name = "unificationUserDetailService")
+    public UserDetailsServiceAdapter unificationUserDetailService() {
+        return new DefaultUserDetailServiceAdapter();
     }
 }

@@ -1,5 +1,6 @@
 package com.time.article.security.core.authentication.mobile;
 
+import com.time.article.security.core.api.UserDetailsServiceAdapter;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -7,7 +8,6 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Objects;
 
@@ -19,7 +19,7 @@ import java.util.Objects;
 @Setter
 public class SmsAuthenticationProvider implements AuthenticationProvider {
     /**需要使用它来获取用户信息*/
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceAdapter userDetailsServiceAdapter;
 
     /**
      * 身份认证的逻辑
@@ -31,9 +31,10 @@ public class SmsAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         SmsAuthenticationToken smsAuthentication = (SmsAuthenticationToken) authentication;
-        UserDetails userDetails = userDetailsService.loadUserByUsername((String) smsAuthentication.getPrincipal());
+        Object principal = smsAuthentication.getPrincipal();
+        UserDetails userDetails = userDetailsServiceAdapter.loadUserByMobile((String) smsAuthentication.getPrincipal());
         if(Objects.isNull(userDetails)){
-            throw new InternalAuthenticationServiceException("请用户不存在");
+            throw new InternalAuthenticationServiceException("该用户不存在");
         }
         /**
          * 开始构造用户信息 需要使用两个参数的构造函数

@@ -7,8 +7,6 @@ dependencies {
     compile "org.springframework.boot:spring-boot-devtools"
     //lombok
     compile "org.projectlombok:lombok"
-    //Flyway
-    compile "org.flywaydb:flyway-core"
     //mybatis
     compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatisVersion"
     //mysql连接

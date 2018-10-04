@@ -1,9 +1,9 @@
 package com.time.article.security.core.authentication.mobile;
 
-import com.time.article.security.core.code.captcha.handler.CaptchaException;
-import com.time.article.security.core.code.captcha.pojo.Captcha;
+import com.time.article.security.core.code.captcha.handler.CodeException;
 import com.time.article.security.core.code.processor.CodeProcessor;
 import com.time.article.security.core.code.sms.pojo.Sms;
+import com.time.article.security.core.constants.SecurityConstants;
 import com.time.article.security.core.enums.CodeTypeEnum;
 import com.time.article.security.core.properties.SecurityProperties;
 import lombok.Setter;
@@ -43,7 +43,7 @@ public class SmsFilter extends OncePerRequestFilter implements InitializingBean 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @Setter
-    private AuthenticationFailureHandler browserAuthenticationFailureHandler;
+    private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Setter
     private SecurityProperties securityProperties;
@@ -68,8 +68,10 @@ public class SmsFilter extends OncePerRequestFilter implements InitializingBean 
          * 分割字符串过程中会按照每个分隔符进行分割，不忽略任何空白项
          * */
         String[] strings = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getSms().getValidateUrls(), SEPARATOR);
-        urlSet.addAll(Arrays.asList(strings));
-        urlSet.add("/authentication/sms");
+        if(!Objects.isNull(strings)){
+            urlSet.addAll(Arrays.asList(strings));
+        }
+        urlSet.add(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE);
     }
 
     @Override
@@ -81,8 +83,8 @@ public class SmsFilter extends OncePerRequestFilter implements InitializingBean 
                 try {
                     validate(new ServletWebRequest(request));
                     break;
-                } catch (CaptchaException e) {
-                    browserAuthenticationFailureHandler.onAuthenticationFailure(request, response, e);
+                } catch (CodeException e) {
+                    authenticationFailureHandler.onAuthenticationFailure(request, response, e);
                     return;
                 }
             }
@@ -98,20 +100,20 @@ public class SmsFilter extends OncePerRequestFilter implements InitializingBean 
      */
     private void validate(ServletWebRequest request) throws ServletRequestBindingException {
         Sms sms = (Sms) sessionStrategy.getAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
-        String code = ServletRequestUtils.getStringParameter(request.getRequest(), CodeTypeEnum.CAPTCHA.getParamNameOnValidate());
+        String code = ServletRequestUtils.getStringParameter(request.getRequest(), CodeTypeEnum.SMS.getParamNameOnValidate());
         if (Objects.isNull(sms)) {
-            throw new CaptchaException("验证码不存在");
+            throw new CodeException("验证码不存在");
         }
-        if (sms.isExpired()) {
-            sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
-            throw new CaptchaException("验证码已过期");
-        }
-        if (StringUtils.isEmpty(code)) {
-            throw new CaptchaException("验证码的值不能为空");
-        }
-        if (!StringUtils.equalsIgnoreCase(sms.getCode(), code)) {
-            throw new CaptchaException("验证码不匹配");
-        }
-        sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
+//        if (sms.isExpired()) {
+//            sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
+//            throw new CodeException("验证码已过期");
+//        }
+//        if (StringUtils.isEmpty(code)) {
+//            throw new CodeException("验证码的值不能为空");
+//        }
+//        if (!StringUtils.equalsIgnoreCase(sms.getCode(), code)) {
+//            throw new CodeException("验证码不匹配");
+//        }
+//        sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
     }
 }

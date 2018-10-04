@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-09-29T16:49:43+0800",
+    date = "2018-10-04T14:44:50+0800",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_51 (Oracle Corporation)"
 )
 public class UserConverterImpl implements UserConverter {
@@ -24,7 +24,7 @@ public class UserConverterImpl implements UserConverter {
         UserDto userDto = new UserDto();
 
         userDto.setId( arg0.getId() );
-        userDto.setPhone( arg0.getPhone() );
+        userDto.setMobile( arg0.getMobile() );
         userDto.setUsername( arg0.getUsername() );
         userDto.setEmail( arg0.getEmail() );
         userDto.setPassword( arg0.getPassword() );
@@ -60,7 +60,7 @@ public class UserConverterImpl implements UserConverter {
         User user = new User();
 
         user.setId( arg0.getId() );
-        user.setPhone( arg0.getPhone() );
+        user.setMobile( arg0.getMobile() );
         user.setUsername( arg0.getUsername() );
         user.setEmail( arg0.getEmail() );
         user.setPassword( arg0.getPassword() );
@@ -82,7 +82,7 @@ public class UserConverterImpl implements UserConverter {
         UserCriteria userCriteria = new UserCriteria();
 
         userCriteria.setId( arg0.getId() );
-        userCriteria.setPhone( arg0.getPhone() );
+        userCriteria.setMobile( arg0.getMobile() );
         userCriteria.setUsername( arg0.getUsername() );
         userCriteria.setEmail( arg0.getEmail() );
         userCriteria.setPassword( arg0.getPassword() );

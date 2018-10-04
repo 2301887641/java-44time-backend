@@ -1,4 +1,6 @@
 dependencies {
    // compile("com.time.article:time-core:1.0-SNAPSHOT")
     compile project(":time-core")
+    //Flyway
+    compile "org.flywaydb:flyway-core"
 }

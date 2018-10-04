@@ -15,4 +15,11 @@ public interface UserMapper extends BaseMapper<User,Integer> {
      * @return
      */
     User selectPasswordByUsername(String username);
+
+    /**
+     * 根据手机号查询密码
+     * @param mobile
+     * @return
+     */
+    User selectPasswordByMobile(String mobile);
 }

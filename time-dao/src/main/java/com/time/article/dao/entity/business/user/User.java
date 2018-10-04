@@ -15,7 +15,7 @@ public class User extends BaseEntity<Integer> {
     /**
     *  手机号
     */
-    private String phone;
+    private String mobile;
     /**
     *  账号
     */

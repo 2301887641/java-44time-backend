@@ -7,7 +7,7 @@
                 a.id,
                 a.create_time,
                 a.update_time,
-                a.phone,
+                a.mobile,
                 a.username,
                 a.email,
                 a.salt,
@@ -21,7 +21,7 @@
                 a.id,
                 a.create_time,
                 a.update_time,
-                a.phone,
+                a.mobile,
                 a.username,
                 a.email,
                 a.password,
@@ -37,7 +37,7 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="INTEGER"/>
         <result property="updateTime" column="update_time" jdbcType="INTEGER"/>
-        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="salt" column="salt" jdbcType="VARCHAR"/>
@@ -52,7 +52,7 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="INTEGER"/>
         <result property="updateTime" column="update_time" jdbcType="INTEGER"/>
-        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
@@ -69,7 +69,7 @@
         </selectKey>
         insert into time_user(
          create_time,
-         phone,
+         mobile,
          username,
          email,
          password,
@@ -80,7 +80,7 @@
          register_ip
         ) values(
          #{create_time},
-         #{phone},
+         #{mobile},
          #{username},
          #{email},
          #{password},
@@ -99,7 +99,7 @@
         from time_user a
         ORDER BY a.id DESC
     </select>
-    <!--查询带密码-->
+    <!--根据用户名查询带密码-->
     <select id="selectPasswordByUsername" resultMap="baseResultMapWithPassword">
         select
         <include refid="baseColumnWithPassword"/>
@@ -107,16 +107,22 @@
         where
         a.username = #{username}
     </select>
-
-
+    <!--根据手机号查询带密码-->
+    <select id="selectPasswordByMobile" resultMap="baseResultMapWithPassword">
+        select
+        <include refid="baseColumnWithPassword"/>
+        from time_user a
+        where
+        a.mobile = #{mobile}
+    </select>
 
     <!-- 修改 -->
     <update id="update">
         update
         time_user
         set
-            <if test="phone!=null">
-                phone=#{phone},
+            <if test="mobile!=null">
+                mobile=#{mobile},
             </if>
             <if test="username!=null">
                 username=#{username},
@@ -145,5 +151,4 @@
         update_time=#{updateTime}
         where id=#{id}
     </update>
-
 </mapper>

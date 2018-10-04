@@ -8,7 +8,7 @@ import com.time.article.core.service.dto.BaseDto;
 import com.time.article.core.utils.WebUtils;
 import com.time.article.dao.enums.business.log.LogEnum;
 import com.time.article.rest.annotation.Log;
-import com.time.article.rest.constants.Constants;
+import com.time.article.rest.constants.RestConstants;
 import com.time.article.service.api.business.log.OperationLogService;
 import com.time.article.service.dto.business.log.OperationLogDto;
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +70,7 @@ public class AccessLogAop {
         operationLogDto.setIp(request.getRemoteAddr());
         /**如果 请求的函数函数为空||查询操作||查询参数为空 不会比对参数*/
         if (point.getArgs().length < 1 || LogEnum.LOG_SELECT.getOrdinal().equals(logType.getOrdinal())) {
-            operationLogDto.setResult(Constants.AOP_LOG_DEFAULT_RESULT);
+            operationLogDto.setResult(RestConstants.AOP_LOG_DEFAULT_RESULT);
             BaseScheduleManager.getInstance().execute(operationLogTask(operationLogDto));
             return object;
         }

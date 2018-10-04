@@ -38,4 +38,15 @@ public class UserServiceImpl extends BaseServiceImpl<
         public UserDto selectPasswordByName(String username) {
             return  converter.entityToDto(mapper.selectPasswordByUsername(username));
         }
+
+        /**
+         * 根据手机号登陆
+         *
+         * @param mobile
+         * @return
+         */
+        @Override
+        public UserDto selectPasswordByMobile(String mobile) {
+            return  converter.entityToDto(mapper.selectPasswordByMobile(mobile));
+        }
     }
