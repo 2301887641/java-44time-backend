@@ -63,7 +63,7 @@ public class UnificationUserDetailServiceAdapterImpl implements UserDetailsServi
             /**只能调用UsernameNotFoundException异常*/
             throw new UsernameNotFoundException(RestConstants.MOBILE_NOT_EXISTS);
         }
-        return new User(mobile,
+        return new User(userDto.getUsername(),
                 userDto.getPassword(),
                 true,
                 true,

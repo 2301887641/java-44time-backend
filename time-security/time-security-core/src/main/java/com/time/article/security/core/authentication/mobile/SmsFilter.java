@@ -102,18 +102,18 @@ public class SmsFilter extends OncePerRequestFilter implements InitializingBean 
         Sms sms = (Sms) sessionStrategy.getAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
         String code = ServletRequestUtils.getStringParameter(request.getRequest(), CodeTypeEnum.SMS.getParamNameOnValidate());
         if (Objects.isNull(sms)) {
-            throw new CodeException("验证码不存在");
+            throw new CodeException("验证码已过期");
         }
-//        if (sms.isExpired()) {
-//            sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
-//            throw new CodeException("验证码已过期");
-//        }
-//        if (StringUtils.isEmpty(code)) {
-//            throw new CodeException("验证码的值不能为空");
-//        }
-//        if (!StringUtils.equalsIgnoreCase(sms.getCode(), code)) {
-//            throw new CodeException("验证码不匹配");
-//        }
-//        sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
+        if (sms.isExpired()) {
+            sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
+            throw new CodeException("验证码已过期");
+        }
+        if (StringUtils.isEmpty(code)) {
+            throw new CodeException("验证码的值不能为空");
+        }
+        if (!StringUtils.equalsIgnoreCase(sms.getCode(), code)) {
+            throw new CodeException("验证码不匹配");
+        }
+        sessionStrategy.removeAttribute(request, CodeProcessor.SESSION_KEY_PREFIX + "SMS");
     }
 }

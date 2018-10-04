@@ -4,10 +4,14 @@ buildscript {
         springBootVersion = '1.5.14.RELEASE'
     }
     repositories {
+        maven{
+            url "http://maven.aliyun.com/nexus/content/groups/public"
+        }
         mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
     }
 }
 //所有模块
@@ -17,11 +21,37 @@ allprojects {
     version '1.0'
     //定义插件
     apply plugin: 'java'
+    apply plugin: 'war'
     apply plugin: 'maven'
+    apply plugin: "com.github.johnrengelman.shadow"
 
     //定义java版本
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
+    jar {
+        manifest {
+            attributes 'Implementation-Title': 'Application',
+                    'Implementation-Version': version,
+                    'Main-Class': 'com.time.article.rest.Application'
+        }
+    }
+
+    shadowJar {
+            transform(com.github.jengelman.gradle.plugins.shadow.transformers
+                    .AppendingTransformer){
+                resource='META-INF/spring.schemas'
+            }
+            transform(com.github.jengelman.gradle.plugins.shadow.transformers
+                    .AppendingTransformer){
+                resource='META-INF/spring.handlers'
+            }
+            transform(com.github.jengelman.gradle.plugins.shadow.transformers
+                    .AppendingTransformer){
+                resource='META-INF/spring.factories'
+            }
+        zip64 true
+    }
 }
 
 //所有子模块
@@ -34,17 +64,17 @@ subprojects {
             url nexusPublicUrl
         }
     }
-    
+
     // 所有需要忽略的包定义在此
     configurations {
-        all*.exclude group: 'javax.servlet',  module: 'javax.servlet-api'
+        all*.exclude group: 'javax.servlet', module: 'javax.servlet-api'
     }
 
     // 变化模块为了在nexus中时时接收jar包
     configurations.all {
         resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
     }
-    
+
     //统一测试包
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.12'

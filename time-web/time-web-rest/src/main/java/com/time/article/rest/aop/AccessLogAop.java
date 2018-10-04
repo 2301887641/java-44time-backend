@@ -20,6 +20,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -41,6 +42,7 @@ import java.util.TimerTask;
 @Component
 @ConditionalOnProperty(prefix = "profile", name = "operationLog", havingValue = "true")
 @Slf4j
+@Order(100)
 public class AccessLogAop {
     @Autowired
     private OperationLogService operationLogService;
@@ -76,7 +78,7 @@ public class AccessLogAop {
         }
         operationLogDto.setResult(WebUtils.toJson(object));
         /**如果是请求删除函数的话 需要记录返回值id*/
-        if(LogEnum.LOG_DELETE.getOrdinal().equals(logType.getOrdinal())){
+        if (LogEnum.LOG_DELETE.getOrdinal().equals(logType.getOrdinal())) {
             BaseScheduleManager.getInstance().execute(operationLogTask(operationLogDto));
             return object;
         }
@@ -150,7 +152,6 @@ public class AccessLogAop {
     private HttpServletRequest getRequest() {
         RequestAttributes requestAttribute = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttribute = (ServletRequestAttributes) requestAttribute;
-        HttpServletRequest request = servletRequestAttribute.getRequest();
-        return request;
+        return servletRequestAttribute.getRequest();
     }
 }
