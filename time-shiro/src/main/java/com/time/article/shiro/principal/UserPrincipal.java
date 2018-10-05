@@ -1,3 +1,4 @@
+/*
 package com.time.article.shiro.principal;
 
 import lombok.Getter;
@@ -7,9 +8,11 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 
+*/
 /**
  * @author suiguozhen on 18/07/07
- */
+ *//*
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,3 +24,4 @@ public class UserPrincipal implements Serializable {
     @NotBlank(message="验证码不能为空")
     private String captcha;
 }
+*/

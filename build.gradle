@@ -11,53 +11,28 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
     }
 }
 //所有模块
 allprojects {
-    //定义 组织 和 版本
+    //定义 组织和版本号
     group 'com.time.article'
-    version '1.0'
+    version '1.0-SNAPSHOT'
+    
     //定义插件
     apply plugin: 'java'
-    apply plugin: 'war'
     apply plugin: 'maven'
-    apply plugin: "com.github.johnrengelman.shadow"
 
     //定义java版本
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-
-    jar {
-        manifest {
-            attributes 'Implementation-Title': 'Application',
-                    'Implementation-Version': version,
-                    'Main-Class': 'com.time.article.rest.Application'
-        }
-    }
-
-    shadowJar {
-            transform(com.github.jengelman.gradle.plugins.shadow.transformers
-                    .AppendingTransformer){
-                resource='META-INF/spring.schemas'
-            }
-            transform(com.github.jengelman.gradle.plugins.shadow.transformers
-                    .AppendingTransformer){
-                resource='META-INF/spring.handlers'
-            }
-            transform(com.github.jengelman.gradle.plugins.shadow.transformers
-                    .AppendingTransformer){
-                resource='META-INF/spring.factories'
-            }
-        zip64 true
-    }
 }
 
 //所有子模块
 subprojects {
     //必须引入版本统一插件
     apply plugin: 'org.springframework.boot'
+    
     //定义仓库
     repositories {
         maven {
@@ -83,22 +58,5 @@ subprojects {
     //编译jar包设置utf-8
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-    }
-
-    //上传到nexus
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                //本地maven
-                repository(url: nexusSnapshotsUrl) {
-                    authentication(userName: nexusAccount, password: nexusPassword)
-                    pom.project {
-                        groupId project.group
-                        artifactId project.name
-                        version project.version
-                    }
-                }
-            }
-        }
     }
 }

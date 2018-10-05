@@ -20,7 +20,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -42,7 +41,6 @@ import java.util.TimerTask;
 @Component
 @ConditionalOnProperty(prefix = "profile", name = "operationLog", havingValue = "true")
 @Slf4j
-@Order(100)
 public class AccessLogAop {
     @Autowired
     private OperationLogService operationLogService;

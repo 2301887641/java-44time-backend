@@ -1,14 +1,14 @@
-dependencies {
-    compile(
+//dependencies {
+//    compile(
             // shiro
-            "org.apache.shiro:shiro-spring:$shiroSpringVersion",
+//            "org.apache.shiro:shiro-spring:$shiroSpringVersion",
             //jwt
-            "io.buji:buji-pac4j:$bujiPac4jVersion",
-            "org.pac4j:pac4j-jwt:$pac4jVersion",
-            "org.pac4j:pac4j-oauth:$pac4jVersion",
-            "org.pac4j:pac4j-cas:$pac4jVersion",
-            "org.pac4j:pac4j-http:$pac4jVersion",
-    )
+//            "io.buji:buji-pac4j:$bujiPac4jVersion",
+//            "org.pac4j:pac4j-jwt:$pac4jVersion",
+//            "org.pac4j:pac4j-oauth:$pac4jVersion",
+//            "org.pac4j:pac4j-cas:$pac4jVersion",
+//            "org.pac4j:pac4j-http:$pac4jVersion",
+//    )
     //compile("com.time.article:time-service-impl:1.0-SNAPSHOT")
-    compile project(":time-service:time-service-impl")
-}
+//    compile project(":time-service:time-service-impl")
+//}
