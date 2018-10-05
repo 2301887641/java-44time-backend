@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CodeController {
 
     @Autowired
-    private CodeProcessorDispatch codeProcessorDispatch;
+    private VerificationCodeProcessorDispatch verificationCodeProcessorDispatch;
 
     /**
      * 图片验证码和短信验证码生成
@@ -32,6 +32,6 @@ public class CodeController {
     @RequestMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
     @ResponseBody
     public void create(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws Exception {
-        codeProcessorDispatch.findValidateCodeProcessor(type).create(new ServletWebRequest(request,response));
+        verificationCodeProcessorDispatch.findValidateCodeProcessor(type).create(new ServletWebRequest(request,response));
     }
 }

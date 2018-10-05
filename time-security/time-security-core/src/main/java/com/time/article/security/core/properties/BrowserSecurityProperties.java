@@ -1,5 +1,6 @@
 package com.time.article.security.core.properties;
 
+import com.time.article.security.core.constants.SecurityConstants;
 import com.time.article.security.core.enums.LoginTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class BrowserSecurityProperties {
     /**
      * 自定义登录页
      */
-    private String loginPage = "/security_login.html";
+    private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
     /**
      * 自定义登陆方式
      */

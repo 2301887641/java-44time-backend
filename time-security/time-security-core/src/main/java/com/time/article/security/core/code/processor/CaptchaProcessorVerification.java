@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author suiguozhen on 18/09/30
  */
 @Component("captchaProcessor")
-public class CaptchaProcessor extends AbstractCodeProcessor<Captcha>{
+public class CaptchaProcessorVerification extends AbstractVerificationCodeProcessor<Captcha> {
 
     @Override
     public void send(ServletWebRequest request, Captcha captcha) throws IOException {

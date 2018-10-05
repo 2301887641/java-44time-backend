@@ -1,5 +1,6 @@
 package com.time.article.security.core.authentication.mobile;
 
+import com.time.article.security.core.constants.SecurityConstants;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -9,6 +10,7 @@ import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * 短信登录的过滤器
@@ -34,7 +36,7 @@ public class SmsAuthenticationFilter extends
      * 处理的短信登录的请求是什么
      */
     public SmsAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/authentication/mobile", "POST"));
+        super(new AntPathRequestMatcher(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, "POST"));
     }
 
     @Override
@@ -44,7 +46,7 @@ public class SmsAuthenticationFilter extends
             throw new AuthenticationServiceException("不支持当前请求方式");
         }
         String mobile = obtainMobile(request);
-        mobile = (mobile == null) ? "" : mobile.trim();
+        mobile = (Objects.isNull(mobile)) ? "" : mobile.trim();
         SmsAuthenticationToken authRequest = new SmsAuthenticationToken(mobile);
         /**将请求的信息设置在Token中*/
         setDetails(request, authRequest);

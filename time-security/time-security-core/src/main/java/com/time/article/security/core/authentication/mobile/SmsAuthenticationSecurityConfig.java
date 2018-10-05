@@ -21,10 +21,10 @@ import org.springframework.stereotype.Component;
 public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired
-    private AuthenticationSuccessHandler browserAuthenticationSuccessHandler;
+    private AuthenticationSuccessHandler unificationAuthenticationSuccessHandler;
 
     @Autowired
-    private AuthenticationFailureHandler browserAuthenticationFailureHandler;
+    private AuthenticationFailureHandler unificationAuthenticationFailureHandler;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -40,8 +40,8 @@ public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<D
         SmsAuthenticationFilter smsAuthenticationFilter = new SmsAuthenticationFilter();
         smsAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
         /**把成功处理和失败处理统一起来*/
-        smsAuthenticationFilter.setAuthenticationFailureHandler(browserAuthenticationFailureHandler);
-        smsAuthenticationFilter.setAuthenticationSuccessHandler(browserAuthenticationSuccessHandler);
+        smsAuthenticationFilter.setAuthenticationFailureHandler(unificationAuthenticationFailureHandler);
+        smsAuthenticationFilter.setAuthenticationSuccessHandler(unificationAuthenticationSuccessHandler);
         /**配置SmsAuthenticationProvider*/
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
         smsAuthenticationProvider.setUserDetailsServiceAdapter((UserDetailsServiceAdapter) userDetailsService);

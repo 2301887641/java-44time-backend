@@ -18,6 +18,7 @@ import java.util.Objects;
 @Getter
 @Setter
 public class SmsAuthenticationProvider implements AuthenticationProvider {
+
     /**需要使用它来获取用户信息*/
     private UserDetailsServiceAdapter userDetailsServiceAdapter;
 

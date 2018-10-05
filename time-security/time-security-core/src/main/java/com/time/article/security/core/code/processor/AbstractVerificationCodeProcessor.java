@@ -2,13 +2,16 @@ package com.time.article.security.core.code.processor;
 
 import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.enums.restcode.RestCodeEnum;
+import com.time.article.security.core.code.exception.CodeException;
 import com.time.article.security.core.code.generator.AbstractCodeGenerator;
 import com.time.article.security.core.code.sms.pojo.Sms;
-import com.time.article.security.core.enums.CodeTypeEnum;
+import com.time.article.security.core.enums.VerificationCodeTypeEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import java.util.Map;
@@ -19,7 +22,7 @@ import java.util.Objects;
  *
  * @author suiguozhen on 18/09/30
  */
-public abstract class AbstractCodeProcessor<CODE extends Sms> implements CodeProcessor {
+public abstract class AbstractVerificationCodeProcessor<CODE extends Sms> implements VerificationCodeProcessor {
 
     @Autowired
     private Map<String, AbstractCodeGenerator> generators;
@@ -66,13 +69,13 @@ public abstract class AbstractCodeProcessor<CODE extends Sms> implements CodePro
      *
      * @return
      */
-    private CodeTypeEnum getCodeType() {
+    private VerificationCodeTypeEnum getCodeType() {
         /**
          * 首先,根据当前类名进行截取,返回Processor之前的字符串
          * 然后,将该字符串转大写 再获取其枚举
          */
         String type = StringUtils.substringBefore(getClass().getSimpleName(), "Processor");
-        return CodeTypeEnum.valueOf(type.toUpperCase());
+        return VerificationCodeTypeEnum.valueOf(type.toUpperCase());
     }
 
     /**
@@ -87,6 +90,7 @@ public abstract class AbstractCodeProcessor<CODE extends Sms> implements CodePro
 
     /**
      * 最终发送验证码
+     *
      * @param request
      * @param code
      * @throws Exception
@@ -100,5 +104,37 @@ public abstract class AbstractCodeProcessor<CODE extends Sms> implements CodePro
      */
     private String getSessionKey() {
         return SESSION_KEY_PREFIX + getCodeType().toString().toUpperCase();
+    }
+
+    /**
+     * 校验验证码
+     *
+     * @param request
+     * @throws Exception
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public void validate(ServletWebRequest request) {
+        /**从缓存里面读取*/
+        String sessionKey = getSessionKey();
+        CODE code = (CODE) sessionStrategy.getAttribute(request, sessionKey);
+        String requestCode;
+        try {
+            requestCode = ServletRequestUtils.getStringParameter(request.getRequest(), getCodeType().getParamNameOnValidate());
+        } catch (ServletRequestBindingException e) {
+            throw new CodeException("获取验证码失败,请重新尝试");
+        }
+        if (StringUtils.isBlank(requestCode)) {
+            throw new CodeException("请输入验证码");
+        }
+        if (code.isExpired()) {
+            /**移除缓存*/
+            sessionStrategy.removeAttribute(request, sessionKey);
+            throw new CodeException("验证码已过期");
+        }
+        if (!StringUtils.equalsIgnoreCase(code.getCode(), requestCode)) {
+            throw new CodeException("验证码不匹配");
+        }
+        sessionStrategy.removeAttribute(request, sessionKey);
     }
 }

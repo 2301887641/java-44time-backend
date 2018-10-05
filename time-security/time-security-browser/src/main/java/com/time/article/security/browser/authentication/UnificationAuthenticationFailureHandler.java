@@ -9,7 +9,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,8 +17,8 @@ import java.io.IOException;
  * form表单自定义登陆错误处理
  * @author suiguozhen on 18/09/21
  */
-@Component("browserAuthenticationFailureHandler")
-public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+@Component
+public class UnificationAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     /**手工转换json*/
     @Autowired
     private ObjectMapper objectMapper;
@@ -28,7 +27,7 @@ public class BrowserAuthenticationFailureHandler extends SimpleUrlAuthentication
     private SecurityProperties securityProperties;
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         /**rest处理*/
         if(LoginTypeEnum.REST.getLabel().equals(securityProperties.getBrowser().getLoginType().getLabel())){
             response.setContentType("application/json;charset=utf-8");

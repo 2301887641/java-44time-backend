@@ -17,8 +17,8 @@ import java.io.IOException;
  * 自定义登陆成功处理
  * @author suiguozhen on 18/09/20
  */
-@Component("browserAuthenticationSuccessHandler")
-public class BrowserAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+@Component
+public class UnificationAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     @Autowired
     private ObjectMapper objectMapper;
 

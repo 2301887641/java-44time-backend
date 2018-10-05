@@ -6,7 +6,7 @@ import com.time.article.security.core.constants.SecurityConstants;
  * 验证码类型枚举
  * @author suiguozhen on 18/10/03
  */
-public enum CodeTypeEnum {
+public enum VerificationCodeTypeEnum {
     /**
      * 短信验证码
      */

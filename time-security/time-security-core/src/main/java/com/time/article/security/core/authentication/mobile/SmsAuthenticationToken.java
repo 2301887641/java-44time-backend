@@ -12,6 +12,7 @@ import java.util.Collection;
  * @author suiguozhen on 18/10/03
  */
 public class SmsAuthenticationToken extends AbstractAuthenticationToken {
+
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
     /**存放认证信息*/
     private final Object principal;

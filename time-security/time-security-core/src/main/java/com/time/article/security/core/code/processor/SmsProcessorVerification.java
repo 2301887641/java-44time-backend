@@ -15,7 +15,7 @@ import java.util.Objects;
  * @author suiguozhen on 18/09/30
  */
 @Component("smsProcessor")
-public class SmsProcessor extends AbstractCodeProcessor<Sms>{
+public class SmsProcessorVerification extends AbstractVerificationCodeProcessor<Sms> {
 
     @Autowired
     private SmsSender smsSender;
