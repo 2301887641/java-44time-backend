@@ -1,6 +1,6 @@
 package com.time.article.security.core.code.mobile;
 
-import com.time.article.security.core.code.api.UserDetailsServiceAdapter;
+import com.time.article.security.core.code.api.CustomUserDetailsService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class SmsAuthenticationProvider implements AuthenticationProvider {
 
     /**需要使用它来获取用户信息*/
-    private UserDetailsServiceAdapter userDetailsServiceAdapter;
+    private CustomUserDetailsService customUserDetailsService;
 
     /**
      * 身份认证的逻辑
@@ -33,7 +33,7 @@ public class SmsAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         SmsAuthenticationToken smsAuthentication = (SmsAuthenticationToken) authentication;
         Object principal = smsAuthentication.getPrincipal();
-        UserDetails userDetails = userDetailsServiceAdapter.loadUserByMobile((String) smsAuthentication.getPrincipal());
+        UserDetails userDetails = customUserDetailsService.loadUserByMobile((String) smsAuthentication.getPrincipal());
         if(Objects.isNull(userDetails)){
             throw new InternalAuthenticationServiceException("该用户不存在");
         }

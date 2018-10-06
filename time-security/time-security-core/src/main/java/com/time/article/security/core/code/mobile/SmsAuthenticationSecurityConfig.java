@@ -1,6 +1,6 @@
 package com.time.article.security.core.code.mobile;
 
-import com.time.article.security.core.code.api.UserDetailsServiceAdapter;
+import com.time.article.security.core.code.api.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -44,7 +44,7 @@ public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<D
         smsAuthenticationFilter.setAuthenticationSuccessHandler(unificationAuthenticationSuccessHandler);
         /**配置SmsAuthenticationProvider*/
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
-        smsAuthenticationProvider.setUserDetailsServiceAdapter((UserDetailsServiceAdapter) userDetailsService);
+        smsAuthenticationProvider.setCustomUserDetailsService((CustomUserDetailsService) userDetailsService);
         /**加入到springSecurity安全框架里面去 把我们自己写的这个provider加进去*/
         http.authenticationProvider(smsAuthenticationProvider)
             .addFilterAfter(smsAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

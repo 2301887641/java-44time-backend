@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * qq返回的用户信息
+ * QQ用户信息的封装
  * @author suiguozhen on 18/09/29
  */
 @Getter

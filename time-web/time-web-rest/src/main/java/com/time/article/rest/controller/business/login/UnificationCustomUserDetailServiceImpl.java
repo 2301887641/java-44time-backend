@@ -1,7 +1,7 @@
 package com.time.article.rest.controller.business.login;
 
 import com.time.article.rest.constants.RestConstants;
-import com.time.article.security.core.code.api.UserDetailsServiceAdapter;
+import com.time.article.security.core.code.api.CustomUserDetailsService;
 import com.time.article.service.api.business.user.UserService;
 import com.time.article.service.dto.business.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.Objects;
  * @author suiguozhen on 18/09/12
  */
 @Component("unificationUserDetailService")
-public class UnificationUserDetailServiceAdapterImpl implements UserDetailsServiceAdapter, SocialUserDetailsService {
+public class UnificationCustomUserDetailServiceImpl implements CustomUserDetailsService, SocialUserDetailsService {
 
     @Autowired
     private UserService userService;

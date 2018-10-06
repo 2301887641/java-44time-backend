@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * 因为我们需要使用手机号登陆
  * @author suiguozhen on 18/10/04
  */
-public interface UserDetailsServiceAdapter extends UserDetailsService {
+public interface CustomUserDetailsService extends UserDetailsService {
     /**
      * 根据手机号登录
      * @param mobile

@@ -12,6 +12,12 @@ import org.springframework.boot.autoconfigure.social.SocialProperties;
 @Getter
 @Setter
 public class QQProperties extends SocialProperties {
-    /**服务提供商的标识*/
+    /**
+     * 服务提供商的标识
+     */
     private String providerId = "qq";
+    /**
+     * 默认的拦截为/auth
+     */
+    private String filterProcessesUrl="/auth";
 }

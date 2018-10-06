@@ -1,6 +1,6 @@
 package com.time.article.security.core.defaults;
 
-import com.time.article.security.core.code.api.UserDetailsServiceAdapter;
+import com.time.article.security.core.code.api.CustomUserDetailsService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -17,7 +17,7 @@ import org.springframework.social.security.SocialUserDetailsService;
  *
  * @author suiguozhen on 18/09/12
  */
-public class DefaultUserDetailServiceAdapterImpl implements UserDetailsServiceAdapter, SocialUserDetailsService {
+public class DefaultCustomUserDetailServiceImpl implements CustomUserDetailsService, SocialUserDetailsService {
 
     @Getter
     @Setter

@@ -1,7 +1,7 @@
 package com.time.article.security.browser.config;
 
-import com.time.article.security.core.defaults.DefaultUserDetailServiceAdapterImpl;
-import com.time.article.security.core.code.api.UserDetailsServiceAdapter;
+import com.time.article.security.core.defaults.DefaultCustomUserDetailServiceImpl;
+import com.time.article.security.core.code.api.CustomUserDetailsService;
 import com.time.article.security.core.code.mobile.SmsAuthenticationSecurityConfig;
 import com.time.article.security.core.code.config.VerificationCodeSecurityConfig;
 import com.time.article.security.core.constants.SecurityConstants;
@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -41,7 +42,7 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
 
     /**自定义用户登录处理*/
     @Autowired
-    private UserDetailsServiceAdapter unificationUserDetailService;
+    private CustomUserDetailsService unificationUserDetailService;
 
     /**导入自定义的验证码配置*/
     @Autowired
@@ -52,6 +53,9 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
      */
     @Autowired
     private VerificationCodeSecurityConfig verificationCodeSecurityConfig;
+
+    @Autowired
+    private SpringSocialConfigurer socialSecurityConfig;
 
     /**
      * 配置security 所有的配置都需要放入这里不能单独 否则不起作用
@@ -74,6 +78,8 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
                 and().
                 apply(smsAuthenticationSecurityConfig).
                 and().
+                apply(socialSecurityConfig).
+                and().
                 rememberMe().
                 tokenRepository(persistentTokenRepository()).
                 tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds()).
@@ -95,8 +101,8 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
 
     @Bean
     @ConditionalOnMissingBean(name = "unificationUserDetailService")
-    public UserDetailsServiceAdapter unificationUserDetailService(PasswordEncoder passwordEncoder) {
-        DefaultUserDetailServiceAdapterImpl defaultUserDetailServiceAdapter = new DefaultUserDetailServiceAdapterImpl();
+    public CustomUserDetailsService unificationUserDetailService(PasswordEncoder passwordEncoder) {
+        DefaultCustomUserDetailServiceImpl defaultUserDetailServiceAdapter = new DefaultCustomUserDetailServiceImpl();
         defaultUserDetailServiceAdapter.setPasswordEncoder(passwordEncoder);
         return defaultUserDetailServiceAdapter;
     }

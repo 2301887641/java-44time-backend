@@ -7,6 +7,8 @@ import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
 
 /**
+ *  QQAdapter
+ *  将服务提供商用户信息进行统一的适配
  * @author suiguozhen on 18/09/29
  */
 public class QQAdapter implements ApiAdapter<QQService> {
@@ -15,6 +17,11 @@ public class QQAdapter implements ApiAdapter<QQService> {
         return true;
     }
 
+    /**
+     * 设置创建Connection的时候需要的一些配置项ConnectionValues
+     * @param api
+     * @param values
+     */
     @Override
     public void setConnectionValues(QQService api, ConnectionValues values) {
         QQUserInfo userInfo = api.getUserInfo();
@@ -28,6 +35,11 @@ public class QQAdapter implements ApiAdapter<QQService> {
         values.setProfileUrl(null);
     }
 
+    /**
+     * 绑定解绑的时候
+     * @param api
+     * @return
+     */
     @Override
     public UserProfile fetchUserProfile(QQService api) {
         return null;
