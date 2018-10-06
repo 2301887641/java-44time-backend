@@ -1,10 +1,9 @@
 package com.time.article.security.browser.config;
 
-import com.time.article.security.browser.handler.DefaultUserDetailServiceAdapter;
-import com.time.article.security.core.api.UserDetailsServiceAdapter;
-import com.time.article.security.core.authentication.AbstractSecurityConfig;
-import com.time.article.security.core.authentication.mobile.SmsAuthenticationSecurityConfig;
-import com.time.article.security.core.config.VerificationCodeSecurityConfig;
+import com.time.article.security.core.defaults.DefaultUserDetailServiceAdapterImpl;
+import com.time.article.security.core.code.api.UserDetailsServiceAdapter;
+import com.time.article.security.core.code.mobile.SmsAuthenticationSecurityConfig;
+import com.time.article.security.core.code.config.VerificationCodeSecurityConfig;
 import com.time.article.security.core.constants.SecurityConstants;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -31,22 +27,12 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableConfigurationProperties(SecurityProperties.class)
-public class BrowserSecurityConfig extends AbstractSecurityConfig {
+public class BrowserSecurityConfig extends LoginSecurityConfig {
     /**
      * 安全配置属性
      */
     @Autowired
     private SecurityProperties securityProperties;
-    /**
-     * browser成功处理器
-     */
-    @Autowired
-    private AuthenticationSuccessHandler unificationAuthenticationSuccessHandler;
-    /**
-     * browser失败处理器
-     */
-    @Autowired
-    private AuthenticationFailureHandler unificationAuthenticationFailureHandler;
     /**
      * 数据源
      */
@@ -67,11 +53,8 @@ public class BrowserSecurityConfig extends AbstractSecurityConfig {
     @Autowired
     private VerificationCodeSecurityConfig verificationCodeSecurityConfig;
 
-    @Autowired
-    private SpringSocialConfigurer socialSecurityConfig;
-
     /**
-     * 配置security
+     * 配置security 所有的配置都需要放入这里不能单独 否则不起作用
      * 1.formLogin说明是form表单登陆
      * 2.loginProcessingUrl 配置处理登陆方法的url 之前是/login
      * 3.loginPage 配置登录页面 我们设置为动态的
@@ -84,7 +67,9 @@ public class BrowserSecurityConfig extends AbstractSecurityConfig {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         applyPasswordAuthenticationConfig(http);
-
+        /**
+         * 先过图片验证码
+         */
         http.apply(verificationCodeSecurityConfig).
                 and().
                 apply(smsAuthenticationSecurityConfig).
@@ -110,8 +95,10 @@ public class BrowserSecurityConfig extends AbstractSecurityConfig {
 
     @Bean
     @ConditionalOnMissingBean(name = "unificationUserDetailService")
-    public UserDetailsServiceAdapter unificationUserDetailService() {
-        return new DefaultUserDetailServiceAdapter();
+    public UserDetailsServiceAdapter unificationUserDetailService(PasswordEncoder passwordEncoder) {
+        DefaultUserDetailServiceAdapterImpl defaultUserDetailServiceAdapter = new DefaultUserDetailServiceAdapterImpl();
+        defaultUserDetailServiceAdapter.setPasswordEncoder(passwordEncoder);
+        return defaultUserDetailServiceAdapter;
     }
 
     /**

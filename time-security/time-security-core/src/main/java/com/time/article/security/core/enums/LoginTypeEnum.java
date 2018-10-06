@@ -9,7 +9,9 @@ import lombok.Getter;
  */
 @Getter
 public enum LoginTypeEnum implements BaseEnum {
-    /**1)redirect重定向 2)json返回json*/
+    /**
+     * 1)redirect重定向 2)json返回json
+     */
     FORM(1,"form"),REST(2,"rest");
 
     private Integer ordinal;

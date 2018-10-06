@@ -31,6 +31,10 @@ public interface SecurityConstants {
      */
     public static final String DEFAULT_VALIDATE_CODE_URL_PREFIX = "/code";
     /**
+     * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
+     */
+    public static final String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
+    /**
      * 默认登录页面
      */
     public static final String DEFAULT_LOGIN_PAGE_URL = "/security_login.html";

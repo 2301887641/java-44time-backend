@@ -24,6 +24,8 @@ public class BrowserSecurityProperties {
      * 自定义登陆方式
      */
     private LoginTypeEnum loginType = LoginTypeEnum.REST;
-    /**remember记住时间 秒*/
+    /**
+     * remember记住时间 秒
+     */
     private int rememberMeSeconds = 3600;
 }

@@ -1,7 +1,7 @@
 package com.time.article.rest.controller.business.login;
 
 import com.time.article.rest.constants.RestConstants;
-import com.time.article.security.core.api.UserDetailsServiceAdapter;
+import com.time.article.security.core.code.api.UserDetailsServiceAdapter;
 import com.time.article.service.api.business.user.UserService;
 import com.time.article.service.dto.business.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +51,14 @@ public class UnificationUserDetailServiceAdapterImpl implements UserDetailsServi
     }
 
     /**
-     * 根据手机号登录
+     * 根据手机号发送验证码登录
      *
      * @param mobile
      * @return
      */
     @Override
     public UserDetails loadUserByMobile(String mobile) throws UsernameNotFoundException{
+        //TODO 这里在发送验证码后 需要比对手机号等
         UserDto userDto = userService.selectPasswordByMobile(mobile);
         if (Objects.isNull(userDto)) {
             /**只能调用UsernameNotFoundException异常*/

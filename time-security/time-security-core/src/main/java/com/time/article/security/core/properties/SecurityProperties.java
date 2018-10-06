@@ -1,5 +1,6 @@
 package com.time.article.security.core.properties;
 
+import com.time.article.security.core.social.properties.SocialProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,7 +22,9 @@ public class SecurityProperties {
     /**
      * 验证码相关的属性
      */
-    private CodeProperties code = new CodeProperties();
-    /**social社交相关的属性*/
+    private VerificationCodeProperties code = new VerificationCodeProperties();
+    /**
+     * social社交相关的属性
+     */
     private SocialProperties social = new SocialProperties();
 }
