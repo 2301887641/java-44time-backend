@@ -1,6 +1,9 @@
 package com.time.article.security.core.social.qq.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.time.article.core.dao.exception.BusinessException;
+import com.time.article.core.enums.restcode.RestCodeEnum;
+import com.time.article.security.core.enums.MessageEnum;
 import com.time.article.security.core.social.qq.api.QQService;
 import com.time.article.security.core.social.qq.pojo.QQUserInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -72,7 +75,7 @@ public class QQServiceImpl extends AbstractOAuth2ApiBinding implements QQService
             qqUserInfo = objectMapper.readValue(result, QQUserInfo.class);
             qqUserInfo.setOpenId(openId);
         } catch (IOException e) {
-            throw new RuntimeException("获取用户信息失败", e);
+            throw new BusinessException(MessageEnum.USER_INFO_FAILTURE);
         }
         return qqUserInfo;
     }

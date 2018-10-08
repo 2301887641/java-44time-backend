@@ -35,6 +35,10 @@ public class QQUserInfo {
      */
     private String city;
     /**
+     * 星座
+     */
+    private String constellation;
+    /**
      * 出生年月
      */
     private String year;

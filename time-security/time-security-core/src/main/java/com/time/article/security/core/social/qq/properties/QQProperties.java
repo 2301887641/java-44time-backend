@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
- * QQ用户
+ * QQ登陆配置
  *
  * @author suiguozhen on 18/09/29
  */
@@ -17,7 +17,11 @@ public class QQProperties extends SocialProperties {
      */
     private String providerId = "qq";
     /**
-     * 默认的拦截为/auth
+     * 默认的拦截qq登陆为/auth
      */
-    private String filterProcessesUrl="/auth";
+    private String filterProcessesUrl = "/auth";
+    /**
+     * qq注册url
+     */
+    private String signupUrl = "/qqSignup.html";
 }

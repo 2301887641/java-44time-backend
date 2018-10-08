@@ -130,6 +130,8 @@ custom:
         app-secret: 2120c92da16b34c1391e13b2de613983
         filterProcessesUrl: /login
         providerId: qq
+        #注册页面url
+        signupUrl: /qqSignup.html
 #服务器配置
 server:
   context-path:
