@@ -12,7 +12,7 @@ public enum MessageEnum implements BaseEnum {
     /**
      * 获取用户信息失败
      */
-    USER_INFO_FAILTURE(500,"获取用户信息失败");
+    USER_INFO_FAILURE(500,"获取用户信息失败");
 
     private Integer ordinal;
     private String label;

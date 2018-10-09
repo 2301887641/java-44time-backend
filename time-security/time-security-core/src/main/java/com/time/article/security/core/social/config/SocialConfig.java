@@ -10,6 +10,7 @@ import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -53,5 +54,15 @@ public class SocialConfig extends SocialConfigurerAdapter {
         SpringSocialConfigurer configurer = new CustomSpringSocialConfigurer(securityProperties.getSocial().getQq().getFilterProcessesUrl());
         configurer.signupUrl(securityProperties.getSocial().getQq().getSignupUrl());
         return configurer;
+    }
+
+    /**
+     * 配置providerSignInUtils工具用来获取session中的social信息
+     * @param connectionFactoryLocator
+     * @return
+     */
+    @Bean
+    public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator){
+        return new ProviderSignInUtils(connectionFactoryLocator,getUsersConnectionRepository(connectionFactoryLocator));
     }
 }

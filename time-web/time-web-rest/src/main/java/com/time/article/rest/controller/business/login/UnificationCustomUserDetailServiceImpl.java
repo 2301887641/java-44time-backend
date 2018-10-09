@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.social.security.SocialUser;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
@@ -34,20 +35,8 @@ public class UnificationCustomUserDetailServiceImpl implements CustomUserDetails
      * @throws UsernameNotFoundException
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto userDto = userService.selectPasswordByName(username);
-        if (Objects.isNull(userDto)) {
-            /**此异常会被或略只是调用不做信息处理*/
-            throw new UsernameNotFoundException(RestConstants.USER_NOT_EXISTS);
-        }
-        return new User(username,
-                userDto.getPassword(),
-                true,
-                true,
-                true,
-                true,
-                AuthorityUtils.NO_AUTHORITIES
-        );
+    public UserDetails loadUserByUsername(String username) {
+        return loadUser(username);
     }
 
     /**
@@ -57,7 +46,7 @@ public class UnificationCustomUserDetailServiceImpl implements CustomUserDetails
      * @return
      */
     @Override
-    public UserDetails loadUserByMobile(String mobile) throws UsernameNotFoundException{
+    public UserDetails loadUserByMobile(String mobile) throws UsernameNotFoundException {
         //TODO 这里在发送验证码后 需要比对手机号等
         UserDto userDto = userService.selectPasswordByMobile(mobile);
         if (Objects.isNull(userDto)) {
@@ -74,8 +63,38 @@ public class UnificationCustomUserDetailServiceImpl implements CustomUserDetails
         );
     }
 
+    /**
+     * 社交登陆需要根据用户名进行查询账号
+     *
+     * @param userId
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
-    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        return null;
+    public SocialUserDetails loadUserByUserId(String userId) {
+        return (SocialUserDetails) loadUser(userId);
+    }
+
+    /**
+     * 公共方法 获取用户信息
+     *
+     * @param userInfo
+     * @return
+     * @throws UsernameNotFoundException
+     */
+    private SocialUserDetails loadUser(String userInfo) throws UsernameNotFoundException {
+        UserDto userDto = userService.selectPasswordByName(userInfo);
+        if (Objects.isNull(userDto)) {
+            /**此异常会被或略只是调用不做信息处理*/
+            throw new UsernameNotFoundException(RestConstants.USER_NOT_EXISTS);
+        }
+        return new SocialUser(userInfo,
+                userDto.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                AuthorityUtils.NO_AUTHORITIES
+        );
     }
 }

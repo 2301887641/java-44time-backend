@@ -126,9 +126,13 @@ custom:
     social:
       #qq配置
       qq:
+        #appId
         app-id: 101440236
+        #app_KEY
         app-secret: 2120c92da16b34c1391e13b2de613983
+        #拦截的第一段
         filterProcessesUrl: /login
+        #拦截的第二段
         providerId: qq
         #注册页面url
         signupUrl: /qqSignup.html

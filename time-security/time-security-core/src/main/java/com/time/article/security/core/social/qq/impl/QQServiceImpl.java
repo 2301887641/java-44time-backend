@@ -75,7 +75,7 @@ public class QQServiceImpl extends AbstractOAuth2ApiBinding implements QQService
             qqUserInfo = objectMapper.readValue(result, QQUserInfo.class);
             qqUserInfo.setOpenId(openId);
         } catch (IOException e) {
-            throw new BusinessException(MessageEnum.USER_INFO_FAILTURE);
+            throw new BusinessException(MessageEnum.USER_INFO_FAILURE);
         }
         return qqUserInfo;
     }
