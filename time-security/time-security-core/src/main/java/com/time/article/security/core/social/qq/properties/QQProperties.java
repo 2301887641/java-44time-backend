@@ -16,10 +16,7 @@ public class QQProperties extends SocialProperties {
      * 服务提供商的标识
      */
     private String providerId = "qq";
-    /**
-     * 默认的拦截qq登陆为/auth
-     */
-    private String filterProcessesUrl = "/auth";
+
     /**
      * qq注册url
      */

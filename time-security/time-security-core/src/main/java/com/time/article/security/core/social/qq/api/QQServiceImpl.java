@@ -1,4 +1,4 @@
-package com.time.article.security.core.social.qq.impl;
+package com.time.article.security.core.social.qq.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.time.article.core.dao.exception.BusinessException;

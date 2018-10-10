@@ -1,7 +1,7 @@
 package com.time.article.security.core.social.qq.connect;
 
 import com.time.article.security.core.social.qq.api.QQService;
-import com.time.article.security.core.social.qq.impl.QQServiceImpl;
+import com.time.article.security.core.social.qq.api.QQServiceImpl;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 
 /**

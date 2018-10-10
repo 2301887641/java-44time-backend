@@ -12,4 +12,6 @@ dependencies{
     compile "org.springframework.social:spring-social-security"
     //提供Java 配置
     compile "org.springframework.social:spring-social-config"
+    
+    compile "commons-collections:commons-collections"
 }

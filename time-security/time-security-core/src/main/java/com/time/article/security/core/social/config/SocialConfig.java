@@ -8,12 +8,14 @@ import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 
 /**
  * 操作UserConnetion表的配置类
@@ -29,20 +31,31 @@ import javax.sql.DataSource;
 @Configuration
 @EnableSocial
 public class SocialConfig extends SocialConfigurerAdapter {
+
     @Autowired
     private DataSource dataSource;
 
     @Autowired
     private SecurityProperties securityProperties;
 
+    /**
+     * 不一定会实现
+     */
+    @Autowired(required = false)
+    private ConnectionSignUp connectionSignUp;
+
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+        JdbcUsersConnectionRepository jdbc = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
         /**
          * Encryptors.noOpText()不做加解密
          * 建表的前缀
-         * repository.setTablePrefix("t_")
+         * jdbc.setTablePrefix("t_")
          */
-        return new JdbcUsersConnectionRepository(dataSource,connectionFactoryLocator, Encryptors.noOpText());
+        if(!Objects.isNull(connectionSignUp)){
+            jdbc.setConnectionSignUp(connectionSignUp);
+        }
+        return jdbc;
     }
 
     /**
@@ -51,7 +64,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
      */
     @Bean
     public SpringSocialConfigurer socialSecurityConfig(){
-        SpringSocialConfigurer configurer = new CustomSpringSocialConfigurer(securityProperties.getSocial().getQq().getFilterProcessesUrl());
+        SpringSocialConfigurer configurer = new CustomSpringSocialConfigurer(securityProperties.getSocial().getFilterProcessesUrl());
         configurer.signupUrl(securityProperties.getSocial().getQq().getSignupUrl());
         return configurer;
     }

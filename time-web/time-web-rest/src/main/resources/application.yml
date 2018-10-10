@@ -124,18 +124,27 @@ custom:
         expireIn: 60
     #社交配置
     social:
+      #拦截的第一段
+      filterProcessesUrl: /Home
       #qq配置
       qq:
         #appId
         app-id: 101440236
         #app_KEY
         app-secret: 2120c92da16b34c1391e13b2de613983
-        #拦截的第一段
-        filterProcessesUrl: /login
-        #拦截的第二段
+        #标识区分哪个第三方
         providerId: qq
         #注册页面url
         signupUrl: /qqSignup.html
+      #微信配置
+      weChat:
+        app-id: wx9e9fbb29f715815a
+        app-secret: 3290ca5dbac5b5bc5d5fab501f1fda6b
+        #标识区分哪个第三方
+        providerId: Index/wxlogin
+
+
+
 #服务器配置
 server:
   context-path:
@@ -143,7 +152,13 @@ server:
   tomcat:
   #tomcat字符集
     uri-encoding: UTF-8
-
+  ssl:
+    key-store: tomcat.keystore
+    key-store-password: khcm321
+    keyAlias: www.12jieti.com
+    enabled: false
+  http:
+    port: 9091
 
 ###################### profile启用设置 #########################
 profile:
@@ -151,7 +166,6 @@ profile:
   dynamicDatasource: false
   #是否记录操作日志到数据库
   operationLog: true
-
 ---
 
 ######################## dev配置 ###########################
