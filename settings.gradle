@@ -17,4 +17,7 @@ include 'time-security:time-security-browser'
 findProject(':time-security:time-security-browser')?.name = 'time-security-browser'
 include 'time-web:time-web-rest'
 findProject(':time-web:time-web-rest')?.name = 'time-web-rest'
+include 'time-social'
+include 'time-social:time-social-qq'
+findProject(':time-social:time-social-qq')?.name = 'time-social-qq'
 

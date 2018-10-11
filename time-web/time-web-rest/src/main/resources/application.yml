@@ -126,7 +126,7 @@ custom:
     social:
       #拦截的第一段
       filterProcessesUrl: /Home
-      #qq配置
+      #qq配置 redirect_uri:	http://www.xiyuxiaguang.com/Home/Index/wxlogin
       qq:
         #appId
         app-id: 101440236
@@ -136,7 +136,7 @@ custom:
         providerId: qq
         #注册页面url
         signupUrl: /qqSignup.html
-      #微信配置
+      #微信配置   redirect_URI = http://tong118.com/login/qq
       weChat:
         app-id: wx9e9fbb29f715815a
         app-secret: 3290ca5dbac5b5bc5d5fab501f1fda6b
@@ -148,7 +148,7 @@ custom:
 #服务器配置
 server:
   context-path:
-  port: 80
+  port: 9090
   tomcat:
   #tomcat字符集
     uri-encoding: UTF-8
@@ -156,9 +156,9 @@ server:
     key-store: tomcat.keystore
     key-store-password: khcm321
     keyAlias: www.12jieti.com
-    enabled: false
+    enabled: true
   http:
-    port: 9091
+    port: 80
 
 ###################### profile启用设置 #########################
 profile:
