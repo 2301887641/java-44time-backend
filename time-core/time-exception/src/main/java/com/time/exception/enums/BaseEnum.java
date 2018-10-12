@@ -1,6 +1,4 @@
-package com.time.article.core.enums.base;
-
-import com.fasterxml.jackson.annotation.JsonValue;
+package com.time.exception.enums;
 
 /**
  * 枚举父类 统一实现接口
@@ -11,7 +9,6 @@ public interface BaseEnum {
      * 获得标号 默认返回标号 rest请求时
      * @return
      */
-    @JsonValue
     Integer getOrdinal();
 
     /**

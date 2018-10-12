@@ -1,10 +1,10 @@
 package com.time.article.security.core.code.api;
 
-import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.enums.restcode.RestCodeEnum;
 import com.time.article.security.core.exception.VerificationCodeException;
 import com.time.article.security.core.code.sms.pojo.Sms;
 import com.time.article.security.core.enums.VerificationCodeTypeEnum;
+import com.time.exception.core.BusinessException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;

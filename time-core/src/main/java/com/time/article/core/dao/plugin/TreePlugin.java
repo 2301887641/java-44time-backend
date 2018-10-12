@@ -1,10 +1,10 @@
 package com.time.article.core.dao.plugin;
 
 import com.time.article.core.dao.entity.TreeEntity;
-import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.dao.mapper.TreeMapper;
 import com.time.article.core.enums.restcode.RestCodeEnum;
 import com.time.article.core.message.constant.Constants;
+import com.time.exception.core.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.Executor;

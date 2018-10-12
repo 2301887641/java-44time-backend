@@ -1,6 +1,6 @@
 package com.time.article.core.dao.handler;
 
-import com.time.article.core.enums.base.BaseEnum;
+import com.time.exception.enums.BaseEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 

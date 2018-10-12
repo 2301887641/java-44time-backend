@@ -1,8 +1,8 @@
 package com.time.article.security.core.social.controller;
 
-import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.security.core.enums.MessageEnum;
 import com.time.article.security.core.social.properties.SocialUserInfo;
+import com.time.exception.core.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;

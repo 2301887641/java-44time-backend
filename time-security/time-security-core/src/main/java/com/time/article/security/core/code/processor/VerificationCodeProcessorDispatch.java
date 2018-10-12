@@ -1,9 +1,9 @@
 package com.time.article.security.core.code.processor;
 
-import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.enums.restcode.RestCodeEnum;
 import com.time.article.security.core.code.api.VerificationCodeProcessor;
 import com.time.article.security.core.enums.VerificationCodeTypeEnum;
+import com.time.exception.core.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

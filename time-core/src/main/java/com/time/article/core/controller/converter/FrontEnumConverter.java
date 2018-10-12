@@ -1,6 +1,6 @@
 package com.time.article.core.controller.converter;
 
-import com.time.article.core.enums.base.BaseEnum;
+import com.time.exception.enums.BaseEnum;
 import org.springframework.core.convert.converter.Converter;
 
 /**

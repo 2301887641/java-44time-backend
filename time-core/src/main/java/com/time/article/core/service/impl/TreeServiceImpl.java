@@ -1,13 +1,13 @@
 package com.time.article.core.service.impl;
 
 import com.time.article.core.dao.entity.TreeEntity;
-import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.dao.mapper.TreeMapper;
 import com.time.article.core.enums.restcode.RestCodeEnum;
 import com.time.article.core.message.constant.Constants;
 import com.time.article.core.service.api.TreeService;
 import com.time.article.core.service.converter.TreeConverter;
 import com.time.article.core.service.dto.TreeDto;
+import com.time.exception.core.BusinessException;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;

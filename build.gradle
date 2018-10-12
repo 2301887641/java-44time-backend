@@ -59,4 +59,21 @@ subprojects {
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
     }
+
+    //上传到nexus
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                //本地maven
+                repository(url: nexusSnapshotsUrl) {
+                    authentication(userName: nexusAccount, password: nexusPassword)
+                    pom.project {
+                        groupId project.group
+                        artifactId project.name
+                        version project.version
+                    }
+                }
+            }
+        }
+    }
 }

@@ -1,7 +1,7 @@
 package com.time.article.core.enums.restcode;
 
 
-import com.time.article.core.enums.base.BaseEnum;
+import com.time.exception.enums.BaseEnum;
 import lombok.Getter;
 
 /**

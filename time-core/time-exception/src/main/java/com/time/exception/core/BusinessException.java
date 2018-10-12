@@ -1,7 +1,6 @@
-package com.time.article.core.dao.exception;
+package com.time.exception.core;
 
-import com.time.article.core.enums.base.BaseEnum;
-import com.time.article.core.exception.base.LogicException;
+import com.time.exception.enums.BaseEnum;
 
 /**
  * 业务层异常
@@ -23,7 +22,7 @@ public class BusinessException extends LogicException {
      * @param enums
      * @param message
      */
-    public BusinessException(BaseEnum enums,String message){
+    public BusinessException(BaseEnum enums, String message){
         super(enums.getOrdinal(),message);
     }
 }

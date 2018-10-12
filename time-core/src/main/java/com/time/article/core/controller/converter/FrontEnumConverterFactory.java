@@ -1,6 +1,6 @@
 package com.time.article.core.controller.converter;
 
-import com.time.article.core.enums.base.BaseEnum;
+import com.time.exception.enums.BaseEnum;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 
@@ -12,7 +12,7 @@ import java.util.WeakHashMap;
  * 前端枚举转换器工厂
  * @author suiguozhen on 18/07/17
  */
-public class FrontEnumConverterFactory implements ConverterFactory<String,BaseEnum> {
+public class FrontEnumConverterFactory implements ConverterFactory<String, BaseEnum> {
     private static final Map<Class,Converter> CONVERTER_MAP = new WeakHashMap<>();
 
     @Override

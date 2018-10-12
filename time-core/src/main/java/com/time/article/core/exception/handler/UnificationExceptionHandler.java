@@ -1,8 +1,8 @@
 package com.time.article.core.exception.handler;
 
-import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.WebUtils;
+import com.time.exception.core.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

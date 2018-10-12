@@ -1,6 +1,6 @@
 package com.time.article.security.core.enums;
 
-import com.time.article.core.enums.base.BaseEnum;
+import com.time.exception.enums.BaseEnum;
 import lombok.Getter;
 
 /**

@@ -1,8 +1,8 @@
 package com.time.article.security.core.social.wechat.connect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.security.core.enums.MessageEnum;
+import com.time.exception.core.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;

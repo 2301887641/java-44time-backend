@@ -1,9 +1,9 @@
 package com.time.article.dao.handler;
 
 import com.time.article.core.dao.handler.BaseEnumTypeHandler;
-import com.time.article.core.enums.base.BaseEnum;
 import com.time.article.dao.enums.business.log.LogEnum;
 import com.time.article.dao.enums.business.permission.ResourceEnum;
+import com.time.exception.enums.BaseEnum;
 import org.apache.ibatis.type.MappedTypes;
 
 /**

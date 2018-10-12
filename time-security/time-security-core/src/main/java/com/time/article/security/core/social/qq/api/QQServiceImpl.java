@@ -1,11 +1,9 @@
 package com.time.article.security.core.social.qq.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.time.article.core.dao.exception.BusinessException;
-import com.time.article.core.enums.restcode.RestCodeEnum;
 import com.time.article.security.core.enums.MessageEnum;
-import com.time.article.security.core.social.qq.api.QQService;
 import com.time.article.security.core.social.qq.pojo.QQUserInfo;
+import com.time.exception.core.BusinessException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;

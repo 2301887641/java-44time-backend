@@ -1,9 +1,9 @@
 package com.time.article.security.core.social.wechat.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.time.article.core.dao.exception.BusinessException;
 import com.time.article.security.core.enums.MessageEnum;
 import com.time.article.security.core.social.wechat.pojo.WeChatUserInfo;
+import com.time.exception.core.BusinessException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;

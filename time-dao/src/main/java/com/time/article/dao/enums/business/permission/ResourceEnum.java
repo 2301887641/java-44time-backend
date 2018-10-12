@@ -1,7 +1,6 @@
 package com.time.article.dao.enums.business.permission;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.time.article.core.enums.base.BaseEnum;
+import com.time.exception.enums.BaseEnum;
 import lombok.Getter;
 
 /**

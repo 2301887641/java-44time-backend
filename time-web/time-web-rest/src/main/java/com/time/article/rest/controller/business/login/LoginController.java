@@ -22,9 +22,17 @@ public class LoginController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
+    /**
+     * qq注册
+     * @param userDto
+     * @param request
+     * @return
+     */
     @RequestMapping("/user/qqRegistion")
     public Result thirdPartyRegistion(UserDto userDto, HttpServletRequest request){
-        //需要获取用户唯一标识 插入数据库和social中 这里数据库先不插入
+        /**
+         * 需要获取用户唯一标识 插入数据库和social中 这里数据库先不插入
+         */
         String username = userDto.getUsername();
         providerSignInUtils.doPostSignUp(username,new ServletWebRequest(request));
         return Result.success();
@@ -32,6 +40,6 @@ public class LoginController {
 
     @RequestMapping("/")
     public Result index(){
-        return Result.success();
+        return Result.success("首页");
     }
 }
