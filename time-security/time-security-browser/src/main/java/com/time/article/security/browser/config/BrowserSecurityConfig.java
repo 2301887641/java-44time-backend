@@ -26,8 +26,8 @@ import javax.sql.DataSource;
  *
  * @author suiguozhen on 18/09/12
  */
-@Configuration
-@EnableConfigurationProperties(SecurityProperties.class)
+//@Configuration
+//@EnableConfigurationProperties(SecurityProperties.class)
 public class BrowserSecurityConfig extends LoginSecurityConfig {
     /**
      * 安全配置属性
