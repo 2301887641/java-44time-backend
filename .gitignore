@@ -13,7 +13,7 @@ overlays/
 *.ipr
 
 classes
-.gradle
+.gradle/
 build/
 gradle/wrapper/*.zip
 
@@ -31,7 +31,6 @@ time-dao/src/main/generated/
 time-security/src/main/generated/
 time-service/time-service-api/src/main/generated/
 time-web/time-web-admin/src/main/generated/
-/time-dao/src/main/resources/rebel.xml
 /time-service/time-service-impl/src/main/generated/com/time/article/service/converter/business/
 time-core/src/test/
 time-dao/src/test/
@@ -46,3 +45,4 @@ time-shiro/src/main/generated/
 time-shiro/src/test/
 time-web/time-web-rest/src/main/generated/
 time-web/time-web-rest/src/test/
+/time-service/time-service-impl/src/main/generated/com/time/article/service/converter/
