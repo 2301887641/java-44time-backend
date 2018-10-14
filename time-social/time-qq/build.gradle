@@ -1,0 +1,3 @@
+dependencies {
+    compile "net.gplatform:Sdk4J:2.0"
+}
