@@ -12,9 +12,13 @@ import javax.servlet.http.HttpServletRequest;
  * @author suiguozhen on 18/03/30
  */
 public class WebUtils {
-    /*请求头header中必须携带参数*/
+    /**
+     * 请求头header中必须携带参数
+     */
     private static final String X_REQUESTED_WITH="x-requested-with";
-    /*请求头header中必须携带参数的值*/
+    /**
+     * 请求头header中必须携带参数的值
+     */
     private static final String AJAX_REQUEST_TAG = "XMLHttpRequest";
 
     /**

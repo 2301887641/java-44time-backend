@@ -6,6 +6,7 @@ package com.time.article.core.utils;
  * @author suiguozhen on 18/08/28
  */
 public class StringUtils {
+
     private static final String UNDERLINE = "_";
 
     /**
