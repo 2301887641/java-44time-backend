@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-10-12T17:37:08+0800",
+    date = "2018-10-15T15:29:28+0800",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_51 (Oracle Corporation)"
 )
 public class OperationLogConverterImpl implements OperationLogConverter {

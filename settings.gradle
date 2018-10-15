@@ -24,4 +24,6 @@ include 'time-social:time-qq'
 findProject(':time-social:time-qq')?.name = 'time-qq'
 include 'time-social:time-wechat'
 findProject(':time-social:time-wechat')?.name = 'time-wechat'
+include 'time-core:time-utils'
+findProject(':time-core:time-utils')?.name = 'time-utils'
 

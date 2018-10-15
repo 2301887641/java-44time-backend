@@ -1,10 +1,8 @@
-package com.time.article.core.utils;
+package com.time.utils.http;
 
 import com.time.exception.core.BusinessException;
-import com.time.exception.enums.BaseEnum;
+import com.time.utils.enums.MessageEnum;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -13,7 +11,7 @@ import java.net.URLConnection;
  *
  * @author suiguozhen on 18/10/13
  */
-public class HttpUtils {
+public class HttpUrlConnectionUtils {
 
     public static void get(String httpUrl){
         URL url;
@@ -22,9 +20,8 @@ public class HttpUtils {
         try{
             url = new URL(httpUrl);
             urlConnection = url.openConnection();
-
         }catch(Exception e){
-//            throw new BusinessException(BaseEnum,);
+            throw new BusinessException(MessageEnum.CONNECTION);
         }
 
     }
