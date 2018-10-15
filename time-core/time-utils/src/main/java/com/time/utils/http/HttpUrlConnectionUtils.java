@@ -1,7 +1,7 @@
 package com.time.utils.http;
 
 import com.time.exception.core.BusinessException;
-import com.time.utils.enums.MessageEnum;
+import com.time.utils.enums.BusinessEnum;
 
 import java.net.URL;
 import java.net.URLConnection;
@@ -21,7 +21,7 @@ public class HttpUrlConnectionUtils {
             url = new URL(httpUrl);
             urlConnection = url.openConnection();
         }catch(Exception e){
-            throw new BusinessException(MessageEnum.CONNECTION);
+            throw new BusinessException(BusinessEnum.CONNECTION);
         }
 
     }

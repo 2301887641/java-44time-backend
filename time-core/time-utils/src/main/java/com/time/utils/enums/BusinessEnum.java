@@ -1,10 +1,12 @@
-package com.time.exception.enums;
+package com.time.utils.enums;
+
+import com.time.exception.enums.BaseEnum;
 
 /**
- * 统一枚举信息
+ * 业务枚举信息类
  * @author suiguozhen on 18/10/15
  */
-public enum UnificationEnum implements BaseEnum{
+public enum BusinessEnum implements BaseEnum {
     /**
      * 链接异常
      */
@@ -14,7 +16,7 @@ public enum UnificationEnum implements BaseEnum{
 
     private String label;
 
-    UnificationEnum(Integer ordinal, String label) {
+    BusinessEnum(Integer ordinal, String label) {
         this.ordinal = ordinal;
         this.label = label;
     }
