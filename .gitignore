@@ -22,8 +22,6 @@ gradle/wrapper/*.zip
 out/
 MANIFEST.MF
 
-cas/etc
-tomcat.keystore
 
 
 time-core/src/main/generated/
@@ -46,3 +44,4 @@ time-shiro/src/test/
 time-web/time-web-rest/src/main/generated/
 time-web/time-web-rest/src/test/
 /time-service/time-service-impl/src/main/generated/com/time/article/service/converter/
+!/tomcat.keystore
