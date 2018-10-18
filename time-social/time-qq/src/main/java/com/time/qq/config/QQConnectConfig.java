@@ -31,13 +31,23 @@ public class QQConnectConfig {
         }
     }
 
+    /**
+     * 获取qqConnectionProperties属性
+     * @return
+     */
     public static Properties getQqConnectConfigProperties() {
         return qqConnectConfigProperties;
     }
 
-    public static void setQQProperties(String app_ID, String app_KEY, String callback_URI) {
-        qqConnectConfigProperties.setProperty("app_ID", app_ID);
-        qqConnectConfigProperties.setProperty("app_KEY", app_KEY);
-        qqConnectConfigProperties.setProperty("callback_URI", callback_URI);
+    /**
+     * 设置app_ID、app_KEY、callback_URI
+     * @param appID
+     * @param appKEY
+     * @param callbackURI
+     */
+    public static void create(String appID, String appKEY, String callbackURI) {
+        qqConnectConfigProperties.setProperty("app_ID", appID);
+        qqConnectConfigProperties.setProperty("app_KEY", appKEY);
+        qqConnectConfigProperties.setProperty("callback_URI", callbackURI);
     }
 }
