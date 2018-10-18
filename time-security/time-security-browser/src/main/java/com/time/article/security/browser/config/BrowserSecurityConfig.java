@@ -1,10 +1,10 @@
 package com.time.article.security.browser.config;
 
-import com.time.article.security.core.defaults.DefaultCustomUserDetailServiceImpl;
 import com.time.article.security.core.code.api.CustomUserDetailsService;
-import com.time.article.security.core.code.mobile.SmsAuthenticationSecurityConfig;
 import com.time.article.security.core.code.config.VerificationCodeSecurityConfig;
+import com.time.article.security.core.code.mobile.SmsAuthenticationSecurityConfig;
 import com.time.article.security.core.constants.SecurityConstants;
+import com.time.article.security.core.defaults.DefaultCustomUserDetailServiceImpl;
 import com.time.article.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -26,8 +26,8 @@ import javax.sql.DataSource;
  *
  * @author suiguozhen on 18/09/12
  */
-//@Configuration
-//@EnableConfigurationProperties(SecurityProperties.class)
+@Configuration
+@EnableConfigurationProperties(SecurityProperties.class)
 public class BrowserSecurityConfig extends LoginSecurityConfig {
     /**
      * 安全配置属性
@@ -87,6 +87,9 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
                 and().
                 authorizeRequests().
                 antMatchers(
+                        "/add",
+                        "/login/qq",
+                        "/add2",
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),

@@ -2,6 +2,7 @@ package com.time.article.rest.controller.business.login;
 
 import com.time.article.core.message.result.Result;
 import com.time.article.service.dto.business.user.UserDto;
+import com.time.utils.http.HttpUrlConnectionUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -41,5 +42,16 @@ public class LoginController {
     @RequestMapping("/")
     public Result index(){
         return Result.success("首页");
+    }
+
+    @RequestMapping("/add")
+    public Result add(){
+        HttpUrlConnectionUtils.get("https://graph.qq.com/oauth2.0/authorize");
+        return Result.success();
+    }
+
+    @RequestMapping("/add2")
+    public Result add2(){
+        return Result.success();
     }
 }

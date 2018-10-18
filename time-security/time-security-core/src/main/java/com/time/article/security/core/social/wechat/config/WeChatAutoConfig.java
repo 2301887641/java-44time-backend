@@ -2,7 +2,6 @@ package com.time.article.security.core.social.wechat.config;
 
 import com.time.article.security.core.properties.SecurityProperties;
 import com.time.article.security.core.social.wechat.connect.WeChatConnectionFactory;
-import com.time.article.security.core.social.wechat.properties.WeChatProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter;

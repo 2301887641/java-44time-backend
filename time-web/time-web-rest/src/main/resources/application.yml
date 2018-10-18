@@ -92,7 +92,7 @@ security:
   #jwt salt 密码必须是32位否则报错 The secret length must be at least 256 bits
  # salt: asdfghjklpoiuytrewq1234567098zxc
 
-#自定义配置
+#security自定义配置
 custom:
   #security配置
   security:
@@ -125,7 +125,7 @@ custom:
     #社交配置
     social:
       #拦截的第一段
-      filterProcessesUrl: /Home
+      filterProcessesUrl: /login22
       #qq配置 redirect_uri:	http://www.xiyuxiaguang.com/Home/Index/wxlogin
       qq:
         #appId
@@ -142,6 +142,18 @@ custom:
         app-secret: 3290ca5dbac5b5bc5d5fab501f1fda6b
         #标识区分哪个第三方
         providerId: Index/wxlogin
+
+#自定义social社交配置
+social:
+  #qq配置
+  qq:
+    #appId
+    app-id: 101440236
+    #app_KEY
+    app-secret: 2120c92da16b34c1391e13b2de613983
+    #回调地址
+    callback_url: http://tong118.com/login/qq
+
 
 
 

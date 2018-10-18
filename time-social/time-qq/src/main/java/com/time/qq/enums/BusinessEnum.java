@@ -1,20 +1,20 @@
-package com.time.utils.enums;
+package com.time.qq.enums;
 
 import com.time.exception.enums.BaseEnum;
 
 /**
  * 业务枚举信息类
- * 1000----1100
- * @author suiguozhen on 18/10/15
+ * 1200-1300
+ *
+ * @author suiguozhen on 18/10/18
  */
 public enum BusinessEnum implements BaseEnum {
     /**
-     * 链接异常
+     * 属性文件打开失败
      */
-    CONNECTION(1000, "http链接失败");
+    IOEXCEPTION(1200, "属性文件打开失败");
 
     private Integer ordinal;
-
     private String label;
 
     BusinessEnum(Integer ordinal, String label) {
@@ -22,23 +22,21 @@ public enum BusinessEnum implements BaseEnum {
         this.label = label;
     }
 
-    /**
-     * 获得标号 默认返回标号 rest请求时
-     *
-     * @return
-     */
     @Override
     public Integer getOrdinal() {
         return ordinal;
     }
 
-    /**
-     * 获得字符串
-     *
-     * @return
-     */
+    public void setOrdinal(Integer ordinal) {
+        this.ordinal = ordinal;
+    }
+
     @Override
     public String getLabel() {
         return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

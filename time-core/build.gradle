@@ -32,6 +32,7 @@ dependencies {
     compile "net.sourceforge.nekohtml:nekohtml"
     //子模块
     compile("com.time.article:time-exception:1.0-SNAPSHOT")
+    compile project(":time-core:time-utils")
 
 }
 
