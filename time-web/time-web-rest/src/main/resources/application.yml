@@ -148,11 +148,11 @@ social:
   #qq配置
   qq:
     #appId
-    app-id: 101440236
+    appId: 101440236
     #app_KEY
-    app-secret: 2120c92da16b34c1391e13b2de613983
+    appSecret: 2120c92da16b34c1391e13b2de613983
     #回调地址
-    callback_url: http://tong118.com/login/qq
+    callbackUrl: http://tong118.com/login/qq
 
 
 

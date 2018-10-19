@@ -89,6 +89,7 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
                 antMatchers(
                         "/add",
                         "/login/qq",
+                        "/qq/login",
                         "/add2",
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,

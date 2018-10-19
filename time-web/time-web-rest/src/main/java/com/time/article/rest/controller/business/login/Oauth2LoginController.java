@@ -1,10 +1,9 @@
 package com.time.article.rest.controller.business.login;
 
-import com.time.qq.config.QQConnectConfig;
+import com.time.qq.core.QQOauth;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Properties;
 
 /**
  * 第三方授权登陆
@@ -13,13 +12,25 @@ import java.util.Properties;
 @Controller
 public class Oauth2LoginController {
 
-    @RequestMapping("/login/qq")
-    public String qqRedirect(){
+    @Value("${social.qq.appId}")
+    private String appId;
 
-        return "111";
+    @Value("${social.qq.appSecret}")
+    private String appSecret;
+
+    @Value("${social.qq.callbackUrl}")
+    private String callbackUrl;
+
+    @RequestMapping("/qq/login")
+    public String qqRedirect(){
+        QQOauth qqOauth = new QQOauth(this.appId, this.appSecret, this.callbackUrl);
+        return qqOauth.getRedirectUrl();
     }
 
-
+    @RequestMapping("/login/qq")
+    public void qqCallback(HttpServlet,String code){
+        System.out.println(code);
+    }
 
 
 }

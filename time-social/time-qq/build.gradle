@@ -1,3 +1,4 @@
 dependencies {
     compile("com.time.article:time-exception:1.0-SNAPSHOT")
+    compile project(":time-social:time-social-common")
 }
