@@ -3,7 +3,9 @@ package com.time.qq.core;
 import com.time.exception.core.BusinessException;
 import com.time.qq.enums.BusinessEnum;
 import com.time.social.common.core.Oauth;
+import com.time.utils.http.HttpUrlConnectionUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -30,7 +32,7 @@ public class QQOauth implements Oauth {
      */
     @Override
     public String getAuthorizeURL() {
-        Properties qqConnectConfigProperties = QQConnectConfig.getQqConnectConfigProperties();
+        Properties qqConnectConfigProperties = QQConnectConfig.qqConnectConfigProperties;
         return "redirect:" + String.format(
                 qqConnectConfigProperties.getProperty("qq_redirect_url"),
                 qqConnectConfigProperties.getProperty("qq_app_id"),
@@ -38,6 +40,26 @@ public class QQOauth implements Oauth {
         );
     }
 
+    /**
+     * 根据request获取access token
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public String getAccessTokenByRequest(HttpServletRequest request) {
+        String code = request.getParameter("code");
+        String.format(
+                QQConnectConfig.qqConnectConfigProperties
+        )
+        //        HttpUrlConnectionUtils.get();
+        return null;
+    }
+
+
+    /**
+     * 私有内部静态类 禁止外部访问
+     */
     private static class QQConnectConfig {
         /**
          * qqConnectionProperties属性
@@ -54,15 +76,6 @@ public class QQOauth implements Oauth {
             } catch (IOException e) {
                 throw new BusinessException(BusinessEnum.IOEXCEPTION);
             }
-        }
-
-        /**
-         * 获取qqConnectionProperties属性
-         *
-         * @return
-         */
-        private static Properties getQqConnectConfigProperties() {
-            return qqConnectConfigProperties;
         }
 
         /**

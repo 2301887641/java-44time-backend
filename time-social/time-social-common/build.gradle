@@ -1,0 +1,4 @@
+dependencies{
+    compileOnly "javax.servlet:servlet-api:3.0-alpha-1"
+    compile "org.apache.commons:commons-lang"
+}
