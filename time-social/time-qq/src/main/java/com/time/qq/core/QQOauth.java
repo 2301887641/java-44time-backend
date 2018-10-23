@@ -4,6 +4,7 @@ import com.time.exception.core.BusinessException;
 import com.time.qq.bean.AccessToken;
 import com.time.qq.enums.BusinessEnum;
 import com.time.social.common.core.Oauth;
+import com.time.utils.core.HttpUrlConnectionUtils;
 import com.time.utils.core.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,9 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
+ * qq pc登陆
  * @author suiguozhen on 18/10/18
  */
 public class QQOauth implements Oauth {
@@ -52,21 +53,45 @@ public class QQOauth implements Oauth {
      */
     @Override
     public AccessToken getAccessTokenByRequest(HttpServletRequest request) {
+        //获取请求信息
         String queryString = request.getQueryString();
-        if(!Objects.isNull(queryString)){
-            //        code=F8DBABD3CBD5F52A586288DE6C9FB24E&state=44time
-            String regex="code=(\\w+)&state=(\\w+)";
-            Matcher matcher =  StringUtils.matcher(regex,queryString);
+        if (Objects.isNull(queryString)) {
+            return new AccessToken();
         }
-
-
-//        String.format(
-//                QQConnectConfig.qqConnectConfigProperties
-//        )
-        //        HttpUrlConnectionUtils.get();
-        return null;
+        String regex = "code=(\\w+)&state=(\\w+)";
+        Matcher matcher = StringUtils.matcher(regex, queryString);
+        //没有匹配到分组
+        if (!matcher.find()) {
+            return new AccessToken();
+        }
+        String code = matcher.group(1);
+        String accessTokenUrl = String.format(
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_accessTokenURL"),
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_app_id"),
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_app_key"),
+                code,
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_callback_url")
+        );
+        String result = HttpUrlConnectionUtils.get(accessTokenUrl);
+        if (Objects.isNull(result)) {
+            return new AccessToken();
+        }
+        return getForEntity(result);
     }
 
+    /**
+     * 转换成实体
+     * @param result
+     * @return
+     */
+    private AccessToken getForEntity(String result){
+        String regex = "access_token=(\\w+)&expires_in=(\\d+)&refresh_token=(\\w+)";
+        Matcher matcher = StringUtils.matcher(regex, result);
+        if(matcher.find()){
+            return new AccessToken(matcher.group(1),matcher.group(2),matcher.group(3));
+        }
+        return new AccessToken();
+    }
 
     /**
      * 私有内部静态类 禁止外部访问

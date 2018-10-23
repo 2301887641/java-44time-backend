@@ -1,8 +1,8 @@
 package com.time.article.rest.controller.business.login;
 
+import com.time.qq.bean.AccessToken;
 import com.time.qq.core.QQOauth;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,7 +25,7 @@ public class Oauth2LoginController {
 
     @RequestMapping("/login/qq")
     public void qqCallback(HttpServletRequest request){
-        qqOauth.getAccessTokenByRequest(request);
+        AccessToken accessTokenByRequest = qqOauth.getAccessTokenByRequest(request);
 
     }
 

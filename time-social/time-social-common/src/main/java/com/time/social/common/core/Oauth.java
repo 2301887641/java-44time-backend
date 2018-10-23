@@ -1,6 +1,7 @@
 package com.time.social.common.core;
 
 import com.sun.net.httpserver.HttpServer;
+import com.time.social.common.bean.BaseAccessToken;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,5 +21,5 @@ public interface Oauth {
      * @param request
      * @return
      */
-    AccessToken getAccessTokenByRequest(HttpServletRequest request);
+    BaseAccessToken getAccessTokenByRequest(HttpServletRequest request);
 }

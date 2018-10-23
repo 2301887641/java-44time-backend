@@ -11,7 +11,7 @@ public enum BusinessEnum implements BaseEnum {
     /**
      * 链接异常
      */
-    CONNECTION(1000, "http链接失败");
+    CONNECTION(1000, "网络链接失败");
 
     private Integer ordinal;
 

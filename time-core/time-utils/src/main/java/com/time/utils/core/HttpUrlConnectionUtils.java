@@ -4,6 +4,8 @@ import com.time.exception.core.BusinessException;
 import com.time.utils.enums.BusinessEnum;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,10 +20,16 @@ import java.util.Objects;
  */
 public class HttpUrlConnectionUtils {
 
-    public static void get(String httpUrl) {
+    /**
+     * httpUrlConnection get请求
+     * @param httpUrl
+     * @return
+     */
+    public static String get(String httpUrl) {
         URL url;
         HttpsURLConnection urlConnection;
         String content;
+        String result = "";
         // 创建远程url连接对象
         try {
             /**
@@ -39,8 +47,9 @@ public class HttpUrlConnectionUtils {
             urlConnection.setConnectTimeout(6 * 1000);
             urlConnection.setReadTimeout(6 * 1000);
             /**
-             * 请求成功的话
+             * 连接 必须添加 否则getResponseCode是-1
              */
+            urlConnection.connect();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 /**
                  * 得到响应流
@@ -50,14 +59,18 @@ public class HttpUrlConnectionUtils {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
                 ) {
                     while (!Objects.isNull((content = bufferedReader.readLine()))) {
-                        System.out.println(content);
-                        System.out.println("\r\n");
+                        result += content + "\n";
                     }
+                    /**
+                     * 断开连接，释放资源
+                     */
+                    urlConnection.disconnect();
                 }
             }
         } catch (Exception e) {
             throw new BusinessException(BusinessEnum.CONNECTION);
         }
+        return result;
     }
 
 

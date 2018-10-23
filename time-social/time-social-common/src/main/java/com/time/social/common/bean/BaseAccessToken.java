@@ -1,6 +1,7 @@
 package com.time.social.common.bean;
 
 /**
+ * 基类access token
  * @author suiguozhen on 18/10/23
  */
 public class BaseAccessToken {
