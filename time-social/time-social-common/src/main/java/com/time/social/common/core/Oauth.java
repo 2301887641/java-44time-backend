@@ -20,5 +20,5 @@ public interface Oauth {
      * @param request
      * @return
      */
-    String getAccessTokenByRequest(HttpServletRequest request);
+    AccessToken getAccessTokenByRequest(HttpServletRequest request);
 }

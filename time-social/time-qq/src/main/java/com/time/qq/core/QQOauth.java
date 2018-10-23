@@ -1,13 +1,17 @@
 package com.time.qq.core;
 
 import com.time.exception.core.BusinessException;
+import com.time.qq.bean.AccessToken;
 import com.time.qq.enums.BusinessEnum;
 import com.time.social.common.core.Oauth;
-import com.time.utils.http.HttpUrlConnectionUtils;
+import com.time.utils.core.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author suiguozhen on 18/10/18
@@ -47,11 +51,18 @@ public class QQOauth implements Oauth {
      * @return
      */
     @Override
-    public String getAccessTokenByRequest(HttpServletRequest request) {
-        String code = request.getParameter("code");
-        String.format(
-                QQConnectConfig.qqConnectConfigProperties
-        )
+    public AccessToken getAccessTokenByRequest(HttpServletRequest request) {
+        String queryString = request.getQueryString();
+        if(!Objects.isNull(queryString)){
+            //        code=F8DBABD3CBD5F52A586288DE6C9FB24E&state=44time
+            String regex="code=(\\w+)&state=(\\w+)";
+            Matcher matcher =  StringUtils.matcher(regex,queryString);
+        }
+
+
+//        String.format(
+//                QQConnectConfig.qqConnectConfigProperties
+//        )
         //        HttpUrlConnectionUtils.get();
         return null;
     }

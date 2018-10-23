@@ -1,16 +1,14 @@
-package com.time.utils.http;
+package com.time.utils.core;
 
 import com.time.exception.core.BusinessException;
 import com.time.utils.enums.BusinessEnum;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Objects;
 
 /**

@@ -2,7 +2,7 @@ package com.time.article.rest.controller.business.login;
 
 import com.time.article.core.message.result.Result;
 import com.time.article.service.dto.business.user.UserDto;
-import com.time.utils.http.HttpUrlConnectionUtils;
+import com.time.utils.core.HttpUrlConnectionUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.ProviderSignInUtils;

@@ -1,4 +1,4 @@
-package com.time.article.core.utils;
+package com.time.utils.core;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
