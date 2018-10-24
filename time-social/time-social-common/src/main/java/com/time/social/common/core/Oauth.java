@@ -22,4 +22,10 @@ public interface Oauth {
      * @return
      */
     BaseAccessToken getAccessTokenByRequest(HttpServletRequest request);
+
+    /**
+     * 获取openId 唯一确定用户 多应用除外
+     * @return
+     */
+    BaseAccessToken getOpenId(HttpServletRequest request);
 }

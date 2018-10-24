@@ -3,6 +3,7 @@ package com.time.qq.core;
 import com.time.exception.core.BusinessException;
 import com.time.qq.bean.AccessToken;
 import com.time.qq.enums.BusinessEnum;
+import com.time.social.common.bean.BaseAccessToken;
 import com.time.social.common.core.Oauth;
 import com.time.utils.core.HttpUrlConnectionUtils;
 import com.time.utils.core.StringUtils;
@@ -80,6 +81,21 @@ public class QQOauth implements Oauth {
     }
 
     /**
+     * 获取openId 唯一确定用户 多应用除外
+     *
+     * @return
+     */
+    @Override
+    public AccessToken getOpenId(HttpServletRequest request) {
+        AccessToken accessTokenEntity = getAccessTokenByRequest(request);
+        String accessToken = accessTokenEntity.getAccessToken();
+        if(Objects.isNull(accessToken)){
+
+        }
+        return null;
+    }
+
+    /**
      * 转换成实体
      * @param result
      * @return
@@ -92,6 +108,8 @@ public class QQOauth implements Oauth {
         }
         return new AccessToken();
     }
+
+
 
     /**
      * 私有内部静态类 禁止外部访问
