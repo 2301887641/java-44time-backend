@@ -12,7 +12,9 @@ public enum BusinessEnum implements BaseEnum {
     /**
      * 属性文件打开失败
      */
-    IOEXCEPTION(1200, "属性文件打开失败");
+    IOEXCEPTION(1200, "属性文件打开失败"),
+    //默认异常
+    DEFAULT_EXCEPTION(1201,"默认异常");
 
     private Integer ordinal;
     private String label;

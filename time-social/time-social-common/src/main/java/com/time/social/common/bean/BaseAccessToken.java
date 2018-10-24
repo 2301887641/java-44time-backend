@@ -5,9 +5,11 @@ package com.time.social.common.bean;
  * @author suiguozhen on 18/10/23
  */
 public class BaseAccessToken {
-    private String accessToken = "";
-    private String expireIn = "";
-    private String refreshToken = "";
+    private String accessToken;
+    private String expireIn;
+    private String refreshToken;
+    private String openId;
+    private String unionId;
 
     public String getAccessToken() {
         return accessToken;
@@ -31,5 +33,21 @@ public class BaseAccessToken {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
     }
 }

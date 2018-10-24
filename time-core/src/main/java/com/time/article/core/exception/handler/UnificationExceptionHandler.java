@@ -3,6 +3,7 @@ package com.time.article.core.exception.handler;
 import com.time.article.core.message.result.Result;
 import com.time.article.core.utils.WebUtils;
 import com.time.exception.core.BusinessException;
+import com.time.exception.core.ConsoleLogException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -51,4 +52,14 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
         /**ajax请求 返回500*/
         return Result.failed(exception.getCode(), exception.getMsg());
     }
+
+    /**
+     * 控制台日志输入 当前异常只在控制台打印
+     * @param exception
+     */
+    @ExceptionHandler(ConsoleLogException.class)
+    public void consoleLogExceptionHandler(ConsoleLogException exception){
+        log.error(exception.getMsg(),exception.getCode());
+    }
+
 }

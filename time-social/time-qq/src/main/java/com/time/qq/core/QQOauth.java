@@ -1,9 +1,9 @@
 package com.time.qq.core;
 
 import com.time.exception.core.BusinessException;
+import com.time.exception.core.ConsoleLogException;
 import com.time.qq.bean.AccessToken;
 import com.time.qq.enums.BusinessEnum;
-import com.time.social.common.bean.BaseAccessToken;
 import com.time.social.common.core.Oauth;
 import com.time.utils.core.HttpUrlConnectionUtils;
 import com.time.utils.core.StringUtils;
@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
  * qq pc登陆
  * @author suiguozhen on 18/10/18
  */
-public class QQOauth implements Oauth {
+public class QQOauth extends Oauth {
 
     /**
      * 构造函数 设置appId、appKey、callbackUrl
@@ -53,7 +53,7 @@ public class QQOauth implements Oauth {
      * @return
      */
     @Override
-    public AccessToken getAccessTokenByRequest(HttpServletRequest request) {
+    protected AccessToken getAccessTokenByRequest(HttpServletRequest request) {
         //获取请求信息
         String queryString = request.getQueryString();
         if (Objects.isNull(queryString)) {
@@ -65,12 +65,11 @@ public class QQOauth implements Oauth {
         if (!matcher.find()) {
             return new AccessToken();
         }
-        String code = matcher.group(1);
         String accessTokenUrl = String.format(
                 QQConnectConfig.qqConnectConfigProperties.getProperty("qq_accessTokenURL"),
                 QQConnectConfig.qqConnectConfigProperties.getProperty("qq_app_id"),
                 QQConnectConfig.qqConnectConfigProperties.getProperty("qq_app_key"),
-                code,
+                matcher.group(1),
                 QQConnectConfig.qqConnectConfigProperties.getProperty("qq_callback_url")
         );
         String result = HttpUrlConnectionUtils.get(accessTokenUrl);
@@ -90,8 +89,13 @@ public class QQOauth implements Oauth {
         AccessToken accessTokenEntity = getAccessTokenByRequest(request);
         String accessToken = accessTokenEntity.getAccessToken();
         if(Objects.isNull(accessToken)){
-
+            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION.getOrdinal(),"获取access token失败");
         }
+        String openIdUrl=String.format(
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getOpenIDURL"),
+                accessToken
+                );
+        String result = HttpUrlConnectionUtils.get(openIdUrl);
         return null;
     }
 
@@ -109,15 +113,11 @@ public class QQOauth implements Oauth {
         return new AccessToken();
     }
 
-
-
     /**
      * 私有内部静态类 禁止外部访问
      */
     private static class QQConnectConfig {
-        /**
-         * qqConnectionProperties属性
-         */
+        //qqConnectionProperties属性
         private static Properties qqConnectConfigProperties = new Properties();
 
         /**
