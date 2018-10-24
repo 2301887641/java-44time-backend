@@ -1,5 +1,6 @@
 package com.time.utils.core;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +12,15 @@ import java.util.regex.Pattern;
 public class StringUtils {
 
     private static final String UNDERLINE = "_";
+
+    /**
+     * 判断字符串是否为空或空串
+     * @param sequence
+     * @return
+     */
+    public static boolean isEmpty(final CharSequence sequence) {
+        return Objects.isNull(sequence) || (sequence.length() == 0);
+    }
 
     /**
      * 字符串首字符大写
@@ -42,11 +52,12 @@ public class StringUtils {
 
     /**
      * 正则匹配
+     *
      * @param regex
      * @param content
      * @return
      */
-    public static Matcher matcher(String regex,String content){
+    public static Matcher matcher(String regex, String content) {
         Pattern compile = Pattern.compile(regex);
         return compile.matcher(content);
     }

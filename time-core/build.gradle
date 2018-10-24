@@ -4,7 +4,7 @@ dependencies {
     //spring aop
     compile 'org.springframework.boot:spring-boot-starter-aop'
     //devtool
-    compile "org.springframework.boot:spring-boot-devtools"
+    compileOnly "org.springframework.boot:spring-boot-devtools"
     //lombok
     compile "org.projectlombok:lombok"
     //mybatis
@@ -30,9 +30,10 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-thymeleaf"
     //nekohtml使thymeleaf不按照严格模式解析模板
     compile "net.sourceforge.nekohtml:nekohtml"
-    //子模块
+    //异常子模块
     compile("com.time.article:time-exception:1.0-SNAPSHOT")
+    //工具子模块
+    compile("com.time.article:time-utils:1.0-SNAPSHOT")
     compile project(":time-core:time-utils")
-
 }
 

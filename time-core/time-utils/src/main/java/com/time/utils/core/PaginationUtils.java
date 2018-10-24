@@ -1,7 +1,7 @@
-package com.time.article.core.utils;
+package com.time.utils.core;
 
 
-import org.springframework.util.StringUtils;
+import java.util.Objects;
 
 /**
  * 分页工具类
@@ -29,7 +29,7 @@ public class PaginationUtils {
     private static final String ORDERBY = "orderby";
 
     public static Integer getPageNo() {
-        return StringUtils.isEmpty(PAGE_NO.get()) ? NUMBER : PAGE_NO.get();
+        return Objects.isNull(PAGE_NO.get()) ? NUMBER : PAGE_NO.get();
     }
 
     public static void setPageNo(Integer pageInfo) {
@@ -37,7 +37,7 @@ public class PaginationUtils {
     }
 
     public static Integer getPageSize() {
-        return StringUtils.isEmpty(PAGE_SIZE.get()) ? SIZE : PAGE_SIZE.get();
+        return Objects.isNull(PAGE_SIZE.get()) ? SIZE : PAGE_SIZE.get();
     }
 
     public static void setPagesize(Integer pageSize) {
@@ -45,7 +45,7 @@ public class PaginationUtils {
     }
 
     public static String getOrderBy() {
-        return StringUtils.isEmpty(ORDER_BY.get()) ? ORDERBY : ORDER_BY.get();
+        return Objects.isNull(ORDER_BY.get()) ? ORDERBY : ORDER_BY.get();
     }
 
     public static void setOrderBy(String orderBy) {
