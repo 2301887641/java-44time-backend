@@ -68,7 +68,7 @@ public class AccessLogAop {
         operationLogDto.setUserId(1);
         operationLogDto.setLogType(logType);
         operationLogDto.setIp(request.getRemoteAddr());
-        /**如果 请求的函数函数为空||查询操作||查询参数为空 不会比对参数*/
+        /**如果 请求的函数为空||查询操作||查询参数为空 不会比对参数*/
         if (point.getArgs().length < 1 || LogEnum.LOG_SELECT.getOrdinal().equals(logType.getOrdinal())) {
             operationLogDto.setResult(RestConstants.AOP_LOG_DEFAULT_RESULT);
             BaseScheduleManager.getInstance().execute(operationLogTask(operationLogDto));

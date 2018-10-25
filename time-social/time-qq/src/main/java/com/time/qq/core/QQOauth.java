@@ -4,6 +4,7 @@ import com.time.exception.core.BusinessException;
 import com.time.exception.core.ConsoleLogException;
 import com.time.qq.bean.AccessToken;
 import com.time.qq.enums.BusinessEnum;
+import com.time.social.common.bean.BaseAccessToken;
 import com.time.social.common.core.Oauth;
 import com.time.utils.core.HttpUrlConnectionUtils;
 import com.time.utils.core.StringUtils;
@@ -16,6 +17,7 @@ import java.util.regex.Matcher;
 
 /**
  * qq pc登陆
+ *
  * @author suiguozhen on 18/10/18
  */
 public class QQOauth extends Oauth {
@@ -88,27 +90,55 @@ public class QQOauth extends Oauth {
     public AccessToken getOpenId(HttpServletRequest request) {
         AccessToken accessTokenEntity = getAccessTokenByRequest(request);
         String accessToken = accessTokenEntity.getAccessToken();
-        if(Objects.isNull(accessToken)){
-            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION.getOrdinal(),"获取access token失败");
+        if (Objects.isNull(accessToken)) {
+            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION.getOrdinal(), "获取access token失败");
         }
-        String openIdUrl=String.format(
+        String openIdUrl = String.format(
                 QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getOpenIDURL"),
                 accessToken
-                );
+        );
         String result = HttpUrlConnectionUtils.get(openIdUrl);
-        return null;
+        if (Objects.isNull(result)) {
+            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION.getOrdinal(), "获取openId失败");
+        }
+        String regex = "\"openid\":\"(\\w+)\"";
+        Matcher matcher = StringUtils.matcher(regex, result);
+        if (!matcher.find()) {
+            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION.getOrdinal(),"获取openId失败");
+        }
+        accessTokenEntity.setOpenId(matcher.group(1));
+        return accessTokenEntity;
     }
 
     /**
+     * 获取unionid 多个应用可以唯一确定用户
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public BaseAccessToken getUnionId(HttpServletRequest request) {
+        AccessToken accessTokenEntity = getAccessTokenByRequest(request);
+        String accessToken = accessTokenEntity.getAccessToken();
+        if(Objects.isNull(accessToken)){
+            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION,"获取access token失败");
+        }
+//        String.format()
+        return null;
+    }
+
+
+    /**
      * 转换成实体
+     *
      * @param result
      * @return
      */
-    private AccessToken getForEntity(String result){
+    private AccessToken getForEntity(String result) {
         String regex = "access_token=(\\w+)&expires_in=(\\d+)&refresh_token=(\\w+)";
         Matcher matcher = StringUtils.matcher(regex, result);
-        if(matcher.find()){
-            return new AccessToken(matcher.group(1),matcher.group(2),matcher.group(3));
+        if (matcher.find()) {
+            return new AccessToken(matcher.group(1), matcher.group(2), matcher.group(3));
         }
         return new AccessToken();
     }

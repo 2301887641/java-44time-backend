@@ -31,4 +31,11 @@ public abstract class Oauth {
      * @return
      */
     public abstract BaseAccessToken getOpenId(HttpServletRequest request);
+
+    /**
+     * 获取unionid 多个应用可以唯一确定用户
+     * @param request
+     * @return
+     */
+    public abstract BaseAccessToken getUnionId(HttpServletRequest request);
 }

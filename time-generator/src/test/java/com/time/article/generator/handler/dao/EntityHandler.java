@@ -1,11 +1,11 @@
 package com.time.article.generator.handler.dao;
 
-import com.time.article.core.utils.StringUtils;
 import com.time.article.generator.dao.entity.Column;
 import com.time.article.generator.dao.entity.Entity;
 import com.time.article.generator.generate.dao.EntityFactory;
 import com.time.article.generator.generate.dao.MapperXmlFactory;
 import com.time.article.generator.handler.base.BaseHandler;
+import com.time.utils.core.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;

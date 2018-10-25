@@ -6,7 +6,7 @@ import com.time.article.core.dao.mapper.BaseMapper;
 import com.time.article.core.service.api.BaseService;
 import com.time.article.core.service.converter.BaseConverter;
 import com.time.article.core.service.dto.BaseDto;
-import com.time.article.core.utils.PaginationUtils;
+import com.time.utils.core.PaginationUtils;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
