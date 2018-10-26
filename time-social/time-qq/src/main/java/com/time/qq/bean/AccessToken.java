@@ -1,13 +1,13 @@
 package com.time.qq.bean;
 
-import com.time.social.common.bean.BaseAccessToken;
+import com.time.social.common.bean.Token;
 
 /**
  * access token实体类
  *
  * @author suiguozhen on 18/10/23
  */
-public class AccessToken extends BaseAccessToken {
+public class AccessToken extends Token {
 
     public AccessToken() {
     }

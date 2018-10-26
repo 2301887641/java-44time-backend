@@ -121,6 +121,26 @@ CREATE TABLE time_operation_log (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for time_social qq和微信社交绑定
+-- ----------------------------
+DROP TABLE IF EXISTS time_social;
+create table time_social (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  userId varchar(255) not null comment '业务系统的用户id',
+	providerId varchar(255) not null comment '服务提供商的id qq还是微信',
+	providerUserId varchar(255) comment 'openId或unionid',
+	rank int not null comment '等级',
+	displayName varchar(255) comment '昵称',
+	profileUrl varchar(512),
+	imageUrl varchar(512) comment '头像',
+	accessToken varchar(512) not null comment '令牌',
+	secret varchar(512),
+	refreshToken varchar(512) comment '刷新access token',
+	expireTime varchar(50) comment '过期时间',
+	PRIMARY KEY (id)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for persistent_logins springSecurity记住我
 -- ----------------------------
 DROP TABLE IF EXISTS persistent_logins;

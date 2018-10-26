@@ -1,6 +1,7 @@
 package com.time.social.common.core;
 
-import com.time.social.common.bean.BaseAccessToken;
+import com.time.social.common.bean.Token;
+import com.time.social.common.bean.UserInfo;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,19 +24,28 @@ public abstract class Oauth {
      * @param request
      * @return
      */
-    protected abstract BaseAccessToken getAccessTokenByRequest(HttpServletRequest request);
+    protected abstract Token getAccessTokenByRequest(HttpServletRequest request);
 
     /**
      * 获取openId 唯一确定用户 多应用除外
+     *
      * @param request
      * @return
      */
-    public abstract BaseAccessToken getOpenId(HttpServletRequest request);
+    public abstract Token getOpenId(HttpServletRequest request);
 
     /**
      * 获取unionid 多个应用可以唯一确定用户
+     *
      * @param request
      * @return
      */
-    public abstract BaseAccessToken getUnionId(HttpServletRequest request);
+    public abstract Token getUnionId(HttpServletRequest request);
+
+    /**
+     * 获取qq用户信息
+     * @param token
+     * @return
+     */
+    public abstract UserInfo getUserInfo(Token token);
 }

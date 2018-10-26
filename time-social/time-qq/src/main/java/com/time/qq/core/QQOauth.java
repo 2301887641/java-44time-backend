@@ -3,8 +3,10 @@ package com.time.qq.core;
 import com.time.exception.core.BusinessException;
 import com.time.exception.core.ConsoleLogException;
 import com.time.qq.bean.AccessToken;
-import com.time.qq.enums.BusinessEnum;
-import com.time.social.common.bean.BaseAccessToken;
+import com.time.qq.enums.BusinessExceptionEnum;
+import com.time.qq.enums.BusinessTypeEnum;
+import com.time.social.common.bean.Token;
+import com.time.social.common.bean.UserInfo;
 import com.time.social.common.core.Oauth;
 import com.time.utils.core.HttpUrlConnectionUtils;
 import com.time.utils.core.StringUtils;
@@ -12,11 +14,12 @@ import com.time.utils.core.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.regex.Matcher;
 
 /**
- * qq pc登陆
+ * qq登陆
  *
  * @author suiguozhen on 18/10/18
  */
@@ -42,9 +45,9 @@ public class QQOauth extends Oauth {
     public String getAuthorizeURL() {
         Properties qqConnectConfigProperties = QQConnectConfig.qqConnectConfigProperties;
         return "redirect:" + String.format(
-                qqConnectConfigProperties.getProperty("qq_redirect_url"),
-                qqConnectConfigProperties.getProperty("qq_app_id"),
-                qqConnectConfigProperties.getProperty("qq_callback_url")
+                qqConnectConfigProperties.getProperty("qq_redirectUrl"),
+                qqConnectConfigProperties.getProperty("qq_appId"),
+                qqConnectConfigProperties.getProperty("qq_callbackUrl")
         );
     }
 
@@ -68,11 +71,11 @@ public class QQOauth extends Oauth {
             return new AccessToken();
         }
         String accessTokenUrl = String.format(
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_accessTokenURL"),
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_app_id"),
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_app_key"),
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_accessTokenUrl"),
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_appId"),
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_appKey"),
                 matcher.group(1),
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_callback_url")
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_callbackUrl")
         );
         String result = HttpUrlConnectionUtils.get(accessTokenUrl);
         if (Objects.isNull(result)) {
@@ -88,26 +91,13 @@ public class QQOauth extends Oauth {
      */
     @Override
     public AccessToken getOpenId(HttpServletRequest request) {
-        AccessToken accessTokenEntity = getAccessTokenByRequest(request);
-        String accessToken = accessTokenEntity.getAccessToken();
-        if (Objects.isNull(accessToken)) {
-            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION.getOrdinal(), "获取access token失败");
-        }
-        String openIdUrl = String.format(
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getOpenIDURL"),
-                accessToken
-        );
-        String result = HttpUrlConnectionUtils.get(openIdUrl);
-        if (Objects.isNull(result)) {
-            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION.getOrdinal(), "获取openId失败");
-        }
         String regex = "\"openid\":\"(\\w+)\"";
-        Matcher matcher = StringUtils.matcher(regex, result);
-        if (!matcher.find()) {
-            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION.getOrdinal(),"获取openId失败");
-        }
-        accessTokenEntity.setOpenId(matcher.group(1));
-        return accessTokenEntity;
+        return validateAccessToken(
+                request,
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getOpenIDUrl"),
+                regex,
+                BusinessTypeEnum.OPENID
+        );
     }
 
     /**
@@ -117,16 +107,70 @@ public class QQOauth extends Oauth {
      * @return
      */
     @Override
-    public BaseAccessToken getUnionId(HttpServletRequest request) {
-        AccessToken accessTokenEntity = getAccessTokenByRequest(request);
-        String accessToken = accessTokenEntity.getAccessToken();
-        if(Objects.isNull(accessToken)){
-            throw new ConsoleLogException(BusinessEnum.DEFAULT_EXCEPTION,"获取access token失败");
-        }
-//        String.format()
+    public AccessToken getUnionId(HttpServletRequest request) {
+        String regex = "\"unionid\":\"(\\w+)\"";
+        return validateAccessToken(
+                request,
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getUnionIdUrl"),
+                regex,
+                BusinessTypeEnum.UNIONID
+        );
+    }
+
+    /**
+     * 获取qq用户信息
+     *
+     * @param token
+     * @return
+     */
+    @Override
+    public UserInfo getUserInfo(Token token) {
+        String openId = token.getOpenId();
+        Optional.ofNullable(openId).ifPresent(id ->
+                id = token.getUnionId()
+        );
+        String.format(
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getUserInfoUrl"),
+                token.getAccessToken(),
+                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_appId"),
+
+                );
         return null;
     }
 
+    /**
+     * 验证access token 并返回
+     *
+     * @param request
+     * @param qqUrl
+     * @param regex
+     * @param businessTypeEnum
+     * @return
+     */
+    private AccessToken validateAccessToken(HttpServletRequest request, String qqUrl, String regex, BusinessTypeEnum businessTypeEnum) {
+        AccessToken accessTokenEntity = getAccessTokenByRequest(request);
+        String accessToken = accessTokenEntity.getAccessToken();
+        if (Objects.isNull(accessToken)) {
+            throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION, "获取access token失败");
+        }
+        String result = HttpUrlConnectionUtils.get(String.format(
+                qqUrl,
+                accessToken
+        ));
+        if (Objects.isNull(result)) {
+            throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION.getOrdinal(), "获取" + businessTypeEnum.getLabel() + "失败");
+        }
+        Matcher matcher = StringUtils.matcher(regex, result);
+        if (!matcher.find()) {
+            throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION.getOrdinal(), "匹配" + businessTypeEnum.getLabel() + "失败");
+        }
+        if (BusinessTypeEnum.OPENID.equals(businessTypeEnum)) {
+            accessTokenEntity.setOpenId(matcher.group(1));
+        } else {
+            accessTokenEntity.setUnionId(matcher.group(1));
+        }
+        return accessTokenEntity;
+    }
 
     /**
      * 转换成实体
@@ -158,7 +202,7 @@ public class QQOauth extends Oauth {
             try {
                 qqConnectConfigProperties.load((Thread.currentThread().getContextClassLoader().getResource("qqconnectconfig.properties")).openStream());
             } catch (IOException e) {
-                throw new BusinessException(BusinessEnum.IOEXCEPTION);
+                throw new BusinessException(BusinessExceptionEnum.IOEXCEPTION);
             }
         }
 
@@ -170,9 +214,9 @@ public class QQOauth extends Oauth {
          * @param callbackUrl
          */
         private static void create(String appId, String appKey, String callbackUrl) {
-            qqConnectConfigProperties.setProperty("qq_app_id", appId);
-            qqConnectConfigProperties.setProperty("qq_app_key", appKey);
-            qqConnectConfigProperties.setProperty("qq_callback_url", callbackUrl);
+            qqConnectConfigProperties.setProperty("qq_appId", appId);
+            qqConnectConfigProperties.setProperty("qq_appKey", appKey);
+            qqConnectConfigProperties.setProperty("qq_callbackUrl", callbackUrl);
         }
     }
 }

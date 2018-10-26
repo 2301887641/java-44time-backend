@@ -4,7 +4,7 @@ package com.time.social.common.bean;
  * 基类access token
  * @author suiguozhen on 18/10/23
  */
-public class BaseAccessToken {
+public class Token {
     private String accessToken;
     private String expireIn;
     private String refreshToken;

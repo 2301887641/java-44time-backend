@@ -8,7 +8,7 @@ import com.time.exception.enums.BaseEnum;
  *
  * @author suiguozhen on 18/10/18
  */
-public enum BusinessEnum implements BaseEnum {
+public enum BusinessExceptionEnum implements BaseEnum {
     /**
      * 属性文件打开失败
      */
@@ -19,7 +19,7 @@ public enum BusinessEnum implements BaseEnum {
     private Integer ordinal;
     private String label;
 
-    BusinessEnum(Integer ordinal, String label) {
+    BusinessExceptionEnum(Integer ordinal, String label) {
         this.ordinal = ordinal;
         this.label = label;
     }
