@@ -5,13 +5,13 @@ package com.time.social.common.bean;
  * @author suiguozhen on 18/10/26
  */
 public class UserInfo {
-    private String nickName;
+    private String nickname;
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

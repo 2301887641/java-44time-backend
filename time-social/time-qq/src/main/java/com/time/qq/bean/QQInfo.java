@@ -10,24 +10,23 @@ import com.time.social.common.bean.UserInfo;
 public class QQInfo extends UserInfo {
     private String ret;
     private String msg;
-    private String figureUrl;
-    private String figureUrl1;
-    private String figureUrl2;
-    private String figureUrlQQ1;
-    private String figureUrlQQ2;
+    private String is_lost;
+    private String province;
+    private String city;
+    private String year;
     private String gender;
+    private String constellation;
+    private String figureurl;
+    private String figureurl_1;
+    private String figureurl_2;
+    private String figureurl_qq_1;
+    private String figureurl_qq_2;
+    private String is_yellow_vip;
+    private String vip;
+    private String yellow_vip_level;
+    private String level;
+    private String is_yellow_year_vip;
 
-    public QQInfo(String ret, String msg, String nickName, String figureUrl, String figureUrl1, String figureUrl2, String figureUrlQQ1, String figureUrlQQ2, String gender) {
-        this.ret = ret;
-        this.msg = msg;
-        this.setNickName(nickName);
-        this.figureUrl = figureUrl;
-        this.figureUrl1 = figureUrl1;
-        this.figureUrl2 = figureUrl2;
-        this.figureUrlQQ1 = figureUrlQQ1;
-        this.figureUrlQQ2 = figureUrlQQ2;
-        this.gender = gender;
-    }
 
     public String getRet() {
         return ret;
@@ -45,44 +44,36 @@ public class QQInfo extends UserInfo {
         this.msg = msg;
     }
 
-    public String getFigureUrl() {
-        return figureUrl;
+    public String getIs_lost() {
+        return is_lost;
     }
 
-    public void setFigureUrl(String figureUrl) {
-        this.figureUrl = figureUrl;
+    public void setIs_lost(String is_lost) {
+        this.is_lost = is_lost;
     }
 
-    public String getFigureUrl1() {
-        return figureUrl1;
+    public String getProvince() {
+        return province;
     }
 
-    public void setFigureUrl1(String figureUrl1) {
-        this.figureUrl1 = figureUrl1;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    public String getFigureUrl2() {
-        return figureUrl2;
+    public String getCity() {
+        return city;
     }
 
-    public void setFigureUrl2(String figureUrl2) {
-        this.figureUrl2 = figureUrl2;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getFigureUrlQQ1() {
-        return figureUrlQQ1;
+    public String getYear() {
+        return year;
     }
 
-    public void setFigureUrlQQ1(String figureUrlQQ1) {
-        this.figureUrlQQ1 = figureUrlQQ1;
-    }
-
-    public String getFigureUrlQQ2() {
-        return figureUrlQQ2;
-    }
-
-    public void setFigureUrlQQ2(String figureUrlQQ2) {
-        this.figureUrlQQ2 = figureUrlQQ2;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getGender() {
@@ -91,5 +82,93 @@ public class QQInfo extends UserInfo {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
+    }
+
+    public String getFigureurl() {
+        return figureurl;
+    }
+
+    public void setFigureurl(String figureurl) {
+        this.figureurl = figureurl;
+    }
+
+    public String getFigureurl_1() {
+        return figureurl_1;
+    }
+
+    public void setFigureurl_1(String figureurl_1) {
+        this.figureurl_1 = figureurl_1;
+    }
+
+    public String getFigureurl_2() {
+        return figureurl_2;
+    }
+
+    public void setFigureurl_2(String figureurl_2) {
+        this.figureurl_2 = figureurl_2;
+    }
+
+    public String getFigureurl_qq_1() {
+        return figureurl_qq_1;
+    }
+
+    public void setFigureurl_qq_1(String figureurl_qq_1) {
+        this.figureurl_qq_1 = figureurl_qq_1;
+    }
+
+    public String getFigureurl_qq_2() {
+        return figureurl_qq_2;
+    }
+
+    public void setFigureurl_qq_2(String figureurl_qq_2) {
+        this.figureurl_qq_2 = figureurl_qq_2;
+    }
+
+    public String getIs_yellow_vip() {
+        return is_yellow_vip;
+    }
+
+    public void setIs_yellow_vip(String is_yellow_vip) {
+        this.is_yellow_vip = is_yellow_vip;
+    }
+
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) {
+        this.vip = vip;
+    }
+
+    public String getYellow_vip_level() {
+        return yellow_vip_level;
+    }
+
+    public void setYellow_vip_level(String yellow_vip_level) {
+        this.yellow_vip_level = yellow_vip_level;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getIs_yellow_year_vip() {
+        return is_yellow_year_vip;
+    }
+
+    public void setIs_yellow_year_vip(String is_yellow_year_vip) {
+        this.is_yellow_year_vip = is_yellow_year_vip;
     }
 }
