@@ -25,8 +25,8 @@ public class Oauth2LoginController {
 
     @RequestMapping("/login/qq")
     public void qqCallback(HttpServletRequest request){
-        AccessToken accessTokenByRequest = qqOauth.getOpenId(request);
-        System.out.println(accessTokenByRequest);
+        AccessToken accessToken = qqOauth.getOpenId(request);
+        qqOauth.getUserInfo(accessToken);
     }
 
 

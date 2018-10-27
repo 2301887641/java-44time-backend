@@ -1,8 +1,10 @@
 package com.time.qq.core;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.time.exception.core.BusinessException;
 import com.time.exception.core.ConsoleLogException;
 import com.time.qq.bean.AccessToken;
+import com.time.qq.bean.QQInfo;
 import com.time.qq.enums.BusinessExceptionEnum;
 import com.time.qq.enums.BusinessTypeEnum;
 import com.time.social.common.bean.Token;
@@ -10,11 +12,15 @@ import com.time.social.common.bean.UserInfo;
 import com.time.social.common.core.Oauth;
 import com.time.utils.core.HttpUrlConnectionUtils;
 import com.time.utils.core.StringUtils;
+import com.time.utils.enums.BusinessEnum;
+import jdk.nashorn.internal.parser.JSONParser;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.regex.Matcher;
 
@@ -124,17 +130,54 @@ public class QQOauth extends Oauth {
      * @return
      */
     @Override
-    public UserInfo getUserInfo(Token token) {
+    public QQInfo getUserInfo(Token token) {
         String openId = token.getOpenId();
-        Optional.ofNullable(openId).ifPresent(id ->
-                id = token.getUnionId()
-        );
-        String.format(
+        if (Objects.isNull(openId)) {
+            openId = token.getUnionId();
+        }
+        String userInfoUrl = String.format(
                 QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getUserInfoUrl"),
                 token.getAccessToken(),
                 QQConnectConfig.qqConnectConfigProperties.getProperty("qq_appId"),
-
-                );
+                openId
+        );
+        String result = HttpUrlConnectionUtils.get(userInfoUrl);
+        if (Objects.isNull(result)) {
+            throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION.getOrdinal(), "获取用户信息失败");
+        }
+        String retRegex="\"ret\": (0)";
+        Matcher matcher = StringUtils.matcher(retRegex, result);
+        if(!matcher.find()){
+            throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION,"返回用户信息失败");
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        QQInfo qqInfo=null;
+        try {
+             qqInfo = objectMapper.readValue(result, QQInfo.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //{
+        //    "ret": 0,
+        //    "msg": "",
+        //    "is_lost":0,
+        //    "nickname": "断肠人",
+        //    "gender": "男",
+        //    "province": "山东",
+        //    "city": "聊城",
+        //    "year": "1905",
+        //    "constellation": "",
+        //    "figureurl": "http:\/\/qzapp.qlogo.cn\/qzapp\/101440236\/025F59427C58E5BC55B37609393BB193\/30",
+        //    "figureurl_1": "http:\/\/qzapp.qlogo.cn\/qzapp\/101440236\/025F59427C58E5BC55B37609393BB193\/50",
+        //    "figureurl_2": "http:\/\/qzapp.qlogo.cn\/qzapp\/101440236\/025F59427C58E5BC55B37609393BB193\/100",
+        //    "figureurl_qq_1": "http:\/\/thirdqq.qlogo.cn\/qqapp\/101440236\/025F59427C58E5BC55B37609393BB193\/40",
+        //    "figureurl_qq_2": "http:\/\/thirdqq.qlogo.cn\/qqapp\/101440236\/025F59427C58E5BC55B37609393BB193\/100",
+        //    "is_yellow_vip": "0",
+        //    "vip": "0",
+        //    "yellow_vip_level": "0",
+        //    "level": "0",
+        //    "is_yellow_year_vip": "0"
+        //}
         return null;
     }
 
