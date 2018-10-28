@@ -8,18 +8,12 @@ import com.time.qq.bean.QQInfo;
 import com.time.qq.enums.BusinessExceptionEnum;
 import com.time.qq.enums.BusinessTypeEnum;
 import com.time.social.common.bean.Token;
-import com.time.social.common.bean.UserInfo;
 import com.time.social.common.core.Oauth;
 import com.time.utils.core.HttpUrlConnectionUtils;
 import com.time.utils.core.StringUtils;
-import com.time.utils.enums.BusinessEnum;
-import jdk.nashorn.internal.parser.JSONParser;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -49,11 +43,11 @@ public class QQOauth extends Oauth {
      */
     @Override
     public String getAuthorizeURL() {
-        Properties qqConnectConfigProperties = QQConnectConfig.qqConnectConfigProperties;
+        Properties qqConfigProperties = QQConnectConfig.qqConfigProperties;
         return "redirect:" + String.format(
-                qqConnectConfigProperties.getProperty("qq_redirectUrl"),
-                qqConnectConfigProperties.getProperty("qq_appId"),
-                qqConnectConfigProperties.getProperty("qq_callbackUrl")
+                qqConfigProperties.getProperty("qq_redirectUrl"),
+                qqConfigProperties.getProperty("qq_appId"),
+                qqConfigProperties.getProperty("qq_callbackUrl")
         );
     }
 
@@ -77,11 +71,11 @@ public class QQOauth extends Oauth {
             return new AccessToken();
         }
         String accessTokenUrl = String.format(
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_accessTokenUrl"),
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_appId"),
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_appKey"),
+                QQConnectConfig.qqConfigProperties.getProperty("qq_accessTokenUrl"),
+                QQConnectConfig.qqConfigProperties.getProperty("qq_appId"),
+                QQConnectConfig.qqConfigProperties.getProperty("qq_appKey"),
                 matcher.group(1),
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_callbackUrl")
+                QQConnectConfig.qqConfigProperties.getProperty("qq_callbackUrl")
         );
         String result = HttpUrlConnectionUtils.get(accessTokenUrl);
         if (Objects.isNull(result)) {
@@ -100,7 +94,7 @@ public class QQOauth extends Oauth {
         String regex = "\"openid\":\"(\\w+)\"";
         return validateAccessToken(
                 request,
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getOpenIDUrl"),
+                QQConnectConfig.qqConfigProperties.getProperty("qq_getOpenIDUrl"),
                 regex,
                 BusinessTypeEnum.OPENID
         );
@@ -117,7 +111,7 @@ public class QQOauth extends Oauth {
         String regex = "\"unionid\":\"(\\w+)\"";
         return validateAccessToken(
                 request,
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getUnionIdUrl"),
+                QQConnectConfig.qqConfigProperties.getProperty("qq_getUnionIdUrl"),
                 regex,
                 BusinessTypeEnum.UNIONID
         );
@@ -136,9 +130,9 @@ public class QQOauth extends Oauth {
             openId = token.getUnionId();
         }
         String userInfoUrl = String.format(
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_getUserInfoUrl"),
+                QQConnectConfig.qqConfigProperties.getProperty("qq_getUserInfoUrl"),
                 token.getAccessToken(),
-                QQConnectConfig.qqConnectConfigProperties.getProperty("qq_appId"),
+                QQConnectConfig.qqConfigProperties.getProperty("qq_appId"),
                 openId
         );
         String result = HttpUrlConnectionUtils.get(userInfoUrl);
@@ -150,35 +144,26 @@ public class QQOauth extends Oauth {
         if(!matcher.find()){
             throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION,"返回用户信息失败");
         }
+        return jsonConverEntity(result);
+    }
+
+    /**
+     * json转实体
+     * @param result
+     * @return
+     */
+    private QQInfo jsonConverEntity(String result){
         ObjectMapper objectMapper = new ObjectMapper();
-        QQInfo qqInfo=null;
+        QQInfo qqInfo;
         try {
-             qqInfo = objectMapper.readValue(result, QQInfo.class);
+            qqInfo = objectMapper.readValue(result, QQInfo.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION,"转换用户实体信息失败");
         }
-        //{
-        //    "ret": 0,
-        //    "msg": "",
-        //    "is_lost":0,
-        //    "nickname": "断肠人",
-        //    "gender": "男",
-        //    "province": "山东",
-        //    "city": "聊城",
-        //    "year": "1905",
-        //    "constellation": "",
-        //    "figureurl": "http:\/\/qzapp.qlogo.cn\/qzapp\/101440236\/025F59427C58E5BC55B37609393BB193\/30",
-        //    "figureurl_1": "http:\/\/qzapp.qlogo.cn\/qzapp\/101440236\/025F59427C58E5BC55B37609393BB193\/50",
-        //    "figureurl_2": "http:\/\/qzapp.qlogo.cn\/qzapp\/101440236\/025F59427C58E5BC55B37609393BB193\/100",
-        //    "figureurl_qq_1": "http:\/\/thirdqq.qlogo.cn\/qqapp\/101440236\/025F59427C58E5BC55B37609393BB193\/40",
-        //    "figureurl_qq_2": "http:\/\/thirdqq.qlogo.cn\/qqapp\/101440236\/025F59427C58E5BC55B37609393BB193\/100",
-        //    "is_yellow_vip": "0",
-        //    "vip": "0",
-        //    "yellow_vip_level": "0",
-        //    "level": "0",
-        //    "is_yellow_year_vip": "0"
-        //}
-        return null;
+        if(Objects.isNull(qqInfo)){
+            throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION,"转换用户实体信息失败");
+        }
+        return qqInfo;
     }
 
     /**
@@ -234,8 +219,8 @@ public class QQOauth extends Oauth {
      * 私有内部静态类 禁止外部访问
      */
     private static class QQConnectConfig {
-        //qqConnectionProperties属性
-        private static Properties qqConnectConfigProperties = new Properties();
+        //qqProperties属性
+        private static Properties qqConfigProperties = new Properties();
 
         /**
          * 加载properties配置文件 使用静态代码块
@@ -243,7 +228,7 @@ public class QQOauth extends Oauth {
          */
         static {
             try {
-                qqConnectConfigProperties.load((Thread.currentThread().getContextClassLoader().getResource("qqconnectconfig.properties")).openStream());
+                qqConfigProperties.load((Thread.currentThread().getContextClassLoader().getResource("qqconfig.properties")).openStream());
             } catch (IOException e) {
                 throw new BusinessException(BusinessExceptionEnum.IOEXCEPTION);
             }
@@ -257,9 +242,9 @@ public class QQOauth extends Oauth {
          * @param callbackUrl
          */
         private static void create(String appId, String appKey, String callbackUrl) {
-            qqConnectConfigProperties.setProperty("qq_appId", appId);
-            qqConnectConfigProperties.setProperty("qq_appKey", appKey);
-            qqConnectConfigProperties.setProperty("qq_callbackUrl", callbackUrl);
+            qqConfigProperties.setProperty("qq_appId", appId);
+            qqConfigProperties.setProperty("qq_appKey", appKey);
+            qqConfigProperties.setProperty("qq_callbackUrl", callbackUrl);
         }
     }
 }
