@@ -153,8 +153,14 @@ social:
     appSecret: 2120c92da16b34c1391e13b2de613983
     #回调地址
     callbackUrl: http://tong118.com/login/qq
-
-
+  #微信配置
+  wechat:
+    #appId
+    appId: wx9e9fbb29f715815a
+    #secret
+    appSecret: 3290ca5dbac5b5bc5d5fab501f1fda6b
+    #回调地址
+    callbackUrl: http://www.xiyuxiaguang.com/Home/Index/wxlogin
 
 
 #服务器配置

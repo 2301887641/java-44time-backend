@@ -3,7 +3,7 @@ package com.time.qq.core;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.time.exception.core.BusinessException;
 import com.time.exception.core.ConsoleLogException;
-import com.time.qq.bean.AccessToken;
+import com.time.qq.bean.QQAccessToken;
 import com.time.qq.bean.QQInfo;
 import com.time.social.common.bean.Token;
 import com.time.social.common.core.Oauth;
@@ -58,17 +58,17 @@ public class QQOauth extends Oauth {
      * @return
      */
     @Override
-    protected AccessToken getAccessTokenByRequest(HttpServletRequest request) {
+    protected QQAccessToken getAccessTokenByRequest(HttpServletRequest request) {
         //获取请求信息
         String queryString = request.getQueryString();
         if (Objects.isNull(queryString)) {
-            return new AccessToken();
+            return new QQAccessToken();
         }
         String regex = "code=(\\w+)&state=(\\w+)";
         Matcher matcher = StringUtils.matcher(regex, queryString);
         //没有匹配到分组
         if (!matcher.find()) {
-            return new AccessToken();
+            return new QQAccessToken();
         }
         String accessTokenUrl = String.format(
                 QQConnectConfig.qqConfigProperties.getProperty("qq_accessTokenUrl"),
@@ -79,7 +79,7 @@ public class QQOauth extends Oauth {
         );
         String result = HttpUrlConnectionUtils.get(accessTokenUrl);
         if (Objects.isNull(result)) {
-            return new AccessToken();
+            return new QQAccessToken();
         }
         return getForEntity(result);
     }
@@ -90,7 +90,7 @@ public class QQOauth extends Oauth {
      * @return
      */
     @Override
-    public AccessToken getOpenId(HttpServletRequest request) {
+    public QQAccessToken getOpenId(HttpServletRequest request) {
         String regex = "\"openid\":\"(\\w+)\"";
         return validateAccessToken(
                 request,
@@ -107,7 +107,7 @@ public class QQOauth extends Oauth {
      * @return
      */
     @Override
-    public AccessToken getUnionId(HttpServletRequest request) {
+    public QQAccessToken getUnionId(HttpServletRequest request) {
         String regex = "\"unionid\":\"(\\w+)\"";
         return validateAccessToken(
                 request,
@@ -175,9 +175,9 @@ public class QQOauth extends Oauth {
      * @param businessTypeEnum
      * @return
      */
-    private AccessToken validateAccessToken(HttpServletRequest request, String qqUrl, String regex, BusinessTypeEnum businessTypeEnum) {
-        AccessToken accessTokenEntity = getAccessTokenByRequest(request);
-        String accessToken = accessTokenEntity.getAccessToken();
+    private QQAccessToken validateAccessToken(HttpServletRequest request, String qqUrl, String regex, BusinessTypeEnum businessTypeEnum) {
+        QQAccessToken QQAccessTokenEntity = getAccessTokenByRequest(request);
+        String accessToken = QQAccessTokenEntity.getAccessToken();
         if (Objects.isNull(accessToken)) {
             throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION, "获取access token失败");
         }
@@ -193,11 +193,11 @@ public class QQOauth extends Oauth {
             throw new ConsoleLogException(BusinessExceptionEnum.DEFAULT_EXCEPTION.getOrdinal(), "匹配" + businessTypeEnum.getLabel() + "失败");
         }
         if (BusinessTypeEnum.OPENID.equals(businessTypeEnum)) {
-            accessTokenEntity.setOpenId(matcher.group(1));
+            QQAccessTokenEntity.setOpenId(matcher.group(1));
         } else {
-            accessTokenEntity.setUnionId(matcher.group(1));
+            QQAccessTokenEntity.setUnionId(matcher.group(1));
         }
-        return accessTokenEntity;
+        return QQAccessTokenEntity;
     }
 
     /**
@@ -206,13 +206,13 @@ public class QQOauth extends Oauth {
      * @param result
      * @return
      */
-    private AccessToken getForEntity(String result) {
+    private QQAccessToken getForEntity(String result) {
         String regex = "access_token=(\\w+)&expires_in=(\\d+)&refresh_token=(\\w+)";
         Matcher matcher = StringUtils.matcher(regex, result);
         if (matcher.find()) {
-            return new AccessToken(matcher.group(1), matcher.group(2), matcher.group(3));
+            return new QQAccessToken(matcher.group(1), matcher.group(2), matcher.group(3));
         }
-        return new AccessToken();
+        return new QQAccessToken();
     }
 
     /**

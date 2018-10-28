@@ -7,12 +7,12 @@ import com.time.social.common.bean.Token;
  *
  * @author suiguozhen on 18/10/23
  */
-public class AccessToken extends Token {
+public class QQAccessToken extends Token {
 
-    public AccessToken() {
+    public QQAccessToken() {
     }
 
-    public AccessToken(String accessToken, String expireIn, String refreshToken) {
+    public QQAccessToken(String accessToken, String expireIn, String refreshToken) {
         this.setAccessToken(accessToken);
         this.setExpireIn(expireIn);
         this.setRefreshToken(refreshToken);

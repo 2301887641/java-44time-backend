@@ -2,4 +2,5 @@ dependencies {
     //compile("com.time.article:time-security:1.0-SNAPSHOT")
     compile project(":time-security:time-security-browser")
     compile project(":time-social:time-qq")
+    compile project(":time-social:time-wechat")
 }
