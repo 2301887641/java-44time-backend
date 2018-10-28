@@ -1,4 +1,4 @@
-package com.time.qq.enums;
+package com.time.social.common.enums;
 
 import com.time.exception.enums.BaseEnum;
 

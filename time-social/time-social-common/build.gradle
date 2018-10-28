@@ -5,4 +5,5 @@ dependencies{
     compile "com.fasterxml.jackson.core:jackson-core"
     compile "com.fasterxml.jackson.core:jackson-annotations"
     compile "com.fasterxml.jackson.core:jackson-databind"
+    compile("com.time.article:time-utils:1.0-SNAPSHOT")
 }

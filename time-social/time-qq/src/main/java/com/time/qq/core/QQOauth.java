@@ -5,10 +5,10 @@ import com.time.exception.core.BusinessException;
 import com.time.exception.core.ConsoleLogException;
 import com.time.qq.bean.AccessToken;
 import com.time.qq.bean.QQInfo;
-import com.time.qq.enums.BusinessExceptionEnum;
-import com.time.qq.enums.BusinessTypeEnum;
 import com.time.social.common.bean.Token;
 import com.time.social.common.core.Oauth;
+import com.time.social.common.enums.BusinessExceptionEnum;
+import com.time.social.common.enums.BusinessTypeEnum;
 import com.time.utils.core.HttpUrlConnectionUtils;
 import com.time.utils.core.StringUtils;
 
@@ -42,7 +42,7 @@ public class QQOauth extends Oauth {
      * @return
      */
     @Override
-    public String getAuthorizeURL() {
+    public String getAuthorizeURL(HttpServletRequest request) {
         Properties qqConfigProperties = QQConnectConfig.qqConfigProperties;
         return "redirect:" + String.format(
                 qqConfigProperties.getProperty("qq_redirectUrl"),

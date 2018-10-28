@@ -16,7 +16,7 @@ public abstract class Oauth {
      *
      * @return
      */
-    public abstract String getAuthorizeURL();
+    public abstract String getAuthorizeURL(HttpServletRequest request);
 
     /**
      * 根据request获取access token
