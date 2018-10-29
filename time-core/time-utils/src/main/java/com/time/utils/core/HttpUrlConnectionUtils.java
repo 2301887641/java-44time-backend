@@ -72,6 +72,4 @@ public class HttpUrlConnectionUtils {
         }
         return result;
     }
-
-
 }

@@ -58,6 +58,7 @@ public class StringUtils {
      * @return
      */
     public static Matcher matcher(String regex, String content) {
+
         Pattern compile = Pattern.compile(regex);
         return compile.matcher(content);
     }

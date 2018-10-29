@@ -42,8 +42,8 @@ public class SocialLoginController {
 
     @RequestMapping("/Home/Index/wxlogin")
     public void wechatCallback(HttpServletRequest request){
-        QQAccessToken QQAccessToken = wechatOauth.getOpenId(request);
-         wechatOauth.getUserInfo(QQAccessToken);
+//        QQAccessToken QQAccessToken = wechatOauth.getOpenId(request);
+//         wechatOauth.getUserInfo(QQAccessToken);
 
     }
 

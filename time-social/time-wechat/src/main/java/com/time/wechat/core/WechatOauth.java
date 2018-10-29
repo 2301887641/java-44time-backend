@@ -5,6 +5,7 @@ import com.time.social.common.bean.Token;
 import com.time.social.common.bean.UserInfo;
 import com.time.social.common.core.Oauth;
 import com.time.social.common.enums.BusinessExceptionEnum;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class WechatOauth extends Oauth {
     @Override
     public String getAuthorizeURL(HttpServletRequest request) {
 
+        RandomStringUtils.random(7,)
         return String.format(
                 WechatConfig.wechatConfigProperties.getProperty("wechat_redirectUrl"),
                 WechatConfig.wechatConfigProperties.getProperty("wechat_appId"),

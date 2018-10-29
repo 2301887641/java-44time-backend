@@ -1,3 +1,8 @@
+// 变化模块为了在nexus中时时接收jar包
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
+}
+
 dependencies {
     //springboot
     compile 'org.springframework.boot:spring-boot-starter-web'
