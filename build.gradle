@@ -44,10 +44,18 @@ subprojects {
     configurations {
         all*.exclude group: 'javax.servlet', module: 'javax.servlet-api'
     }
-
-    // 变化模块为了在nexus中时时接收jar包
+    
+    //变化模块为了在nexus中时时接收snapshot jar包 发现这个插件效果没有应用到子项目里
+    dependencyManagement {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+        }
+    }
+    
+    //变化模块为了在nexus中时时接收snapshot jar包
     configurations.all {
-        resolutionStrategy.cacheChangingModulesFor 1, 'seconds'
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
     }
 
     //统一测试包

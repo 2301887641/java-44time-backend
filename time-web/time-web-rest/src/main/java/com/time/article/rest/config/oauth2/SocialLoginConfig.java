@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @author suiguozhen on 18/10/20
  */
 @Configuration
-public class SocialConfig {
+public class SocialLoginConfig {
 
     @Value("${social.qq.appId}")
     private String qqAppId;

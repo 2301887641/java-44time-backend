@@ -1,5 +1,6 @@
 package com.time.wechat.core;
 
+import com.time.exception.constant.ConstantPool;
 import com.time.exception.core.BusinessException;
 import com.time.social.common.bean.Token;
 import com.time.social.common.bean.UserInfo;
@@ -34,13 +35,13 @@ public class WechatOauth extends Oauth {
      */
     @Override
     public String getAuthorizeURL(HttpServletRequest request) {
-
-        RandomStringUtils.random(7,)
+        String random = RandomStringUtils.random(7, ConstantPool.CharSequence);
+        request.getSession().setAttribute("code",random);
         return String.format(
                 WechatConfig.wechatConfigProperties.getProperty("wechat_redirectUrl"),
                 WechatConfig.wechatConfigProperties.getProperty("wechat_appId"),
                 WechatConfig.wechatConfigProperties.getProperty("wechat_callbackUrl"),
-                WechatConfig.wechatConfigProperties.getProperty("")
+                random
                 );
     }
 
