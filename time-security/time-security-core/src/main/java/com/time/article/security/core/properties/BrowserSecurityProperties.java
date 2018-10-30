@@ -17,10 +17,6 @@ import lombok.Setter;
 @Setter
 public class BrowserSecurityProperties {
     /**
-     * 自定义登录页
-     */
-    private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
-    /**
      * 自定义登陆方式
      */
     private LoginTypeEnum loginType = LoginTypeEnum.REST;

@@ -25,7 +25,7 @@ public class BrowserSecurityController {
     @Autowired
     private SecurityProperties securityProperties;
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
+
 
     /**
      * 登陆页面转发 get请求重定向跳转 rest返回401请求

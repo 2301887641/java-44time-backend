@@ -94,7 +94,6 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
                         "/add2",
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
                         "/social/user",
                         "/user/qqRegistion"
