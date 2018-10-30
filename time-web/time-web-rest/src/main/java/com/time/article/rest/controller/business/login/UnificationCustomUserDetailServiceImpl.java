@@ -22,7 +22,7 @@ import java.util.Objects;
  * @author suiguozhen on 18/09/12
  */
 @Component("unificationUserDetailService")
-public class UnificationCustomUserDetailServiceImpl implements CustomUserDetailsService, SocialUserDetailsService {
+public class UnificationCustomUserDetailServiceImpl implements CustomUserDetailsService{
 
     @Autowired
     private UserService userService;
@@ -61,18 +61,6 @@ public class UnificationCustomUserDetailServiceImpl implements CustomUserDetails
                 true,
                 AuthorityUtils.NO_AUTHORITIES
         );
-    }
-
-    /**
-     * 社交登陆需要根据用户名进行查询账号
-     *
-     * @param userId
-     * @return
-     * @throws UsernameNotFoundException
-     */
-    @Override
-    public SocialUserDetails loadUserByUserId(String userId) {
-        return (SocialUserDetails) loadUser(userId);
     }
 
     /**

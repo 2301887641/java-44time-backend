@@ -16,7 +16,7 @@ import java.util.Objects;
  * 短信验证码处理器
  * @author suiguozhen on 18/09/30
  */
-@Component("smsProcessor")
+//@Component("smsProcessor")
 public class SmsProcessor extends AbstractVerificationCodeProcessor<Sms> {
 
     @Autowired

@@ -17,7 +17,7 @@ import java.io.IOException;
  * form表单自定义登陆错误处理
  * @author suiguozhen on 18/09/21
  */
-@Component
+//@Component
 public class UnificationAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     /**手工转换json*/
     @Autowired

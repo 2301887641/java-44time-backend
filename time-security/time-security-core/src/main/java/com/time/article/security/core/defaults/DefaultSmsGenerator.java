@@ -12,7 +12,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * 短信码
  * @author suiguozhen on 18/09/29
  */
-@Component("smsGenerator")
+//@Component("smsGenerator")
 public class DefaultSmsGenerator extends AbstractCodeGenerator {
 
     @Autowired

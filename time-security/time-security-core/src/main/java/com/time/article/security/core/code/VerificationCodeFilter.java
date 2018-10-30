@@ -30,7 +30,7 @@ import java.util.Set;
  *
  * @author suiguozhen on 18/10/05
  */
-@Component
+//@Component
 public class VerificationCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     @Autowired

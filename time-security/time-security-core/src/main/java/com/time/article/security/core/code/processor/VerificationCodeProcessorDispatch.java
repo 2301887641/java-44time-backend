@@ -14,7 +14,7 @@ import java.util.Objects;
  *  验证码处理器的分发器
  * @author suiguozhen on 18/10/03
  */
-@Component
+//@Component
 public class VerificationCodeProcessorDispatch {
 
     @Autowired

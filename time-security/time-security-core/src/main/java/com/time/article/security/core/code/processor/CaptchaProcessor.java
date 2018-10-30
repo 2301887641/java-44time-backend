@@ -12,7 +12,7 @@ import java.io.IOException;
  * 图形验证码处理器
  * @author suiguozhen on 18/09/30
  */
-@Component("captchaProcessor")
+//@Component("captchaProcessor")
 public class CaptchaProcessor extends AbstractVerificationCodeProcessor<Captcha> {
 
     @Override

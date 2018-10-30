@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * 俩模块都需要引这个类
  * @author suiguozhen on 18/10/04
  */
-@Component
+//@Component
 public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired

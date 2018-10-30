@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author suiguozhen on 18/09/21
  */
-@Controller
+//@Controller
 public class VerificationCodeController {
 
     @Autowired

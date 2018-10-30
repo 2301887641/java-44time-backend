@@ -26,8 +26,8 @@ import javax.sql.DataSource;
  *
  * @author suiguozhen on 18/09/12
  */
-@Configuration
-@EnableConfigurationProperties(SecurityProperties.class)
+//@Configuration
+//@EnableConfigurationProperties(SecurityProperties.class)
 public class BrowserSecurityConfig extends LoginSecurityConfig {
     /**
      * 安全配置属性
@@ -125,11 +125,5 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
         return jdbcTokenRepository;
     }
 
-    /**
-     * 密码加密处理类 让security验证密码 可以实现自己的MD5等
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }

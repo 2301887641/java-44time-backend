@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author suiguozhen on 18/06/06
  */
-@Configuration
+//@Configuration
 public class VerificationCodeConfig {
 
     /**

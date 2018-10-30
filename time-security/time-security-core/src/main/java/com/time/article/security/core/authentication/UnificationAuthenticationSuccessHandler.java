@@ -17,7 +17,7 @@ import java.io.IOException;
  * 自定义登陆成功处理
  * @author suiguozhen on 18/09/20
  */
-@Component
+//@Component
 public class UnificationAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     @Autowired
     private ObjectMapper objectMapper;

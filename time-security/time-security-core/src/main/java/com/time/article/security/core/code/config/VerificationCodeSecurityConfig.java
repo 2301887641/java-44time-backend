@@ -13,7 +13,7 @@ import javax.servlet.Filter;
  * 统一验证码验证过滤器配置
  * @author suiguozhen on 18/10/05
  */
-@Component
+//@Component
 public class VerificationCodeSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired

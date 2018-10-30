@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "custom.security")
+//@ConfigurationProperties(prefix = "custom.security")
 public class SecurityProperties {
     /**
      * browser安全属性

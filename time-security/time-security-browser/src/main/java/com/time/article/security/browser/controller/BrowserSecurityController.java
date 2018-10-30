@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author suiguozhen on 18/09/17
  */
-@Controller
+//@Controller
 @Slf4j
 public class BrowserSecurityController {
 
