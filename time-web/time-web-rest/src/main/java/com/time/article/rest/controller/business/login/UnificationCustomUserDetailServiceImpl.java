@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 /**
- * 全局统一用户认证 处理用户表单、手机号、第三方登陆
+ * 全局统一用户认证 处理用户表单、手机号
  *
  * @author suiguozhen on 18/09/12
  */

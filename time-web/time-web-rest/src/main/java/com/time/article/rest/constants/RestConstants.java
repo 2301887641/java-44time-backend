@@ -6,10 +6,9 @@ package com.time.article.rest.constants;
  * @author suiguozhen on 18/07/10
  */
 public interface RestConstants {
-    /**
-     * session
-     */
-    String SESSION_USER_ID = "userId";
+
+
+
     /**
      * aop记录日志
      */
