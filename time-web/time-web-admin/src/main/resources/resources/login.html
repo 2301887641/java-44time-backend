@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login-login-custom</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/common/reset.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>登陆-login</title>
 </head>
 <body>
-<p th:text="${session.error}"></p>
-<form action="/authentication/form" method="post">
-    用户名: <input type="text" name="username"><br/>
-    密码: <input type="password" name="password"><br/>
-    图片验证码: <input type="text" name="captcha"><img src="/code/captcha" ><br/>
-    记住我 <input type="checkbox" name="remember-me" checked><br/>
-    <a href="/login/qq" target="_blank">qq登陆</a><br/>
-    <a href="/Home/Index/wxlogin" target="_blank">微信登陆</a><br/>
-    <button type="submit">登陆</button>
-</form>
-<form action="/authentication/mobile" method="post">
-    手机号: <input type="text" name="mobile" value="15863549041"><br/>
-    验证码: <input type="text" name="sms">
-    <a href="/code/sms?mobile2=15863549041">发送短信验证码</a>
-    <button type="submit">登陆</button>
-</form>
+
+
+
+
 </body>
 </html>

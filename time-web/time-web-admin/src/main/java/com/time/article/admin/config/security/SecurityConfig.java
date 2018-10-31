@@ -28,7 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM).
                and().
                authorizeRequests().
-               antMatchers(SecurityConstants.DEFAULT_LOGIN_PAGE_URL).permitAll().
+               antMatchers(
+                       SecurityConstants.DEFAULT_LOGIN_PAGE_URL,
+                       SecurityConstants.DEFAULT_RESOURCE_CSS,
+                       SecurityConstants.DEFAULT_RESOURCE_IMG
+               ).permitAll().
                anyRequest().
                authenticated().
                and().

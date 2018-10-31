@@ -2,6 +2,7 @@ package com.time.article.admin.constants;
 
 /**
  * 安全常量配置
+ *
  * @author suiguozhen on 18/10/31
  */
 public interface SecurityConstants {
@@ -13,4 +14,12 @@ public interface SecurityConstants {
      * 默认登录页面
      */
     public static final String DEFAULT_LOGIN_PAGE_URL = "/login.html";
+    /**
+     * css
+     */
+    public static final String DEFAULT_RESOURCE_CSS = "/css/**";
+    /**
+     * img
+     */
+    public static final String DEFAULT_RESOURCE_IMG = "/img/**";
 }
