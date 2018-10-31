@@ -1,6 +1,6 @@
-package com.time.article.rest.config.security;
+package com.time.article.admin.config.security;
 
-import com.time.article.rest.constants.SecurityConstants;
+import com.time.article.admin.constants.SecurityConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM).
                and().
                authorizeRequests().
-//               antMatchers(SecurityConstants.DEFAULT_LOGIN_PAGE_URL).permitAll(). //rest不允许登陆页面
+               antMatchers(SecurityConstants.DEFAULT_LOGIN_PAGE_URL).permitAll().
                anyRequest().
                authenticated().
                and().

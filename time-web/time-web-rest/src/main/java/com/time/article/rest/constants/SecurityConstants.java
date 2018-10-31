@@ -10,9 +10,9 @@ public interface SecurityConstants {
      */
     public static final String DEFAULT_LOGIN_PROCESSING_URL_FORM = "/authentication/form";
     /**
-     * 登录页面
+     * 登录页面 rest只能返回401 因为有默认访问页面相当于没有保护
      */
-    public static final String DEFAULT_LOGIN_PAGE_URL = "/login.html";
+    public static final String DEFAULT_LOGIN_PAGE_URL = "/authentication/require";
     /**
      * 默认的手机验证码登录请求处理url
      */
@@ -33,5 +33,4 @@ public interface SecurityConstants {
      * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
      */
     public static final String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
-
 }

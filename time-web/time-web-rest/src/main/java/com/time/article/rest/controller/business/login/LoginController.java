@@ -27,25 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class LoginController {
 
-    /**
-     * 缓存request
-     */
-    private RequestCache requestCache = new HttpSessionRequestCache();
-
-    /**
-     * 登陆处理 如果是rest返回401 否则跳到登陆页面
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping("/login")
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public Result login(HttpServletRequest request, HttpServletResponse response){
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-        if (savedRequest != null) {
-            String targetUrl = savedRequest.getRedirectUrl();
-        }
-        return Result.failed("没有权限");
+    @RequestMapping("/authentication/require")
+    public Result require(){
+        return Result.failed("it seems to be disabled");
     }
 
     @RequestMapping("/")
