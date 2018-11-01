@@ -22,4 +22,8 @@ public interface SecurityConstants {
      * img
      */
     public static final String DEFAULT_RESOURCE_IMG = "/img/**";
+    /**
+     * js
+     */
+    public static final String DEFAULT_RESOURCE_JS="/js/**";
 }

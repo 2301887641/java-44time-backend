@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                antMatchers(
                        SecurityConstants.DEFAULT_LOGIN_PAGE_URL,
                        SecurityConstants.DEFAULT_RESOURCE_CSS,
-                       SecurityConstants.DEFAULT_RESOURCE_IMG
+                       SecurityConstants.DEFAULT_RESOURCE_IMG,
+                       SecurityConstants.DEFAULT_RESOURCE_JS
                ).permitAll().
                anyRequest().
                authenticated().
