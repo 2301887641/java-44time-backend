@@ -3,28 +3,42 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/business/login.css">
     <title>登陆-login</title>
     <link rel="stylesheet" href="/js/plugin/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/plugin/fontawesome/css/fontawesome.css">
 </head>
-<body>
-    <div id="login">
+<body class="text-center">
+<form>
+    <div class="form-row align-items-center">
         <div class="logo">
-            <a href="/index">
-                <img src="/img/login_logo.png" alt="图像">
+            <a href="/">
+                <img src="/img/login_logo.png" class="img-fluid"/>
             </a>
         </div>
-        <div class="content">
-            <p>
-                <input type="text" name="username">
-            </p>
-            <p>
-                <input type="text" name="password">
-            </p>
+        <div class="col-auto">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-user-circle"></i></div>
+                </div>
+                <input type="text" class="form-control" placeholder="用户名">
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
+                </div>
+                <input type="text" class="form-control" placeholder="密码">
+            </div>
         </div>
     </div>
-</body>
-</html>
+</form>
 <script src="/js/plugin/jquery/jq.js"></script>
 <script src="/js/plugin/particleground/particleground.min.js"></script>
 <script src="/js/business/login.js"></script>
+<script src="/js/plugin/bootstrap/js/popper.min.js"></script>
+<script src="/js/plugin/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
+
