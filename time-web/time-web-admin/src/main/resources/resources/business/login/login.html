@@ -1,35 +1,49 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/css/business/login.css">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>登陆-login</title>
+    <link rel="stylesheet" href="/css/business/login.css">
     <link rel="stylesheet" href="/js/plugin/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/plugin/fontawesome/css/fontawesome.css">
 </head>
 <body class="text-center">
-<form>
-    <div class="form-row align-items-center">
-        <div class="logo">
-            <a href="/">
+<form class="p-2">
+    <div class="form-row">
+        <!--logo-->
+        <div class="logo text-center mb-5 w-100">
+            <a class="dispatcher d-block m-auto" href="/">
                 <img src="/img/login_logo.png" class="img-fluid"/>
             </a>
         </div>
-        <div class="col-auto">
+        <!--用户名-->
+        <div class="col-12 mb-3">
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fa fa-user-circle"></i></div>
+                    <div class="input-group-text"><i class="fa fa-user"></i></div>
                 </div>
                 <input type="text" class="form-control" placeholder="用户名">
             </div>
         </div>
-        <div class="col-auto">
+        <!--密码-->
+        <div class="col-12 mb-3">
             <div class="input-group mb-2">
                 <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
+                    <div class="input-group-text"><i class="fa fa-key"></i></div>
                 </div>
                 <input type="text" class="form-control" placeholder="密码">
+            </div>
+        </div>
+        <!--按钮-->
+        <div class="col-12">
+            <div class="input-group mb-2">
+                <button type="button" id="submit" class="btn btn-lg btn-danger btn-block">
+                    <i class="fa fa-user-circle"></i>
+                    登陆
+                </button>
             </div>
         </div>
     </div>

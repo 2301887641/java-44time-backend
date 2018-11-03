@@ -158,7 +158,7 @@ server:
     enabled: true
   #http端口
   http:
-    port: 8099
+    port: 8900
 
 ###################### profile启用设置 #########################
 profile:

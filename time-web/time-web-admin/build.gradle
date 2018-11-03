@@ -3,4 +3,8 @@ dependencies {
     compile project(":time-security:time-security-browser")
     compile project(":time-social:time-qq")
     compile project(":time-social:time-wechat")
+    //thymeleaf模板
+    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+    //nekohtml使thymeleaf不按照严格模式解析模板
+    compile "net.sourceforge.nekohtml:nekohtml"
 }

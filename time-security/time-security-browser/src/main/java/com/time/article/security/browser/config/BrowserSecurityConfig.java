@@ -101,8 +101,7 @@ public class BrowserSecurityConfig extends LoginSecurityConfig {
                 anyRequest().
                 authenticated().
                 and().
-                cors().and().
-                csrf().disable();
+                cors().and();
     }
 
     @Bean

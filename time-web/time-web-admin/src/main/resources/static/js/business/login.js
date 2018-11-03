@@ -1,4 +1,4 @@
-// $(background)
+$(background)
 
 //粒子背景特效
 function background(){

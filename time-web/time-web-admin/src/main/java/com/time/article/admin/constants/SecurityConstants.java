@@ -13,7 +13,7 @@ public interface SecurityConstants {
     /**
      * 默认登录页面
      */
-    public static final String DEFAULT_LOGIN_PAGE_URL = "/login.html";
+    public static final String DEFAULT_LOGIN_PAGE_URL = "/login";
     /**
      * css
      */

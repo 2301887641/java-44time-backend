@@ -4,18 +4,25 @@ html {
     overflow: hidden;
 }
 body{
-    display:flex;
-    align-items: center;
+    width:100%;
     height:100%;
     background:url("/img/login_bg.jpg");
     background-size: cover;
+    position: relative;
 }
 form{
-    max-width:20rem;
+    max-width:22rem;
     width:100%;
-    background:red;
-    margin:auto;
+    position:absolute;
+    margin:-11rem 0 0 -11rem;
+    top:43%;
+    left:50%;
 }
-.logo img{
-    width:52%;
+.logo{
+    width:100%;
+    height:100%;
+}
+.logo .dispatcher,.logo img{
+    width:6.8rem;
+    height:5.4rem;
 }
