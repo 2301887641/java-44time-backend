@@ -1,4 +1,4 @@
-(function ($, w, u, King, ConstantsPool) {
+(function ($, w, King, ConstantsPool) {
     King.utils = {
         //判断是否是对象
         isObject: function (obj = {}) {
@@ -111,7 +111,7 @@
      * @param cors
      */
     King.post = function (url, data, callback, cors = false) {
-        let option = King.option({body:data,method:"POST"})
+        let option = King.option({body: data, method: "POST"})
         if (cors) {
             option.mode = "cors"
         }
@@ -130,4 +130,4 @@
             console.log(error.response)
         })
     }
-})($, window, undefined, King, ConstantsPool);
+})($, window, King, ConstantsPool);
