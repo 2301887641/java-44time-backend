@@ -19,7 +19,10 @@ function background() {
 const descriptor = {
     username: [{
         required: true,
-        message: "请输入姓名"
+        message: "请输入姓名",
+        focus:false,
+        regex:/xcvzxc/,
+        callback:()=>{}
     }],
     password: [{
         required: true,
@@ -27,8 +30,8 @@ const descriptor = {
     }]
 }
 
+let validate = new Validate(descriptor)
 $("#submit").click(() => {
-    let validate = new Validate(descriptor)
     validate.verify(loginForm,(error,filed)=>{
         console.log(error)
     })

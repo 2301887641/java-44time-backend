@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/business/login.css">
     <link rel="stylesheet" href="/js/plugin/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/plugin/fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="/css/common/common.css">
 </head>
 <body class="text-center">
 <form name="loginForm" class="p-2">
@@ -21,12 +22,14 @@
         </div>
         <!--用户名-->
         <div class="col-12 mb-3">
-            <div class="input-group mb-2">
+            <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-user"></i></div>
                 </div>
-                <input type="text" class="form-control" placeholder="用户名">
+                <input type="text" name="username" class="form-control" placeholder="用户名">
             </div>
+            <!--错误信息-->
+            <div class="error-notice username-error-notice"></div>
         </div>
         <!--密码-->
         <div class="col-12 mb-3">
@@ -34,8 +37,10 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-key"></i></div>
                 </div>
-                <input type="text" class="form-control" placeholder="密码">
+                <input type="text" name="password" class="form-control" placeholder="密码">
             </div>
+            <!--错误信息-->
+            <div class="error-notice password-error-notice"></div>
         </div>
         <!--按钮-->
         <div class="col-12">
