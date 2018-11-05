@@ -1,6 +1,8 @@
 (function ($, w, King) {
     const ConstantsPool = {
-        REQUIRE_OBJECT: "请传递对象"
+        classConstant:{
+            errorClass:"-error-notice"
+        }
 
 
     }

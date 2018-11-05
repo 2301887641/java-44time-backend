@@ -20,19 +20,22 @@ const descriptor = {
     username: [{
         required: true,
         message: "请输入姓名",
-        focus:false,
-        regex:/xcvzxc/,
-        callback:()=>{}
+        regex: /xcvzxc/,
+        callback: () => {
+        }
     }],
-    password: [{
+    password: {
         required: true,
-        message: "请输入密码"
-    }]
+        message: "请输入姓名",
+        regex: /xcvzxc/,
+        callback: () => {
+        }
+    }
 }
 
-let validate = new Validate(descriptor)
+let validate = new Validate(descriptor, loginForm, (error, filed) => {
+    console.log(error)
+})
 $("#submit").click(() => {
-    validate.verify(loginForm,(error,filed)=>{
-        console.log(error)
-    })
+    validate.verify()
 });
