@@ -15,17 +15,17 @@
 
     }
     //发布订阅模式
-    King.observer = {
+    King.observer = function () {
         //缓存列表
-        clientList: [],
+        this.clientList = []
         //订阅函数
-        listen: function (key, fn) {
+        King.observer.prototype.listen = function (key, fn) {
             if (!this.clientList[key])
                 this.clientList[key] = [];
             this.clientList[key].push(fn);
-        },
+        }
         //发布函数
-        troggle: function () {
+        King.observer.prototype.troggle = function () {
             let key = Array.prototype.shift.call(arguments);
             fns = this.clientList[key];
             if (!fns || fns.length === 0)
@@ -33,9 +33,9 @@
             for (let i = 0, fn; fn = fns[i++];) {
                 fn.apply(this, arguments);
             }
-        },
+        }
         //删除函数
-        remove: function (key, fn) {
+        King.observer.prototype.remove = function (key, fn) {
             let fns = this.clientList[key];
             if (!fns || fns.length === 0)
                 return false;
