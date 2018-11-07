@@ -20,9 +20,11 @@ const descriptor = {
     username: [{
         required: true,
         message: "请输入姓名",
-        regex: /xcvzxc/,
         callback: () => {
         }
+    }, {
+        regex: /xcvzxc/,
+        message: "姓名格式不对"
     }],
     password: {
         required: true,
