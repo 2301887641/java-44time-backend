@@ -1,7 +1,10 @@
-(function(w,$){
-    King=function(){
+export const King = function () {
 
-    }
+}
+King.URL = {
+    LOGIN: "/login"
+}
+King.ConstantsPool = {
 
-w.King=new King();
-})(window,$);
+
+}

@@ -17,21 +17,13 @@ function background() {
 }
 
 const descriptor = {
-    username: [{
+    username: {
         required: true,
-        message: "请输入姓名",
-        callback: () => {
-        }
-    }, {
-        regex: /xcvzxc/,
-        message: "姓名格式不对"
-    }],
+        message: "请输入账号"
+    },
     password: {
         required: true,
-        message: "请输入密码",
-        regex: /xcvzxc/,
-        callback: () => {
-        }
+        message: "请输入密码"
     }
 }
 
@@ -39,7 +31,7 @@ let validate = new Validate(descriptor, loginForm, (error, filed) => {
     console.log(error)
 })
 $("#submit").click(() => {
-    if(validate.verify()){
-
+    if (validate.verify()) {
+        King.post()
     }
 });
