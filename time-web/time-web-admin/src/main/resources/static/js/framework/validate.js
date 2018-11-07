@@ -7,16 +7,16 @@
      * @constructor
      */
     function Validate(descriptor, formName, callback) {
+        //form表单名称
         this.formName = formName
+        //校验规则
         this.descriptor = descriptor
         //创建监听器对象
         this.observer = new King.observer()
         //错误数量
         this.errorNum = 0
-        //常用属性设置
-        this.attribute = {
-            isBlur: true
-        }
+        //确定错误状态 是否可以发送表单
+        this.isError = false
         //监听发布订阅
         this.listen()
         //默认提供规则
@@ -30,11 +30,17 @@
             //回调
             callback: null
         }
-        //input的事件集合 存放
-        this.inputEventMap = new Map()
         //事件集合
         this.events = new Map()
+        //鼠标移开为空验证 用于点击确认按钮后验证
+        this.blurEmptyVerify = false
+        //鼠标事件
         this.blur()
+    }
+
+    //常量池
+    Validate.ConstansPool = {
+        errorClass: "-error-notice"
     }
 
     Validate.fn = Validate.prototype = {
@@ -42,36 +48,45 @@
         //删除对象的事件信息
         deleteEvents: function (key) {
             let event = this.events.get(key)
-            if (event) {
-                this.events.delete(event)
-            }
+            !!event && this.events.delete(event)
         },
+        /**
+         * 监听器
+         */
         listen: function () {
+            //内置工具类
             function InnerUtils(inputName) {
             }
 
             InnerUtils.prototype = {
                 //构建className
                 buildClass: function (inputName) {
-                    return "." + inputName + ConstantsPool.classConstant.errorClass
+                    return "." + inputName + Validate.ConstansPool.errorClass
                 }
             }
             let InnerUtil = new InnerUtils(), that = this, fn;
+            //监听必填
             this.observer.listen("required", fn = function (ele, inputName, descriptor) {
                 if (King.utils.isEmptyString($(ele).val())) {
+                    that.isError = true
                     $(InnerUtil.buildClass(inputName)).html(descriptor.message)
                 }
             })
+            //监听正则
             this.observer.listen("regex", fn = function (ele, inputName, descriptor) {
                 let content = $(ele).val()
                 if (!King.utils.isEmptyString(content) && !descriptor.regex.test(content)) {
+                    that.isError = true
                     $(InnerUtil.buildClass(inputName)).html(descriptor.message)
-                } else {
+                } else{
+                    that.isError = false
                     $(InnerUtil.buildClass(inputName)).html("")
                 }
             })
         },
-        //鼠标移出事件
+        /**
+         * 添加鼠标移出事件
+         */
         blur: function () {
             //将form中的input转换为数组
             let forms = Array.from(this.formName.elements), eleName, even, fn, descriptor, that = this;
@@ -92,27 +107,37 @@
                 }
             }
         },
-        troggle: function (element, isRequered, isEmpty) {
+        /**
+         * 触发
+         * @param element    元素
+         * @param isRequired  是否校验必填
+         * @param blurEmptyVerify  鼠标移入移出可否为空 可用在按钮提交
+         * @returns {*|boolean}
+         */
+        troggle: function (element, isRequired, blurEmptyVerify) {
+            //点击按钮后 鼠标对第一个框的校验一直保留
+            if (blurEmptyVerify) {
+                this.blurEmptyVerify = true
+            }
             let descriptor = this.events.get(element).descriptor, rule = {}
             //单个验证
             if (King.utils.isObject(descriptor)) {
-                return this.objectAssign(element, isRequered, isEmpty)
+                return this.objectAssign(element, isRequired)
             } else if (Array.isArray(descriptor)) {
                 //是数组的话
-                return this.arrAssign(element, isRequered, isEmpty)
+                return this.arrAssign(element, isRequired)
             }
         },
         /**
          * 规则为单个对象的校验
          * @param element  表单里面的元素
          * @param isRequered  是否校验必填
-         * @param isEmpty   鼠标移入移出可否为空 可用在按钮提交
          * @returns {boolean}
          */
-        objectAssign: function (element, isRequered, isEmpty) {
+        objectAssign: function (element, isRequered) {
             let descriptor = this.events.get(element).descriptor, rule = {}
             Object.assign(rule, this.rules, descriptor)
-            if (rule.required && isRequered && isEmpty) {
+            if (rule.required && isRequered) {
                 this.observer.troggle("required", element, element.name, descriptor)
                 return true
             }
@@ -129,12 +154,12 @@
          * @param isEmpty   鼠标移入移出可否为空 可用在按钮提交
          * @returns {boolean}
          */
-        arrAssign: function (element, isRequered, isEmpty) {
+        arrAssign: function (element, isRequered) {
             let descriptor = this.events.get(element).descriptor, rule = {}
             //是数组的话
             for (let item of descriptor) {
                 Object.assign(rule, this.rules, item)
-                if (rule.required && isRequered && isEmpty) {
+                if (rule.required && isRequered) {
                     this.observer.troggle("required", element, element.name, item)
                     return true
                 }
@@ -149,17 +174,17 @@
         //点击表单触发
         verify: function () {
             //将form中的input转换为数组
-            let forms = Array.from(this.formName.elements), eleName, descriptor, that = this;
+            let forms = Array.from(this.formName.elements), eleName, descriptor;
             for (let i of forms) {
                 eleName = i.name, descriptor = this.descriptor[eleName];
                 //如果input有name属性 并且 验证因子里面也有的话
                 if (eleName && descriptor) {
-                    console.log(that.events.size)
-                    if (that.troggle(i, true, true)) {
+                    if (this.troggle(i, true, true)) {
                         break;
                     }
                 }
             }
+            return this.isError
         }
     }
     //验证是否通过

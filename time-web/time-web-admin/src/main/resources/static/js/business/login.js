@@ -39,5 +39,7 @@ let validate = new Validate(descriptor, loginForm, (error, filed) => {
     console.log(error)
 })
 $("#submit").click(() => {
-    validate.verify()
+    if(validate.verify()){
+
+    }
 });
