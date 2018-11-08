@@ -1,4 +1,6 @@
-(function ($, w, King, ConstantsPool) {
+    import King from './framework'
+    import $ from '../plugin/jquery/jq'
+
     /**
      * 构造函数
      * @param descriptor  校验器
@@ -6,7 +8,7 @@
      * @param callback    回调函数
      * @constructor
      */
-    function Validate(descriptor, formName, callback) {
+   export function Validate(descriptor, formName, callback) {
         //form表单名称
         this.formName = formName
         //校验规则
@@ -187,6 +189,3 @@
             return this.isError
         }
     }
-    //验证是否通过
-    w.Validate = Validate
-})($, window, King, ConstantsPool)
