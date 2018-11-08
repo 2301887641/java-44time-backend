@@ -1,3 +1,4 @@
+import {Validate} from '../framework/validate.js'
 $(background)
 
 //粒子背景特效

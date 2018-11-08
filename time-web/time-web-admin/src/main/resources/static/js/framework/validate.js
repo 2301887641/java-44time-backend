@@ -1,6 +1,4 @@
-    import King from './framework'
-    import $ from '../plugin/jquery/jq'
-
+    import King from './king.js'
     /**
      * 构造函数
      * @param descriptor  校验器
@@ -8,7 +6,7 @@
      * @param callback    回调函数
      * @constructor
      */
-   export function Validate(descriptor, formName, callback) {
+     export   function Validate(descriptor, formName, callback) {
         //form表单名称
         this.formName = formName
         //校验规则
