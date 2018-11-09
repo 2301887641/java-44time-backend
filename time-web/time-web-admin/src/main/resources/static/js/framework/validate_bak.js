@@ -1,4 +1,4 @@
-    import King from './king.js'
+
     /**
      * 构造函数
      * @param descriptor  校验器
@@ -12,7 +12,7 @@
         //校验规则
         this.descriptor = descriptor
         //创建监听器对象
-        this.observer = new King.Observer()
+        this.observer = new Map()
         //错误数量
         this.errorNum = 0
         //确定错误状态 是否可以发送表单

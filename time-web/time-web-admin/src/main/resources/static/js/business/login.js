@@ -1,4 +1,4 @@
-import {Validate_bak} from '../framework/validate_bak.js'
+import {Validate} from '../framework/validate.js'
 $(background)
 
 //粒子背景特效
@@ -28,7 +28,7 @@ const descriptor = {
     }
 }
 
-let validate = new Validate_bak(descriptor, loginForm, (error, filed) => {
+let validate = new Validate(descriptor, loginForm, (error, filed) => {
     console.log(error)
 })
 $("#submit").click(() => {

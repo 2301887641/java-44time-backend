@@ -41,7 +41,7 @@ const King = {
             this.clientList[key].push(fn);
         }
         //发布函数
-        this.troggle = function () {
+        this.trigger = function () {
             let key = Array.prototype.shift.call(arguments);
             let fns = this.clientList[key];
             if (!fns || fns.length === 0)
