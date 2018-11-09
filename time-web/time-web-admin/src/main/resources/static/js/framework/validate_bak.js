@@ -6,13 +6,13 @@
      * @param callback    回调函数
      * @constructor
      */
-     export   function Validate(descriptor, formName, callback) {
+     export   function Validate_bak(descriptor, formName, callback) {
         //form表单名称
         this.formName = formName
         //校验规则
         this.descriptor = descriptor
         //创建监听器对象
-        this.observer = new King.observer()
+        this.observer = new King.Observer()
         //错误数量
         this.errorNum = 0
         //确定错误状态 是否可以发送表单
@@ -32,19 +32,17 @@
         }
         //事件集合
         this.events = new Map()
-        //鼠标移开为空验证 用于点击确认按钮后验证
-        this.blurEmptyVerify = false
         //鼠标事件
         this.blur()
     }
 
     //常量池
-    Validate.ConstansPool = {
+    Validate_bak.ConstansPool = {
         errorClass: "-error-notice"
     }
 
-    Validate.fn = Validate.prototype = {
-        constructor: Validate,
+    Validate_bak.fn = Validate_bak.prototype = {
+        constructor: Validate_bak,
         //删除对象的事件信息
         deleteEvents: function (key) {
             let event = this.events.get(key)
@@ -61,15 +59,17 @@
             InnerUtils.prototype = {
                 //构建className
                 buildClass: function (inputName) {
-                    return "." + inputName + Validate.ConstansPool.errorClass
+                    return "." + inputName + Validate_bak.ConstansPool.errorClass
                 }
             }
             let InnerUtil = new InnerUtils(), that = this, fn;
             //监听必填
             this.observer.listen("required", fn = function (ele, inputName, descriptor) {
-                if (King.utils.isEmptyString($(ele).val())) {
+                if (King.Utils.string.isEmpty($(ele).val())) {
                     that.isError = true
                     $(InnerUtil.buildClass(inputName)).html(descriptor.message)
+                }else{
+                    $(InnerUtil.buildClass(inputName)).html()
                 }
             })
             //监听正则
@@ -111,17 +111,12 @@
          * 触发
          * @param element    元素
          * @param isRequired  是否校验必填
-         * @param blurEmptyVerify  鼠标移入移出可否为空 可用在按钮提交
          * @returns {*|boolean}
          */
-        troggle: function (element, isRequired, blurEmptyVerify) {
-            //点击按钮后 鼠标对第一个框的校验一直保留
-            if (blurEmptyVerify) {
-                this.blurEmptyVerify = true
-            }
+        troggle: function (element, isRequired) {
             let descriptor = this.events.get(element).descriptor, rule = {}
             //单个验证
-            if (King.utils.isObject(descriptor)) {
+            if (King.Utils.object.isObject(descriptor)) {
                 return this.objectAssign(element, isRequired)
             } else if (Array.isArray(descriptor)) {
                 //是数组的话
@@ -131,13 +126,13 @@
         /**
          * 规则为单个对象的校验
          * @param element  表单里面的元素
-         * @param isRequered  是否校验必填
+         * @param isRequired  是否校验必填
          * @returns {boolean}
          */
-        objectAssign: function (element, isRequered) {
+        objectAssign: function (element, isRequired) {
             let descriptor = this.events.get(element).descriptor, rule = {}
             Object.assign(rule, this.rules, descriptor)
-            if (rule.required && isRequered) {
+            if (rule.required && isRequired) {
                 this.observer.troggle("required", element, element.name, descriptor)
                 return true
             }
@@ -150,16 +145,16 @@
         /**
          *  规则为数组的校验
          * @param element  表单里面的元素
-         * @param isRequered  是否校验必填
+         * @param isRequired  是否校验必填
          * @param isEmpty   鼠标移入移出可否为空 可用在按钮提交
          * @returns {boolean}
          */
-        arrAssign: function (element, isRequered) {
+        arrAssign: function (element, isRequired) {
             let descriptor = this.events.get(element).descriptor, rule = {}
             //是数组的话
             for (let item of descriptor) {
                 Object.assign(rule, this.rules, item)
-                if (rule.required && isRequered) {
+                if (rule.required && isRequired) {
                     this.observer.troggle("required", element, element.name, item)
                     return true
                 }
@@ -179,7 +174,7 @@
                 eleName = i.name, descriptor = this.descriptor[eleName];
                 //如果input有name属性 并且 验证因子里面也有的话
                 if (eleName && descriptor) {
-                    if (this.troggle(i, true, true)) {
+                    if (this.troggle(i, true)) {
                         break;
                     }
                 }

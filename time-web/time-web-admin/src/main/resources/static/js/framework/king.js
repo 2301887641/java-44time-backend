@@ -69,7 +69,7 @@ const King = {
     },
     //http请求
     Http: {
-        get: function (url, option, callback) {
+        http: function (url, option, callback) {
             let options = {
                 method: 'GET',
                 mode: "no-cors",
@@ -78,7 +78,9 @@ const King = {
                 credentials: 'include',
                 headers: new Headers()
             }
-            fetch(url, option).then((response) => {
+            let opt={}
+            Object.assign(opt,options,option)
+            fetch(url, opt).then((response) => {
                 if (response.ok) {
                     return response;
                 }
