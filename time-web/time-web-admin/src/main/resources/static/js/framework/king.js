@@ -2,7 +2,7 @@
  * 基类
  * @type {{utils}}
  */
-const King = {
+export const King = {
     //工具相关
     Utils: {
         //对象相关
@@ -70,16 +70,22 @@ const King = {
     //http请求
     Http: {
         http: function (url, option, callback) {
-            let options = {
-                method: 'GET',
-                mode: "no-cors",
-                cache: 'no-cache',
-                redirect: 'follow',
-                credentials: 'include',
-                headers: new Headers()
-            }
-            let opt={}
-            Object.assign(opt,options,option)
+            let csrf = $("meta[name='_csrf']").attr("content"),
+                csrfHeader = $("meta[name='_csrf_header']").attr("content"),
+                //mode: 'no-cors' 这个属性不要配置
+                options = {
+                    method: 'GET',
+                    cache: 'no-cache',
+                    redirect: 'follow',
+                    credentials: 'include',
+                    headers: {
+                        "Content-Type": "application:/x-www-form-urlencoded",
+                        [csrfHeader]:csrf
+                    }
+                }, opt = {}
+            Object.assign(opt, options, option)
+            console.log(opt)
+
             fetch(url, opt).then((response) => {
                 if (response.ok) {
                     return response;
@@ -97,5 +103,3 @@ const King = {
         }
     }
 }
-
-export default King

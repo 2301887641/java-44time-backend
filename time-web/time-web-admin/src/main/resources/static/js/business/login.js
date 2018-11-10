@@ -1,4 +1,5 @@
 import {Validate} from '../framework/validate.js'
+import {King} from '../framework/king.js'
 $(background)
 
 //粒子背景特效
@@ -32,8 +33,13 @@ let validate = new Validate(descriptor, loginForm, (error, filed) => {
     console.log(error)
 })
 $("#submit").click(() => {
-    console.log(validate.verify())
-    // if (validate.verify()) {
-    //     console.log(34343)
-    // }
+    if (validate.verify()) {
+        let data=$("form").serialize()
+        King.Http.http("/login",{
+            body:data,
+            method:"post"
+        },function(result){
+            console.log(result)
+        })
+    }
 });

@@ -1,4 +1,4 @@
-import King from './king.js'
+import {King} from './king.js'
 
 
 /**
@@ -39,7 +39,8 @@ Validate.ConstansPool = {
     },
     //事件相关
     event: {
-        blur: "blur"
+        blur: "blur",
+        keyDown:"keydown"
     },
     //元素相关
     element: {
@@ -186,7 +187,7 @@ Validate.fn = Validate.prototype = {
                 this.eventMap.set(input, {fnName: eventName, fn: fn, descriptor: descriptor});
                 //不能反复添加事件
                 input.addEventListener(eventName, fn)
-                input.addEventListener("keydown", function () {
+                input.addEventListener(Validate.ConstansPool.event.keyDown, function () {
                     that.observer.trigger(Validate.ConstansPool.verify.required, this, this.name, that.eventMap.get(this).descriptor, false)
                 })
             }
@@ -209,5 +210,6 @@ Validate.fn = Validate.prototype = {
                 this.trigger(i, true)
             }
         }
+        return true
     }
 }
