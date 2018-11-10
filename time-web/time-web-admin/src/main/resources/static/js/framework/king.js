@@ -84,8 +84,6 @@ export const King = {
                     }
                 }, opt = {}
             Object.assign(opt, options, option)
-            console.log(opt)
-
             fetch(url, opt).then((response) => {
                 if (response.ok) {
                     return response;

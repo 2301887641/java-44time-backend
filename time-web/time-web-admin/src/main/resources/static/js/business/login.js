@@ -35,7 +35,7 @@ let validate = new Validate(descriptor, loginForm, (error, filed) => {
 $("#submit").click(() => {
     if (validate.verify()) {
         let data=$("form").serialize()
-        King.Http.http("/login",{
+        King.Http.http("/authentication/form",{
             body:data,
             method:"post"
         },function(result){
