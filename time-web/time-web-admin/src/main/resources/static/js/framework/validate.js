@@ -40,8 +40,8 @@ Validate.ConstansPool = {
         blur: "blur"
     },
     //元素相关
-    element:{
-        input:"input"
+    element: {
+        input: "input"
     }
 }
 Validate.fn = Validate.prototype = {
@@ -94,6 +94,16 @@ Validate.fn = Validate.prototype = {
             //构建className
             buildClass: function (inputName) {
                 return "." + inputName + Validate.ConstansPool.errorClass
+            },
+            //向listenErrorMap中添加
+            addErrorMap: function (key, value) {
+                this.listenErrorMap.set(key, value)
+            },
+            getErrorMap: function (key) {
+                this.listenErrorMap.get(key)
+            },
+            removeErrorMap(key) {
+                this.listenErrorMap.delete(key)
             }
         }
         let InnerUtil = new InnerUtils(), that = this, fn;
@@ -103,26 +113,26 @@ Validate.fn = Validate.prototype = {
          * eleTagName   元素的tagName
          * descriptor   校验因子
          */
-        this.observer.listen(Validate.ConstansPool.verify.required, fn = function (element, eleTagName, descriptor) {
+        this.observer.listen(Validate.ConstansPool.verify.required, fn = function (element, eleTagName, descriptor,allow) {
             let error = $(InnerUtil.buildClass(eleTagName))
-            if (that.elementIsEmpty(element)) {
+            if (that.elementIsEmpty(element) && allow) {
                 error.html(descriptor.message)
-                that.listenErrorMap.set(Validate.ConstansPool.verify.required,error)
-                return
+                InnerUtil.addErrorMap.call(that,element,Validate.ConstansPool.verify.required)
+                return true
             }
-            if(that.listenErrorMap.get(Validate.ConstansPool.verify.required)){
+            if (!allow) {
                 error.html("")
-                that.listenErrorMap.delete(Validate.ConstansPool.verify.required)
+                InnerUtil.removeErrorMap.call(that, element)
+                return false
             }
+            return false
         })
         //监听正则
         this.observer.listen(Validate.ConstansPool.verify.regex, fn = function (ele, inputName, descriptor) {
             let content = $(ele).val()
             if (!King.utils.isEmptyString(content) && !descriptor.regex.test(content)) {
-                that.isError = true
                 $(InnerUtil.buildClass(inputName)).html(descriptor.message)
             } else {
-                that.isError = false
                 $(InnerUtil.buildClass(inputName)).html("")
             }
         })
@@ -132,7 +142,7 @@ Validate.fn = Validate.prototype = {
      * @param element    元素
      * @returns {*|boolean}
      */
-    trigger: function (element) {
+    trigger: function (element,allow) {
         let descriptor = this.eventMap.get(element).descriptor, rule = {}, arr = [];
         //单个验证
         if (King.Utils.object.isObject(descriptor)) {
@@ -145,15 +155,17 @@ Validate.fn = Validate.prototype = {
         for (let item of arr) {
             Object.assign(rule, this.rules, item)
             if (rule.required) {
-                this.observer.trigger(Validate.ConstansPool.verify.required, element, element.name, item)
-                return true
+                if(this.observer.trigger(Validate.ConstansPool.verify.required, element, element.name, item,allow)){
+                    return true
+                }
             }
             if (rule.regex) {
-                this.observer.trigger(Validate.ConstansPool.verify.regex, element, element.name, item)
-                //不允许向下继续执行
-                return true
+                if(this.observer.trigger(Validate.ConstansPool.verify.regex, element, element.name, item,allow)){
+                    return true
+                }
             }
         }
+        return true
     },
     /**
      * 添加鼠标移出事件
@@ -165,36 +177,38 @@ Validate.fn = Validate.prototype = {
             eleName = input.name, descriptor = this.descriptor[eleName]
             //如果input有name属性 并且 验证因子里面也有的话
             if (eleName && descriptor) {
-                //在事件集合中获取是否有该事件
-                // eventMap = this.eventMap.get(input)
                 //如果存在先删除掉事件
-                // !!eventMap && input.removeEventListener(eventMap.fnName, eventMap.fn)
                 fn = function () {
-                    that.trigger(input, false)
+                    that.trigger(input,false)
                 }
-                // ++that.errorNum
-                // that.deleteEvents(input)
                 //获取元素要添加的事件名称
                 eventName = this.switchEvent(input);
                 this.eventMap.set(input, {fnName: eventName, fn: fn, descriptor: descriptor});
                 //不能反复添加事件
                 input.addEventListener(eventName, fn)
+                input.addEventListener("keydown", function(){
+                    that.observer.trigger(Validate.ConstansPool.verify.required, this, this.name, that.eventMap.get(this).descriptor,false)
+                })
             }
         }
     },
     //点击表单触发
     verify: function () {
+        //错误数量
+        if (this.listenErrorMap.size > 0) {
+            return false
+        }
         //将form中的input转换为数组
         let forms = Array.from(this.formName.elements), eleName, descriptor;
         for (let i of forms) {
             eleName = i.name, descriptor = this.descriptor[eleName];
             //如果input有name属性 并且 验证因子里面也有的话
             if (eleName && descriptor) {
-                if (this.trigger(i, true)) {
+                if (this.trigger(i,true)) {
                     break;
                 }
             }
         }
+        return true
     }
-
 }
