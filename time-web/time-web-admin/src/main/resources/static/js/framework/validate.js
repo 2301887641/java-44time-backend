@@ -12,6 +12,8 @@ export function Validate(descriptor, formName) {
     this.formName = formName
     //校验规则
     this.descriptor = descriptor
+    //在事件监听器里面标识错误 不再继续向下检测
+    this.disableSubmit = false
     //默认提供规则
     this.rules = {
         //false为选填 如果填写了还可以控制正则来判断格式
@@ -113,19 +115,18 @@ Validate.fn = Validate.prototype = {
          * eleTagName   元素的tagName
          * descriptor   校验因子
          */
-        this.observer.listen(Validate.ConstansPool.verify.required, fn = function (element, eleTagName, descriptor,allow) {
+        this.observer.listen(Validate.ConstansPool.verify.required, fn = function (element, eleTagName, descriptor, allow) {
             let error = $(InnerUtil.buildClass(eleTagName))
             if (that.elementIsEmpty(element) && allow) {
                 error.html(descriptor.message)
-                InnerUtil.addErrorMap.call(that,element,Validate.ConstansPool.verify.required)
-                return true
+                InnerUtil.addErrorMap.call(that, element, Validate.ConstansPool.verify.required)
+                that.disableSubmit = true
             }
             if (!allow) {
+                that.disableSubmit = false
                 error.html("")
                 InnerUtil.removeErrorMap.call(that, element)
-                return false
             }
-            return false
         })
         //监听正则
         this.observer.listen(Validate.ConstansPool.verify.regex, fn = function (ele, inputName, descriptor) {
@@ -139,10 +140,11 @@ Validate.fn = Validate.prototype = {
     },
     /**
      * 触发
-     * @param element    元素
-     * @returns {*|boolean}
+     * @param element
+     * @param allow
+     * @returns {boolean}
      */
-    trigger: function (element,allow) {
+    trigger: function (element, allow) {
         let descriptor = this.eventMap.get(element).descriptor, rule = {}, arr = [];
         //单个验证
         if (King.Utils.object.isObject(descriptor)) {
@@ -155,45 +157,45 @@ Validate.fn = Validate.prototype = {
         for (let item of arr) {
             Object.assign(rule, this.rules, item)
             if (rule.required) {
-                if(this.observer.trigger(Validate.ConstansPool.verify.required, element, element.name, item,allow)){
-                    return true
-                }
+                this.observer.trigger(Validate.ConstansPool.verify.required, element, element.name, item, allow)
             }
             if (rule.regex) {
-                if(this.observer.trigger(Validate.ConstansPool.verify.regex, element, element.name, item,allow)){
-                    return true
-                }
+                this.observer.trigger(Validate.ConstansPool.verify.regex, element, element.name, item, allow)
+
             }
+            return true
         }
-        return true
     },
     /**
      * 添加鼠标移出事件
      */
     blur: function () {
         //将form中的input转换为数组
-        let forms = Array.from(this.formName.elements), eleName, even, eventName, eventMap, fn, descriptor, that = this;
+        let forms = Array.from(this.formName.elements), eleName, even, eventName, eventMap, fn, descriptor,
+            that = this;
         for (let input of forms) {
             eleName = input.name, descriptor = this.descriptor[eleName]
             //如果input有name属性 并且 验证因子里面也有的话
             if (eleName && descriptor) {
                 //如果存在先删除掉事件
                 fn = function () {
-                    that.trigger(input,false)
+                    that.trigger(input, false)
                 }
                 //获取元素要添加的事件名称
                 eventName = this.switchEvent(input);
                 this.eventMap.set(input, {fnName: eventName, fn: fn, descriptor: descriptor});
                 //不能反复添加事件
                 input.addEventListener(eventName, fn)
-                input.addEventListener("keydown", function(){
-                    that.observer.trigger(Validate.ConstansPool.verify.required, this, this.name, that.eventMap.get(this).descriptor,false)
+                input.addEventListener("keydown", function () {
+                    that.observer.trigger(Validate.ConstansPool.verify.required, this, this.name, that.eventMap.get(this).descriptor, false)
                 })
             }
         }
-    },
+    }
+    ,
     //点击表单触发
     verify: function () {
+        this.disableSubmit = false
         //错误数量
         if (this.listenErrorMap.size > 0) {
             return false
@@ -203,12 +205,9 @@ Validate.fn = Validate.prototype = {
         for (let i of forms) {
             eleName = i.name, descriptor = this.descriptor[eleName];
             //如果input有name属性 并且 验证因子里面也有的话
-            if (eleName && descriptor) {
-                if (this.trigger(i,true)) {
-                    break;
-                }
+            if (eleName && descriptor && !this.disableSubmit) {
+                this.trigger(i, true)
             }
         }
-        return true
     }
 }
