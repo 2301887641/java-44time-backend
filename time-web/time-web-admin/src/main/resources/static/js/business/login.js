@@ -34,33 +34,14 @@ let validate = new Validate(descriptor, loginForm, (error, filed) => {
     console.log(error)
 })
 
-let cancel;
 $("#submit").click(() => {
-
-    let csrf = $("meta[name='_csrf']").attr("content"),
-        csrfHeader = $("meta[name='_csrf_header']").attr("content");
-
-    let _this = this;
-    if (cancel != null) {
-        cancel.abort()
-    }
-    cancel = $.ajax({
-        url: '/authentication/form',
-        method: 'post',
-        data: $("form").serialize(),
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            [csrfHeader]: csrf
-        },
-        dataType:"json",
-        success:function(res){
-            console.log(res)
-        },
-        error:function(error){
-            console.log(error)
-        }
+    King.http({
+        url:"/authentication/form",
+        data:$("form").serialize(),
+        method:"post"
+    },function(res){
+        console.log(res)
     })
-
 
     // axios({
     //     method: 'post',

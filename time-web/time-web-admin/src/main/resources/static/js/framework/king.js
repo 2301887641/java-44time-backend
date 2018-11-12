@@ -67,37 +67,27 @@ export const King = {
             }
         }
     },
-    //http请求
-    Http: {
-        http: function (url, option, callback) {
-            let csrf = $("meta[name='_csrf']").attr("content"),
-                csrfHeader = $("meta[name='_csrf_header']").attr("content"),
-                //mode: 'no-cors' 这个属性不要配置
-                options = {
-                    method: 'GET',
-                    cache: 'no-cache',
-                    redirect: 'follow',
-                    credentials: 'include',
-                    headers: {
-                        "Content-Type": "application:/x-www-form-urlencoded",
-                        [csrfHeader]:csrf
-                    }
-                }, opt = {}
-            Object.assign(opt, options, option)
-            fetch(url, opt).then((response) => {
-                if (response.ok) {
-                    return response;
+    //http请求 重复请求会销毁之前的提交
+    http: function (option, callback) {
+        this.cancel && this.cancel.abort()
+        let csrf = $("meta[name='_csrf']").attr("content"),
+            csrfHeader = $("meta[name='_csrf_header']").attr("content"), opt = {},
+            options = {
+                url: "",
+                method: "get",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    [csrfHeader]: csrf
+                },
+                dataType: "json",
+                success: function (res) {
+                    (callback instanceof Function) && callback(res)
+                },
+                error: function (error) {
+                    console.log(error)
                 }
-                let error = new Error(response.status)
-                error.response = response
-                throw error
-            }).then((data) => {
-                return data.json();
-            }).then((json) => {
-                callback(json)
-            }).catch((error, res) => {
-                console.log(error.response)
-            })
-        }
+            };
+        Object.assign(opt, options, option)
+        this.cancel = $.ajax(opt)
     }
 }
