@@ -37,6 +37,8 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
      * 8.authorizeRequests  方法有很多子方法，每个子匹配器将会按照声明的顺序起作用
      * 9.anyRequest().authenticated 其他所有路径都需要权限校验
      * 10.csrf 跨站请求伪造防护 post请求默认的都开启了csrf的模式
+     * 11.successHandler 成功处理器
+     * 12.failureHandler 失败处理器
      * @throws Exception
      */
     @Override

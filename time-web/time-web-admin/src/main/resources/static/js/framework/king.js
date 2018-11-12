@@ -80,6 +80,9 @@ export const King = {
                     [csrfHeader]: csrf
                 },
                 dataType: "json",
+                beforeSend:function(){
+                    console.log(343434343434)
+                },
                 success: function (res) {
                     (callback instanceof Function) && callback(res)
                 },

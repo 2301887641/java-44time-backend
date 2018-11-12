@@ -35,48 +35,13 @@ let validate = new Validate(descriptor, loginForm, (error, filed) => {
 })
 
 $("#submit").click(() => {
-    King.http({
-        url:"/authentication/form",
-        data:$("form").serialize(),
-        method:"post"
-    },function(res){
-        console.log(res)
-    })
-
-    // axios({
-    //     method: 'post',
-    //     url: '/authentication/form',
-    //     data: $("form").serialize(),
-    //     headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded',
-    //         [csrfHeader]: csrf,
-    //         cancelToken: new CancelToken(function executor(c) {
-    //             console.log(4545454)
-    //             //这个executor 函数接受一个cancel function作为参数
-    //             cancel = c;
-    //         })
-    //     }
-    // }).then((res) => {
-    //     if (axios.isCancel(res)) {
-    //         console.log('Request canceled', res);
-    //     } else {
-    //         console.log(333333)
-    //         // 处理错误
-    //     }
-    // });
-
-    // axios.post("/authentication/form", {username:"admin",password:"123456"}).then((response) => {
-    //     console.log(response)
-    // }).catch((error) => {
-    //     console.log(error)
-    // })
-    // if (validate.verify()) {
-    //     let data=$("form").serialize()
-    //     King.Http.http("/authentication/form",{
-    //         body:data,
-    //         method:"post"
-    //     },function(result){
-    //         console.log(result)
-    //     })
-    // }
+    if (validate.verify()) {
+        King.http({
+            url:"/authentication/form",
+            data:$("form").serialize(),
+            method:"post"
+        },function(res){
+            console.log(res)
+        })
+    }
 });
