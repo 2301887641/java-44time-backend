@@ -4,15 +4,6 @@ dependencies{
     compile "com.github.penggle:kaptcha:2.3.2"
     //springSecurity
     compile "org.springframework.boot:spring-boot-starter-security"
-    //social-web使用它的session缓存 管理web应用程序的连接
-    compile "org.springframework.social:spring-social-web"
-    //提供社交连接框架和OAuth 客户端支持
-    compile "org.springframework.social:spring-social-core"
-    //社交安全的一些支持
-    compile "org.springframework.social:spring-social-security"
-    //提供Java 配置
-    compile "org.springframework.social:spring-social-config"
     // common-lang3
     compile "org.apache.commons:commons-lang3:$commonslang3Version"
-    compile "commons-collections:commons-collections"
 }

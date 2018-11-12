@@ -16,7 +16,7 @@ import java.util.Objects;
  * 用户自定义身份认证
  * @author suiguozhen on 18/11/10
  */
-@Component("unificationUserDetailService")
+//@Component("unificationUserDetailService")
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired

@@ -4,6 +4,10 @@ spring:
   profiles:
     active: dev
 
+  application:
+    name: web-admin
+
+
   #druid配置
   druid:
     #次数据源
@@ -55,6 +59,7 @@ spring:
       #开启热部署
       enabled: true
 
+
 #mybatis配置
 mybatis:
   #把xml文件放在com.XX.mapper.*中可能会出现找到的问题，这里把他放在resource下的mapper中
@@ -73,9 +78,9 @@ flyway:
   baselineOnMigrate: true
 
 #spring security配置
-security:
-  basic:
-    enabled: true
+#security:
+#  basic:
+#    enabled: true
 
 #用户认证
 #shiro:
