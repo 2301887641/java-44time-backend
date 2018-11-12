@@ -1,6 +1,8 @@
 package com.time.article.admin.config.security;
 
 import com.time.article.common.constants.SecurityConstants;
+import com.time.article.security.core.handler.UnificationAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UnificationAuthenticationSuccessHandler unificationAuthenticationSuccessHandler;
 
     /**
      * 访问配置
@@ -36,6 +41,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                formLogin().
                loginPage(SecurityConstants.DEFAULT_LOGIN_PAGE_URL).
                loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM).
+               successHandler(unificationAuthenticationSuccessHandler).
                and().
                authorizeRequests().
                antMatchers(
