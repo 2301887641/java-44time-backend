@@ -1,10 +1,10 @@
-package com.time.article.admin.controller.business.login;
+package com.time.article.admin.security;
 
+import com.time.article.common.constants.SecurityConstants;
 import com.time.article.service.api.business.user.UserService;
 import com.time.article.service.dto.business.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 /**
- * 用户自定义身份认证
- * @author suiguozhen on 18/11/10
+ * 自定义用户验证
+ * @author suiguozhen on 18/11/12
  */
-//@Component("unificationUserDetailService")
-public class UserDetailServiceImpl implements UserDetailsService {
+@Component("UnificationUserDetailService")
+public class AdminUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserService userService;
@@ -25,17 +25,15 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDto userDto = userService.selectPasswordByName(username);
-        if (Objects.isNull(userDto)) {
-            /**此异常会被或略只是调用不做信息处理*/
-            throw new UsernameNotFoundException("asdfs");
+        if(Objects.isNull(userDto)){
+            throw new UsernameNotFoundException(SecurityConstants.USERNAME_OR_PASSWORD_MISSED);
         }
-        return new User(username,
+        return new AdminUserDetails(
+                userDto.getId(),
+                username,
                 userDto.getPassword(),
-                true,
-                true,
-                true,
-                true,
+                userDto.getAvatar(),
                 AuthorityUtils.NO_AUTHORITIES
-        );
+                );
     }
 }

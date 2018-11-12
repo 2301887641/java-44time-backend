@@ -1,4 +1,4 @@
-package com.time.article.admin.constants;
+package com.time.article.common.constants;
 
 /**
  * 安全常量配置
@@ -25,5 +25,9 @@ public interface SecurityConstants {
     /**
      * js
      */
-    public static final String DEFAULT_RESOURCE_JS="/js/**";
+    public static final String DEFAULT_RESOURCE_JS = "/js/**";
+    /**
+     * 用户名或密码错误
+     */
+    public static final String USERNAME_OR_PASSWORD_MISSED = "用户名或密码错误";
 }

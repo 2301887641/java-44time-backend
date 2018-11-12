@@ -1,6 +1,6 @@
 package com.time.article.admin.config.security;
 
-import com.time.article.admin.constants.SecurityConstants;
+import com.time.article.common.constants.SecurityConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

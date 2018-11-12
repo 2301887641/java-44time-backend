@@ -28,4 +28,6 @@ include 'time-core:time-utils'
 findProject(':time-core:time-utils')?.name = 'time-utils'
 include 'time-social:time-social-common'
 findProject(':time-social:time-social-common')?.name = 'time-social-common'
+include 'time-web:time-web-common'
+findProject(':time-web:time-web-common')?.name = 'time-web-common'
 
