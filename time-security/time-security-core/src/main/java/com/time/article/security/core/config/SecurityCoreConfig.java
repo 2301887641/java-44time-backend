@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityCoreConfig {
 
     /**
-     * 默认的用户认证实现
+     * 默认的用户认证实现  默认用户名随意  密码：123456
      * @return
      */
     @Bean

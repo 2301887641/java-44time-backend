@@ -30,4 +30,6 @@ include 'time-social:time-social-common'
 findProject(':time-social:time-social-common')?.name = 'time-social-common'
 include 'time-web:time-web-common'
 findProject(':time-web:time-web-common')?.name = 'time-web-common'
+include 'time-manager'
+findProject(':time-manager')?.name = 'manager'
 
