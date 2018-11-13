@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/common/common.css">
 </head>
 <body class="text-center">
-<form name="loginForm" class="p-2">
+<form>
     <div class="form-row">
         <!--logo-->
         <div class="logo text-center mb-5 w-100">
@@ -26,7 +26,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-user"></i></div>
                 </div>
-                <input type="text" name="username" class="form-control" placeholder="用户名">
+                <input type="text" name="username" class="form-control form-control-sm" placeholder="用户名">
             </div>
             <!--错误信息-->
             <div class="error-notice username-error-notice"></div>
@@ -37,10 +37,26 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-key"></i></div>
                 </div>
-                <input type="text" name="password" class="form-control" placeholder="密码">
+                <input type="text" name="password" class="form-control form-control-sm" placeholder="密码">
             </div>
             <!--错误信息-->
             <div class="error-notice password-error-notice"></div>
+        </div>
+        <!--验证码-->
+        <div class="col-12 mb-3">
+            <div class="col-6 pl-0">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-eye"></i></div>
+                </div>
+                    <input type="text" name="captcha" class="form-control form-control-sm" placeholder="验证码">
+                </div>
+            </div>
+            <div class="col-5">
+
+            </div>
+            <!--错误信息-->
+            <div class="error-notice captcha-error-notice"></div>
         </div>
         <!--按钮-->
         <div class="col-12">

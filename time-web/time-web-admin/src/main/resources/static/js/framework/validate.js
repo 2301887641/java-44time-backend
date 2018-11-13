@@ -8,8 +8,12 @@ import {King} from './king.js'
  * @constructor
  */
 export function Validate(descriptor, formName) {
-    //form表单名称
-    this.formName = formName
+    //form表单 可以传递jq对象或表单的name
+    if(formName instanceof jQuery){
+        this.formName = formName[0]
+    }else{
+        this.formName = formName
+    }
     //校验规则
     this.descriptor = descriptor
     //在事件监听器里面标识错误 不再继续向下检测

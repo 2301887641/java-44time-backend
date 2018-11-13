@@ -16,7 +16,7 @@ import java.util.Objects;
  * 自定义用户验证
  * @author suiguozhen on 18/11/12
  */
-//@Component("UnificationUserDetailService")
+@Component("UnificationUserDetailService")
 public class AdminUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired

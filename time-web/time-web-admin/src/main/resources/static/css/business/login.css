@@ -11,12 +11,16 @@ body{
     position: relative;
 }
 form{
-    max-width:22rem;
+    max-width:24rem;
     width:100%;
     position:absolute;
     margin:-11rem 0 0 -11rem;
     top:43%;
     left:50%;
+    border: 0.12rem solid #fff;
+    border-radius: 0.31rem;
+    padding:1.56rem 0.93rem;
+    display: block;
 }
 .logo{
     width:100%;

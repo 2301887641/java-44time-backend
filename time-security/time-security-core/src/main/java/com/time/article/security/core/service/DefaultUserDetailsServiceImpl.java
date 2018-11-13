@@ -2,7 +2,6 @@ package com.time.article.security.core.service;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,8 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *
  * @author suiguozhen on 18/11/12
  */
-@Setter
-@Getter
+
 public class DefaultUserDetailsServiceImpl implements UserDetailsService {
 
     private PasswordEncoder passwordEncoder;
@@ -28,5 +26,13 @@ public class DefaultUserDetailsServiceImpl implements UserDetailsService {
                 true,
                 true,
                 true, AuthorityUtils.NO_AUTHORITIES);
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }

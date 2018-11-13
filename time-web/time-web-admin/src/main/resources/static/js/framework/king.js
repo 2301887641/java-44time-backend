@@ -94,6 +94,7 @@ export const King = {
                     console.log(error)
                 }
             };
+        opt.url = basePath + opt.url
         Object.assign(opt, options, option)
         this.cancel = $.ajax(opt)
     }

@@ -30,7 +30,7 @@ const descriptor = {
     }
 }
 
-let validate = new Validate(descriptor, loginForm)
+let validate = new Validate(descriptor, $("form"))
 
 $("#submit").click(function() {
     if (validate.verify()) {
