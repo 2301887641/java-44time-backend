@@ -1,0 +1,4 @@
+dependencies {
+    //验证码
+    compile "com.github.penggle:kaptcha:2.3.2"
+}
