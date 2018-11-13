@@ -30,18 +30,14 @@ const descriptor = {
     }
 }
 
-let validate = new Validate(descriptor, loginForm, (error, filed) => {
-    console.log(error)
-})
+let validate = new Validate(descriptor, loginForm)
 
-$("#submit").click(() => {
+$("#submit").click(function() {
     if (validate.verify()) {
         King.http({
             url:"/authentication/form",
             data:$("form").serialize(),
             method:"post"
-        },function(res){
-            console.log(res)
-        })
+        },function(res){console.log(res)},this)
     }
 });

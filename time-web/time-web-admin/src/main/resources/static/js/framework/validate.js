@@ -210,6 +210,9 @@ Validate.fn = Validate.prototype = {
                 this.trigger(i, true)
             }
         }
-        return true
+        if(!this.disableSubmit){
+            return true
+        }
+        return false
     }
 }

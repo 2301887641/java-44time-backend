@@ -68,9 +68,10 @@ export const King = {
         }
     },
     //http请求 重复请求会销毁之前的提交
-    http: function (option, callback) {
+    http: function (option, callback, element) {
         this.cancel && this.cancel.abort()
-        let csrf = $("meta[name='_csrf']").attr("content"),
+        let icon = '<i class="fa fa-spinner fa-pulse"></i>',
+            csrf = $("meta[name='_csrf']").attr("content"),
             csrfHeader = $("meta[name='_csrf_header']").attr("content"), opt = {},
             options = {
                 url: "",
@@ -80,8 +81,11 @@ export const King = {
                     [csrfHeader]: csrf
                 },
                 dataType: "json",
-                beforeSend:function(){
-                    console.log(343434343434)
+                beforeSend: function () {
+                    !!element && $(element).prepend(icon) && $(element).attr("disabled", "true")
+                },
+                complete: function () {
+                    !!element && $(element).removeAttr("disabled") && $(element).find("i").remove()
                 },
                 success: function (res) {
                     (callback instanceof Function) && callback(res)
