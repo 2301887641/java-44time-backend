@@ -32,4 +32,6 @@ include 'time-web:time-web-common'
 findProject(':time-web:time-web-common')?.name = 'time-web-common'
 include 'time-manager'
 findProject(':time-manager')?.name = 'manager'
+include 'time-manager:time-manager-captcha'
+findProject(':time-manager:time-manager-captcha')?.name = 'time-manager-captcha'
 
