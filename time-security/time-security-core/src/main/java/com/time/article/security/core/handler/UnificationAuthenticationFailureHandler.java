@@ -26,11 +26,6 @@ public class UnificationAuthenticationFailureHandler extends SimpleUrlAuthentica
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(objectMapper.writeValueAsString(Result.failed(exception.getMessage())));
     }

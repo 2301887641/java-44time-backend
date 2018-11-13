@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * spring security核心配置
@@ -20,7 +21,9 @@ public class SecurityCoreConfig {
      */
     @Bean
     @ConditionalOnMissingBean(name = "UnificationUserDetailService")
-    public UserDetailsService userDetailsService() {
-        return new DefaultUserDetailsServiceImpl();
+    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+        DefaultUserDetailsServiceImpl defaultUserDetailsService = new DefaultUserDetailsServiceImpl();
+        defaultUserDetailsService.setPasswordEncoder(passwordEncoder);
+        return defaultUserDetailsService;
     }
 }

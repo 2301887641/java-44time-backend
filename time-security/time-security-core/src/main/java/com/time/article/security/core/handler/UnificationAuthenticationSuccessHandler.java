@@ -1,6 +1,7 @@
 package com.time.article.security.core.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -17,11 +18,12 @@ import java.io.IOException;
 @Component
 public class UnificationAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper);
-
-
+        response.setContentType("application/json;character=utf-8");
+        response.getWriter().write(objectMapper.writeValueAsString(authentication.getPrincipal()));
     }
 }
