@@ -1,0 +1,3 @@
+dependencies{
+    compile project(":time-manager:time-manager-captcha-starter-autoconfigure")
+}
