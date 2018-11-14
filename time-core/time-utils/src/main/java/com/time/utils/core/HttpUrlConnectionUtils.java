@@ -4,8 +4,6 @@ import com.time.exception.core.BusinessException;
 import com.time.utils.enums.BusinessEnum;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;

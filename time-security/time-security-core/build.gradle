@@ -1,7 +1,5 @@
 dependencies{
     compile project(":time-service:time-service-impl")
-    //验证码
-    compile "com.github.penggle:kaptcha:2.3.2"
     //springSecurity
     compile "org.springframework.boot:spring-boot-starter-security"
     // common-lang3

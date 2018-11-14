@@ -1,3 +1,5 @@
 dependencies {
     compile "org.springframework.boot:spring-boot-starter"
+    //验证码
+    compile "com.github.penggle:kaptcha:2.3.2"
 }
