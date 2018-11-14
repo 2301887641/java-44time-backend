@@ -53,6 +53,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                authorizeRequests().
                antMatchers(
                        SecurityConstants.DEFAULT_LOGIN_PAGE_URL,
+                       SecurityConstants.DEFAULT_CAPTCHA_URL,
                        SecurityConstants.DEFAULT_RESOURCE_CSS,
                        SecurityConstants.DEFAULT_RESOURCE_IMG,
                        SecurityConstants.DEFAULT_RESOURCE_JS

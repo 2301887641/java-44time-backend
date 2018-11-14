@@ -11,63 +11,67 @@
     <link rel="stylesheet" href="/css/plugin/fontawesome/css/fontawesome.css">
     <link rel="stylesheet" href="/css/common/common.css">
 </head>
-<body class="text-center">
-<form>
-    <div class="form-row">
+<body>
+<div class="container">
+    <form>
         <!--logo-->
-        <div class="logo text-center mb-5 w-100">
+        <div class="logo mb-5 w-100">
             <a class="dispatcher d-block m-auto" href="/">
                 <img src="/img/login/login_logo.png" class="img-fluid"/>
             </a>
         </div>
         <!--用户名-->
-        <div class="col-12 mb-3">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fa fa-user"></i></div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-user"></i></div>
+                    </div>
+                    <input type="text" name="username" class="form-control" placeholder="用户名">
                 </div>
-                <input type="text" name="username" class="form-control form-control-sm" placeholder="用户名">
+                <!--错误信息-->
+                <div class="error-notice username-error-notice"></div>
             </div>
-            <!--错误信息-->
-            <div class="error-notice username-error-notice"></div>
         </div>
         <!--密码-->
-        <div class="col-12 mb-3">
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fa fa-key"></i></div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-key"></i></div>
+                    </div>
+                    <input type="text" name="password" class="form-control" placeholder="密码">
                 </div>
-                <input type="text" name="password" class="form-control form-control-sm" placeholder="密码">
+                <!--错误信息-->
+                <div class="error-notice password-error-notice"></div>
             </div>
-            <!--错误信息-->
-            <div class="error-notice password-error-notice"></div>
         </div>
         <!--验证码-->
-        <div class="col-12 mb-3">
-            <div class="col-6 pl-0">
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fa fa-eye"></i></div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-eye"></i></div>
+                    </div>
+                    <img class="captcha" src="/captcha" alt="图片验证码">
+                    <input type="text" name="captcha" class="form-control" placeholder="验证码">
                 </div>
-                    <input type="text" name="captcha" class="form-control form-control-sm" placeholder="验证码">
-                </div>
+                <!--错误信息-->
+                <div class="error-notice captcha-error-notice"></div>
             </div>
-            <div class="col-5">
-
-            </div>
-            <!--错误信息-->
-            <div class="error-notice captcha-error-notice"></div>
         </div>
         <!--按钮-->
-        <div class="col-12">
-            <div class="input-group mb-2">
-                <button type="button" id="submit"  class="btn btn-lg btn-danger btn-block">
-                    登录
-                </button>
+        <div class="row">
+            <div class="col-12">
+                <div class="input-group mb-2">
+                    <button type="button" id="submit" class="btn btn-danger btn-block">
+                        登录
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 <!--定义 servletContext 路径-->
 <script th:fragment="outerJs" xmlns:th="http://www.springframework.org/schema/mvc" type="text/javascript"
         th:inline="javascript">
@@ -75,7 +79,6 @@
     var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
     /*]]>*/
 </script>
-<script src="/js/plugin/axios/axios.min.js"></script>
 <script src="/js/plugin/jquery/jq.js"></script>
 <script src="/js/plugin/particleground/particleground.min.js"></script>
 <script src="/js/plugin/bootstrap/js/popper.min.js"></script>

@@ -1,0 +1,4 @@
+dependencies{
+    compile project(":time-security:time-security-browser")
+    compile project(":time-manager:time-manager-captcha")
+}

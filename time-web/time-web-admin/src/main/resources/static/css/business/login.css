@@ -19,14 +19,21 @@ form{
     left:50%;
     border: 0.12rem solid #fff;
     border-radius: 0.31rem;
-    padding:1.56rem 0.93rem;
+    padding:2.5rem 0.93rem  1.56rem 0.93rem;
     display: block;
 }
 .logo{
     width:100%;
     height:100%;
 }
-.logo .dispatcher,.logo img{
+.logo .dispatcher{
     width:6.8rem;
     height:5.4rem;
+}
+.captcha{
+    position: absolute;
+    right:0.16rem;
+    width:5rem;
+    z-index:100;
+    border-radius:0 .25rem .25rem 0;
 }
