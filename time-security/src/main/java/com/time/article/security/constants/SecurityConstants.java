@@ -1,4 +1,4 @@
-package com.time.article.common.constants;
+package com.time.article.security.constants;
 
 /**
  * 安全常量配置

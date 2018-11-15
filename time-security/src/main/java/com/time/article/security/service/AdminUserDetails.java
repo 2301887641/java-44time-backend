@@ -1,4 +1,4 @@
-package com.time.article.security;
+package com.time.article.security.service;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,7 @@
 package com.time.article.security.config;
 
-import com.time.article.common.constants.SecurityConstants;
-import com.time.article.security.CaptchaFilter;
+import com.time.article.security.constants.SecurityConstants;
+import com.time.article.security.filter.CaptchaFilter;
 import com.time.article.security.core.handler.UnificationAuthenticationFailureHandler;
 import com.time.article.security.core.handler.UnificationAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;

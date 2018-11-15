@@ -3,7 +3,7 @@ package com.time.article.common.controller;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import com.time.article.common.constants.SecurityConstants;
+import com.time.article.security.constants.SecurityConstants;
 import com.time.article.common.enums.CommonEnum;
 import com.time.exception.core.ConsoleLogException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.time.article.security;
+package com.time.article.security.filter;
 
 
 import com.alibaba.druid.util.StringUtils;
-import com.time.article.common.constants.SecurityConstants;
+import com.time.article.security.constants.SecurityConstants;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;

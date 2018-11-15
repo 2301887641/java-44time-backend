@@ -1,6 +1,7 @@
 package com.time.article.security.core.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.time.exception.constant.ConstantPool;
 import com.time.exception.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
@@ -26,7 +27,7 @@ public class UnificationAuthenticationFailureHandler extends SimpleUrlAuthentica
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        response.setContentType("application/json;charset=utf-8");
+        response.setContentType(ConstantPool.RESPONSE_CONTENT_TYPE);
         response.getWriter().write(objectMapper.writeValueAsString(Result.failed(exception.getMessage())));
     }
 }
