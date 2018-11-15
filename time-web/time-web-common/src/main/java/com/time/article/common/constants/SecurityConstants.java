@@ -15,6 +15,10 @@ public interface SecurityConstants {
      */
     public static final String DEFAULT_LOGIN_PAGE_URL = "/login";
     /**
+     * 验证码
+     */
+    public static final String DEFAULT_CAPTCHA_URL = "/captcha";
+    /**
      * css
      */
     public static final String DEFAULT_RESOURCE_CSS = "/css/**";
@@ -31,7 +35,7 @@ public interface SecurityConstants {
      */
     public static final String USERNAME_OR_PASSWORD_MISSED = "用户名或密码错误";
     /**
-     * 验证码
+     * post请求
      */
-    public static final String DEFAULT_CAPTCHA_URL = "/captcha";
+    public static final String DEFAULT_POST_REQUEST = "post";
 }

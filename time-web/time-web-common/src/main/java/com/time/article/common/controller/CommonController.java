@@ -46,6 +46,7 @@ public class CommonController {
         try{
             ImageIO.write(defaultCaptcha.createImage(text),"jpg", response.getOutputStream());
         }catch(Exception e){
+            //控制台显示
              throw new ConsoleLogException(CommonEnum.CAPTCHA);
         }
     }
