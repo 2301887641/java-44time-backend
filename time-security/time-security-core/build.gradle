@@ -1,7 +1,0 @@
-dependencies{
-    compile project(":time-service:time-service-impl")
-    //springSecurity
-    compile "org.springframework.boot:spring-boot-starter-security"
-    // common-lang3
-    compile "org.apache.commons:commons-lang3:$commonslang3Version"
-}

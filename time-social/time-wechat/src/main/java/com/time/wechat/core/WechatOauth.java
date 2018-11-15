@@ -35,7 +35,7 @@ public class WechatOauth extends Oauth {
      */
     @Override
     public String getAuthorizeURL(HttpServletRequest request) {
-        String random = RandomStringUtils.random(7, ConstantPool.CharSequence);
+        String random = RandomStringUtils.random(7, ConstantPool.STRING_CHAR_SEQUENCE);
         request.getSession().setAttribute("code",random);
         return String.format(
                 WechatConfig.wechatConfigProperties.getProperty("wechat_redirectUrl"),

@@ -1,4 +1,4 @@
-package com.time.article.common.security;
+package com.time.article.security;
 
 import com.time.article.common.constants.SecurityConstants;
 import com.time.article.service.api.business.user.UserService;

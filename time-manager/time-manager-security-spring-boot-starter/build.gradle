@@ -1,0 +1,4 @@
+dependencies{
+    compile project(":time-manager:time-manager-security-starter-autoconfigure")
+
+}

@@ -1,4 +1,4 @@
 dependencies{
-    compile project(":time-security:time-security-browser")
-    compile("com.time.article:time-manager-captcha-spring-boot-starter:1.0-SNAPSHOT")
+    compile project(":time-security")
+    compile "com.time.article:time-manager-captcha-spring-boot-starter:1.0-SNAPSHOT"
 }

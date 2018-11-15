@@ -1,0 +1,11 @@
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter"
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compileOnly "javax.servlet:servlet-api:3.0-alpha-1"
+    //fastjson
+    compile "com.fasterxml.jackson.core:jackson-core"
+    compile "com.fasterxml.jackson.core:jackson-annotations"
+    compile "com.fasterxml.jackson.core:jackson-databind"
+    //utils
+    compile "com.time.article:time-utils:1.0-SNAPSHOT"
+}

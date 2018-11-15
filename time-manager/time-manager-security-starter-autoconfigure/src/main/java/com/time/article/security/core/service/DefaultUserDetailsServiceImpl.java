@@ -1,7 +1,5 @@
 package com.time.article.security.core.service;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

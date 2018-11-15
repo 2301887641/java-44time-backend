@@ -15,15 +15,6 @@ public class StringUtils {
     private static final String UNDERLINE = "_";
 
     /**
-     * 判断字符串是否为空或空串
-     * @param sequence
-     * @return
-     */
-    public static boolean isEmpty(final CharSequence sequence) {
-        return Objects.isNull(sequence) || (sequence.length() == 0);
-    }
-
-    /**
      * 字符串首字符大写
      *
      * @param str

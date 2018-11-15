@@ -6,6 +6,14 @@ package com.time.exception.constant;
  * @author suiguozhen on 18/10/29
  */
 public interface ConstantPool {
-    //字符序列
-    String CharSequence = "qwertyuiopasdfghjklzxcvbnm";
+    /**
+     * 字符串相关
+     * 字符序列
+     */
+    String STRING_CHAR_SEQUENCE = "qwertyuiopasdfghjklzxcvbnm";
+    /**
+     * 响应相关
+     * 响应类型
+     */
+    String RESPONSE_CONTENT_TYPE = "application/json;charset=utf-8";
 }

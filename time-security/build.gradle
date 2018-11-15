@@ -1,0 +1,4 @@
+dependencies{
+    compile project(":time-service:time-service-impl")
+    compile "com.time.article:time-manager-security-spring-boot-starter:1.0-SNAPSHOT"
+}
