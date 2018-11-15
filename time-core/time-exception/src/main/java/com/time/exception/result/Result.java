@@ -1,8 +1,6 @@
 package com.time.exception.result;
 
-import com.time.article.core.enums.restcode.RestCodeEnum;
-import lombok.Getter;
-import lombok.Setter;
+import com.time.exception.enums.RestCodeEnum;
 
 import java.io.Serializable;
 
@@ -11,8 +9,6 @@ import java.io.Serializable;
  * 使用菱形规避@SuppressWarnings("unchecked")
  * @author suiguozhen on 18/04/14
  */
-@Getter
-@Setter
 public class Result<T> implements Serializable{
     private int retCode;
     private String retInfo;
@@ -107,5 +103,30 @@ public class Result<T> implements Serializable{
         this.retCode = retCode;
         this.retInfo = retInfo;
         this.data = result;
+    }
+
+
+    public int getRetCode() {
+        return retCode;
+    }
+
+    public void setRetCode(int retCode) {
+        this.retCode = retCode;
+    }
+
+    public String getRetInfo() {
+        return retInfo;
+    }
+
+    public void setRetInfo(String retInfo) {
+        this.retInfo = retInfo;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }
