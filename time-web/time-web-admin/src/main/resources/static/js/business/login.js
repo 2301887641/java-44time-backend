@@ -19,6 +19,13 @@ function background() {
     });
 }
 
+//验证码点击
+let captchaUrl = "/captcha"
+$(".captcha").click(function () {
+    $(this).attr("src", captchaUrl + "?=" + Math.random(1))
+})
+
+//表单验证
 const descriptor = {
     username: {
         required: true,
@@ -28,20 +35,22 @@ const descriptor = {
         required: true,
         message: "请输入密码"
     },
-    captcha:{
-        required:true,
-        message:"请输入验证码"
+    captcha: {
+        required: true,
+        message: "请输入验证码"
     }
 }
 
 let validate = new Validate(descriptor, $("form"))
 
-$("#submit").click(function() {
+$("#submit").click(function () {
     if (validate.verify()) {
         King.http({
-            url:"/authentication/form",
-            data:$("form").serialize(),
-            method:"post"
-        },function(res){console.log(res)},this)
+            url: "/authentication/form",
+            data: $("form").serialize(),
+            method: "post"
+        }, function (res) {
+            console.log(res)
+        }, this)
     }
 });

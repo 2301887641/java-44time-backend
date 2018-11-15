@@ -1,6 +1,7 @@
 package com.time.manager.captcha;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnWebApplication
 public class CaptchaConfig {
     @Bean
-    public DefaultKaptcha defaultKaptcha() {
-        return  new DefaultKaptcha();
+    @ConditionalOnMissingBean(name = "defaultCaptcha")
+    public DefaultKaptcha defaultCaptcha() {
+        return new DefaultKaptcha();
     }
 }

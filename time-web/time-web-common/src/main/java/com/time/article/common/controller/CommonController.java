@@ -23,7 +23,7 @@ import java.util.Properties;
 public class CommonController {
 
     @Autowired
-    private DefaultKaptcha defaultKaptcha;
+    private DefaultKaptcha defaultCaptcha;
 
     /**
      * 生成验证码
@@ -41,10 +41,10 @@ public class CommonController {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "45");
         //字体间隙
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "7");
-        defaultKaptcha.setConfig(new Config(properties));
-        String text = defaultKaptcha.createText();
+        defaultCaptcha.setConfig(new Config(properties));
+        String text = defaultCaptcha.createText();
         try{
-            ImageIO.write(defaultKaptcha.createImage(text),"jpg", response.getOutputStream());
+            ImageIO.write(defaultCaptcha.createImage(text),"jpg", response.getOutputStream());
         }catch(Exception e){
              throw new ConsoleLogException(CommonEnum.CAPTCHA);
         }

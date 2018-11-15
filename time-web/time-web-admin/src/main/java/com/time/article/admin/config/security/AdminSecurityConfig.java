@@ -1,6 +1,7 @@
 package com.time.article.admin.config.security;
 
 import com.time.article.common.constants.SecurityConstants;
+import com.time.article.common.security.CaptchaFilter;
 import com.time.article.security.core.handler.UnificationAuthenticationFailureHandler;
 import com.time.article.security.core.handler.UnificationAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * spring security配置
@@ -44,6 +46,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
        http.
+               addFilterBefore(new CaptchaFilter(), UsernamePasswordAuthenticationFilter.class).
                formLogin().
                loginPage(SecurityConstants.DEFAULT_LOGIN_PAGE_URL).
                loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM).

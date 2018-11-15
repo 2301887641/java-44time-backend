@@ -1,8 +1,7 @@
-package com.time.article.admin.security;
+package com.time.article.common.security;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
