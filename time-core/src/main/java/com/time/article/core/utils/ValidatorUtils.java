@@ -1,7 +1,7 @@
 package com.time.article.core.utils;
 
 import com.time.article.core.message.constant.Constants;
-import com.time.article.core.message.result.Result;
+import com.time.exception.result.Result;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 

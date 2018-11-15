@@ -1,7 +1,7 @@
 package ${controllerTargetPackage};
 
 import com.time.article.admin.annotation.Log;
-import com.time.article.core.message.result.Result;
+import com.time.exception.result.Result;
 import com.time.article.core.utils.ValidatorUtils;
 import com.time.article.dao.enums.business.log.LogEnum;
 import ${serviceTargetPackage}.${serviceName};

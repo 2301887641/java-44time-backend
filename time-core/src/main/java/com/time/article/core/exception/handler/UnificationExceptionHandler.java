@@ -1,6 +1,6 @@
 package com.time.article.core.exception.handler;
 
-import com.time.article.core.message.result.Result;
+import com.time.exception.result.Result;
 import com.time.article.core.utils.WebUtils;
 import com.time.exception.core.BusinessException;
 import com.time.exception.core.ConsoleLogException;

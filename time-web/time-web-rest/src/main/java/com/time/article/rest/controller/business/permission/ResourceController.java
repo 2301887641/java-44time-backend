@@ -1,6 +1,6 @@
 package com.time.article.rest.controller.business.permission;
 
-import com.time.article.core.message.result.Result;
+import com.time.exception.result.Result;
 import com.time.article.core.utils.ValidatorUtils;
 import com.time.article.dao.enums.business.log.LogEnum;
 import com.time.article.rest.annotation.Log;

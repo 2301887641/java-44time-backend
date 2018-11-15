@@ -1,8 +1,4 @@
-package com.time.article.core.enums.restcode;
-
-
-import com.time.exception.enums.BaseEnum;
-import lombok.Getter;
+package com.time.exception.enums;
 
 /**
  * 业务枚举返回
@@ -11,7 +7,6 @@ import lombok.Getter;
  * 500: 返回给前端看 可以直接给用户看
  * @author suiguozhen on 18/04/14
  */
-@Getter
 public enum RestCodeEnum implements BaseEnum {
     /*操作成功*/
     SUCCESS(200,"操作成功"),
@@ -44,6 +39,26 @@ public enum RestCodeEnum implements BaseEnum {
 
     @Override
     public String toString() {
+        return label;
+    }
+
+    /**
+     * 获得标号 默认返回标号 rest请求时
+     *
+     * @return
+     */
+    @Override
+    public Integer getOrdinal() {
+        return ordinal;
+    }
+
+    /**
+     * 获得字符串
+     *
+     * @return
+     */
+    @Override
+    public String getLabel() {
         return label;
     }
 }

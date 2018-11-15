@@ -1,7 +1,7 @@
 package com.time.article.security.core.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.time.article.core.message.result.Result;
+import com.time.exception.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

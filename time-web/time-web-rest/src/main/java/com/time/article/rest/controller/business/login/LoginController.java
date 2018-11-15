@@ -1,6 +1,6 @@
 package com.time.article.rest.controller.business.login;
 
-import com.time.article.core.message.result.Result;
+import com.time.exception.result.Result;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

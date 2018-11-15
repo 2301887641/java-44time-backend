@@ -1,4 +1,4 @@
-package com.time.article.core.message.result;
+package com.time.exception.result;
 
 import com.time.article.core.enums.restcode.RestCodeEnum;
 import lombok.Getter;
