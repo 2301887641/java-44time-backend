@@ -3,8 +3,8 @@ package com.time.article.common.controller;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import com.time.article.security.constants.SecurityConstants;
 import com.time.article.common.enums.CommonEnum;
+import com.time.article.security.constants.SecurityConstants;
 import com.time.exception.core.ConsoleLogException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Properties;
 
 /**
@@ -47,7 +46,7 @@ public class CommonController {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "7");
         defaultCaptcha.setConfig(new Config(properties));
         String text = defaultCaptcha.createText();
-        HttpSession session = request.getSession();
+        request.getSession().setAttribute(SecurityConstants.SESSION_CAPTCHA_NAME,text);
         try {
             ImageIO.write(defaultCaptcha.createImage(text), "jpg", response.getOutputStream());
         } catch (Exception e) {

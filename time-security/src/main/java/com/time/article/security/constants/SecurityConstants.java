@@ -38,4 +38,8 @@ public interface SecurityConstants {
      * post请求
      */
     public static final String DEFAULT_POST_REQUEST = "post";
+    /**
+     * 验证码在session中存储的名称
+     */
+    public static final String SESSION_CAPTCHA_NAME = "captcha";
 }
