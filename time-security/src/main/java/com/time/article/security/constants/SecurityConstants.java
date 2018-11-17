@@ -46,4 +46,8 @@ public interface SecurityConstants {
      * 过期时间  单位秒
      */
     public static final Long VALIDATE_CODE_OVERTIME = 60L;
+    /**
+     * 图片验证码请求参数
+     */
+    public static final String PARAMETER_CAPTCHA="captcha";
 }

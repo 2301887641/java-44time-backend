@@ -1,13 +1,12 @@
 package com.time.article.security.filter;
 
 
-import com.alibaba.druid.util.StringUtils;
 import com.time.article.security.bean.Validate;
 import com.time.article.security.constants.SecurityConstants;
 import com.time.article.security.core.exception.CustomizedAuthenticationException;
 import com.time.article.security.core.handler.UnificationAuthenticationFailureHandler;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Strings;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -15,6 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * 验证码过滤器
@@ -39,20 +40,34 @@ public class CaptchaFilter extends OncePerRequestFilter {
                  * 这里只能这样抛出异常 其他异常不行
                  */
                 unificationAuthenticationFailureHandler.onAuthenticationFailure(request, response, e);
+                return;
             }
-            Validate validate = (Validate) request.getSession().getAttribute(SecurityConstants.SESSION_CAPTCHA_NAME);
 
 
         }
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * 检查验证码
+     * @param request
+     */
     private void validateCaptcha(HttpServletRequest request) {
-        //检查验证码
-        String captcha = request.getParameter("captcha");
+        String captcha = request.getParameter(SecurityConstants.PARAMETER_CAPTCHA);
         if (Strings.isNullOrEmpty(captcha)) {
-            throw new CustomizedAuthenticationException("abc");
+            throw new CustomizedAuthenticationException("请传递验证码");
         }
+        Validate validate = (Validate) request.getSession().getAttribute(SecurityConstants.SESSION_CAPTCHA_NAME);
+        if(Objects.isNull(validate)){
+            throw new CustomizedAuthenticationException("请先生成验证码");
+        }
+        if(!StringUtils.equals(validate.getCode(),captcha)){
+            throw new CustomizedAuthenticationException("验证码不匹配");
+        }
+        if(validate.getExpireTime().isAfter(LocalDateTime.now())){
+            throw new CustomizedAuthenticationException("验证码已过期");
+        }
+        request.removeAttribute(SecurityConstants.PARAMETER_CAPTCHA);
     }
 
     public UnificationAuthenticationFailureHandler getUnificationAuthenticationFailureHandler() {

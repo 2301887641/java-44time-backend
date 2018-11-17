@@ -20,4 +20,20 @@ public class Validate {
         this.code = code;
         this.expireTime = LocalDateTime.now().plusSeconds(time);
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public LocalDateTime getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(LocalDateTime expireTime) {
+        this.expireTime = expireTime;
+    }
 }
