@@ -42,4 +42,8 @@ public interface SecurityConstants {
      * 验证码在session中存储的名称
      */
     public static final String SESSION_CAPTCHA_NAME = "captcha";
+    /**
+     * 过期时间  单位秒
+     */
+    public static final Long VALIDATE_CODE_OVERTIME = 60L;
 }

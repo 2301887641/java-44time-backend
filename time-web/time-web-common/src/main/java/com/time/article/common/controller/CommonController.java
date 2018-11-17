@@ -4,6 +4,7 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import com.time.article.common.enums.CommonEnum;
+import com.time.article.security.bean.Validate;
 import com.time.article.security.constants.SecurityConstants;
 import com.time.exception.core.ConsoleLogException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class CommonController {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "7");
         defaultCaptcha.setConfig(new Config(properties));
         String text = defaultCaptcha.createText();
-        request.getSession().setAttribute(SecurityConstants.SESSION_CAPTCHA_NAME,text);
+        request.getSession().setAttribute(SecurityConstants.SESSION_CAPTCHA_NAME,new Validate(text, SecurityConstants.VALIDATE_CODE_OVERTIME));
         try {
             ImageIO.write(defaultCaptcha.createImage(text), "jpg", response.getOutputStream());
         } catch (Exception e) {
