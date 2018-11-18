@@ -1,3 +1,5 @@
+import {monster} from '../framework/monster.js'
+
 /**
  * 基类
  * @type {{utils}}
@@ -26,10 +28,10 @@ export const King = {
         //cookie相关
         cookie: {
             get: function (name) {
-                let arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-                if(arr = document.cookie.match(reg)){
+                let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                if (arr = document.cookie.match(reg)) {
                     return (arr[2]);
-                }else{
+                } else {
                     return null;
                 }
             }
@@ -82,6 +84,7 @@ export const King = {
     http: function (option, callback, element) {
         this.cancel && this.cancel.abort()
         let icon = '<i class="fa fa-spinner fa-pulse text-white"></i>',
+            mon = new monster(),
             csrf = King.Utils.cookie.get("XSRF-TOKEN"),
             csrfHeader = $("meta[name='_csrf_header']").attr("content"), opt = {},
             options = {
@@ -99,15 +102,17 @@ export const King = {
                     !!element && $(element).removeAttr("disabled") && $(element).find("i").remove()
                 },
                 success: function (res) {
+                    if (res.retCode === 500) {
+                        mon.tips(1234)
+                    }
                     (callback instanceof Function) && callback(res)
                 },
                 error: function (error) {
                     console.log(error)
                 }
             };
-        if(!csrf){
-            console.log("csrf undefined")
-            return
+        if (!csrf) {
+            throw Error("csrf undefined");
         }
         opt.url = basePath + opt.url
         Object.assign(opt, options, option)
