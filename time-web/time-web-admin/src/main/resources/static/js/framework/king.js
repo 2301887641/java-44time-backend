@@ -22,6 +22,17 @@ export const King = {
             isEmpty: function (content) {
                 return $.trim(content).length === 0;
             },
+        },
+        //cookie相关
+        cookie: {
+            get: function (name) {
+                let arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+                if(arr = document.cookie.match(reg)){
+                    return (arr[2]);
+                }else{
+                    return null;
+                }
+            }
         }
     },
     //常量相关
@@ -71,7 +82,7 @@ export const King = {
     http: function (option, callback, element) {
         this.cancel && this.cancel.abort()
         let icon = '<i class="fa fa-spinner fa-pulse text-white"></i>',
-            csrf = $("meta[name='_csrf']").attr("content"),
+            csrf = King.Utils.cookie.get("XSRF-TOKEN"),
             csrfHeader = $("meta[name='_csrf_header']").attr("content"), opt = {},
             options = {
                 url: "",

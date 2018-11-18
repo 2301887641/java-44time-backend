@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 /**
  * spring security配置
@@ -65,8 +66,9 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                         SecurityConstants.DEFAULT_RESOURCE_JS
                 ).permitAll().
                 anyRequest().
-                authenticated();
-//               and().
+                authenticated().
+               and().
+                csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         //以get方式退出系统
 //               logout().logoutRequestMatcher(new AntPathRequestMatcher(SecurityConstants.DEFAULT_LOGIN_PAGE_URL,"GET"));
     }

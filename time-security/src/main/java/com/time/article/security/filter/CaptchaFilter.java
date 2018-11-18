@@ -64,10 +64,10 @@ public class CaptchaFilter extends OncePerRequestFilter {
         if(!StringUtils.equals(validate.getCode(),captcha)){
             throw new CustomizedAuthenticationException("验证码不匹配");
         }
-        if(validate.getExpireTime().isAfter(LocalDateTime.now())){
+        if(LocalDateTime.now().isAfter(validate.getExpireTime())){
             throw new CustomizedAuthenticationException("验证码已过期");
         }
-        request.removeAttribute(SecurityConstants.PARAMETER_CAPTCHA);
+        request.getSession().removeAttribute(SecurityConstants.SESSION_CAPTCHA_NAME);
     }
 
     public UnificationAuthenticationFailureHandler getUnificationAuthenticationFailureHandler() {

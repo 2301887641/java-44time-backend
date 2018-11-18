@@ -5,13 +5,13 @@ import {CanvasAnimate} from '../plugin/canvas/canvas.js'
 canvas()
 function canvas() {
     //画布背景
-    var root = document.querySelector("#root");
-    var a = new CanvasAnimate(root, {
+    let root = document.querySelector("#root"),
+        canvas = new CanvasAnimate(root, {
         length: 20,
         clicked: false,
         moveon: true
     });
-    a.Run();
+    canvas.Run();
 }
 
 
@@ -34,7 +34,6 @@ const descriptor = {
 }
 
 let validate = new Validate(descriptor, $("form"))
-
 $("#submit").click(function () {
     if (validate.verify()) {
         King.http({

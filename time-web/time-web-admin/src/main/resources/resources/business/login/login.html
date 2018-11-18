@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>登陆-login</title>
     <link rel="stylesheet" href="/css/business/login.css">
@@ -13,66 +12,65 @@
 </head>
 <body>
 <canvas id="root" width="1000" height="560" class="art-canvas"></canvas>
-
 <div class="container">
-    <form>
-        <!--logo-->
-        <div class="logo mb-5 w-100">
-            <a class="dispatcher d-block m-auto" href="/">
-                <img src="/img/login/login_logo.png" class="img-fluid"/>
-            </a>
-        </div>
-        <!--用户名-->
-        <div class="row">
-            <div class="col-12 mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="fa fa-user"></i></div>
+        <form>
+            <!--logo-->
+            <div class="logo mb-5 w-100">
+                <a class="dispatcher d-block m-auto" href="/">
+                    <img src="/img/login/login_logo.png" class="img-fluid"/>
+                </a>
+            </div>
+            <!--用户名-->
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-user"></i></div>
+                        </div>
+                        <input type="text" name="username" class="form-control" placeholder="用户名">
                     </div>
-                    <input type="text" name="username" class="form-control" placeholder="用户名">
+                    <!--错误信息-->
+                    <div class="error-notice username-error-notice"></div>
                 </div>
-                <!--错误信息-->
-                <div class="error-notice username-error-notice"></div>
             </div>
-        </div>
-        <!--密码-->
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="fa fa-key"></i></div>
+            <!--密码-->
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-key"></i></div>
+                        </div>
+                        <input type="text" name="password" class="form-control" placeholder="密码">
                     </div>
-                    <input type="text" name="password" class="form-control" placeholder="密码">
+                    <!--错误信息-->
+                    <div class="error-notice password-error-notice"></div>
                 </div>
-                <!--错误信息-->
-                <div class="error-notice password-error-notice"></div>
             </div>
-        </div>
-        <!--验证码-->
-        <div class="row mb-3">
-            <div class="col-12">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="fa fa-eye"></i></div>
+            <!--验证码-->
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-eye"></i></div>
+                        </div>
+                        <img class="captcha" src="/captcha" alt="图片验证码">
+                        <input type="text" name="captcha" class="form-control" placeholder="验证码">
                     </div>
-                    <img class="captcha" src="/captcha" alt="图片验证码">
-                    <input type="text" name="captcha" class="form-control" placeholder="验证码">
-                </div>
-                <!--错误信息-->
-                <div class="error-notice captcha-error-notice"></div>
-            </div>
-        </div>
-        <!--按钮-->
-        <div class="row">
-            <div class="col-12">
-                <div class="input-group mb-2">
-                    <button type="button" id="submit" class="btn btn-warning btn-block">
-                        登录
-                    </button>
+                    <!--错误信息-->
+                    <div class="error-notice captcha-error-notice"></div>
                 </div>
             </div>
-        </div>
-    </form>
+            <!--按钮-->
+            <div class="row">
+                <div class="col-12">
+                    <div class="input-group mb-2">
+                        <button type="button" id="submit" class="btn btn-warning btn-block">
+                            登录
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
 </div>
 <!--定义 servletContext 路径-->
 <script th:fragment="outerJs" xmlns:th="http://www.springframework.org/schema/mvc" type="text/javascript"
