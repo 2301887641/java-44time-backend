@@ -45,7 +45,7 @@ monster.prototype = {
                 let monsterStyle = 'box-shadow:0 0 4px rgba(0,0,0,.2);font-family:"Microsoft YaHei",SimSun;position:fixed;border-radius: 4px;height: 40px;color: #fff;padding:0 15px;background: #4c93ff;top:74px;left:50%;margin-left:-112px;opacity:1;display:block;z-index:95;',
                     innerStyle = "height:100%;",
                     iconTips='display: inline-block;width: 22px;height: 45px;margin: 0 1px 0 0;padding-left: 1px;',
-                    iconSuccess='line-height: 41px;font-size: 13px;',
+                    iconSuccess='line-height: 41px;font-size: 13px;';
 
 
 
