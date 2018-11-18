@@ -106,7 +106,7 @@ export const King = {
                 }
             };
         if(!csrf){
-            console.log("csrf undifined")
+            console.log("csrf undefined")
             return
         }
         opt.url = basePath + opt.url
