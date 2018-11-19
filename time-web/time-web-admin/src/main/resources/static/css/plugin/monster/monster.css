@@ -1,11 +1,32 @@
+@import "/css/plugin/icomoon/style.css";
 .monster-tips{
     position: fixed;
-    padding: 0 15px;
-    background: #4c93ff;
-    border-radius: 4px;
+    padding: 0 0.99rem;
+    border-radius: 0.25rem;
     color: #fff;
-    height: 40px;
+    height: 2.5rem;
     font-family: "Microsoft YaHei",SimSun;
-    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    box-shadow: 0 0 0.25rem rgba(0,0,0,.2);
     z-index: 95;
+}
+.blue-tips{
+    background:#4c93ff;
+    top: 74px;
+    left: 50%;
+    opacity: 1;
+    margin-right:8px;
+    line-height:40px;
+}
+.monster-tips .tip-msg{
+    margin:0 10px 0 10px;
+}
+.monster-tips .tip-icon{
+    font-size:18px;
+}
+.monster-tips .tips-close{
+    font-size:14px;
+    cursor:pointer;
+}
+.red-tips{
+    background:#ff6e6e;
 }
