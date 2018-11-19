@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS time_user;
 CREATE TABLE time_user (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	create_time timestamp  not null  default CURRENT_TIMESTAMP,
-	update_time timestamp  not null  default CURRENT_TIMESTAMP,
+	update_time timestamp  not null,
 	mobile CHAR(11) NOT NULL DEFAULT '' comment '手机号',
 	username VARCHAR(36) NOT NULL DEFAULT '' comment '账号',
 	email VARCHAR(46) NOT NULL DEFAULT '' comment '邮箱',
@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS time_organization;
 CREATE TABLE time_organization (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	create_time timestamp  not null  default CURRENT_TIMESTAMP,
-	update_time timestamp  not null  default CURRENT_TIMESTAMP,
+	update_time timestamp  not null,
 	name VARCHAR(36) NOT NULL,
 	level INT(3) DEFAULT NULL comment '级别',
 	priority INT(3) DEFAULT 0 comment '优先级',
@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS time_role;
 CREATE TABLE time_role (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	create_time timestamp  not null  default CURRENT_TIMESTAMP,
-	update_time timestamp  not null  default CURRENT_TIMESTAMP,
+	update_time timestamp  not null,
 	name VARCHAR(36) NOT NULL DEFAULT '' comment '角色名',
 	priority INT(3) NOT NULL DEFAULT 0 comment '优先级',
 	description VARCHAR(255) NOT NULL DEFAULT '' comment '描述',
@@ -62,7 +62,7 @@ DROP TABLE IF EXISTS time_role_user;
 CREATE TABLE time_role_user (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	create_time timestamp  not null  default CURRENT_TIMESTAMP,
-	update_time timestamp  not null  default CURRENT_TIMESTAMP,
+	update_time timestamp  not null,
 	user_id INT(11) NOT NULL comment '用户id',
 	role_id INT(11) NOT NULL comment '角色id',
 	PRIMARY KEY (id),
@@ -76,7 +76,7 @@ DROP TABLE IF EXISTS time_permission;
 CREATE TABLE time_permission (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	create_time timestamp  not null  default CURRENT_TIMESTAMP,
-	update_time timestamp  not null  default CURRENT_TIMESTAMP,
+	update_time timestamp  not null,
 	role_id INT(11) NOT NULL,
 	resource_id INT(11) NOT NULL,
 	PRIMARY KEY (id),
@@ -90,7 +90,7 @@ DROP TABLE IF EXISTS time_resource;
 create table time_resource(
 	id INT(11) auto_increment primary key,
 	create_time timestamp  not null  default CURRENT_TIMESTAMP,
-	update_time timestamp  not null  default CURRENT_TIMESTAMP,
+	update_time timestamp  not null,
 	level INT(3) DEFAULT NULL default 0 comment '级别',
 	path varchar(300) default '' not null comment '路径 记录父id 用|分割',
 	name varchar(36) default '' not null comment '菜单或方法名称',

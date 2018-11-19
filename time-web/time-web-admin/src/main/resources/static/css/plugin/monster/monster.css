@@ -1,0 +1,11 @@
+.monster-tips{
+    position: fixed;
+    padding: 0 15px;
+    background: #4c93ff;
+    border-radius: 4px;
+    color: #fff;
+    height: 40px;
+    font-family: "Microsoft YaHei",SimSun;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    z-index: 95;
+}

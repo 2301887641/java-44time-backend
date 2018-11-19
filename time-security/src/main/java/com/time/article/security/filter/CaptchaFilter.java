@@ -42,8 +42,6 @@ public class CaptchaFilter extends OncePerRequestFilter {
                 unificationAuthenticationFailureHandler.onAuthenticationFailure(request, response, e);
                 return;
             }
-
-
         }
         filterChain.doFilter(request, response);
     }

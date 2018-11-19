@@ -85,14 +85,13 @@ export const King = {
         this.cancel && this.cancel.abort()
         let icon = '<i class="fa fa-spinner fa-pulse text-white"></i>',
             mon = new monster(),
-            csrf = King.Utils.cookie.get("XSRF-TOKEN"),
-            csrfHeader = $("meta[name='_csrf_header']").attr("content"), opt = {},
+            csrf = King.Utils.cookie.get("XSRF-TOKEN"), opt = {},
             options = {
                 url: "",
                 method: "get",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    [csrfHeader]: csrf
+                    'X-XSRF-TOKEN': csrf
                 },
                 dataType: "json",
                 beforeSend: function () {

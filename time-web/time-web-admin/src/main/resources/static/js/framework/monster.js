@@ -7,16 +7,20 @@ monster.prototype = {
     Constructor: monster,
     //小贴士
     tips: function (message, type = "success") {
+        //常量
+        const MESSAGE = {
+            success: "修改成功"
+        }
+
         function inner(message, type) {
-            if ($.trim(message).length === 0) {
-                throw Error("no message");
-            }
         }
 
         inner.prototype = {
             Constructor: inner,
             //tips类型
             type: {
+                //成功
+                success: "blue-tips",
                 //失败
                 failure: "red-tips"
             },
@@ -32,18 +36,24 @@ monster.prototype = {
             build: function (message, key) {
                 let html = [];
                 !!this.type[key] ? html.push('<div class="monster-tips ' + this.type[key] + '">') :
-                    html.push('<div class="monster-tips" style="' + monsterStyle + '">');
+                    html.push('<div class="monster-tips">');
                 html.push('<div class="tip-inner">');
                 html.push('<span class="tip-icon icon-tips-success"></span>');
                 html.push('<span class="tip-msg">' + message + '</span>');
                 html.push('</div></div>');
-                html = html.join("")
+                html = html.join("");
                 return html;
             },
-        }
-        let inners = new inner(message, type = "success");
-        inners.init()
+            //成功
+            success: function (message = "") {
 
+            }
+        }
+        let inners = new inner()
+        return {
+            // success:
+            // failed:new
+        }
 
     }
 }
