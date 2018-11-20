@@ -2,6 +2,12 @@ import {Validate} from '../framework/validate.js'
 import {King} from '../framework/king.js'
 import {CanvasAnimate} from '../plugin/canvas/canvas.js'
 
+$("#root").attr({
+    width:document.body.offsetWidth,
+    height:document.body.offsetHeight
+})
+
+
 canvas()
 function canvas() {
     //画布背景

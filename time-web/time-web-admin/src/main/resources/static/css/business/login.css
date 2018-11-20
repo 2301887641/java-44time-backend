@@ -41,11 +41,5 @@ form {
     z-index: 100;
     border-radius: 0 .25rem .25rem 0;
     cursor: pointer;
-}
-
-#root {
-    display:flex;
-    justify-content:center;
-    align-items:center;
     height:100%;
 }

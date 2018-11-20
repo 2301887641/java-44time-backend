@@ -1,41 +1,36 @@
 @import "/css/plugin/iconfont/iconfont.css";
 .monster-tips {
-    width: 100%;
-    position: fixed;
-    top: 16px;
-    color: #000;
-    text-align: center;
-}
-.monster-tips .tip-inner {
-    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: -2.4rem;
+    transform: translate(-45%, -50%);
     background: #fff;
     padding: 0 1.2rem;
     line-height: 2.5rem;
     border-radius: 0.25rem;
 }
-.monster-tips .tip-inner .tip-inner-content {
+.monster-tips .tip-content {
     display:flex;
 }
-.monster-tips .tip-inner .tip-inner-content .tip-start {
+.monster-tips .tip-content .tip-start {
     color: #19be6b;
 }
-.monster-tips .tip-inner .tip-inner-content .tip-msg {
-    display:block;
+.monster-tips .tip-content .tip-msg {
     margin: 0 1rem;
     overflow: hidden;
-    max-width: 18rem;
+    max-width: 14rem;
     word-break:keep-all;
     white-space:nowrap;
     text-overflow:ellipsis;
 }
-.monster-tips .tip-inner .tip-inner-content .tip-end {
+.monster-tips .tip-content .tip-end {
     color:#999;
     cursor:pointer;
     outline: 0;
     text-decoration: none;
     transition: color .2s ease;
 }
-.monster-tips .tip-inner .tip-inner-content .tip-end:hover{
+.monster-tips .tip-content .tip-end:hover{
     color:#666;
     transition: color .2s ease;
 }
