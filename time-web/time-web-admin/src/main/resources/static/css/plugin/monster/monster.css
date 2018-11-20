@@ -1,32 +1,44 @@
 @import "/css/plugin/icomoon/style.css";
-.monster-tips{
+
+.monster-tips {
+    width: 100%;
     position: fixed;
-    padding: 0 0.99rem;
-    border-radius: 0.25rem;
+    top: 16px;
     color: #fff;
-    height: 2.5rem;
-    font-family: "Microsoft YaHei",SimSun;
-    box-shadow: 0 0 0.25rem rgba(0,0,0,.2);
-    z-index: 95;
+    text-align: center;
 }
-.blue-tips{
-    background:#4c93ff;
-    top: 74px;
-    left: 50%;
-    opacity: 1;
-    margin-right:8px;
-    line-height:40px;
+
+.monster-tips .tip-inner {
+    display: inline-block;
+    background: #4c93ff;
 }
-.monster-tips .tip-msg{
-    margin:0 10px 0 10px;
+
+.tip-inner-content {
+
 }
-.monster-tips .tip-icon{
-    font-size:18px;
-}
-.monster-tips .tips-close{
-    font-size:14px;
-    cursor:pointer;
-}
-.red-tips{
-    background:#ff6e6e;
-}
+
+/*.blue-tips{*/
+/*background:#4c93ff;*/
+/*top: 74px;*/
+/*left: 50%;*/
+/*opacity: 1;*/
+/*margin-right:8px;*/
+/*line-height:40px;*/
+/*}*/
+/*.monster-tips .tip-msg{*/
+/*margin:0 10px 0 10px;*/
+/*max-width: 400px;*/
+/*min-width: 1px;*/
+/*white-space: nowrap;*/
+/*overflow: hidden;*/
+/*}*/
+/*.monster-tips .tip-icon{*/
+/*font-size:18px;*/
+/*}*/
+/*.monster-tips .tips-close{*/
+/*font-size:14px;*/
+/*cursor:pointer;*/
+/*}*/
+/*.red-tips{*/
+/*background:#ff6e6e;*/
+/*}*/

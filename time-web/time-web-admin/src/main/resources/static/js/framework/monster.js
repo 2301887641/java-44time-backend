@@ -24,7 +24,12 @@ monster.prototype = {
             init: function (message, typeClass, iconClass) {
                 //元素不存在
                 if (!$(".monster-tips").length) {
-                    $(this.build(message, typeClass, iconClass)).appendTo("body");
+                    let element = $(this.build(message, typeClass, iconClass)).appendTo("body");
+                    let width = element.width()
+                    // element.css({
+                        // "marginLeft":-(width/2),
+                        // "display":"block"
+                    // })
                     return
                 }
             },
@@ -33,10 +38,11 @@ monster.prototype = {
                 let html = [];
                 html.push('<div class="monster-tips ' + typeClass + '">');
                 html.push('<div class="tip-inner">');
+                html.push('<div class="tip-inner-content">');
                 html.push('<span class="tip-icon ' + iconClass + '"></span>');
                 html.push('<span class="tip-msg">' + message + '</span>');
                 html.push('<span class="tip-icon tips-close icon-cross"></span>')
-                html.push('</div></div>');
+                html.push('</div></div></div>');
                 html = html.join("");
                 return html;
             },
