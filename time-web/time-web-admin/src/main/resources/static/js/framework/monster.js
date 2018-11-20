@@ -15,7 +15,7 @@ monster.prototype = {
         function inner() {
             //tips类型
             this.type = {success: "blue-tips", failure: "red-tips"};
-            this.icon = {success: "icon-checkmark", failure: "icon-notification"}
+            this.icon = {success: "icon-chenggong", failure: "icon-notification"}
         }
 
         inner.prototype = {
@@ -27,8 +27,8 @@ monster.prototype = {
                     let element = $(this.build(message, typeClass, iconClass)).appendTo("body");
                     let width = element.width()
                     // element.css({
-                        // "marginLeft":-(width/2),
-                        // "display":"block"
+                    // "marginLeft":-(width/2),
+                    // "display":"block"
                     // })
                     return
                 }
@@ -36,12 +36,12 @@ monster.prototype = {
             //构造
             build: function (message, typeClass, iconClass) {
                 let html = [];
-                html.push('<div class="monster-tips ' + typeClass + '">');
-                html.push('<div class="tip-inner">');
+                html.push('<div class="monster-tips">');
+                html.push('<div class="tip-inner ' + typeClass + '">');
                 html.push('<div class="tip-inner-content">');
-                html.push('<span class="tip-icon ' + iconClass + '"></span>');
+                html.push('<span class="tip-icon iconfont tip-start ' + iconClass + '"></span>');
                 html.push('<span class="tip-msg">' + message + '</span>');
-                html.push('<span class="tip-icon tips-close icon-cross"></span>')
+                html.push('<span class="tip-icon iconfont icon-guanbi tip-end"></span>')
                 html.push('</div></div></div>');
                 html = html.join("");
                 return html;

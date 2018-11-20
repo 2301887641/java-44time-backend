@@ -1,44 +1,41 @@
-@import "/css/plugin/icomoon/style.css";
-
+@import "/css/plugin/iconfont/iconfont.css";
 .monster-tips {
     width: 100%;
     position: fixed;
     top: 16px;
-    color: #fff;
+    color: #000;
     text-align: center;
 }
-
 .monster-tips .tip-inner {
     display: inline-block;
-    background: #4c93ff;
+    background: #fff;
+    padding: 0 1.2rem;
+    line-height: 2.5rem;
+    border-radius: 0.25rem;
 }
-
-.tip-inner-content {
-
+.monster-tips .tip-inner .tip-inner-content {
+    display:flex;
 }
-
-/*.blue-tips{*/
-/*background:#4c93ff;*/
-/*top: 74px;*/
-/*left: 50%;*/
-/*opacity: 1;*/
-/*margin-right:8px;*/
-/*line-height:40px;*/
-/*}*/
-/*.monster-tips .tip-msg{*/
-/*margin:0 10px 0 10px;*/
-/*max-width: 400px;*/
-/*min-width: 1px;*/
-/*white-space: nowrap;*/
-/*overflow: hidden;*/
-/*}*/
-/*.monster-tips .tip-icon{*/
-/*font-size:18px;*/
-/*}*/
-/*.monster-tips .tips-close{*/
-/*font-size:14px;*/
-/*cursor:pointer;*/
-/*}*/
-/*.red-tips{*/
-/*background:#ff6e6e;*/
-/*}*/
+.monster-tips .tip-inner .tip-inner-content .tip-start {
+    color: #19be6b;
+}
+.monster-tips .tip-inner .tip-inner-content .tip-msg {
+    display:block;
+    margin: 0 1rem;
+    overflow: hidden;
+    max-width: 18rem;
+    word-break:keep-all;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+.monster-tips .tip-inner .tip-inner-content .tip-end {
+    color:#999;
+    cursor:pointer;
+    outline: 0;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+.monster-tips .tip-inner .tip-inner-content .tip-end:hover{
+    color:#666;
+    transition: color .2s ease;
+}
