@@ -1,5 +1,4 @@
 import {monster} from '../framework/monster.js'
-
 /**
  * 基类
  * @type {{utils}}

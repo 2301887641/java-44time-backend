@@ -1,6 +1,8 @@
 import {Validate} from '../framework/validate.js'
 import {King} from '../framework/king.js'
 import {CanvasAnimate} from '../plugin/canvas/canvas.js'
+import {monster} from "../framework/monster.js";
+
 
 $("#root").attr({
     width:document.body.offsetWidth,
@@ -41,6 +43,7 @@ const descriptor = {
 
 let validate = new Validate(descriptor, $("form"))
 $("#submit").click(function () {
+    monster.tips.failure({message:"修改成功水电费是否啥打法是否打算阿斯顿发送到发送到发送"})
     if (validate.verify()) {
         King.http({
             url: "/authentication/form",

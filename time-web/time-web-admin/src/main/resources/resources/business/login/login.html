@@ -9,68 +9,65 @@
     <link rel="stylesheet" href="/css/plugin/fontawesome/css/fontawesome.css">
     <link rel="stylesheet" href="/css/common/common.css">
 </head>
-<body>
-<canvas id="root"  class="art-canvas"></canvas>
-<div class="container">
-        <form>
-            <!--logo-->
-            <div class="logo mb-5 w-100">
-                <a class="dispatcher d-block m-auto" href="/">
-                    <img src="/img/login/login_logo.png" class="img-fluid"/>
-                </a>
-            </div>
-            <!--用户名-->
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-user"></i></div>
-                        </div>
-                        <input type="text" name="username" class="form-control" placeholder="用户名">
-                    </div>
-                    <!--错误信息-->
-                    <div class="error-notice username-error-notice"></div>
+<body class="text-center">
+<canvas id="root" class="art-canvas"></canvas>
+<form class="form-signin">
+    <!--logo-->
+    <div class="logo">
+        <img src="/img/login/login_logo.png">
+        <span>asdfasdfasdfa</span>
+    </div>
+    <!--用户名-->
+    <div class="row">
+        <div class="col-12 mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-user"></i></div>
                 </div>
+                <input type="text" name="username" class="form-control" placeholder="用户名">
             </div>
-            <!--密码-->
-            <div class="row mb-3">
-                <div class="col-12">
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-key"></i></div>
-                        </div>
-                        <input type="text" name="password" class="form-control" placeholder="密码">
-                    </div>
-                    <!--错误信息-->
-                    <div class="error-notice password-error-notice"></div>
+            <!--错误信息-->
+            <div class="error-notice username-error-notice"></div>
+        </div>
+    </div>
+    <!--密码-->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-key"></i></div>
                 </div>
+                <input type="text" name="password" class="form-control" placeholder="密码">
             </div>
-            <!--验证码-->
-            <div class="row mb-3">
-                <div class="col-12">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-eye"></i></div>
-                        </div>
-                        <img class="captcha" src="/captcha" alt="图片验证码">
-                        <input type="text" name="captcha" class="form-control" placeholder="验证码">
-                    </div>
-                    <!--错误信息-->
-                    <div class="error-notice captcha-error-notice"></div>
+            <!--错误信息-->
+            <div class="error-notice password-error-notice"></div>
+        </div>
+    </div>
+    <!--验证码-->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-eye"></i></div>
                 </div>
+                <img class="captcha" src="/captcha" alt="图片验证码">
+                <input type="text" name="captcha" class="form-control" placeholder="验证码">
             </div>
-            <!--按钮-->
-            <div class="row">
-                <div class="col-12">
-                    <div class="input-group mb-2">
-                        <button type="button" id="submit" class="btn btn-warning btn-block">
-                            登录
-                        </button>
-                    </div>
-                </div>
+            <!--错误信息-->
+            <div class="error-notice captcha-error-notice"></div>
+        </div>
+    </div>
+    <!--按钮-->
+    <div class="row">
+        <div class="col-12">
+            <div class="input-group mb-2">
+                <button type="button" id="submit" class="btn btn-warning btn-block">
+                    登录
+                </button>
             </div>
-        </form>
-</div>
+        </div>
+    </div>
+</form>
 <!--定义 servletContext 路径-->
 <script th:fragment="outerJs" xmlns:th="http://www.springframework.org/schema/mvc" type="text/javascript"
         th:inline="javascript">
@@ -88,7 +85,3 @@
 <script src="/js/plugin/canvas/canvas.js" type="module"></script>
 </body>
 </html>
-<script type="module">
-    import {monster} from "/js/framework/monster.js";
-    monster.tips.success({message:"修改成功水电费是否啥打法是否打算阿斯顿发送到发送到发送"})
-</script>

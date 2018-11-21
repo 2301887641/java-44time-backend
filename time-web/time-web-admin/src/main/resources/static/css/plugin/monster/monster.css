@@ -8,12 +8,25 @@
     padding: 0 1.2rem;
     line-height: 2.5rem;
     border-radius: 0.25rem;
+    border-width: 1px;
+    border-style: solid;
+}
+.green-tips{
+    background-color:#f0f9eb;
+    border-color: #e1f3d8;
+}
+.red-tips{
+    background-color:#fef0f0;
+    border-color:#fde2e2;
 }
 .monster-tips .tip-content {
     display:flex;
 }
-.monster-tips .tip-content .tip-start {
-    color: #19be6b;
+.monster-tips .tip-content .icon-chenggong {
+    color: #67c23a;
+}
+.monster-tips .tip-content .icon-cuowu{
+    color:#f56c6c;
 }
 .monster-tips .tip-content .tip-msg {
     margin: 0 1rem;
