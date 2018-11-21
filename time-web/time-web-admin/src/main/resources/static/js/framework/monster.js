@@ -1,21 +1,25 @@
 export function monster() {
-
-
 }
 
 monster.prototype = {
     Constructor: monster,
     //小贴士
     tips: (function () {
-        //常量
-        const MESSAGE = {
-            success: "修改成功"
-        }
-
         function inner() {
-            //tips类型
-            this.type = {success: "blue-tips", failure: "red-tips"};
-            this.icon = {success: "icon-chenggong", failure: "icon-notification"}
+            this.options = {
+                success: {
+                    iconClass: "icon-chenggong",
+                    typeClass: "green-tips",
+                    message: "操作成功"
+                },
+                failure: {
+                    iconClass: "icon-gantan",
+                    typeClass: "red-tips",
+                    message: "操作失败"
+                },
+                //持续
+                duration: 2000
+            }
         }
 
         inner.prototype = {
@@ -25,16 +29,18 @@ monster.prototype = {
                 //元素不存在
                 if (!$(".monster-tips").length) {
                     let element = $(this.build(message, typeClass, iconClass)).appendTo("body");
-                    let width = element.width()
-                    element.animate({top: "4rem"}, {
-                        duration: 200, easing: "linear", complete: function () {
-                            setTimeout(function () {
-                                element.fadeOut()
-                            },2000)
-                        }
-                    })
                     return
                 }
+            },
+            //动画
+            animate(element) {
+                element.animate({top: "4rem"}, {
+                    duration: 200, easing: "linear", complete: function () {
+                        setTimeout(function () {
+                            element.fadeOut()
+                        }, 2000)
+                    }
+                })
             },
             //构造
             build: function (message, typeClass, iconClass) {
@@ -48,12 +54,14 @@ monster.prototype = {
                 html = html.join("");
                 return html;
             },
-            //成功
-            success: function (message = MESSAGE.success) {
-                this.init(message, this.type.success, this.icon.success)
+            //成功  带默认值
+            success: function (arg = {message, duration} = {
+                message: this.options.success.message,
+                duration: this.options.duration
+            }) {
+                this.init(Object.assign(this.options.success,arg))
             }
         }
-        let inners = new inner()
-        monster.tips = inners
+        monster.tips = new inner()
     })()
 }

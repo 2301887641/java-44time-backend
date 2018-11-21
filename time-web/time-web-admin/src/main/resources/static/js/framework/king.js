@@ -84,7 +84,6 @@ export const King = {
     http: function (option, callback, element) {
         this.cancel && this.cancel.abort()
         let icon = '<i class="fa fa-spinner fa-pulse text-white"></i>',
-            // mon = new monster(),
             csrf = King.Utils.cookie.get("XSRF-TOKEN"), opt = {},
             options = {
                 url: "",
