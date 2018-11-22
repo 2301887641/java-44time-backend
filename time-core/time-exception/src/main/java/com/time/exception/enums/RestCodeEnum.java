@@ -25,9 +25,7 @@ public enum RestCodeEnum implements BaseEnum {
     /**
      * 树形结构异常
      */
-//    TREE_DISABLE_DELETE_CHILDREN(500,"不能删除带有子类的资源"),
 //    TREE_UNABLE_SET_CURRENT_PARENT(500,"不能将父类的子类设置成为当前类的父类"),
-//    TREE_UNABLE_SET_PARENT_AS_SELF(500,"不能将自己设为上级资源"),
     /**
      * 验证相关
      */

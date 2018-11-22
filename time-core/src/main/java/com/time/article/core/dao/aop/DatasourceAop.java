@@ -3,6 +3,7 @@ package com.time.article.core.dao.aop;
 import com.time.article.core.dao.annotation.Datasource;
 import com.time.article.core.dao.config.datasource.DynamicDataSourceContext;
 import com.time.article.core.message.constant.Constants;
+import com.time.exception.constant.ConstantPool;
 import com.time.exception.core.BusinessException;
 import com.time.exception.enums.RestCodeEnum;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -33,7 +34,7 @@ public class DatasourceAop implements Ordered {
         Signature signature = point.getSignature();
         /**获取当前执行的service上的方法 当前注解只能用于方法上*/
         if(!(signature instanceof MethodSignature)){
-            throw new BusinessException(RestCodeEnum.ANNOTATION_BE_USED_TO_FUNC);
+            throw new BusinessException(RestCodeEnum.FAILURE.getOrdinal(), ConstantPool.ANNOTATION_USED_FOR_FUNC);
         }
         MethodSignature methodSignature = (MethodSignature) signature;
         Object target = point.getTarget();
