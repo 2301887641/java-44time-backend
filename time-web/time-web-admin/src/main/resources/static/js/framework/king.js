@@ -100,7 +100,8 @@ export const King = {
                 },
                 success: function (res) {
                     if (res.retCode === 500) {
-                        monster.tips.success(1244)
+                        monster.tips.failure({message:res.retInfo})
+                        return
                     }
                     (callback instanceof Function) && callback(res)
                 },

@@ -43,14 +43,15 @@ const descriptor = {
 
 let validate = new Validate(descriptor, $("form"))
 $("#submit").click(function () {
-    monster.tips.failure({message:"修改成功水电费是否啥打法是否打算阿斯顿发送到发送到发送"})
     if (validate.verify()) {
         King.http({
             url: "/authentication/form",
             data: $("form").serialize(),
             method: "post"
         }, function (res) {
-            console.log(res)
+            if(res.retCode===200){
+                monster.tips.success("登陆成功,即将进行跳转")
+            }
         }, this)
     }
 });

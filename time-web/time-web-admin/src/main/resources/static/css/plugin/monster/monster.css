@@ -14,10 +14,12 @@
 .green-tips{
     background-color:#f0f9eb;
     border-color: #e1f3d8;
+    color:#67c23a;
 }
 .red-tips{
     background-color:#fef0f0;
     border-color:#fde2e2;
+    color:#f56c6c;
 }
 .monster-tips .tip-content {
     display:flex;
