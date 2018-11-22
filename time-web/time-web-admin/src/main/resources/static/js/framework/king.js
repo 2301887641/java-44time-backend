@@ -106,7 +106,7 @@ export const King = {
                     (callback instanceof Function) && callback(res)
                 },
                 error: function (error) {
-                    console.log(error)
+                    monster.tips.failure({message:"网络连接失败!"})
                 }
             };
         if (!csrf) {

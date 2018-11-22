@@ -51,7 +51,7 @@ public class Result<T> implements Serializable{
      * @return
      */
     public static<w> Result failed(String retInfo){
-        return new Result<>(RestCodeEnum.DEFAULT_EXCEPTION.getOrdinal(),retInfo);
+        return new Result<>(RestCodeEnum.EXCEPTION.getOrdinal(),retInfo);
     }
 
     /**

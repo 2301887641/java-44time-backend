@@ -16,4 +16,8 @@ public interface ConstantPool {
      * 响应类型
      */
     String RESPONSE_CONTENT_TYPE = "application/json;charset=utf-8";
+    /**
+     * 注解相关
+     */
+    String ANNOTATION_USED_FOR_FUNC="注解只能用于方法上";
 }
