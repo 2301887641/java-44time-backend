@@ -99,9 +99,8 @@ export const King = {
                     !!element && $(element).removeAttr("disabled") && $(element).find("i").remove()
                 },
                 success: function (res) {
-                    if (res.retCode === 500) {
+                    if(res.retCode === 500) {
                         monster.tips.failure({message:res.retInfo})
-                        return
                     }
                     (callback instanceof Function) && callback(res)
                 },

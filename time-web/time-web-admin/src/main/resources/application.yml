@@ -179,7 +179,7 @@ spring:
   #spring数据库配置
   datasource:
     #主数据源
-    url: jdbc:mysql://127.0.0.1:3306/time?serverTimezone=GMT
+    url: jdbc:mysql://127.0.0.1:3306/time?serverTimezone=GMT&zeroDateTimeBehavior=convertToNull
     username: root
     password: 123456
 
@@ -188,7 +188,7 @@ dynamicDatasource:
   #次数据库配置
   secondaryConfig:
     #主数据源
-    url: jdbc:mysql://127.0.0.1:3306/buns?serverTimezone=GMT
+    url: jdbc:mysql://127.0.0.1:3306/buns?serverTimezone=GMT&zeroDateTimeBehavior=convertToNull
     username: root
     password: 123456
     #默认的数据源名称

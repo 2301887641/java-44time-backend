@@ -49,7 +49,8 @@ monster.prototype = {
                 element.animate({top: options.position}, {
                     duration: options.duration, easing: options.easing, complete: function () {
                         setTimeout(function () {
-                            // element.animate({top: "-2.4rem"}) && element.remove()
+                            element.animate({top: "-2.4rem"})
+                            element.remove()
                         }, options.timeout)
                     }
                 })

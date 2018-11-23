@@ -1,7 +1,8 @@
 package com.time.utils.core;
 
 import com.time.exception.core.BusinessException;
-import com.time.utils.enums.BusinessEnum;
+import com.time.exception.enums.RestCodeEnum;
+import com.time.utils.constants.ConstantPool;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -66,7 +67,7 @@ public class HttpUrlConnectionUtils {
                 }
             }
         } catch (Exception e) {
-            throw new BusinessException(BusinessEnum.CONNECTION);
+            throw new BusinessException(RestCodeEnum.FAILURE, ConstantPool.CONNECTION_FAILED);
         }
         return result;
     }
