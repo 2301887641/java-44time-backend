@@ -2,6 +2,7 @@ package com.time.article.security.core.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.time.exception.constant.ConstantPool;
+import com.time.exception.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -25,6 +26,6 @@ public class UnificationAuthenticationSuccessHandler extends SavedRequestAwareAu
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         response.setContentType(ConstantPool.RESPONSE_CONTENT_TYPE);
-        response.getWriter().write(objectMapper.writeValueAsString(authentication.getPrincipal()));
+        response.getWriter().write(objectMapper.writeValueAsString(Result.success(authentication.getPrincipal())));
     }
 }

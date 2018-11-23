@@ -60,10 +60,14 @@ $("#submit").click(function () {
             method: "post"
         }, function (res) {
             if (res.retCode === 200) {
-                monster.tips.success("登陆成功,即将进行跳转")
+                monster.tips.success({message:"登陆成功,即将进行跳转"})
                 return
             }
-            $(".captcha").attr("src", captchaObject.refresh())
+            if(res.retCode !== 500) {
+                monster.tips.failure({message:"验证码已过期,请重新输入"})
+            }
+            $("input[name='captcha']").val("");
+            $(".captcha").attr("src", captchaObject.refresh());
         }, this)
     }
 });
