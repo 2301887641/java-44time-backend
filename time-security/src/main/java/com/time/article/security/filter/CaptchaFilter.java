@@ -5,6 +5,7 @@ import com.time.article.security.bean.Validate;
 import com.time.article.security.constants.SecurityConstants;
 import com.time.article.security.core.exception.CustomizedAuthenticationException;
 import com.time.article.security.core.handler.UnificationAuthenticationFailureHandler;
+import com.time.exception.enums.RestCodeEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Strings;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -53,17 +54,17 @@ public class CaptchaFilter extends OncePerRequestFilter {
     private void validateCaptcha(HttpServletRequest request) {
         String captcha = request.getParameter(SecurityConstants.PARAMETER_CAPTCHA);
         if (Strings.isNullOrEmpty(captcha)) {
-            throw new CustomizedAuthenticationException("请传递验证码");
+            throw new CustomizedAuthenticationException(RestCodeEnum.EXCEPTION,SecurityConstants.CAPTCHA_LOSE);
         }
         Validate validate = (Validate) request.getSession().getAttribute(SecurityConstants.SESSION_CAPTCHA_NAME);
         if(Objects.isNull(validate)){
-            throw new CustomizedAuthenticationException("请先生成验证码");
+            throw new CustomizedAuthenticationException(RestCodeEnum.FAILURE,SecurityConstants.CAPTCHA_GENERATE_FIRST);
         }
         if(!StringUtils.equals(validate.getCode(),captcha)){
-            throw new CustomizedAuthenticationException("验证码不匹配");
+            throw new CustomizedAuthenticationException(RestCodeEnum.EXCEPTION,SecurityConstants.CAPTCHA_NOT_MATCH);
         }
         if(LocalDateTime.now().isAfter(validate.getExpireTime())){
-            throw new CustomizedAuthenticationException("验证码已过期");
+            throw new CustomizedAuthenticationException(RestCodeEnum.EXCEPTION,SecurityConstants.CAPTCHA_EXPIRED);
         }
         request.getSession().removeAttribute(SecurityConstants.SESSION_CAPTCHA_NAME);
     }

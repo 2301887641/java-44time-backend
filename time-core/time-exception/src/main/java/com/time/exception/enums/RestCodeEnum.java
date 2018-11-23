@@ -18,21 +18,6 @@ public enum RestCodeEnum implements BaseEnum {
      */
     FAILURE(101,"服务器异常");
 
-    /**
-     * dao层异常
-     */
-//    DAO_RECORD_MISSED(400, "该记录已不存在"),
-    /**
-     * 树形结构异常
-     */
-//    TREE_UNABLE_SET_CURRENT_PARENT(500,"不能将父类的子类设置成为当前类的父类"),
-    /**
-     * 验证相关
-     */
-//    MOBILE_MISSING(500,"请输入手机号"),
-    /**默认异常*/
-//    DEFAULT_EXCEPTION(500,"服务器异常");
-
     private Integer ordinal;
     private String label;
 

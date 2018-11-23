@@ -35,6 +35,22 @@ public interface SecurityConstants {
      */
     public static final String USERNAME_OR_PASSWORD_MISSED = "用户名或密码错误";
     /**
+     * 请填写验证码
+     */
+    public static final String CAPTCHA_LOSE = "请填写验证码";
+    /**
+     * 请先生成验证码
+     */
+    public static final String CAPTCHA_GENERATE_FIRST = "请先生成验证码";
+    /**
+     * 验证码不匹配
+     */
+    public static final String CAPTCHA_NOT_MATCH = "验证码不匹配";
+    /**
+     * 验证码已过期
+     */
+    public static final String CAPTCHA_EXPIRED = "验证码已过期";
+    /**
      * post请求
      */
     public static final String DEFAULT_POST_REQUEST = "post";
@@ -49,5 +65,5 @@ public interface SecurityConstants {
     /**
      * 图片验证码请求参数
      */
-    public static final String PARAMETER_CAPTCHA="captcha";
+    public static final String PARAMETER_CAPTCHA = "captcha";
 }

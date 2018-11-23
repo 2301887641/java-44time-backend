@@ -9,6 +9,7 @@ import com.time.article.rest.annotation.Log;
 import com.time.article.rest.constants.RestConstants;
 import com.time.article.service.api.business.log.OperationLogService;
 import com.time.article.service.dto.business.log.OperationLogDto;
+import com.time.exception.constant.ConstantPool;
 import com.time.exception.core.BusinessException;
 import com.time.exception.enums.RestCodeEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ public class AccessLogAop {
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Signature signature = point.getSignature();
         if (!(signature instanceof MethodSignature)) {
-            throw new BusinessException(RestCodeEnum.ANNOTATION_BE_USED_TO_FUNC);
+            throw new BusinessException(RestCodeEnum.FAILURE, ConstantPool.ANNOTATION_USED_FOR_FUNC);
         }
         OperationLogDto operationLogDto = new OperationLogDto();
         MethodSignature methodSignature = (MethodSignature) signature;

@@ -61,5 +61,4 @@ public class UnificationExceptionHandler implements ApplicationContextAware {
     public void consoleLogExceptionHandler(ConsoleLogException exception){
         log.error(exception.getMsg(),exception.getCode());
     }
-
 }
