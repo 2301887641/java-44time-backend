@@ -6,12 +6,6 @@ monster.prototype = {
     //小贴士
     tips: (function () {
         function inner() {
-            this.container = {
-                //元素
-                element: null,
-                //类型
-                type: null
-            };
             this.options = {
                 success: {
                     iconClass: "icon-chenggong",
@@ -26,13 +20,7 @@ monster.prototype = {
             }
             this.config = {
                 //持续
-                duration: 200,
-                //timeout
-                timeout: 2000,
-                //位置
-                position: "4rem",
-                //运动方式
-                easing: "linear",
+                duration: 2,
                 //可关闭
                 closable: false
             }
@@ -46,9 +34,10 @@ monster.prototype = {
             },
             //动画
             animate(element, options) {
+                element.css("animation-delay", ".1s," + options.duration + "s");
                 setTimeout(function () {
-
-                }, options.timeout)
+                    element.remove()
+                }, (options.duration + 1) * 1000)
             },
             //构造
             build: function (options) {
