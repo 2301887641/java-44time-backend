@@ -45,16 +45,10 @@ monster.prototype = {
                 this.animate($(this.build(options)).appendTo("body"), options);
             },
             //动画
-            animate(element,options) {
-                element.animate({top: options.position}, {
-                    duration: options.duration, easing: options.easing, complete: function () {
-                        setTimeout(function () {
-                            element.animate({top: "-2.4rem"},options.duration,function(){
-                                element.remove()
-                            })
-                        }, options.timeout)
-                    }
-                })
+            animate(element, options) {
+                setTimeout(function () {
+
+                }, options.timeout)
             },
             //构造
             build: function (options) {

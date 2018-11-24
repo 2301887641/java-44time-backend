@@ -1,8 +1,8 @@
 @import "/css/plugin/iconfont/iconfont.css";
+
 .monster-tips {
     position: absolute;
     left: 50%;
-    top: -2.4rem;
     transform: translate(-45%, -50%);
     background: #fff;
     padding: 0 1.2rem;
@@ -10,41 +10,67 @@
     border-radius: 0.25rem;
     border-width: 1px;
     border-style: solid;
+    /*动画属性名，keyframes定义的动画名*/
+    animation-name: fadeInDown;
+    /*!*动画持续时间*!*/
+    animation-duration: 3s;
+    /*!*动画速度曲线*!*/
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    animation-delay:1s;
+    /*animation:fadeInDown 1s .2s ease forwards;*/
 }
-.green-tips{
-    background-color:#f0f9eb;
+
+@keyframes fadeInDown {
+    0% {
+        top: -10rem;
+    }
+    100% {
+        top: 4rem;
+    }
+}
+
+.green-tips {
+    background-color: #f0f9eb;
     border-color: #e1f3d8;
-    color:#67c23a;
+    color: #67c23a;
 }
-.red-tips{
-    background-color:#fef0f0;
-    border-color:#fde2e2;
-    color:#f56c6c;
+
+.red-tips {
+    background-color: #fef0f0;
+    border-color: #fde2e2;
+    color: #f56c6c;
 }
+
 .monster-tips .tip-content {
-    display:flex;
+    display: flex;
 }
+
 .monster-tips .tip-content .icon-chenggong {
     color: #67c23a;
 }
-.monster-tips .tip-content .icon-cuowu{
-    color:#f56c6c;
+
+.monster-tips .tip-content .icon-cuowu {
+    color: #f56c6c;
 }
+
 .monster-tips .tip-content .tip-msg {
     margin: 0 1rem;
     overflow: hidden;
     max-width: 14rem;
-    word-break:keep-all;
-    white-space:nowrap;
-    text-overflow:ellipsis;
+    word-break: keep-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 .monster-tips .tip-content .tip-end {
-    color:#999;
-    cursor:pointer;
+    color: #999;
+    cursor: pointer;
     outline: 0;
     text-decoration: none;
     transition: color .2s ease;
 }
-.monster-tips .tip-content .tip-end:hover{
-    color:#666;
+
+.monster-tips .tip-content .tip-end:hover {
+    color: #666;
 }
