@@ -166,7 +166,6 @@ Validate.fn = Validate.prototype = {
             }
             if (rule.regex) {
                 this.observer.trigger(Validate.ConstansPool.verify.regex, element, element.name, item, allow)
-
             }
             return true
         }

@@ -1,4 +1,5 @@
 import {monster} from '../framework/monster.js'
+
 /**
  * 基类
  * @type {{utils}}
@@ -40,6 +41,9 @@ export const King = {
     ConstantsPool: {
         URL: {
             LOGIN: "/login"
+        },
+        ICON: {
+            SPINNER: '<i class="fa fa-spinner fa-pulse text-white"></i>'
         }
     },
     //发布订阅模式
@@ -82,8 +86,8 @@ export const King = {
     //http请求 重复请求会销毁之前的提交
     http: function (option, callback, element) {
         this.cancel && this.cancel.abort()
-        let icon = '<i class="fa fa-spinner fa-pulse text-white"></i>',
-            csrf = King.Utils.cookie.get("XSRF-TOKEN"), opt = {},
+        let csrf = King.Utils.cookie.get("XSRF-TOKEN"), opt = {}, ele = $(element),
+            icon =$(this.ConstantsPool.ICON.SPINNER),
             options = {
                 url: "",
                 method: "get",
@@ -93,25 +97,24 @@ export const King = {
                 },
                 dataType: "json",
                 beforeSend: function () {
-                    !!element && $(element).prepend(icon) && $(element).attr("disabled", "true")
+                    !!element && ele.prepend(icon) && ele.attr("disabled", "true")
                 },
                 complete: function () {
-                    !!element && $(element).removeAttr("disabled") && $(element).find("i").remove()
+                    !!element && ele.removeAttr("disabled") && icon.remove()
                 },
                 success: function (res) {
-                    if(res.retCode === 500) {
-                        monster.tips.failure({message:res.retInfo})
+                    if (res.retCode === 500) {
+                        monster.tips.failure({message: res.retInfo})
                     }
                     (callback instanceof Function) && callback(res)
                 },
                 error: function (error) {
-                    monster.tips.failure({message:"网络连接失败!"})
+                    monster.tips.failure({message: "网络连接失败!"})
                 }
             };
         if (!csrf) {
             throw Error("csrf undefined");
         }
-        opt.url = basePath + opt.url
         Object.assign(opt, options, option)
         this.cancel = $.ajax(opt)
     }

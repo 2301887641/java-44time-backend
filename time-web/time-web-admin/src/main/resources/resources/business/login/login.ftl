@@ -67,13 +67,6 @@
         </div>
     </div>
 </form>
-<!--定义 servletContext 路径-->
-<script th:fragment="outerJs" xmlns:th="http://www.springframework.org/schema/mvc" type="text/javascript"
-        th:inline="javascript">
-    /*<![CDATA[*/
-    var basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
-    /*]]>*/
-</script>
 <script src="/js/plugin/jquery/jq.js"></script>
 <script src="/js/plugin/bootstrap/js/popper.min.js"></script>
 <script src="/js/plugin/bootstrap/js/bootstrap.min.js"></script>
