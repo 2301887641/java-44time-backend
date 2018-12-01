@@ -185,7 +185,7 @@ spring:
   #spring数据库配置
   datasource:
     #主数据源
-    url: jdbc:mysql://127.0.0.1:3306/time?serverTimezone=GMT&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://127.0.0.1:3306/time?serverTimezone=GMT&useSSL=true
     username: root
     password: 123456
 

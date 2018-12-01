@@ -1,0 +1,47 @@
+.main-wrapper {
+    width: 100%;
+}
+
+.top-bar {
+    background: #1e88e5;
+}
+
+.top-bar .nav-bar {
+    min-height: 4.375rem;
+    padding-right:0.9375rem;
+}
+
+.top-bar .nav-bar-header {
+    width: 15rem;
+    line-height: 4.0625rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.top-bar .nav-bar-header .navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+}
+
+.top-bar .nav-bar-header .navbar-brand b {
+    line-height: 4.0625rem;
+    display: inline-block;
+}
+
+.top-bar .navbar-nav > .nav-item > .nav-link {
+    color: #fff;
+    font-size: 1.1875rem;
+    padding-left: 1.5rem;
+}
+.top-bar .profile-pic{
+    width: 30px;
+    border-radius: 100%;
+}
+.light-logo {
+    display: inline-block;
+}
+
+.dark-logo {
+    display: none;
+}

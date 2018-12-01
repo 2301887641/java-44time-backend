@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
     private static final String TEMPLATE_PREFIX = "/index";
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index() {
-        return AdminConstants.TEMPLATE_PREFIX + TEMPLATE_PREFIX;
+        return AdminConstants.TEMPLATE_PREFIX + TEMPLATE_PREFIX+"/index";
     }
 }

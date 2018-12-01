@@ -1,16 +1,16 @@
-@import "/css/plugin/monster/monster.css";
-*{
-    font-family: "Microsoft YaHei",SimSun;
+* {
+    outline: none;
 }
-.error-notice{
-    color:#ed3f14;
-    height:1.25rem;
-    line-height:1.25rem;
-    padding-left:0!important;
-    text-align:left;
-    font-size:14px;
+.error-notice {
+    color: #ed3f14;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    padding-left: 0 !important;
+    text-align: left;
+    font-size: 14px;
 }
-img{
-    display:block;
-    max-width:100%;
-}
+
+/*img {*/
+    /*display: block;*/
+    /*max-width: 100%;*/
+/*}*/
