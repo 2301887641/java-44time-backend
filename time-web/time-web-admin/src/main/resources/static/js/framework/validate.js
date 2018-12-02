@@ -1,4 +1,4 @@
-import {King} from './king.js'
+import {Core} from './core.js'
 
 
 /**
@@ -9,11 +9,7 @@ import {King} from './king.js'
  */
 export function Validate(descriptor, formName) {
     //form表单 可以传递jq对象或表单的name
-    if(formName instanceof jQuery){
-        this.formName = formName[0]
-    }else{
-        this.formName = formName
-    }
+    this.formName=(formName instanceof jQuery) ? formName[0]:formName;
     //校验规则
     this.descriptor = descriptor
     //在事件监听器里面标识错误 不再继续向下检测
@@ -56,7 +52,7 @@ Validate.fn = Validate.prototype = {
     //初始化
     init: function () {
         //创建监听器对象
-        this.observer = new King.Observer()
+        this.observer = new Core.Observer()
         //事件集合
         this.eventMap = new Map()
         //已放入监听的错误集合
@@ -84,9 +80,9 @@ Validate.fn = Validate.prototype = {
         let elementName = element.tagName.toLowerCase(), ele = $(element)
         switch (elementName) {
             case Validate.ConstansPool.element.input:
-                return King.Utils.string.isEmpty(ele.val())
+                return Core.stringUtils.isEmpty(ele.val())
             default:
-                return King.Utils.string.isEmpty(ele.val())
+                return Core.stringUtils.isEmpty(ele.val())
         }
     },
     /**
@@ -136,7 +132,7 @@ Validate.fn = Validate.prototype = {
         //监听正则
         this.observer.listen(Validate.ConstansPool.verify.regex, fn = function (ele, inputName, descriptor) {
             let content = $(ele).val()
-            if (!King.utils.isEmptyString(content) && !descriptor.regex.test(content)) {
+            if (!Core.utils.isEmptyString(content) && !descriptor.regex.test(content)) {
                 $(InnerUtil.buildClass(inputName)).html(descriptor.message)
             } else {
                 $(InnerUtil.buildClass(inputName)).html("")
@@ -152,7 +148,7 @@ Validate.fn = Validate.prototype = {
     trigger: function (element, allow) {
         let descriptor = this.eventMap.get(element).descriptor, rule = {}, arr = [];
         //单个验证
-        if (King.Utils.object.isObject(descriptor)) {
+        if (Core.Utils.object.isObject(descriptor)) {
             arr.push(descriptor)
             Object.assign(rule, this.rules, descriptor)
         } else if (Array.isArray(descriptor)) {

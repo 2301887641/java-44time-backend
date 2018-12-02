@@ -63,13 +63,11 @@
 .left-sidebar .user-profile .profile-img{
     width:3.125rem;
     margin-left:1.875rem;
+    /*margin:0 auto;*/
     border-radius:100%;
     padding:2.1875rem 0;
 }
-.left-sidebar .user-profile .profile-img img{
-    width:100%;
-    border-radius:100%;
-}
+
 .left-sidebar .user-profile .profile-img:before{
     animation: 2.5s blow 0s linear infinite;
     position: absolute;
@@ -81,28 +79,26 @@
     border-radius: 50%;
     z-index: 0;
 }
+.left-sidebar .user-profile .profile-img img{
+    width:100%;
+    border-radius:100%;
+}
 @keyframes blow {
     0% {
-        -webkit-box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);
         box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);
         opacity: 1;
-        -webkit-transform: scale3d(1, 1, 0.5);
         transform: scale3d(1, 1, 0.5)
     }
 
     50% {
-        -webkit-box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1);
         box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1);
         opacity: 1;
-        -webkit-transform: scale3d(1, 1, 0.5);
         transform: scale3d(1, 1, 0.5)
     }
 
     to {
-        -webkit-box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.1);
         box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.1);
         opacity: 0;
-        -webkit-transform: scale3d(1, 1, 0.5);
         transform: scale3d(1, 1, 0.5)
     }
 }

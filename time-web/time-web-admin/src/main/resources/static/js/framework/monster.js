@@ -1,21 +1,21 @@
-export function monster() {
+export function Monster() {
 }
 
-monster.prototype = {
+Monster.prototype = {
     Constructor: monster,
     //小贴士
     tips: (function () {
-        function inner() {
+        function Inner() {
             this.options = {
                 success: {
                     iconClass: "icon-chenggong",
                     typeClass: "green-tips",
-                    message: "操作成功"
+                    message: core.constant.MONSTER.SUCCESS
                 },
                 failure: {
                     iconClass: "icon-cuowu",
                     typeClass: "red-tips",
-                    message: "操作失败"
+                    message: core.constant.MONSTER.FAILURE
                 }
             }
             this.config = {
@@ -26,7 +26,7 @@ monster.prototype = {
             }
         }
 
-        inner.prototype = {
+        Inner.prototype = {
             Constructor: inner,
             //初始化 查看元素是否已存在
             init: function (options) {
@@ -65,6 +65,6 @@ monster.prototype = {
                 this.init(Object.assign(this.options.failure, this.config, arg))
             }
         }
-        monster.tips = new inner()
+        monster.tips = new Inner()
     })()
 }

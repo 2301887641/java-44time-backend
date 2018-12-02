@@ -1,7 +1,8 @@
 import {Validate} from '../framework/validate.js'
-import {King} from '../framework/king.js'
+import {core} from '../framework/core.js'
 import {CanvasAnimate} from '../plugin/canvas/canvas.js'
 import {monster} from "../framework/monster.js";
+import {http} from "../framework/http.js";
 //背景全屏
 $("#root").attr({
     width: document.body.offsetWidth,
@@ -21,53 +22,46 @@ function canvas() {
     canvas.Run();
 }
 
+let captcha=$(".captcha");
+
 //验证码点击
-let captchaObject = {
-    url: "/captcha",
-    refresh: function () {
-        return this.url + "?=" + Math.random(1)
-    }
-}
-
-
-$(".captcha").click(function () {
-    $(this).attr("src", captchaObject.refresh())
+captcha.click(function () {
+    $(this).attr("src",core.constant.URL.CAPTCHA + "?time=" + Math.random(1))
 })
-
 
 //表单验证
 const descriptor = {
     username: {
         required: true,
-        message: "请输入账号"
+        message: core.constant.VALIDATION.ACCOUNT_RQUIRED
     },
     password: {
         required: true,
-        message: "请输入密码"
+        message: core.constant.VALIDATION.PASSWORD_REQUIRED
     },
     captcha: {
         required: true,
-        message: "请输入验证码"
+        message: core.constant.VALIDATION.CAPTCHA_REQUIRED
     },
 }
 
 let validate = new Validate(descriptor, $("form"))
 $("#submit").click(function () {
     if (validate.verify()) {
-        King.http({
-            url: "/authentication/form",
+        http.request({
+            url: core.constant.URL.LOGIN_AUTHENTICATION,
             data: $("form").serialize(),
             method: "post"
         }, function (res) {
             if (res.retCode === 200) {
-                monster.tips.success({message:"登陆成功,即将进行跳转"})
+                monster.tips.success({message:core.constant.MESSAGE.LOGIN.LOGIN_SUCCESS})
                 return
             }
             if(res.retCode !== 500) {
-                monster.tips.failure({message:"验证码已过期,请重新输入"})
+                monster.tips.failure({message:core.constant.MESSAGE.LOGIN.CAPTCHA_EXPIRED})
             }
             $("input[name='captcha']").val("");
-            $(".captcha").attr("src", captchaObject.refresh());
+            captcha.attr("src", core.constant.URL.CAPTCHA + "?time=" + Math.random(1));
         }, this)
     }
 });

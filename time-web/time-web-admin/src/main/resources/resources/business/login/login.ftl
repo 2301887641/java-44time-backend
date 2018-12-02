@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>擎天CMS后台登陆</title>
-    <link rel="stylesheet" href="/css/common/common.css">
-    <link rel="stylesheet" href="/css/business/login.css">
     <link rel="stylesheet" href="/js/plugin/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/plugin/fontawesome/css/fontawesome.css">
     <link rel="stylesheet" href="/css/plugin/monster/monster.css">
+    <link rel="stylesheet" href="/css/common/common.css">
+    <link rel="stylesheet" href="/css/business/login.css">
 </head>
 <body class="text-center">
 <canvas id="root" class="art-canvas"></canvas>
@@ -69,12 +69,13 @@
     </div>
 </form>
 <script src="/js/plugin/jquery/jq.js"></script>
+<script src="/js/plugin/canvas/canvas.js" type="module"></script>
 <script src="/js/plugin/bootstrap/js/popper.min.js"></script>
 <script src="/js/plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="/js/framework/king.js" type="module"></script>
+<script src="/js/framework/core.js" type="module"></script>
 <script src="/js/framework/monster.js" type="module"></script>
 <script src="/js/framework/validate.js" type="module"></script>
+<script src="/js/framework/http.js" type="module"></script>
 <script src="/js/business/login.js" type="module"></script>
-<script src="/js/plugin/canvas/canvas.js" type="module"></script>
 </body>
 </html>
