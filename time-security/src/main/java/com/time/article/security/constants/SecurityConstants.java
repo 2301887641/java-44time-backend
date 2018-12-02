@@ -66,4 +66,25 @@ public interface SecurityConstants {
      * 图片验证码请求参数
      */
     public static final String PARAMETER_CAPTCHA = "captcha";
+    /**
+     * 需要放行的url
+     * index
+     */
+    public static final String ANON_INDEX_URL = "/index";
+    /**
+     * 需要放行的静态后缀
+     */
+    public static final String ANON_HTML_SUFFIX = "*.html";
+    /**
+     * 需要放行的动态后缀
+     */
+    public static final String ANON_JHTML_SUFFIX = "*.jhtml";
+    /**
+     * 前台需要登陆才能访问的路径 会员中心
+     */
+    public static final String AUTHENTICATION_MEMBER_PREFIX = "/member/*";
+    /**
+     * 后台需要登陆才能访问的路径 后台管理中心
+     */
+    public static final String AUTHENTICATION_ADMIN_PREFIX = "/admin/*";
 }

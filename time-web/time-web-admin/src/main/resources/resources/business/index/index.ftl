@@ -47,6 +47,13 @@
             </div>
         </nav>
     </header>
+    <aside class="left-sidebar">
+        <div class="user-profile">
+            <div class="profile-img">
+                <img src="/img/common/avator.jpg" alt="头像">
+            </div>
+        </div>
+    </aside>
 </div>
 </body>
 <script src="/js/plugin/jquery/jq.js"></script>

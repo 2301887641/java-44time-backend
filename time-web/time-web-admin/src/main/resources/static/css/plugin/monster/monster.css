@@ -11,7 +11,6 @@
     top: -10rem;
     border-width: 1px;
     border-style: solid;
-    /*animation: fadeInDown .5s linear 0s 1 forwards, fadeOutUp 1s linear 2s 1 forwards;*/
     animation-name:fadeInDown,fadeOutUp;
     animation-duration: .3s,.5s;
     animation-timing-function: linear,linear;

@@ -1,5 +1,6 @@
 package com.time.article.admin.config.admin;
 
+import com.time.article.core.controller.config.FrontHandlerInterceptorAdapter;
 import com.time.qq.core.QQOauth;
 import com.time.wechat.core.WechatOauth;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,5 +49,8 @@ public class AdminConfig {
         return new WechatOauth(wechatAppId,wechatAppSecret,wechatCallbackUrl);
     }
 
-
+    @Bean
+    public FrontHandlerInterceptorAdapter adminInterceptorAdopter(){
+        return  new FrontHandlerInterceptorAdapter();
+    }
 }

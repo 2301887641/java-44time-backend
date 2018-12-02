@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -19,6 +20,17 @@ public class FrontConfigurerAdapter extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         //  接收枚举转换
         registry.addConverterFactory(frontEnumConverterFactory());
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>This implementation is empty.
+     *
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new FrontHandlerInterceptorAdapter());
     }
 
     /**

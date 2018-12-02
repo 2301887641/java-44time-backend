@@ -59,13 +59,19 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                 and().
                 authorizeRequests().
                 antMatchers(
-                        "/index",
+                        SecurityConstants.ANON_HTML_SUFFIX,
+                        SecurityConstants.ANON_JHTML_SUFFIX,
+                        SecurityConstants.ANON_INDEX_URL,
                         SecurityConstants.DEFAULT_LOGIN_PAGE_URL,
                         SecurityConstants.DEFAULT_CAPTCHA_URL,
                         SecurityConstants.DEFAULT_RESOURCE_CSS,
                         SecurityConstants.DEFAULT_RESOURCE_IMG,
                         SecurityConstants.DEFAULT_RESOURCE_JS
                 ).permitAll().
+                antMatchers(
+                        SecurityConstants.AUTHENTICATION_ADMIN_PREFIX,
+                        SecurityConstants.AUTHENTICATION_MEMBER_PREFIX
+                ).hasRole("user").
                 anyRequest().
                 authenticated().
                and().
