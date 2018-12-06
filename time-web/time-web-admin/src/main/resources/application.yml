@@ -48,10 +48,10 @@ spring:
   #  cache: false
   #  mode: LEGACYHTML5
     #这里一定要注意classpath是放在/resources目录下面的resources
-  #  prefix: classpath:/resources/
-  #  suffix: .html
-  #  encoding: UTF-8
-  #  content-type: text/html
+    prefix: classpath:/webapp/WEB-INF
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
 
 
 
@@ -63,7 +63,7 @@ spring:
   #freemarker
   freemarker:
     cache: false
-    template-loader-path: classpath:/resources/
+    template-loader-path: classpath:/webapp/WEB-INF
 
 
 #mybatis配置

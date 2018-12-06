@@ -9,5 +9,5 @@ public interface AdminConstants {
     /**
      * admin模板前缀
      */
-    public static final String TEMPLATE_PREFIX = "/business";
+    public static final String BACKEND_TEMPLATE_PREFIX = "/backend/business";
 }

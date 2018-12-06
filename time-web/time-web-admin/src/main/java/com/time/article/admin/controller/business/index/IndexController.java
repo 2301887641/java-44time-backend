@@ -15,6 +15,6 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index() {
-        return AdminConstants.TEMPLATE_PREFIX + TEMPLATE_PREFIX+"/index";
+        return AdminConstants.BACKEND_TEMPLATE_PREFIX + TEMPLATE_PREFIX+"/index";
     }
 }

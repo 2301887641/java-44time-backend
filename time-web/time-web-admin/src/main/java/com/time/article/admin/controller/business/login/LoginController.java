@@ -16,7 +16,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
-        return AdminConstants.TEMPLATE_PREFIX + TEMPLATE_PREFIX + "/login";
+        return AdminConstants.BACKEND_TEMPLATE_PREFIX + TEMPLATE_PREFIX + "/login";
     }
 
 }
