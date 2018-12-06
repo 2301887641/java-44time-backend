@@ -52,7 +52,7 @@ Validate.fn = Validate.prototype = {
     //初始化
     init: function () {
         //创建监听器对象
-        this.observer = new Core.Observer()
+        this.observer = new Core.observer()
         //事件集合
         this.eventMap = new Map()
         //已放入监听的错误集合
@@ -148,7 +148,7 @@ Validate.fn = Validate.prototype = {
     trigger: function (element, allow) {
         let descriptor = this.eventMap.get(element).descriptor, rule = {}, arr = [];
         //单个验证
-        if (Core.Utils.object.isObject(descriptor)) {
+        if (Core.objectUtils.isObject(descriptor)) {
             arr.push(descriptor)
             Object.assign(rule, this.rules, descriptor)
         } else if (Array.isArray(descriptor)) {

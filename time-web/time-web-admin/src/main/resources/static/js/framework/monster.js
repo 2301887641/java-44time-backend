@@ -1,8 +1,9 @@
+import {Core} from './core.js'
 export function Monster() {
 }
 
 Monster.prototype = {
-    Constructor: monster,
+    Constructor: Monster,
     //小贴士
     tips: (function () {
         function Inner() {
@@ -10,12 +11,12 @@ Monster.prototype = {
                 success: {
                     iconClass: "icon-chenggong",
                     typeClass: "green-tips",
-                    message: core.constant.MONSTER.SUCCESS
+                    message: Core.constant.MONSTER.SUCCESS
                 },
                 failure: {
                     iconClass: "icon-cuowu",
                     typeClass: "red-tips",
-                    message: core.constant.MONSTER.FAILURE
+                    message: Core.constant.MONSTER.FAILURE
                 }
             }
             this.config = {
@@ -27,7 +28,7 @@ Monster.prototype = {
         }
 
         Inner.prototype = {
-            Constructor: inner,
+            Constructor: Inner,
             //初始化 查看元素是否已存在
             init: function (options) {
                 this.animate($(this.build(options)).appendTo("body"), options);
@@ -65,6 +66,6 @@ Monster.prototype = {
                 this.init(Object.assign(this.options.failure, this.config, arg))
             }
         }
-        monster.tips = new Inner()
+        Monster.tips = new Inner()
     })()
 }

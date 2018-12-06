@@ -1,4 +1,4 @@
-import {monster} from "./monster.js";
+import {Monster} from "./monster.js";
 import {Core} from './core.js';
 /**
  * http请求相关
@@ -9,7 +9,7 @@ export const http={
     request: function (option, callback, element) {
         this.cancel && this.cancel.abort()
         let csrf = Core.cookieUtils.get("XSRF-TOKEN"), opt = {}, ele = $(element),
-            icon =$(Core.ConstantsPool.ICON.SPINNER),
+            icon =$(Core.constant.ICON.SPINNER),
             options = {
                 url: "",
                 method: "get",
@@ -26,12 +26,12 @@ export const http={
                 },
                 success: function (res) {
                     if (res.retCode === 500) {
-                        monster.tips.failure({message: res.retInfo})
+                        Monster.tips.failure({message: res.retInfo})
                     }
                     (callback instanceof Function) && callback(res)
                 },
                 error: function (error) {
-                    monster.tips.failure({message: "网络连接失败!"})
+                    Monster.tips.failure({message: "网络连接失败!"})
                 }
             };
         if (!csrf) {
