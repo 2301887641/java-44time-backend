@@ -54,16 +54,16 @@ spring:
     content-type: text/html
 
 
-
   #热部署配置
   devtools:
     restart:
       #开启热部署
       enabled: true
+
   #freemarker
   freemarker:
     cache: false
-    template-loader-path: classpath:/webapp/WEB-INF
+    template-loader-path: classpath:/resources/
 
 
 #mybatis配置

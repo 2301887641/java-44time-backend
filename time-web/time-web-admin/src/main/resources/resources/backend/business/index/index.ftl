@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/js/plugin/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/plugin/fontawesome/css/fontawesome.css">
     <link rel="stylesheet" href="/css/business/index.css">
+    <link rel="stylesheet" href="/css/common/sidebar.css">
 </head>
 <body>
 <div class="main-wrapper">
@@ -52,6 +53,25 @@
             <div class="profile-img">
                 <img src="/img/common/avator.jpg" alt="头像">
             </div>
+            <div class="profile-text">
+                <span class="profile-text-username">admin</span>
+            </div>
+        </div>
+        <!--定义可滑动区域-->
+        <div class="scroll-sidebar">
+            <nav class="sidebar-nav">
+                <ul class="sidebar-nav-ul">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="#">
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                            <span class="hide-menu">Dashboards</span>
+                        </a>
+                        <ul class="collapse">
+
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </aside>
 </div>

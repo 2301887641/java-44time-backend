@@ -9,8 +9,6 @@
     text-align: left;
     font-size: 14px;
 }
-
-/*img {*/
-    /*display: block;*/
-    /*max-width: 100%;*/
-/*}*/
+ul{
+    list-style:none;
+}

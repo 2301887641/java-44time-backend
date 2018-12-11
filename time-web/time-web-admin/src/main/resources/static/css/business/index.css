@@ -46,29 +46,20 @@
 .dark-logo {
     display: none;
 }
-/*左侧导航*/
-.left-sidebar{
-    position:fixed;
-    width:15rem;
-    height:100%;
-    background:red;
-    top:0;
-    padding-top:4.375rem;
-    z-index:40;
+.sidebar-nav{
+    margin-top:25px;
 }
-.left-sidebar .user-profile{
+.user-profile{
     position:relative;
     background:url("/img/common/user-info.jpg") left center no-repeat;
 }
-.left-sidebar .user-profile .profile-img{
+.user-profile .profile-img{
     width:3.125rem;
     margin-left:1.875rem;
-    /*margin:0 auto;*/
     border-radius:100%;
     padding:2.1875rem 0;
 }
-
-.left-sidebar .user-profile .profile-img:before{
+ .user-profile .profile-img:before{
     animation: 2.5s blow 0s linear infinite;
     position: absolute;
     content: '';
@@ -79,7 +70,7 @@
     border-radius: 50%;
     z-index: 0;
 }
-.left-sidebar .user-profile .profile-img img{
+.user-profile .profile-img img{
     width:100%;
     border-radius:100%;
 }
@@ -101,4 +92,15 @@
         opacity: 0;
         transform: scale3d(1, 1, 0.5)
     }
+}
+.user-profile .profile-text{
+    padding: 5px 0;
+    position: relative;
+}
+.user-profile .profile-text .profile-text-username{
+    display:block;
+    color: #ffffff !important;
+    width: 100%;
+    padding: 6px 30px;
+    background: rgba(0, 0, 0, 0.5);
 }
