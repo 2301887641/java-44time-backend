@@ -5,7 +5,8 @@
 .top-bar {
     position:relative;
     z-index:50;
-    background: #1e88e5;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 20px;
+    background: #fff;
 }
 
 .top-bar .nav-bar {
@@ -17,7 +18,6 @@
     width: 15rem;
     line-height: 4.0625rem;
     text-align: center;
-    background: rgba(0, 0, 0, 0.05);
 }
 
 .top-bar .nav-bar-header .navbar-brand {
@@ -32,9 +32,9 @@
 }
 
 .top-bar .navbar-nav > .nav-item > .nav-link {
-    color: #fff;
+    color: #000;
     font-size: 1.1875rem;
-    padding-left: 1.5rem;
+    padding-left: .5rem;
 }
 .top-bar .profile-pic{
     width: 30px;
@@ -47,7 +47,7 @@
     display: none;
 }
 .sidebar-nav{
-    margin-top:25px;
+    margin-top:20px;
 }
 .user-profile{
     position:relative;
@@ -57,7 +57,7 @@
     width:3.125rem;
     margin-left:1.875rem;
     border-radius:100%;
-    padding:2.1875rem 0;
+    padding:33px 0;
 }
  .user-profile .profile-img:before{
     animation: 2.5s blow 0s linear infinite;

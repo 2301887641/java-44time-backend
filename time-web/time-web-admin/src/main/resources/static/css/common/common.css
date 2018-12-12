@@ -9,6 +9,9 @@
     text-align: left;
     font-size: 14px;
 }
+.ps{
+    position:relative;
+}
 ul{
     list-style:none;
 }

@@ -17,10 +17,10 @@
             <div class="nav-bar-header">
                 <a class="navbar-brand" href="/">
                     <b>
-                        <img src="/img/common/logo-light-icon.png" alt="图标" class="light-logo">
+                        <img src="/img/common/logo-dark-icon.png" alt="图标" class="light-logo">
                     </b>
                     <span>
-                             <img src="/img/common/logo-light-text.png" alt="图标" class="light-logo">
+                             <img src="/img/common/logo-dark-text.png" alt="图标" class="light-logo">
                         </span>
                 </a>
             </div>
@@ -62,12 +62,32 @@
             <nav class="sidebar-nav">
                 <ul class="sidebar-nav-ul">
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
-                            <i class="fa fa-cogs" aria-hidden="true"></i>
-                            <span class="hide-menu">Dashboards</span>
+                        <a class="sidebar-link sidebar-active sidebar-link-has-arrow" href="#">
+                            <div class="sidebar-link-left">
+                                <span class="sidebar-link-left-i">
+                                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                                </span>
+                                <span class="sidebar-link-menu">Dashboards</span>
+                            </div>
+                            <span class="sidebar-link-right-i">
+                            <i class="fa fa-angle-right sidebar-arrow"></i>
+                            </span>
                         </a>
-                        <ul class="collapse">
-
+                        <ul class="first-level">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="#">
+                                    <div class="sidebar-link-left">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="menu">Classic</span>
+                                    </div>
+                                    </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="#">
+                                    <i class="mdi mdi-adjust"></i>
+                                    <span class="menu">Analytical</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

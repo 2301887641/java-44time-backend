@@ -1,5 +1,5 @@
 @import "/css/plugin/iconfont/iconfont.css";
-
+/*tips组件*/
 .monster-tips {
     position: absolute;
     left: 50%;
@@ -34,13 +34,13 @@
     }
 }
 
-.green-tips {
+.monster-tips .green-tips {
     background-color: #f0f9eb;
     border-color: #e1f3d8;
     color: #67c23a;
 }
 
-.red-tips {
+.monster-tips .red-tips {
     background-color: #fef0f0;
     border-color: #fde2e2;
     color: #f56c6c;
@@ -77,4 +77,8 @@
 
 .monster-tips .tip-content .tip-end:hover {
     color: #666;
+}
+/*sidebar组件*/
+.monster-sidebar{
+
 }
