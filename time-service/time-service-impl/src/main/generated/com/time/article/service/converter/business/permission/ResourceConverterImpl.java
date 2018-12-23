@@ -10,7 +10,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-12-12T13:46:32+0800",
+    date = "2018-12-23T13:43:54+0800",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_51 (Oracle Corporation)"
 )
 public class ResourceConverterImpl implements ResourceConverter {

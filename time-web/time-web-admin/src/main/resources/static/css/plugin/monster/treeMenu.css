@@ -1,0 +1,102 @@
+@media (min-width: 768px) {
+    .left-sidebar{
+        width:65px;
+    }
+}
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+}
+aside,ul,li,a{
+    margin:0;
+    padding:0;
+}
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+/*左侧导航*/
+.monster-treeMenu{
+    width:240px;
+    position:fixed;
+    height:100%;
+    background:#188ae2;
+    z-index:40;
+    box-shadow: 1px 0 20px rgba(0,0,0,.08);
+    transition: .2s ease-in;
+    overflow: scroll;
+}
+/*可滚动区域*/
+.monster-treeMenu .monster-treeMenu-scroll{
+    height:calc(100% - 20px);
+    position:relative;
+}
+/*设置li的间距形成树形样式结构*/
+.monster-treeMenu .monster-treeMenu-link-child >.monster-treeMenu-item{
+  padding-left:20px;
+}
+/*鼠标经过第一排菜单的样式*/
+.monster-treeMenu-nav>.monster-treeMenu-nav-ul>li>a:hover{
+    opacity: 1;
+    font-weight: bolder;
+    background: #136eb5;
+}
+/*普通菜单鼠标经过的样式*/
+.monster-treeMenu .monster-treeMenu-link:hover{
+    opacity: 1;
+    font-weight: bolder;
+}
+/*a链接的样式*/
+.monster-treeMenu-link{
+    padding: 14px 0 14px 10px;
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    line-height: 25px;
+    color: #fff;
+    opacity: .6;
+}
+/*左边的icon大小等*/
+.monster-treeMenu-link i{
+    margin-right:10px;
+    font-size:16px;
+}
+/*默认菜单字体大小*/
+.monster-treeMenu-link .monster-treeMenu-linkName{
+    font-size:15px;
+}
+/*默认下级隐藏*/
+.monster-hide{
+    display:none;
+}
+/*子级菜单字体变小*/
+.monster-treeMenu .monster-treeMenu-link-child>li>a>.fa-circle-o-notch {
+    width: 16px;
+    font-size: 12px;
+}
+/*带有箭头的class*/
+.monster-treeMenu-link-arrow{
+    position: relative;
+}
+/*箭头*/
+.monster-treeMenu-link-arrow:after{
+    position: absolute;
+    content: '';
+    width: .45em;
+    height: .45em;
+    border-width: 2px 0 0 2px;
+    border-style: solid;
+    right: 1em;
+    transform: rotate(134deg) translate(0, -50%);
+    transform-origin: top;
+    top: 47%;
+    transition: all .3s ease-out;
+}
+.monster-treeMenu-item>.monster-treeMenu-link-active:after{
+    transition: all .3s ease-out;
+    transform: rotate(225deg) translate(0, -50%);
+}
