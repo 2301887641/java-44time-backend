@@ -1,16 +1,30 @@
 import {Core} from './core.js'
+
 export function Monster() {
+}
+
+//常量
+Monster.CONSTANTS = {
+    //横线
+    TRANSVERSE_LINE:"-",
+    //tips相关
+    TIPS: {
+        CLASS_PREFIX:"monster",
+        BASE_CLASS_NAME: "monster-tips",
+        SUCCESS_TYPE: "success",
+        FAILURE_TYPE:"failure"
+    }
 }
 
 Monster.prototype = {
     Constructor: Monster,
     //小贴士
-    tips: (function () {
+    tips: (function (Monster) {
         function Inner() {
             this.options = {
                 success: {
                     iconClass: "icon-chenggong",
-                    typeClass: "green-tips",
+                    typeClass: Monster.CONSTANTS.TIPS.BASE_CLASS_NAME + Monster.CONSTANTS.TRANSVERSE_LINE + Monster.CONSTANTS.TIPS.SUCCESS_TYPE,
                     message: Core.constant.MONSTER.SUCCESS
                 },
                 failure: {
@@ -43,13 +57,15 @@ Monster.prototype = {
             //构造
             build: function (options) {
                 let html = [];
-                html.push('<div class="monster-tips ' + options.typeClass + '">');
+                let baseClass = Monster.CONSTANTS.TIPS.BASE_CLASS_NAME +Monster.CONSTANTS.SPLIT_STRING+ Monster.CONSTANTS.TIPS;
+                html.push('<div class="' + baseClass + " " + options.typeClass + '">');
                 html.push('<div class="tip-content">');
                 html.push('<span class="tip-icon iconfont tip-start ' + options.iconClass + '"></span>');
                 options.closable && html.push('<span class="tip-icon iconfont icon-guanbi tip-end"></span>')
                 html.push('<span class="tip-msg">' + options.message + '</span>');
                 html.push('</div></div>');
                 html = html.join("");
+                console.log(html)
                 return html;
             },
             //成功  带默认值
@@ -67,5 +83,5 @@ Monster.prototype = {
             }
         }
         Monster.tips = new Inner()
-    })()
+    })(Monster)
 }

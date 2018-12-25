@@ -9,8 +9,6 @@
     line-height: 2.5rem;
     border-radius: 0.25rem;
     top: -10rem;
-    border-width: 1px;
-    border-style: solid;
     animation-name:fadeInDown,fadeOutUp;
     animation-duration: .3s,.5s;
     animation-timing-function: linear,linear;
@@ -34,13 +32,13 @@
     }
 }
 
-.monster-tips .green-tips {
+.monster-tips .monster-tips-success{
     background-color: #f0f9eb;
     border-color: #e1f3d8;
     color: #67c23a;
 }
 
-.monster-tips .red-tips {
+.monster-tips .monster-failure-tips {
     background-color: #fef0f0;
     border-color: #fde2e2;
     color: #f56c6c;
