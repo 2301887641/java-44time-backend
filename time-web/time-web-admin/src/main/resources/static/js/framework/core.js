@@ -59,6 +59,12 @@ export const Core = {
             LOGIN:{
                 LOGIN_SUCCESS:"登陆成功,即将进行跳转",
                 CAPTCHA_EXPIRED:"验证码已过期,请重新输入"
+            },
+            //http相关
+            HTTP:{
+                SUCCESS:200,
+                ERROR:500,
+                FATAL_ERROR:"网络繁忙,请联系管理员!"
             }
         },
         //验证信息相关

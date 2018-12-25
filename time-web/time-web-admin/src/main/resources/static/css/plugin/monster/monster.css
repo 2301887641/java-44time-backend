@@ -44,19 +44,19 @@
     color: #f56c6c;
 }
 
-.monster-tips .tip-content {
+.monster-tips .monster-tips-content {
     display: flex;
 }
 
-.monster-tips .tip-content .icon-chenggong {
+.monster-tips .monster-tips-content .icon-chenggong {
     color: #67c23a;
 }
 
-.monster-tips .tip-content .icon-cuowu {
+.monster-tips .monster-tips-content .icon-cuowu {
     color: #f56c6c;
 }
 
-.monster-tips .tip-content .tip-msg {
+.monster-tips .monster-tips-content .monster-tips-content-msg {
     margin: 0 1rem;
     overflow: hidden;
     max-width: 14rem;
@@ -65,18 +65,17 @@
     text-overflow: ellipsis;
 }
 
-.monster-tips .tip-content .tip-end {
+.monster-tips .monster-tips-content .monster-tips-content-end {
     color: #999;
     cursor: pointer;
     outline: 0;
-    text-decoration: none;
     transition: color .2s ease;
 }
 
-.monster-tips .tip-content .tip-end:hover {
+.monster-tips .monster-tips-content .tip-end:hover {
     color: #666;
 }
-/*sidebar组件*/
+/*treeMenu组件*/
 .monster-sidebar{
 
 }

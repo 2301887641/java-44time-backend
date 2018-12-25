@@ -6,15 +6,19 @@ export function Monster() {
 //常量
 Monster.CONSTANTS = {
     //横线
-    TRANSVERSE_LINE:"-",
+    TRANSVERSE_LINE: "-",
     //tips相关
     TIPS: {
-        CLASS_PREFIX:"monster",
         BASE_CLASS_NAME: "monster-tips",
         SUCCESS_TYPE: "success",
-        FAILURE_TYPE:"failure"
+        FAILURE_TYPE: "failure",
+        CONTENT_CLASS_NAME: "monster-tips-content",
+        ICON_PUBLIC_CLASS: "iconfont",
+        ICON_GUANBI:"icon-guanbi",
+        CONTENT_MSG:"monster-tips-content-msg",
+        CONTENT_END:"monster-tips-content-end"
     }
-}
+};
 
 Monster.prototype = {
     Constructor: Monster,
@@ -29,7 +33,7 @@ Monster.prototype = {
                 },
                 failure: {
                     iconClass: "icon-cuowu",
-                    typeClass: "red-tips",
+                    typeClass: Monster.CONSTANTS.TIPS.BASE_CLASS_NAME + Monster.CONSTANTS.TRANSVERSE_LINE + Monster.CONSTANTS.TIPS.FAILURE_TYPE,
                     message: Core.constant.MONSTER.FAILURE
                 }
             }
@@ -37,7 +41,7 @@ Monster.prototype = {
                 //持续
                 duration: 2,
                 //可关闭
-                closable: false
+                closeable: false
             }
         }
 
@@ -57,12 +61,11 @@ Monster.prototype = {
             //构造
             build: function (options) {
                 let html = [];
-                let baseClass = Monster.CONSTANTS.TIPS.BASE_CLASS_NAME +Monster.CONSTANTS.SPLIT_STRING+ Monster.CONSTANTS.TIPS;
-                html.push('<div class="' + baseClass + " " + options.typeClass + '">');
-                html.push('<div class="tip-content">');
-                html.push('<span class="tip-icon iconfont tip-start ' + options.iconClass + '"></span>');
-                options.closable && html.push('<span class="tip-icon iconfont icon-guanbi tip-end"></span>')
-                html.push('<span class="tip-msg">' + options.message + '</span>');
+                html.push('<div class="' + Monster.CONSTANTS.TIPS.BASE_CLASS_NAME + " " + options.typeClass + '">');
+                html.push('<div class="' + Monster.CONSTANTS.TIPS.CONTENT_CLASS_NAME + '">');
+                html.push('<span class="' + Monster.CONSTANTS.TIPS.ICON_PUBLIC_CLASS + " " + options.iconClass + '"></span>');
+                options.closeable && html.push('<span class="'+Monster.CONSTANTS.TIPS.ICON_PUBLIC_CLASS+ Monster.CONSTANTS.TIPS.ICON_GUANBI +Monster.CONSTANTS.TIPS.CONTENT_END+'"></span>')
+                html.push('<span class="'+Monster.CONSTANTS.TIPS.CONTENT_MSG+'">' + options.message + '</span>');
                 html.push('</div></div>');
                 html = html.join("");
                 console.log(html)
@@ -75,10 +78,12 @@ Monster.prototype = {
             }) {
                 this.init(Object.assign(this.options.success, this.config, arg))
             },
-            failure: function (arg = {message, duration} = {
+            failure: function (arg = {message, duration,closeable} = {
                 message: this.options.success.message,
-                duration: this.options.duration
+                duration: this.options.duration,
+                closeable:this.config.closeable
             }) {
+                console.log(arg)
                 this.init(Object.assign(this.options.failure, this.config, arg))
             }
         }

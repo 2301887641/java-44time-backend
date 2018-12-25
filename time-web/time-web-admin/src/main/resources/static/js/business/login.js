@@ -53,12 +53,12 @@ $("#submit").click(function () {
             data: $("form").serialize(),
             method: "post"
         }, function (res) {
-            if (res.retCode === 200) {
-                Monster.tips.success({message:core.constant.MESSAGE.LOGIN.LOGIN_SUCCESS})
+            if (res.retCode === Core.constant.HTTP.SUCCESS) {
+                Monster.tips.success({message:Core.constant.MESSAGE.LOGIN.LOGIN_SUCCESS})
                 return
             }
-            if(res.retCode !== 500) {
-                Monster.tips.failure({message:core.constant.MESSAGE.LOGIN.CAPTCHA_EXPIRED})
+            if(res.retCode !== Core.constant.HTTP.ERROR) {
+                Monster.tips.failure({message:Core.constant.MESSAGE.LOGIN.CAPTCHA_EXPIRED,closeable:true})
             }
             $("input[name='captcha']").val("");
             captcha.attr("src", Core.constant.URL.CAPTCHA + "?time=" + Math.random(1));

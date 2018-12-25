@@ -25,13 +25,13 @@ export const http={
                     !!element && ele.removeAttr("disabled") && icon.remove()
                 },
                 success: function (res) {
-                    if (res.retCode === 500) {
-                        Monster.tips.failure({message: res.retInfo})
+                    if (res.retCode === Core.constant.HTTP.ERROR) {
+                        Monster.tips.failure({message: res.retInfo,closeable:true})
                     }
                     (callback instanceof Function) && callback(res)
                 },
                 error: function (error) {
-                    Monster.tips.failure({message: "网络连接失败!"})
+                    Monster.tips.failure({message: Core.constant.HTTP.FATAL_ERROR})
                 }
             };
         if (!csrf) {
