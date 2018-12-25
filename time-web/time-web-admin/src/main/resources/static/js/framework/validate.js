@@ -40,7 +40,7 @@ Validate.ConstansPool = {
     //事件相关
     event: {
         blur: "blur",
-        keyDown:"keydown"
+        focus:"focus"
     },
     //元素相关
     element: {
@@ -174,7 +174,7 @@ Validate.fn = Validate.prototype = {
         let forms = Array.from(this.formName.elements), eleName, even, eventName, eventMap, fn, descriptor,
             that = this;
         for (let input of forms) {
-            eleName = input.name, descriptor = this.descriptor[eleName]
+            eleName = input.name, descriptor = this.descriptor[eleName];
             //如果input有name属性 并且 验证因子里面也有的话
             if (eleName && descriptor) {
                 //如果存在先删除掉事件
@@ -185,8 +185,8 @@ Validate.fn = Validate.prototype = {
                 eventName = this.switchEvent(input);
                 this.eventMap.set(input, {fnName: eventName, fn: fn, descriptor: descriptor});
                 //不能反复添加事件
-                input.addEventListener(eventName, fn)
-                input.addEventListener(Validate.ConstansPool.event.keyDown, function () {
+                input.addEventListener(eventName, fn);
+                input.addEventListener(Validate.ConstansPool.event.focus, function () {
                     that.observer.trigger(Validate.ConstansPool.verify.required, this, this.name, that.eventMap.get(this).descriptor, false)
                 })
             }

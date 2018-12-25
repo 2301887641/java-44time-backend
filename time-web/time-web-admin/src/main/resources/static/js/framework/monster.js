@@ -14,9 +14,9 @@ Monster.CONSTANTS = {
         FAILURE_TYPE: "failure",
         CONTENT_CLASS_NAME: "monster-tips-content",
         ICON_PUBLIC_CLASS: "iconfont",
-        ICON_GUANBI:"icon-guanbi",
-        CONTENT_MSG:"monster-tips-content-msg",
-        CONTENT_END:"monster-tips-content-end"
+        ICON_GUANBI: "icon-guanbi",
+        CONTENT_MSG: "monster-tips-content-msg",
+        CONTENT_END: "monster-tips-content-end"
     }
 };
 
@@ -64,8 +64,8 @@ Monster.prototype = {
                 html.push('<div class="' + Monster.CONSTANTS.TIPS.BASE_CLASS_NAME + " " + options.typeClass + '">');
                 html.push('<div class="' + Monster.CONSTANTS.TIPS.CONTENT_CLASS_NAME + '">');
                 html.push('<span class="' + Monster.CONSTANTS.TIPS.ICON_PUBLIC_CLASS + " " + options.iconClass + '"></span>');
-                options.closeable && html.push('<span class="'+Monster.CONSTANTS.TIPS.ICON_PUBLIC_CLASS+ Monster.CONSTANTS.TIPS.ICON_GUANBI +Monster.CONSTANTS.TIPS.CONTENT_END+'"></span>')
-                html.push('<span class="'+Monster.CONSTANTS.TIPS.CONTENT_MSG+'">' + options.message + '</span>');
+                options.closeable && html.push('<span class="' + Monster.CONSTANTS.TIPS.ICON_PUBLIC_CLASS + " " + Monster.CONSTANTS.TIPS.ICON_GUANBI + " " + Monster.CONSTANTS.TIPS.CONTENT_END + '"></span>')
+                html.push('<span class="' + Monster.CONSTANTS.TIPS.CONTENT_MSG + '">' + options.message + '</span>');
                 html.push('</div></div>');
                 html = html.join("");
                 console.log(html)
@@ -78,12 +78,11 @@ Monster.prototype = {
             }) {
                 this.init(Object.assign(this.options.success, this.config, arg))
             },
-            failure: function (arg = {message, duration,closeable} = {
+            failure: function (arg = {message, duration, closeable} = {
                 message: this.options.success.message,
                 duration: this.options.duration,
-                closeable:this.config.closeable
+                closeable: this.config.closeable
             }) {
-                console.log(arg)
                 this.init(Object.assign(this.options.failure, this.config, arg))
             }
         }

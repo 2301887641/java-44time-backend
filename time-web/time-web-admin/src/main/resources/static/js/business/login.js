@@ -53,11 +53,11 @@ $("#submit").click(function () {
             data: $("form").serialize(),
             method: "post"
         }, function (res) {
-            if (res.retCode === Core.constant.HTTP.SUCCESS) {
+            if (res.retCode === Core.constant.MESSAGE.HTTP.SUCCESS) {
                 Monster.tips.success({message:Core.constant.MESSAGE.LOGIN.LOGIN_SUCCESS})
                 return
             }
-            if(res.retCode !== Core.constant.HTTP.ERROR) {
+            if(res.retCode !== Core.constant.MESSAGE.HTTP.ERROR) {
                 Monster.tips.failure({message:Core.constant.MESSAGE.LOGIN.CAPTCHA_EXPIRED,closeable:true})
             }
             $("input[name='captcha']").val("");
