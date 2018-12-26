@@ -7,6 +7,12 @@ export function Monster() {
 Monster.CONSTANTS = {
     //横线
     TRANSVERSE_LINE: "-",
+    //默认要插入的容器
+    DEFAULT_APPEND_CONTAINER:"body",
+    //默认持续时间
+    DEFAULT_DURATION:2,
+    //默认持续的毫秒
+    DEFAULT_DURATION_SECOND:1000,
     //tips相关
     TIPS: {
         BASE_CLASS_NAME: "monster-tips",
@@ -16,7 +22,9 @@ Monster.CONSTANTS = {
         ICON_PUBLIC_CLASS: "iconfont",
         ICON_GUANBI: "icon-guanbi",
         CONTENT_MSG: "monster-tips-content-msg",
-        CONTENT_END: "monster-tips-content-end"
+        CONTENT_END: "monster-tips-content-end",
+        ICON_SUCCESS_CLASS:"icon-chenggong",
+        ICON_FAILURE_CLASS:"icon-cuowu"
     }
 };
 
@@ -27,19 +35,19 @@ Monster.prototype = {
         function Inner() {
             this.options = {
                 success: {
-                    iconClass: "icon-chenggong",
+                    iconClass: Monster.CONSTANTS.TIPS.ICON_SUCCESS_CLASS,
                     typeClass: Monster.CONSTANTS.TIPS.BASE_CLASS_NAME + Monster.CONSTANTS.TRANSVERSE_LINE + Monster.CONSTANTS.TIPS.SUCCESS_TYPE,
                     message: Core.constant.MONSTER.SUCCESS
                 },
                 failure: {
-                    iconClass: "icon-cuowu",
+                    iconClass: Monster.CONSTANTS.TIPS.ICON_FAILURE_CLASS,
                     typeClass: Monster.CONSTANTS.TIPS.BASE_CLASS_NAME + Monster.CONSTANTS.TRANSVERSE_LINE + Monster.CONSTANTS.TIPS.FAILURE_TYPE,
                     message: Core.constant.MONSTER.FAILURE
                 }
             }
             this.config = {
                 //持续
-                duration: 2,
+                duration: Monster.CONSTANTS.DEFAULT_DURATION,
                 //可关闭
                 closeable: false
             }
@@ -49,14 +57,14 @@ Monster.prototype = {
             Constructor: Inner,
             //初始化 查看元素是否已存在
             init: function (options) {
-                this.animate($(this.build(options)).appendTo("body"), options);
+                this.animate($(this.build(options)).appendTo(Monster.CONSTANTS.DEFAULT_APPEND_CONTAINER), options);
             },
             //动画
             animate(element, options) {
                 element.css("animation-delay", ".1s," + options.duration + "s");
                 setTimeout(function () {
                     element.remove()
-                }, (options.duration + 1) * 1000)
+                }, (options.duration + 1) * Monster.CONSTANTS.DEFAULT_DURATION_SECOND)
             },
             //构造
             build: function (options) {
@@ -64,11 +72,10 @@ Monster.prototype = {
                 html.push('<div class="' + Monster.CONSTANTS.TIPS.BASE_CLASS_NAME + " " + options.typeClass + '">');
                 html.push('<div class="' + Monster.CONSTANTS.TIPS.CONTENT_CLASS_NAME + '">');
                 html.push('<span class="' + Monster.CONSTANTS.TIPS.ICON_PUBLIC_CLASS + " " + options.iconClass + '"></span>');
-                options.closeable && html.push('<span class="' + Monster.CONSTANTS.TIPS.ICON_PUBLIC_CLASS + " " + Monster.CONSTANTS.TIPS.ICON_GUANBI + " " + Monster.CONSTANTS.TIPS.CONTENT_END + '"></span>')
                 html.push('<span class="' + Monster.CONSTANTS.TIPS.CONTENT_MSG + '">' + options.message + '</span>');
+                options.closeable && html.push('<span class="' + Monster.CONSTANTS.TIPS.ICON_PUBLIC_CLASS + " " + Monster.CONSTANTS.TIPS.ICON_GUANBI + " " + Monster.CONSTANTS.TIPS.CONTENT_END + '"></span>')
                 html.push('</div></div>');
                 html = html.join("");
-                console.log(html)
                 return html;
             },
             //成功  带默认值
