@@ -11,9 +11,9 @@ export function Validate(descriptor, formName) {
     //form表单 可以传递jq对象或表单的name
     this.formName=(formName instanceof jQuery) ? formName[0]:formName;
     //校验规则
-    this.descriptor = descriptor
+    this.descriptor = descriptor;
     //在事件监听器里面标识错误 不再继续向下检测
-    this.disableSubmit = false
+    this.disableSubmit = false;
     //默认提供规则
     this.rules = {
         //false为选填 如果填写了还可以控制正则来判断格式
@@ -24,7 +24,7 @@ export function Validate(descriptor, formName) {
         regex: "",
         //回调
         callback: null
-    }
+    };
     //初始化
     this.init()
 }
@@ -52,15 +52,15 @@ Validate.fn = Validate.prototype = {
     //初始化
     init: function () {
         //创建监听器对象
-        this.observer = new Core.observer()
+        this.observer = new Core.observer();
         //事件集合
-        this.eventMap = new Map()
+        this.eventMap = new Map();
         //已放入监听的错误集合
-        this.listenErrorMap = new Map()
+        this.listenErrorMap = new Map();
         //监听发布订阅
-        this.listen()
+        this.listen();
         //鼠标事件
-        this.blur()
+        this.blur();
     },
     //根据元素返回对应的事件
     switchEvent: function (element) {
@@ -77,10 +77,10 @@ Validate.fn = Validate.prototype = {
     },
     //元素内容是否为空
     elementIsEmpty: function (element) {
-        let elementName = element.tagName.toLowerCase(), ele = $(element)
+        let elementName = element.tagName.toLowerCase(), ele = $(element);
         switch (elementName) {
             case Validate.ConstansPool.element.input:
-                return Core.stringUtils.isEmpty(ele.val())
+                return Core.stringUtils.isEmpty(ele.val());
             default:
                 return Core.stringUtils.isEmpty(ele.val())
         }
@@ -117,21 +117,21 @@ Validate.fn = Validate.prototype = {
          * descriptor   校验因子
          */
         this.observer.listen(Validate.ConstansPool.verify.required, fn = function (element, eleTagName, descriptor, allow) {
-            let error = $(InnerUtil.buildClass(eleTagName))
+            let error = $(InnerUtil.buildClass(eleTagName));
             if (that.elementIsEmpty(element) && allow) {
-                error.html(descriptor.message)
-                InnerUtil.addErrorMap.call(that, element, Validate.ConstansPool.verify.required)
+                error.html(descriptor.message);
+                InnerUtil.addErrorMap.call(that, element, Validate.ConstansPool.verify.required);
                 that.disableSubmit = true
             }
             if (!allow) {
-                that.disableSubmit = false
-                error.html("")
+                that.disableSubmit = false;
+                error.html("");
                 InnerUtil.removeErrorMap.call(that, element)
             }
         })
         //监听正则
         this.observer.listen(Validate.ConstansPool.verify.regex, fn = function (ele, inputName, descriptor) {
-            let content = $(ele).val()
+            let content = $(ele).val();
             if (!Core.utils.isEmptyString(content) && !descriptor.regex.test(content)) {
                 $(InnerUtil.buildClass(inputName)).html(descriptor.message)
             } else {
@@ -149,14 +149,14 @@ Validate.fn = Validate.prototype = {
         let descriptor = this.eventMap.get(element).descriptor, rule = {}, arr = [];
         //单个验证
         if (Core.objectUtils.isObject(descriptor)) {
-            arr.push(descriptor)
+            arr.push(descriptor);
             Object.assign(rule, this.rules, descriptor)
         } else if (Array.isArray(descriptor)) {
             arr = descriptor
         }
         //是数组的话
         for (let item of arr) {
-            Object.assign(rule, this.rules, item)
+            Object.assign(rule, this.rules, item);
             if (rule.required) {
                 this.observer.trigger(Validate.ConstansPool.verify.required, element, element.name, item, allow)
             }
@@ -174,13 +174,14 @@ Validate.fn = Validate.prototype = {
         let forms = Array.from(this.formName.elements), eleName, even, eventName, eventMap, fn, descriptor,
             that = this;
         for (let input of forms) {
-            eleName = input.name, descriptor = this.descriptor[eleName];
+            eleName = input.name;
+            descriptor = this.descriptor[eleName];
             //如果input有name属性 并且 验证因子里面也有的话
             if (eleName && descriptor) {
                 //如果存在先删除掉事件
                 fn = function () {
                     that.trigger(input, false)
-                }
+                };
                 //获取元素要添加的事件名称
                 eventName = this.switchEvent(input);
                 this.eventMap.set(input, {fnName: eventName, fn: fn, descriptor: descriptor});
@@ -195,7 +196,7 @@ Validate.fn = Validate.prototype = {
     ,
     //点击表单触发
     verify: function () {
-        this.disableSubmit = false
+        this.disableSubmit = false;
         //错误数量
         if (this.listenErrorMap.size > 0) {
             return false
@@ -203,7 +204,8 @@ Validate.fn = Validate.prototype = {
         //将form中的input转换为数组
         let forms = Array.from(this.formName.elements), eleName, descriptor;
         for (let i of forms) {
-            eleName = i.name, descriptor = this.descriptor[eleName];
+            eleName = i.name;
+            descriptor = this.descriptor[eleName];
             //如果input有name属性 并且 验证因子里面也有的话
             if (eleName && descriptor && !this.disableSubmit) {
                 this.trigger(i, true)

@@ -45,12 +45,12 @@ const descriptor = {
     },
 }
 
-let validate = new Validate(descriptor, $("form"))
+let form=$("form"), validate = new Validate(descriptor, form);
 $("#submit").click(function () {
     if (validate.verify()) {
         http.request({
             url: Core.constant.URL.LOGIN_AUTHENTICATION,
-            data: $("form").serialize(),
+            data: form.serialize(),
             method: "post"
         }, function (res) {
             if (res.retCode === Core.constant.MESSAGE.HTTP.SUCCESS) {
