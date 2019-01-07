@@ -150,3 +150,24 @@ create table persistent_logins (
   token varchar(64) not null,
   last_used timestamp  not null  default CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE xueyuan_cms.dict
+(
+    id int(11) PRIMARY KEY NOT NULL,
+    gmt_create datetime,
+    gmt_modified datetime,
+    code varchar(20),
+    name varchar(255),
+    value varchar(255),
+    description varchar(255),
+    label varchar(30),
+    priority int(11)
+);
+INSERT INTO xueyuan_cms.dict (id, gmt_create, gmt_modified, code, name, value, description, label, priority) VALUES (1, '2018-12-26 16:58:09', '2019-01-02 08:28:40', 'business_type', '业务类型', 'register', '用户注册', '用户注册', 1);
+INSERT INTO xueyuan_cms.dict (id, gmt_create, gmt_modified, code, name, value, description, label, priority) VALUES (2, '2018-12-18 10:01:43', '2018-12-24 00:05:43', 'business_type', '业务类型', 'login', '用户登录', '用户登录', 2);
+INSERT INTO xueyuan_cms.dict (id, gmt_create, gmt_modified, code, name, value, description, label, priority) VALUES (3, '2018-12-18 10:01:43', '2018-12-24 02:25:21', 'business_type', '业务类型', 'reset_password', '重置密码', '重置密码', 3);
+INSERT INTO xueyuan_cms.dict (id, gmt_create, gmt_modified, code, name, value, description, label, priority) VALUES (4, '2018-12-18 10:01:43', '2018-12-24 22:59:52', 'business_type', '业务类型', 'change_password', '修改密码', '修改密码', 4);
+INSERT INTO xueyuan_cms.dict (id, gmt_create, gmt_modified, code, name, value, description, label, priority) VALUES (5, '2018-12-18 10:01:43', '2018-12-27 18:55:56', 'business_type', '业务类型', 'change_phone', '修改手机号码', '修改手机号码', 5);
+INSERT INTO xueyuan_cms.dict (id, gmt_create, gmt_modified, code, name, value, description, label, priority) VALUES (6, '2018-12-18 10:01:43', '2018-12-18 10:01:43', 'business_type', '业务类型', 'change_email', '修改邮箱', '修改邮箱', 6);
+INSERT INTO xueyuan_cms.dict (id, gmt_create, gmt_modified, code, name, value, description, label, priority) VALUES (7, '2018-12-18 10:01:43', '2018-12-18 10:01:43', 'business_type', '业务类型', 'bind_email', '绑定邮箱', '绑定邮箱', 7);
+INSERT INTO xueyuan_cms.dict (id, gmt_create, gmt_modified, code, name, value, description, label, priority) VALUES (9, '2018-12-18 10:01:43', '2018-12-18 10:01:43', 'business_type', '业务类型', 'authenticate', '用户认证', '用户认证', 9);
